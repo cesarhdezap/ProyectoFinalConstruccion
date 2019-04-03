@@ -8,44 +8,76 @@ using System.Data.SqlClient;
 
 namespace DatabaseAccess
 {
-    public class DatabaseAccess
-    {
+	public class DatabaseAccess
+	{
 		private static String connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["myConnection"].ConnectionString;
 
 		public static DataTable ExecuteSelect(String query, SqlParameter[] parameters = null)
 		{
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				connection.Open();
-				SqlDataAdapter dataAdapter = new SqlDataAdapter();
-				SqlCommand command = new SqlCommand(query);
-				DataTable dataTable = new DataTable();
-				dataTable = null;
-				DataSet dataSet = new DataSet();
-				command.Connection = connection;
-				command.CommandText = query;
+				SqlCommand command = new SqlCommand(query, connection);
+	
 				if (parameters != null)
 				{
 					command.Parameters.AddRange(parameters);
-				}	
-				command.ExecuteNonQuery();
-				dataAdapter.SelectCommand = command;
+				}
+				connection.Open();
+				SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+				try
+				{
+					command.ExecuteNonQuery();
+				}
+				catch (SqlException e)
+				{
+					Console.Write("Error - Connection.executeSelectQuery - Query: " + query + " \nException: " + e.StackTrace.ToString());
+					return null;
+				}
+				finally
+				{
+					CloseConnection(connection);
+				}
+				DataSet dataSet = new DataSet();
 				dataAdapter.Fill(dataSet);
+				DataTable dataTable = new DataTable();
 				dataTable = dataSet.Tables[0];
 				return dataTable;
 			}
 		}
 
-		public static void ExecuteInsertInto(String query, SqlParameter[] parameters)
+		public static void CloseConnection(SqlConnection connection)
+		{
+			if (connection != null)
+			{
+				if (connection.State == ConnectionState.Open)
+				{
+					connection.Close();
+				}
+			}
+		}
+			
+	
+		public static bool ExecuteInsertInto(String query, SqlParameter[] parameters)
 		{
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
 				connection.Open();
-				SqlCommand command = new SqlCommand(query);
-				command.Connection = connection;
-				command.CommandText = query;
+				SqlCommand command = new SqlCommand(query, connection);
 				command.Parameters.AddRange(parameters);
-				command.ExecuteNonQuery();
+				try
+				{
+					command.ExecuteNonQuery();
+				}
+				catch (SqlException e)
+				{
+					Console.Write("Error - Connection.executeSelectQuery - Query: " + query + " \nException: " + e.StackTrace.ToString());
+					return false;
+				}
+				finally
+				{
+					CloseConnection(connection);
+				}
+				return true;
 			}
 		}
 	}
