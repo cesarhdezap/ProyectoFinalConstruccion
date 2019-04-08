@@ -11,36 +11,41 @@ namespace DatabaseAccess
 	public class DatabaseAccess
 	{
 		private static String connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["myConnection"].ConnectionString;
+		private const int FIRST_DATA_TABLE_POSITION = 0;
 
 		public static DataTable ExecuteSelect(String query, SqlParameter[] parameters = null)
 		{
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
 				SqlCommand command = new SqlCommand(query, connection);
-	
+
 				if (parameters != null)
 				{
 					command.Parameters.AddRange(parameters);
 				}
-				connection.Open();
+				
 				SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
+				DataTable dataTable = new DataTable();
+
 				try
 				{
+					connection.Open();
 					command.ExecuteNonQuery();
+					DataSet dataSet = new DataSet();
+					dataAdapter.Fill(dataSet);
+					dataTable = dataSet.Tables[FIRST_DATA_TABLE_POSITION];
 				}
-				catch (SqlException e)
+				catch (SqlException sqlException)
 				{
-					Console.Write("Error - Connection.executeSelectQuery - Query: " + query + " \nException: " + e.StackTrace.ToString());
-					return null;
-				}
+					//TODO
+					Console.Write("Error - Connection.executeSelectQuery - Query: " + query + " \nException: " + sqlException.StackTrace.ToString());
+					throw sqlException;
+				}		
 				finally
 				{
 					CloseConnection(connection);
 				}
-				DataSet dataSet = new DataSet();
-				dataAdapter.Fill(dataSet);
-				DataTable dataTable = new DataTable();
-				dataTable = dataSet.Tables[0];
+
 				return dataTable;
 			}
 		}
@@ -57,27 +62,28 @@ namespace DatabaseAccess
 		}
 			
 	
-		public static bool ExecuteInsertInto(String query, SqlParameter[] parameters)
+		public static void ExecuteInsertInto(String query, SqlParameter[] parameters)
 		{
 			using (SqlConnection connection = new SqlConnection(connectionString))
 			{
-				connection.Open();
+				
 				SqlCommand command = new SqlCommand(query, connection);
 				command.Parameters.AddRange(parameters);
 				try
 				{
+					connection.Open();
 					command.ExecuteNonQuery();
 				}
-				catch (SqlException e)
+				catch (SqlException sqlException)
 				{
-					Console.Write("Error - Connection.executeSelectQuery - Query: " + query + " \nException: " + e.StackTrace.ToString());
-					return false;
+					//TOD
+					Console.Write("Error - Connection.executeSelectQuery - Query: " + query + " \nException: " + sqlException.StackTrace.ToString());
+					throw sqlException;
 				}
 				finally
 				{
 					CloseConnection(connection);
 				}
-				return true;
 			}
 		}
 	}
