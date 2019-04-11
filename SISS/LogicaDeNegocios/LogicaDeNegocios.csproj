@@ -75,8 +75,5 @@
     <Compile Include="ClasesDominio\Solicitud.cs" />
     <Compile Include="Servicios\ServiciosDeValidacion.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

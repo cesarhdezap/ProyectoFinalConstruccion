@@ -10,17 +10,12 @@ namespace LogicaDeNegocios
 	{
 		private string carrera { get; set; }
 		private int cubiculo { get; set; }
-		private EestadoAdministrativo estadoAdministrativo { get; set; }
 		private int IDPersonal { get; set; }
 		private DocenteAdministrativo coordinador { get; set; }
 		private Erol rol { get; set; }
+        private bool esActivo { get; set; }
 	}
 	
-	public enum EestadoAdministrativo
-	{
-		Activo, 
-		Inactivo,
-	}
 	
 	public enum Erol
 	{
