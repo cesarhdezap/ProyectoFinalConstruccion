@@ -13,5 +13,6 @@ namespace LogicaDeNegocios.Interfaces
 		DocenteAdministrativo CargarDocenteAdministrativoPorIDPersonal(int IDpersonal);
 		List<DocenteAdministrativo> CargarDocentesAdministrativosPorRol(Erol rol);
 		DataTable DocenteAdministrativoADataTable(DocenteAdministrativo docenteAdministrativo);
+        List<DocenteAdministrativo> CargarDocentesAdministrativosPorEstado(bool isActivo);
 	}
 }
