@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LogicaDeNegocios
+
+namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	class Itinerario
+	class AlumnoDAO : Interfaces.IAlumnoDAO
 	{
-		private List<FechaDeEntrega> fechasDeEntreg { get; set; }
+
 	}
 }

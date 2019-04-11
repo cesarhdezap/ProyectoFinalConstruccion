@@ -13,7 +13,7 @@ namespace LogicaDeNegocios
 		private EestadoAdministrativo estadoAdministrativo { get; set; }
 		private int IDPersonal { get; set; }
 		private DocenteAdministrativo coordinador { get; set; }
-		private Erol erol { get; set; }
+		private Erol rol { get; set; }
 	}
 	
 	public enum EestadoAdministrativo

@@ -17,7 +17,6 @@ namespace LogicaDeNegocios
 		private int horasCubiertas { get; set; }
 		private List<DocumentoDeEntregaUnica> documentosDeEntregaUnica { get; set; }
 		private List<ReporteMensual> reportesMensuales { get; set; }
-		private Itinerario itinerario { get; set; }
 		private Liberacion liberacion { get; set; }
 		private Solicitud solicitud { get; set; }
 		private Alumno alumno { get; set; }
