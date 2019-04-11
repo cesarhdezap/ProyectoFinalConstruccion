@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{555B197D-8A02-468D-93C7-ECE4C20DCF55}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LogicaDeNegocios</RootNamespace>
+    <AssemblyName>LogicaDeNegocios</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ClasesDominio\Alumno.cs" />
+    <Compile Include="ClasesDominio\Asignacion.cs" />
+    <Compile Include="ClasesDominio\CuentaHabiente.cs" />
+    <Compile Include="ClasesDominio\DocenteAdministrativo.cs" />
+    <Compile Include="ClasesDominio\DocumentoDeEntregaUnica.cs" />
+    <Compile Include="ClasesDominio\Encargado.cs" />
+    <Compile Include="ClasesDominio\Liberacion.cs" />
+    <Compile Include="ClasesDominio\Organizacion.cs" />
+    <Compile Include="ClasesDominio\Persona.cs" />
+    <Compile Include="Interfaces\IAlumnoDAO.cs" />
+    <Compile Include="Interfaces\IAsignacionDAO.cs" />
+    <Compile Include="Interfaces\IDocenteAdministrativoDAO.cs" />
+    <Compile Include="Interfaces\IDocumentoDeEntregaUnicaDAO.cs" />
+    <Compile Include="Interfaces\IEncargadoDAO.cs" />
+    <Compile Include="Interfaces\ILiberacionDAO.cs" />
+    <Compile Include="Interfaces\IOrganizacioDAO.cs" />
+    <Compile Include="Interfaces\IProyectoDAO.cs" />
+    <Compile Include="Interfaces\IReporteMensualDAO.cs" />
+    <Compile Include="Interfaces\ISolicitudDAO.cs" />
+    <Compile Include="ObjetoAccesoDeDatos\AlumnoDAO.cs" />
+    <Compile Include="ObjetoAccesoDeDatos\AsignacionDAO.cs" />
+    <Compile Include="ObjetoAccesoDeDatos\DocenteAdministrativoDAO.cs" />
+    <Compile Include="ObjetoAccesoDeDatos\EncargadoDAO.cs" />
+    <Compile Include="ObjetoAccesoDeDatos\LiberacionDAO.cs" />
+    <Compile Include="ObjetoAccesoDeDatos\OrganizacionDAO.cs" />
+    <Compile Include="ObjetoAccesoDeDatos\ProyectoDAO.cs" />
+    <Compile Include="ObjetoAccesoDeDatos\ReporteMensualDAO.cs" />
+    <Compile Include="ObjetoAccesoDeDatos\SolicitudDAO.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ClasesDominio\Proyecto.cs" />
+    <Compile Include="ClasesDominio\ReporteMensual.cs" />
+    <Compile Include="ClasesDominio\Solicitud.cs" />
+    <Compile Include="Servicios\ServiciosDeValidacion.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
