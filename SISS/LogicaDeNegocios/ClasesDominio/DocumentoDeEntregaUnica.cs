@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicaDeNegocios
 {
@@ -11,13 +7,13 @@ namespace LogicaDeNegocios
 		private int IDDocumento { get; set; }
 		private string RutaDeArchivo { get; set; }
 		private DateTime FechaDeEntrega { get; set; }
-		private EtipoDeDocumento TipoDeDocumento { get; set; }
+		private ETipoDeDocumento TipoDeDocumento { get; set; }
 		private string Nombre { get; set; }
 		private DocenteAcademico DocenteAdminsitrativo { get; set; }
 		
 	}
 
-	public enum EtipoDeDocumento
+	public enum ETipoDeDocumento
 	{
 		CartaDeSolicitud,
 		CartaDeAutorizacion,

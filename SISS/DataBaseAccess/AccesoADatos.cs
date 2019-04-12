@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -10,78 +6,79 @@ namespace DataBaseAccess
 {
 	public class AccesoADatos
 	{
-		private static String CadenaDeConexion = System.Configuration.ConfigurationManager.ConnectionStrings["myConnection"].ConnectionString;
 		private const int PRIMERA_POSICION_EN_DATATABLE = 0;
+		private static readonly String CadenaDeConexion = System.Configuration.ConfigurationManager.ConnectionStrings["myConnection"].ConnectionString;
+		
 
-		public static DataTable ExecuteSelect(String Consulta, SqlParameter[] Parametros = null)
+		public static DataTable EjecutarSelect(String consulta, SqlParameter[] parametros = null)
 		{
-			using (SqlConnection Conexion = new SqlConnection(CadenaDeConexion))
+			using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
 			{
-				SqlCommand Comando = new SqlCommand(Consulta, Conexion);
+				SqlCommand comando = new SqlCommand(consulta, conexion);
 
-				if (Parametros != null)
+				if (parametros != null)
 				{
-					Comando.Parameters.AddRange(Parametros);
+					comando.Parameters.AddRange(parametros);
 				}
 				
-				SqlDataAdapter DataAdapter = new SqlDataAdapter(Comando);
-				DataTable DataTable = new DataTable();
+				SqlDataAdapter dataAdapter = new SqlDataAdapter(comando);
+				DataTable dataTable = new DataTable();
 
 				try
 				{
-					Conexion.Open();
-					Comando.ExecuteNonQuery();
-					DataSet DataSet = new DataSet();
-					DataAdapter.Fill(DataSet);
-					DataTable = DataSet.Tables[PRIMERA_POSICION_EN_DATATABLE];
+					conexion.Open();
+					comando.ExecuteNonQuery();
+					DataSet dataSet = new DataSet();
+					dataAdapter.Fill(dataSet);
+					dataTable = dataSet.Tables[PRIMERA_POSICION_EN_DATATABLE];
 				}
 				catch (SqlException SqlException)
 				{
 					//TODO
-					Console.Write("Error - Coneccion.ejecutarConsultaSeleccionada - Consulta: " + Consulta + " \nExcepcion: " + SqlException.StackTrace.ToString());
+					Console.Write("Error - Coneccion.ejecutarConsultaSeleccionada - Consulta: " + consulta + " \nExcepcion: " + SqlException.StackTrace.ToString());
 				}		
 				finally
 				{
-					CerrarConexion(Conexion);
+					CerrarConexion(conexion);
 				}
 
-				return DataTable;
+				return dataTable;
 			}
 		}
 
-		public static void CerrarConexion(SqlConnection Conexion)
+		public static void CerrarConexion(SqlConnection conexion)
 		{
-			if (Conexion != null)
+			if (conexion != null)
 			{
-				if (Conexion.State == ConnectionState.Open)
+				if (conexion.State == ConnectionState.Open)
 				{
-					Conexion.Close();
+					conexion.Close();
 				}
 			}
 		}
 			
 	
-		public static void EjecutarInsertarDentro(string Consulta, SqlParameter[] Parametros)
+		public static void EjecutarInsertInto(string consulta, SqlParameter[] parametros)
 		{
-			using (SqlConnection Conexion = new SqlConnection(CadenaDeConexion))
+			using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
 			{
 				
-				SqlCommand Comando = new SqlCommand(Consulta, Conexion);
-				Comando.Parameters.AddRange(Parametros);
+				SqlCommand comando = new SqlCommand(consulta, conexion);
+				comando.Parameters.AddRange(parametros);
 				try
 				{
-					Conexion.Open();
-					Comando.ExecuteNonQuery();
+					conexion.Open();
+					comando.ExecuteNonQuery();
 				}
 				catch (SqlException sqlException)
 				{
 					//TODO
-					Console.Write("Error - Coneccion.ejecutarConsultaSeleccionada - Consulta: " + Consulta + " \nExcepcion: " + sqlException.StackTrace.ToString());
+					Console.Write("Error - Coneccion.ejecutarConsultaSeleccionada - Consulta: " + consulta + " \nExcepcion: " + sqlException.StackTrace.ToString());
 					throw sqlException;
 				}
 				finally
 				{
-					CerrarConexion(Conexion);
+					CerrarConexion(conexion);
 				}
 			}
 		}

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
+﻿using System.Collections.Generic;
 
 namespace LogicaDeNegocios.Interfaces
 {
@@ -11,8 +6,8 @@ namespace LogicaDeNegocios.Interfaces
 	{
 		int GuardarEncargado(Encargado encargado);
 		List<Encargado> CargarEncargadosTodos();
+		List<Encargado> CargarIDsPorIDOrganizacion(int IDorganizacion);
 		Encargado CargarEncargadoPorID(int IDencargado);
 		void ActualizarEncargadoPorID(int IDencargado, Encargado encargado);
-		DataTable ConvertirEncargadoADataTable(Encargado encargado);
 	}
 }

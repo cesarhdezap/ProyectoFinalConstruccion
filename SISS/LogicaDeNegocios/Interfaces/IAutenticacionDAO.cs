@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace LogicaDeNegocios.Interfaces
 {
-    interface IAutenticacionDAO
+	interface IAutenticacionDAO
     {
         List<string> CargarCorreoDeUsuarios();
-        List<string> CargarContraseñasPorCorreo(string correo);
+        string CargarContraseñaPorCorreo(string correoElectronico);
 
     }
 }

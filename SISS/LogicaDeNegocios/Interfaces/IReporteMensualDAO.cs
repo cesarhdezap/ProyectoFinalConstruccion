@@ -11,8 +11,7 @@ namespace LogicaDeNegocios.Interfaces
 	{
         int GuardarReporteMensual(ReporteMensual reporteMensual);
         ReporteMensual CargarReporteMensualPorID(int IDreporteMensual);
+		List<ReporteMensual> CargarIDsPorIDAsignacion(int IDasignacion);
 		void ActualizarReporteMensualPorID(int IDreporteMensual, ReporteMensual reporteMensual);
-        DataTable ReporteMensualADataTable(ReporteMensual reporteMensual);
-
 	}
 }

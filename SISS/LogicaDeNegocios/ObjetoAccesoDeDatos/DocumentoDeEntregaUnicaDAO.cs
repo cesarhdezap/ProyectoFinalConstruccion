@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
 	class DocumentoDeEntregaUnicaDAO : Interfaces.IDocumentoDeEntregaUnicaDAO
 	{
-		public void ActualizarDocumentoDeEntregaUnicaPorID(int IDdocumentoDeEntragaUnica, DocumentoDeEntregaUnica documentoDeEntregaUnica)
+		public void ActualizarDocumentoDeEntregaUnicaPorID(int IDdocumentoDeEntregaUnica, DocumentoDeEntregaUnica documentoDeEntregaUnica)
 		{
 			throw new NotImplementedException();
 		}
 
 		public DocumentoDeEntregaUnica CargarDocumentoDeEntregaUnicaPorID(int IDdocumentoDeEntregaUnica)
+		{
+			throw new NotImplementedException();
+		}
+
+		public List<DocumentoDeEntregaUnica> CargarIDsPorMatriculaAlumno(string matricula)
 		{
 			throw new NotImplementedException();
 		}

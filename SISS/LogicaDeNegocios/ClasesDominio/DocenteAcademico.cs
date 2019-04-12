@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LogicaDeNegocios
+﻿namespace LogicaDeNegocios
 {
 	public class DocenteAcademico : Persona
 	{
@@ -12,15 +6,15 @@ namespace LogicaDeNegocios
 		private string Carrera { get; set; }
 		private string Contraseña { get; set; }
 		private int Cubiculo { get; set; }
-		private bool esActivo { get; set; }
+		private bool EsActivo { get; set; }
 		private DocenteAcademico Coordinador { get; set; }
-		private Erol Rol { get; set; }
+		private ERol Rol { get; set; }
         
 
 	}
 	
 	
-	public enum Erol
+	public enum ERol
 	{
 		TecnicoAcademico,
 		Coordinador

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace LogicaDeNegocios.Services
 {
@@ -14,52 +9,52 @@ namespace LogicaDeNegocios.Services
 		private static readonly Regex regexNombre = new Regex(@"/^[a - zA - ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð,.'-]+$/u");
 		private static readonly Regex regexMatricula = new Regex(@"^z[0-9]{8}$");
 
-		public enum ResultadoDeValidacion
+		public enum EResultadoDeValidacion
 		{
 			Valido = 1,
 			NoValido = 0,
 		}
 
-		public static ResultadoDeValidacion ValidarCorreoElectronico(string CorreoElectronico)
+		public static EResultadoDeValidacion ValidarCorreoElectronico(string correoElectronico)
 		{
-			ResultadoDeValidacion resultadoDeValidacion = ResultadoDeValidacion.NoValido;
+			EResultadoDeValidacion resultadoDeValidacion = EResultadoDeValidacion.NoValido;
 
-			if (regexCorreoElectronico.IsMatch(CorreoElectronico))
+			if (regexCorreoElectronico.IsMatch(correoElectronico))
 			{
-				resultadoDeValidacion = ResultadoDeValidacion.Valido;
+				resultadoDeValidacion = EResultadoDeValidacion.Valido;
 			}
 			return resultadoDeValidacion;
 		}
 
-		public static ResultadoDeValidacion ValidarTelefono(string Telefono)
+		public static EResultadoDeValidacion ValidarTelefono(string telefono)
 		{
-			ResultadoDeValidacion resultadoDeValidacion = ResultadoDeValidacion.NoValido;
+			EResultadoDeValidacion resultadoDeValidacion = EResultadoDeValidacion.NoValido;
 
-			if (regexTelefono.IsMatch(Telefono))
+			if (regexTelefono.IsMatch(telefono))
 			{
-				resultadoDeValidacion = ResultadoDeValidacion.Valido;
+				resultadoDeValidacion = EResultadoDeValidacion.Valido;
 			}
 			return resultadoDeValidacion;
 		}
 
-		public static ResultadoDeValidacion ValidarNombre(string Nombre)
+		public static EResultadoDeValidacion ValidarNombre(string nombre)
 		{
-			ResultadoDeValidacion resultadoDeValidacion = ResultadoDeValidacion.NoValido;
+			EResultadoDeValidacion resultadoDeValidacion = EResultadoDeValidacion.NoValido;
 
-			if (regexNombre.IsMatch(Nombre))
+			if (regexNombre.IsMatch(nombre))
 			{
-				resultadoDeValidacion = ResultadoDeValidacion.Valido;
+				resultadoDeValidacion = EResultadoDeValidacion.Valido;
 			}
 			return resultadoDeValidacion;
 		}
 
-		public static ResultadoDeValidacion ValidarMatricula(string Matricula)
+		public static EResultadoDeValidacion ValidarMatricula(string matricula)
 		{
-			ResultadoDeValidacion resultadoDeValidacion = ResultadoDeValidacion.NoValido;
+			EResultadoDeValidacion resultadoDeValidacion = EResultadoDeValidacion.NoValido;
 
-			if (regexMatricula.IsMatch(Matricula))
+			if (regexMatricula.IsMatch(matricula))
 			{
-				resultadoDeValidacion = ResultadoDeValidacion.Valido;
+				resultadoDeValidacion = EResultadoDeValidacion.Valido;
 			}
 
 			return resultadoDeValidacion;

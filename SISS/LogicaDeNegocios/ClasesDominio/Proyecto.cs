@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace LogicaDeNegocios
 {
 	public class Proyecto
 	{
-		private int IDproyecto { get; set; }
+		private int IDProyecto { get; set; }
 		private string Nombre { get; set; }
 		private string DescripcionGeneral { get; set; }
 		private string ObjetivoGeneral { get; set; }

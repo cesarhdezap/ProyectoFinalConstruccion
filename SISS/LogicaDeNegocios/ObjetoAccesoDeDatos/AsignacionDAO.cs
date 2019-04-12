@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
@@ -18,6 +15,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		public Asignacion CargarAsignacionPorID(int IDasignacion)
 		{
 			throw new NotImplementedException();
+		}
+
+		public List<Asignacion> CargarIDsPorMatriculaDeAlumno(string matricula)
+		{
+			return null;
 		}
 
 		public DataTable ConvertirAsignacionADataTable(Asignacion asignacion)

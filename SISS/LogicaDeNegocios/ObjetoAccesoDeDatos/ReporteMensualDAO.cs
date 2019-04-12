@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -14,7 +11,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			throw new NotImplementedException();
 		}
 
-		public ReporteMensual CargarReporteMensualPorID(int IDReporteMensual)
+		public List<ReporteMensual> CargarIDsPorIDAsignacion(int IDasignacion)
+		{
+			throw new NotImplementedException();
+		}
+
+		public ReporteMensual CargarReporteMensualPorID(int IDreporteMensual)
 		{
 			throw new NotImplementedException();
 		}

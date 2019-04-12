@@ -1,77 +1,68 @@
-﻿using LogicaDeNegocios.Interfaces;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
+﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Security.Cryptography;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace LogicaDeNegocios.Servicios
 {
-    public class ServiciosDeAutenticacion
+	public class ServiciosDeAutenticacion
     {
-        public enum ResultadoDeAutenticacion
+        public enum EResultadoDeAutenticacion
         {
             Valido = 1,
             NoValido = 0,
         }
-        public static ResultadoDeAutenticacion AutenticarCredenciales(string correo, string contrasena)
+        public static EResultadoDeAutenticacion AutenticarCredenciales(string correoElectronico, string contraseña)
         {
-            ResultadoDeAutenticacion resultadoDeAutenticacion = ResultadoDeAutenticacion.NoValido;
+            EResultadoDeAutenticacion resultadoDeAutenticacion = EResultadoDeAutenticacion.NoValido;
 
-            IAutenticacionDAO InstanciaAutenticacion = new AutenticacionDAO();
-            List<string> CorreosDeUsuario = InstanciaAutenticacion.CargarCorreoDeUsuarios();
-            List<string> ContrasenasDeUsuario = null;
-            for (int i=0; i < CorreosDeUsuario.Count; i++)
+			AutenticacionDAO autenticacionDAO = new AutenticacionDAO();
+
+            List<string> correosDeUsuario = autenticacionDAO.CargarCorreoDeUsuarios();
+            string contraseñaDeUsuario = string.Empty;
+            for (int i=0; i < correosDeUsuario.Count; i++)
             {
-                if (correo == CorreosDeUsuario[i])
+                if (correoElectronico == correosDeUsuario[i])
                 {
-                     ContrasenasDeUsuario = InstanciaAutenticacion.CargarContraseñasPorCorreo(correo);
+                     contraseñaDeUsuario = autenticacionDAO.CargarContraseñaPorCorreo(correoElectronico);
                 }
             }
 
-            contrasena = EncriptarContraseña(contrasena);
+            contraseña = EncriptarContraseña(contraseña);
 
-            if (ContrasenasDeUsuario != null)
+            if (contraseñaDeUsuario != null && contraseña == contraseñaDeUsuario )
             {
-                for (int i=0; i < ContrasenasDeUsuario.Count; i++)
-                {
-                    if (contrasena == ContrasenasDeUsuario[i])
-                    {
-                        resultadoDeAutenticacion = ResultadoDeAutenticacion.Valido;
-                    }
-                }
+				resultadoDeAutenticacion = EResultadoDeAutenticacion.Valido;
             }
-            
-
+          
             return resultadoDeAutenticacion;
         }
 
-        private static string EncriptarContraseña(string contrasena)
+        private static string EncriptarContraseña(string contraseña)
         {
-            StringBuilder CadenaFinal = new StringBuilder();
+            StringBuilder cadenaFinal = new StringBuilder();
 
-            using (SHA256 MiHash = SHA256.Create())
+            using (SHA256 hash = SHA256.Create())
             {
                 try
                 {
-                    Encoding Unicode = Encoding.Unicode;
-                    byte[] ContrasenaEncriptada = MiHash.ComputeHash(Unicode.GetBytes(contrasena));
+                    Encoding unicode = Encoding.Unicode;
+                    byte[] ContrasenaEncriptada = hash.ComputeHash(unicode.GetBytes(contraseña));
                     foreach (byte byteI in ContrasenaEncriptada)
                     {
-                        CadenaFinal.Append(byteI.ToString());
+                        cadenaFinal.Append(byteI.ToString());
                     }
 
                 }
-                catch (IOException ExcepcionIO)
+                catch (IOException excepcionIO)
                 {
-                    Console.WriteLine("\n Excepcion: " + ExcepcionIO.StackTrace.ToString());
+                    Console.WriteLine("\n Excepcion: " + excepcionIO.StackTrace.ToString());
                 }
             }
 
-            return CadenaFinal.ToString();
+            return cadenaFinal.ToString();
         }
     }
     

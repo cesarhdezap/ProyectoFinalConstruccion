@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicaDeNegocios
 {
@@ -42,7 +39,7 @@ namespace LogicaDeNegocios
 			//TODO
 		}
 
-		public bool isLiberable()
+		public bool EsLiberable()
 		{
 			//TODO
 			return false;
