@@ -12,7 +12,7 @@ namespace LogicaDeNegocios.Interfaces
 		void GuardarDocenteAdministrativo(DocenteAcademico docenteAcademico);
 		DocenteAcademico CargarDocenteAdministrativoPorIDPersonal(int IDpersonal);
 		List<DocenteAcademico> CargarDocentesAdministrativosPorEstado(bool isActivo);
-		List<DocenteAcademico> CargarDocentesAdministrativosPorRol(Erol rol);
+		List<DocenteAcademico> CargarDocentesAdministrativosPorRol(ERol rol);
 		void ActualizarDocenteAdministrativoPorIDPersonal(int IDpersonal, DocenteAcademico docenteAcademico);
 		DataTable ConvertirDocenteAdministrativoADataTable(DocenteAcademico docenteAcademico);
         

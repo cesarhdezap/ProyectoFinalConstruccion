@@ -71,6 +71,10 @@
     <Compile Include="ObjetoAccesoDeDatos\ProyectoDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\ReporteMensualDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\SolicitudDAO.cs" />
+    <Compile Include="ObjetosAdministrador\AdministradorDeDocenteAcademicos.cs" />
+    <Compile Include="ObjetosAdministrador\AdministradorDeEncargados.cs" />
+    <Compile Include="ObjetosAdministrador\AdministradorDeOrganizaciones.cs" />
+    <Compile Include="ObjetosAdministrador\AdministradorDeProyectos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ClasesDominio\Proyecto.cs" />
     <Compile Include="ClasesDominio\ReporteMensual.cs" />

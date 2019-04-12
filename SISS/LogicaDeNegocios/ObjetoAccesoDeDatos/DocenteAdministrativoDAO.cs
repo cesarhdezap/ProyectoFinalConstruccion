@@ -19,7 +19,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			throw new NotImplementedException();
 		}
 
-		public List<DocenteAcademico> CargarDocentesAdministrativosPorRol(Erol rol)
+		public List<DocenteAcademico> CargarDocentesAdministrativosPorRol(ERol rol)
 		{
 			throw new NotImplementedException();
 		}

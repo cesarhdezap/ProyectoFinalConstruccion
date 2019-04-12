@@ -14,13 +14,13 @@ namespace LogicaDeNegocios
 		private int Cubiculo { get; set; }
 		private bool esActivo { get; set; }
 		private DocenteAcademico Coordinador { get; set; }
-		private Erol Rol { get; set; }
+		private ERol Rol { get; set; }
         
 
 	}
 	
 	
-	public enum Erol
+	public enum ERol
 	{
 		TecnicoAcademico,
 		Coordinador

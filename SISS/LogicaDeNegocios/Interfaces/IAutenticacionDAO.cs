@@ -11,6 +11,7 @@ namespace LogicaDeNegocios.Interfaces
     {
         List<string> CargarCorreoDeUsuarios();
         List<string> CargarContraseñasPorCorreo(string correo);
+        bool VerificarCredenciales(string correo, string contrasena);
 
     }
 }
