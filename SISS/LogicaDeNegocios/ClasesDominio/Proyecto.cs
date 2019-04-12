@@ -8,13 +8,11 @@ namespace LogicaDeNegocios
 {
 	public class Proyecto
 	{
-		private string nombre { get; set; }
-		private int cupo { get; set; }
 		private int IDproyecto { get; set; }
-		private EestadoProyecto estadoProyeto { get; set; }
+		private string nombre { get; set; }
 		private string descripcionGeneral { get; set; }
 		private string objetivoGeneral { get; set; }
-		private List<Solicitud> solicitudes { get; set; }
+		private int cupo { get; set; }
 		private List<Asignacion> asignaciones { get; set; }
 
 
@@ -23,11 +21,11 @@ namespace LogicaDeNegocios
 			//TODO
 			return 0;
 		}
+		public void AsignarAlumno(Alumno alumno)
+		{
+			//TODO
+		}
 
-	}
-
-	public enum EestadoProyecto
-	{
-		//TODO
+		
 	}
 }

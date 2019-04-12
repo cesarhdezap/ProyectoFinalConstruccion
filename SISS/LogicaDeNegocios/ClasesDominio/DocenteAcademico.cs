@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 
 namespace LogicaDeNegocios
 {
-	class DocenteAdministrativo : CuentaHabiente
+	public class DocenteAcademico : Persona
 	{
-		private string carrera { get; set; }
-		private int cubiculo { get; set; }
 		private int IDPersonal { get; set; }
-		private DocenteAdministrativo coordinador { get; set; }
+		private string carrera { get; set; }
+		private string contraseña { get; set; }
+		private int cubiculo { get; set; }
+		private bool esActivo { get; set; }
+		private DocenteAcademico coordinador { get; set; }
 		private Erol rol { get; set; }
-        private bool esActivo { get; set; }
+        
+
 	}
 	
 	

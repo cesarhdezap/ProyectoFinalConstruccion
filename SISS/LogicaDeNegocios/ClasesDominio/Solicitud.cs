@@ -8,7 +8,7 @@ namespace LogicaDeNegocios
 {
 	class Solicitud
 	{
-		private DateTime date { get; set; }
+		private DateTime fecha { get; set; }
 		List<Proyecto> proyecto { get; set; }
 	}
 }

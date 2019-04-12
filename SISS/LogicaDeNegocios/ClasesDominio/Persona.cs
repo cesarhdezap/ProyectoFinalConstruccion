@@ -8,8 +8,8 @@ namespace LogicaDeNegocios
 {
     public abstract class Persona
     {
-		private string correoElectronico;
-		private string nombre;
-		private string telefono;
-    }
+		private string nombre { get; set; }
+		private string correoElectronico { get; set; }
+		private string telefono { get; set; }
+	}
 }

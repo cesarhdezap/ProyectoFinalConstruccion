@@ -10,8 +10,9 @@ namespace LogicaDeNegocios.Interfaces
 	interface IProyectoDAO
 	{
         int GuardarProyecto(Proyecto proyecto);
-        Proyecto CargarProyectoPorID(int IDProyecto);
-        List<Proyecto> CargarProyectosTodos(Proyecto proyecto);
+		List<Proyecto> CargarProyectosTodos();
+        Proyecto CargarProyectoPorID(int IDproyecto);
+		void ActualizarProyectoPorID(int IDproyecto, Proyecto proyecto);
         DataTable ProyectoADataTable(Proyecto proyecto);
 	}
 }

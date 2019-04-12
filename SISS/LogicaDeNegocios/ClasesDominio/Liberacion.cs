@@ -10,6 +10,7 @@ namespace LogicaDeNegocios
 	{
 		private DateTime fecha { get; set; }
 		private Asignacion asignacion { get; set; }
+		private DocumentoDeEntregaUnica cartaDeLiberacion { get; set; }
 
 	}
 }

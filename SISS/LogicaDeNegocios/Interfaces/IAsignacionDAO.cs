@@ -11,7 +11,8 @@ namespace LogicaDeNegocios.Interfaces
 	{
 		int GuardarAsignacion(Asignacion asignacion);
 		Asignacion CargarAsignacionPorID(int IDasignacion);
-		DataTable AsignacionADataTable(Asignacion asignacion);
+		void ActualizarAsignacionPorID(int IDasignacion, Asignacion asignacion);
+		DataTable ConvertirAsignacionADataTable(Asignacion asignacion);
 
 	}
 }

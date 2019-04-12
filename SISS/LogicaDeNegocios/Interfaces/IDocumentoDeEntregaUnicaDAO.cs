@@ -10,7 +10,8 @@ namespace LogicaDeNegocios.Interfaces
 	interface IDocumentoDeEntregaUnicaDAO
 	{
 		int GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica);
-		DocumentoDeEntregaUnica CargarDocumentoDeEntregaUnicaPorID(DocumentoDeEntregaUnica documentoDeEntregaUnica);
-		DataTable DocumentoDeEntregaUnicaADataTable(DocumentoDeEntregaUnica documentoDeEntregaUnica);
+		DocumentoDeEntregaUnica CargarDocumentoDeEntregaUnicaPorID(int IDdocumentoDeEntregaUnica);
+		void ActualizarDocumentoDeEntregaUnicaPorID(int IDdocumentoDeEntragaUnica, DocumentoDeEntregaUnica documentoDeEntregaUnica);
+		DataTable ConvertirDocumentoDeEntregaUnicaADataTable(DocumentoDeEntregaUnica documentoDeEntregaUnica);
 	}
 }

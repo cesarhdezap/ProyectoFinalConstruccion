@@ -12,6 +12,6 @@ namespace LogicaDeNegocios
 		private int horasReportadas { get; set; }
 		private int IDReporte { get; set; }
 		private int numeroDeReporte { get; set; }
-		private DocenteAdministrativo docenteAdministrativo { get; set; }
+		private DocenteAcademico docenteAdministrativo { get; set; }
 	}
 }
