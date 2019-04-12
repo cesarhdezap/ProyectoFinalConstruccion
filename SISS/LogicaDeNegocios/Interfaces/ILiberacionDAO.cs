@@ -11,7 +11,7 @@ namespace LogicaDeNegocios.Interfaces
 	{
         int GuardarLiberacion(Liberacion liberacion);
         Liberacion CargarLiberacionPorIDAsignacion(int IDAsignacion);
-        DataTable LiberacionADataTable(Liberacion liberacion);
+        DataTable ConvertirLiberacionADataTable(Liberacion liberacion);
 
 	}
 }
