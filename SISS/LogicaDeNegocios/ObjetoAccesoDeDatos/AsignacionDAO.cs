@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	class AsignacionDAO : Interfaces.IAsignacionDAO
+	public class AsignacionDAO : Interfaces.IAsignacionDAO
 	{
 		public void ActualizarAsignacionPorID(int IDasignacion, Asignacion asignacion)
 		{

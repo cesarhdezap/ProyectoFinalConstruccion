@@ -9,12 +9,12 @@ namespace LogicaDeNegocios
 	public class DocenteAcademico : Persona
 	{
 		private int IDPersonal { get; set; }
-		private string carrera { get; set; }
-		private string contraseña { get; set; }
-		private int cubiculo { get; set; }
+		private string Carrera { get; set; }
+		private string Contraseña { get; set; }
+		private int Cubiculo { get; set; }
 		private bool esActivo { get; set; }
-		private DocenteAcademico coordinador { get; set; }
-		private Erol rol { get; set; }
+		private DocenteAcademico Coordinador { get; set; }
+		private Erol Rol { get; set; }
         
 
 	}

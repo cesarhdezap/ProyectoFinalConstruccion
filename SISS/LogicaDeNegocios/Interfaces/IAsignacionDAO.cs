@@ -7,7 +7,7 @@ using System.Data;
 
 namespace LogicaDeNegocios.Interfaces
 {
-	interface IAsignacionDAO
+    interface IAsignacionDAO
 	{
 		int GuardarAsignacion(Asignacion asignacion);
 		Asignacion CargarAsignacionPorID(int IDasignacion);

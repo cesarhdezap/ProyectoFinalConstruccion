@@ -8,9 +8,9 @@ namespace LogicaDeNegocios
 {
 	public class Liberacion
 	{
-		private DateTime fecha { get; set; }
-		private Asignacion asignacion { get; set; }
-		private DocumentoDeEntregaUnica cartaDeLiberacion { get; set; }
+		private DateTime Fecha { get; set; }
+		private Asignacion Asignacion { get; set; }
+		private DocumentoDeEntregaUnica CartaDeLiberacion { get; set; }
 
 	}
 }

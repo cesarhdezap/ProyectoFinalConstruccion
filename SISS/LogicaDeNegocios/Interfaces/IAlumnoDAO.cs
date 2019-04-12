@@ -13,7 +13,8 @@ namespace LogicaDeNegocios.Interfaces
 		void GuardarAlumno(Alumno alumno);
 		List<Alumno> CargarAlumnosTodos();
 		Alumno CargarAlumnoPorMatricula(string matricula);
-		List<Alumno> CargarAlumnosPorEstado(EestadoAlumno estadoAlumno);
+		List<Alumno> CargarAlumnosPorEstado(EEstadoAlumno estadoAlumno);
+        List<Alumno> CargarAlumnosPorCorreo(string correo);
 		void ActualizarAlumnoPorMatricula(string matricula, Alumno alumno);
 		DataTable ConvertirAlumnoADataTable(Alumno alumno);
 	}

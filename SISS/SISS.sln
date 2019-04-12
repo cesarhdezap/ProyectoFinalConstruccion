@@ -3,10 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataBaseAccess", "DataBaseAccess\DataBaseAccess.csproj", "{B4C6239B-4914-496F-BAA6-23009DB9048A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccesoABaseDeDatos", "DataBaseAccess\AccesoABaseDeDatos.csproj", "{B4C6239B-4914-496F-BAA6-23009DB9048A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicaDeNegocios", "LogicaDeNegocios\LogicaDeNegocios.csproj", "{555B197D-8A02-468D-93C7-ECE4C20DCF55}"
-
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,7 +21,6 @@ Global
 		{555B197D-8A02-468D-93C7-ECE4C20DCF55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{555B197D-8A02-468D-93C7-ECE4C20DCF55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{555B197D-8A02-468D-93C7-ECE4C20DCF55}.Release|Any CPU.Build.0 = Release|Any CPU
-
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

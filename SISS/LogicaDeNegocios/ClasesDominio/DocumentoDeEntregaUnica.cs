@@ -9,11 +9,11 @@ namespace LogicaDeNegocios
 	public class DocumentoDeEntregaUnica
 	{
 		private int IDDocumento { get; set; }
-		private string rutaDeArchivo { get; set; }
-		private DateTime fechaDeEntrega { get; set; }
-		private EtipoDeDocumento tipoDeDocumento { get; set; }
-		private string nombre { get; set; }
-		private DocenteAcademico docenteAdminsitrativo { get; set; }
+		private string RutaDeArchivo { get; set; }
+		private DateTime FechaDeEntrega { get; set; }
+		private EtipoDeDocumento TipoDeDocumento { get; set; }
+		private string Nombre { get; set; }
+		private DocenteAcademico DocenteAdminsitrativo { get; set; }
 		
 	}
 

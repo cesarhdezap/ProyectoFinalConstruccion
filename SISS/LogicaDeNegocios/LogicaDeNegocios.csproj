@@ -51,6 +51,7 @@
     <Compile Include="ClasesDominio\Persona.cs" />
     <Compile Include="Interfaces\IAlumnoDAO.cs" />
     <Compile Include="Interfaces\IAsignacionDAO.cs" />
+    <Compile Include="Interfaces\IAutenticacionDAO.cs" />
     <Compile Include="Interfaces\IDocenteAdministrativoDAO.cs" />
     <Compile Include="Interfaces\IDocumentoDeEntregaUnicaDAO.cs" />
     <Compile Include="Interfaces\IEncargadoDAO.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Interfaces\ISolicitudDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\AlumnoDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\AsignacionDAO.cs" />
+    <Compile Include="ObjetoAccesoDeDatos\AutenticacionDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\DocenteAdministrativoDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\DocumentoDeEntregaUnicaDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\EncargadoDAO.cs" />
@@ -73,12 +75,13 @@
     <Compile Include="ClasesDominio\Proyecto.cs" />
     <Compile Include="ClasesDominio\ReporteMensual.cs" />
     <Compile Include="ClasesDominio\Solicitud.cs" />
+    <Compile Include="Servicios\ServiciosDeAutenticacion.cs" />
     <Compile Include="Servicios\ServiciosDeValidacion.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataBaseAccess\DataBaseAccess.csproj">
+    <ProjectReference Include="..\DataBaseAccess\AccesoABaseDeDatos.csproj">
       <Project>{b4c6239b-4914-496f-baa6-23009db9048a}</Project>
-      <Name>DataBaseAccess</Name>
+      <Name>AccesoABaseDeDatos</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
