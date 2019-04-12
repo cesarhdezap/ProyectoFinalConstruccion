@@ -11,9 +11,10 @@ namespace LogicaDeNegocios.Interfaces
 	interface IAlumnoDAO
 	{
 		void GuardarAlumno(Alumno alumno);
+		List<Alumno> CargarAlumnosTodos();
 		Alumno CargarAlumnoPorMatricula(string matricula);
 		List<Alumno> CargarAlumnosPorEstado(EestadoAlumno estadoAlumno);
-		List<Alumno> CargarAlumnosTodos();
-		DataTable AlumnoADataTable(Alumno alumno);
+		void ActualizarAlumnoPorMatricula(string matricula, Alumno alumno);
+		DataTable ConvertirAlumnoADataTable(Alumno alumno);
 	}
 }

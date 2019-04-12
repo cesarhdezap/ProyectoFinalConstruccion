@@ -6,23 +6,33 @@ using System.Threading.Tasks;
 
 namespace LogicaDeNegocios
 {
-	public class Alumno : CuentaHabiente
+	public class Alumno : Persona
 	{
 		private const int MAXIMO_DE_ASIGNACIONES = 2;
-		private string carrera { get; set; }
-		private string matricula { get; set; }
-		private EestadoAlumno estadoAlumno { get; set; }
-		private List<Solicitud> solicitud { get; set; }
-		private List<Asignacion> asignaciones { get; set; }
 
-		public void Asignar(Proyecto proyecto)
+		public string matricula { get; set; }
+		public string carrera { get; set; }
+		public string contraseña { get; set; }
+		public EestadoAlumno estadoAlumno { get; set; }
+		private List<Asignacion> asignaciones { get; set; }	
+
+		public void DarDeBaja()
 		{
-			if (asignaciones.Count < MAXIMO_DE_ASIGNACIONES)
-			{
-				Asignacion asignacion = new Asignacion(this, proyecto);
-				asignaciones.Add(asignacion);
-			} 
+			estadoAlumno = EestadoAlumno.Desactivado;
+
 		}
+
+		public void Aceptar()
+		{
+			estadoAlumno = EestadoAlumno.Aceptado;
+		}
+
+		public void Rechazar()
+		{
+			estadoAlumno = EestadoAlumno.Rechazado;
+		}
+
+
 	}
 
 	public enum EestadoAlumno

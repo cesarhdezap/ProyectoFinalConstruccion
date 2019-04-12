@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace DatabaseAccess
+namespace DataBaseAccess
 {
-	public class DatabaseAccess
+	public class DataAccess
 	{
 		private static String connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["myConnection"].ConnectionString;
 		private const int FIRST_DATA_TABLE_POSITION = 0;
@@ -39,7 +39,6 @@ namespace DatabaseAccess
 				{
 					//TODO
 					Console.Write("Error - Connection.executeSelectQuery - Query: " + query + " \nException: " + sqlException.StackTrace.ToString());
-					throw sqlException;
 				}		
 				finally
 				{

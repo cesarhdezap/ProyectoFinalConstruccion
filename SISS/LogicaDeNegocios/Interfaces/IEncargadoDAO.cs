@@ -10,9 +10,9 @@ namespace LogicaDeNegocios.Interfaces
 	interface IEncargadoDAO
 	{
 		int GuardarEncargado(Encargado encargado);
-		Encargado CargarEncargadoPorID(int IDencargado);
 		List<Encargado> CargarEncargadosTodos();
-		DataTable EncargadoADataTable(Encargado encargado);
-
+		Encargado CargarEncargadoPorID(int IDencargado);
+		void ActualizarEncargadoPorID(int IDencargado, Encargado encargado);
+		DataTable ConvertirEncargadoADataTable(Encargado encargado);
 	}
 }
