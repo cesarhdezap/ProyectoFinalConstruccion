@@ -1,26 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace LogicaDeNegocios
 {
 	public class Proyecto
 	{
-		private int IDProyecto { get; set; }
-		private string Nombre { get; set; }
-		private string DescripcionGeneral { get; set; }
-		private string ObjetivoGeneral { get; set; }
-		private int Cupo { get; set; }
-		private List<Asignacion> Asignaciones { get; set; }
+		public int IDProyecto { get; set; }
+		public string Nombre { get; set; }
+		public string DescripcionGeneral { get; set; }
+		public string ObjetivoGeneral { get; set; }
+		public int Cupo { get; set; }
+		public List<Asignacion> Asignaciones { get; set; }
 
 
 		public int ObtenerDisponibilidad()
 		{
 			//TODO
-			return 0;
+			throw new NotImplementedException();
 		}
 
 		public void AsignarAlumno(Alumno alumno)
 		{
 			//TODO
+			throw new NotImplementedException();
 		}
 
 		

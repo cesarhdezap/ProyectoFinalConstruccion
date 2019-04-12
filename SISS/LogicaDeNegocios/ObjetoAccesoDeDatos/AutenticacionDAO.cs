@@ -8,12 +8,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
     {
         public string CargarContraseñaPorCorreo(string correoElectronico)
         {
-            throw new NotImplementedException();
+			//TODO
+			throw new NotImplementedException();
         }
 
         public List<string> CargarCorreoDeUsuarios()
         {
-            throw new NotImplementedException();
+			//TODO
+			throw new NotImplementedException();
         }
     }
 }

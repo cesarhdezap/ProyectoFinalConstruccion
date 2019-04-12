@@ -2,17 +2,20 @@
 {
 	public class DocenteAcademico : Persona
 	{
-		private int IDPersonal { get; set; }
-		private string Carrera { get; set; }
-		private string Contraseña { get; set; }
-		private int Cubiculo { get; set; }
-		private bool EsActivo { get; set; }
-		private DocenteAcademico Coordinador { get; set; }
-		private ERol Rol { get; set; }
-        
+		public int IDPersonal { get; set; }
+		public string Carrera { get; set; }
+		public string Contraseña { get; set; }
+		public int Cubiculo { get; set; }
+		public bool EsActivo { get; set; }
+		public DocenteAcademico Coordinador { get; set; }
+		public ERol Rol { get; set; }
+
+        public void Desactivar()
+		{
+			this.EsActivo = false;
+		}
 
 	}
-	
 	
 	public enum ERol
 	{
