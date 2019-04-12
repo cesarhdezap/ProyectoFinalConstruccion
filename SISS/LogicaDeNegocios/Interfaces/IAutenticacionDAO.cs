@@ -9,7 +9,8 @@ namespace LogicaDeNegocios.Interfaces
 {
     interface IAutenticacionDAO
     {
-        DataTable ObtenerCredenciales();
+        List<string> CargarCorreoDeUsuarios();
+        List<string> CargarContraseñasPorCorreo(string correo);
 
     }
 }

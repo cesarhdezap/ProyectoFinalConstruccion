@@ -10,7 +10,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
     public class AutenticacionDAO : IAutenticacionDAO
     {
-        public DataTable ObtenerCredenciales()
+        public List<string> CargarContraseñasPorCorreo(string correo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string> CargarCorreoDeUsuarios()
         {
             throw new NotImplementedException();
         }

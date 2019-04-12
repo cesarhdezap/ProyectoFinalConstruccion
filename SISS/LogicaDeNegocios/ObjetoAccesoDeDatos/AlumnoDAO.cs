@@ -7,7 +7,7 @@ using DataBaseAccess;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using LogicaDeNegocios.Interfaces;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -18,39 +18,94 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			throw new NotImplementedException();
 		}
 
+        
+
 		public List<Alumno> CargarAlumnosTodos()
 		{
-			DataTable tablaDeAlumnos = new DataTable();
+			DataTable TablaDeAlumnos = new DataTable();
 			try
 			{
-				tablaDeAlumnos = DataAccess.ExecuteSelect("SELECT * FROM Alumno");
-			} catch(SqlException sqlException)
-			{
-				Console.Write(" \nException: " + sqlException.StackTrace.ToString());
+				TablaDeAlumnos = AccesoADatos.ExecuteSelect("SELECT * FROM Alumno");
 			}
-			List<Alumno> alumnos = new List<Alumno>();
-			alumnos = (from DataRow fila in tablaDeAlumnos.Rows
-					   select new Alumno()
-					   {
-						   matricula = fila["matricula"].ToString(),
-						   carrera = fila["carrera"].ToString(),
-						   contraseña = fila["contraseña"].ToString(),
-						   estadoAlumno = (EestadoAlumno)fila["estadoAlumno"],
-						   asignaciones = 
+            catch (SqlException ExcepcionSQL)
+			{
+				Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
+			}
 
-					   }).ToList();
-			return alumnos;
+			List<Alumno> ListaAlumnos = new List<Alumno>();
+            IAsignacionDAO InstanciaAsignacion = new AsignacionDAO();
+            ListaAlumnos = (from DataRow fila in TablaDeAlumnos.Rows
+                            select new Alumno()
+                            {
+                                Matricula = fila["matricula"].ToString(),
+                                Carrera = fila["carrera"].ToString(),
+                                Contraseña = fila["contraseña"].ToString(),
+                                EstadoAlumno = (EEstadoAlumno)fila["estadoAlumno"],
+                                Asignaciones = InstanciaAsignacion.CargarAsignacionPorID((int)fila["IDAsignacion"].ToString),
+
+                            }
+                           ).ToList();
+
+			return ListaAlumnos;
 		}
 
 		public Alumno CargarAlumnoPorMatricula(string matricula)
 		{
-			throw new NotImplementedException();
+            DataTable TablaDeAlumnos = new DataTable();
+
+            try
+            {
+                TablaDeAlumnos = AccesoADatos.ExecuteSelect("SELECT * FROM Alumnos WHERE matricula = @matricula");
+            }catch (SqlException ExcepcionSQL)
+            {
+                Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
+            }
+
+            IAsignacionDAO InstanciaAsignacion = new AsignacionDAO();
+            Alumno alumno = (from DataRow fila in TablaDeAlumnos.Rows
+                             select new Alumno()
+                            {
+                                
+                                Matricula = fila["matricula"].ToString(),
+                                Carrera = fila["carrera"].ToString(),
+                                Contraseña = fila["contraseña"].ToString(),
+                                EstadoAlumno = (EEstadoAlumno)fila["estadoAlumno"],
+                                Asignaciones = InstanciaAsignacion.CargarAsignacionPorID((int)fila["IDAsignacion"]),
+
+                            }
+                           ).ToList();
+
+            return alumno;
+
 		}
 
-		public List<Alumno> CargarAlumnosPorEstado(EestadoAlumno estadoAlumno)
+		public List<Alumno> CargarAlumnosPorEstado(EEstadoAlumno estadoAlumno)
 		{
-			throw new NotImplementedException();
-		}
+            DataTable TablaDeAlumnos = new DataTable();
+
+            try
+            {
+                TablaDeAlumnos = AccesoADatos.ExecuteSelect("SELECT * FROM Alumnos WHERE estado = @estado", estadoAlumno.ToString();
+            }
+            catch (SqlException ExcepcionSQL)
+            {
+                Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
+            }
+
+            List<Alumno> alumno = (from DataRow fila in TablaDeAlumnos.Rows
+                             select new Alumno()
+                             {
+                                 Matricula = fila["matricula"].ToString(),
+                                 Carrera = fila["carrera"].ToString(),
+                                 Contraseña = fila["contraseña"].ToString(),
+                                 EstadoAlumno = (EEstadoAlumno)fila["estadoAlumno"],
+                                 Asignaciones = AsignacionDAO.CargarAsignacionPorID(fila["IDAsignacion"].ToString),
+
+                             }
+                           ).ToList();
+
+            return alumno;
+        }
 
 		public void ActualizarAlumnoPorMatricula(string matricula, Alumno alumno)
 		{
@@ -62,6 +117,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			throw new NotImplementedException();
 		}
 
-		
-	}
+        public List<Alumno> CargarAlumnosPorCorreo(string correo)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

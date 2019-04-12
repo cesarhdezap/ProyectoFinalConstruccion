@@ -79,9 +79,9 @@
     <Compile Include="Servicios\ServiciosDeValidacion.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataBaseAccess\DataBaseAccess.csproj">
+    <ProjectReference Include="..\DataBaseAccess\AccesoABaseDeDatos.csproj">
       <Project>{b4c6239b-4914-496f-baa6-23009db9048a}</Project>
-      <Name>DataBaseAccess</Name>
+      <Name>AccesoABaseDeDatos</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
