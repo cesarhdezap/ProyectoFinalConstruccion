@@ -22,27 +22,31 @@ namespace LogicaDeNegocios
 		public void RegistrarReporteMensual(ReporteMensual reporteMensual, DocenteAcademico docenteAcademico)
 		{
 			//TODO
+			throw new NotImplementedException();
 		}
 
 		public void RegistrarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica, DocenteAcademico docenteAcademico)
 		{
 			//TODO
+			throw new NotImplementedException();
 		}
 
 		private void ActualizarHorasCubiertas()
 		{
 			//TODO
+			throw new NotImplementedException();
 		}
 
 		public void Liberar()
 		{
 			//TODO
+			throw new NotImplementedException();
 		}
 
 		public bool EsLiberable()
 		{
 			//TODO
-			return false;
+			throw new NotImplementedException();
 		}
 
 

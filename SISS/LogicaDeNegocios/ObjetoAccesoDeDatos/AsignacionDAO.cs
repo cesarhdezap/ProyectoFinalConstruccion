@@ -9,26 +9,31 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 	{
 		public void ActualizarAsignacionPorID(int IDasignacion, Asignacion asignacion)
 		{
+			//TODO
 			throw new NotImplementedException();
 		}
 
 		public Asignacion CargarAsignacionPorID(int IDasignacion)
 		{
+			//TODO
 			throw new NotImplementedException();
 		}
 
 		public List<Asignacion> CargarIDsPorMatriculaDeAlumno(string matricula)
 		{
-			return null;
+			//TODO
+			throw new NotImplementedException();
 		}
 
 		public DataTable ConvertirAsignacionADataTable(Asignacion asignacion)
 		{
+			//TODO
 			throw new NotImplementedException();
 		}
 
 		public int GuardarAsignacion(Asignacion asignacion)
 		{
+			//TODO
 			throw new NotImplementedException();
 		}
 	}

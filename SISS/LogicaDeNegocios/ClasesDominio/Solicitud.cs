@@ -5,7 +5,7 @@ namespace LogicaDeNegocios
 {
 	class Solicitud
 	{
-		private DateTime Fecha { get; set; }
-		List<Proyecto> Proyecto { get; set; }
+		public DateTime Fecha { get; set; }
+		public List<Proyecto> Proyecto { get; set; }
 	}
 }

@@ -7,16 +7,19 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 	{
 		public Solicitud CargarSolicitudPorIDAsignacion(int IDasignacion)
 		{
+			//TODO
 			throw new NotImplementedException();
 		}
 
 		public int GuardarSolicitud(Solicitud solicitud)
 		{
+			//TODO
 			throw new NotImplementedException();
 		}
 
 		public DataTable SolicitudADataTable(Solicitud solicitud)
 		{
+			//TODO
 			throw new NotImplementedException();
 		}
 	}

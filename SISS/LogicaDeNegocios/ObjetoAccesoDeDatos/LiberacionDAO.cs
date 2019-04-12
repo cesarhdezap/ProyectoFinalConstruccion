@@ -7,16 +7,19 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 	{
 		public Liberacion CargarLiberacionPorIDAsignacion(int IDasignacion)
 		{
+			//TODO
 			throw new NotImplementedException();
 		}
 
 		public int GuardarLiberacion(Liberacion liberacion)
 		{
+			//TODO
 			throw new NotImplementedException();
 		}
 
 		public DataTable LiberacionADataTable(Liberacion liberacion)
 		{
+			//TODO
 			throw new NotImplementedException();
 		}
 	}
