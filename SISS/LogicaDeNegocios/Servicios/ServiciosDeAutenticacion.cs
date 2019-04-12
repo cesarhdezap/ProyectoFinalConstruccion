@@ -11,8 +11,8 @@ namespace LogicaDeNegocios.Servicios
     {
         public enum EResultadoDeAutenticacion
         {
-            Valido = 1,
-            NoValido = 0,
+            Valido,
+            NoValido,
         }
         public static EResultadoDeAutenticacion AutenticarCredenciales(string correoElectronico, string contraseña)
         {
