@@ -9,10 +9,12 @@ namespace LogicaDeNegocios.Interfaces
 {
 	interface IDocenteAdministrativoDAO
 	{
-		void GuardarDocenteAdministrativo(DocenteAdministrativo docenteAdministrativo);
-		DocenteAdministrativo CargarDocenteAdministrativoPorIDPersonal(int IDpersonal);
-		List<DocenteAdministrativo> CargarDocentesAdministrativosPorRol(Erol rol);
-		DataTable DocenteAdministrativoADataTable(DocenteAdministrativo docenteAdministrativo);
-        List<DocenteAdministrativo> CargarDocentesAdministrativosPorEstado(bool isActivo);
+		void GuardarDocenteAdministrativo(DocenteAcademico docenteAcademico);
+		DocenteAcademico CargarDocenteAdministrativoPorIDPersonal(int IDpersonal);
+		List<DocenteAcademico> CargarDocentesAdministrativosPorEstado(bool isActivo);
+		List<DocenteAcademico> CargarDocentesAdministrativosPorRol(Erol rol);
+		void ActualizarDocenteAdministrativoPorIDPersonal(int IDpersonal, DocenteAcademico docenteAcademico);
+		DataTable ConvertirDocenteAdministrativoADataTable(DocenteAcademico docenteAcademico);
+        
 	}
 }

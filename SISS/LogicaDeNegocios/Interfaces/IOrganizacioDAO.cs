@@ -10,8 +10,9 @@ namespace LogicaDeNegocios.Interfaces
 	interface IOrganizacioDAO
 	{
         int GuardarOrganizacion(Organizacion organizacion);
-        Organizacion CargarOrganizacionPorID(int IDOrganizacion);
-        List<Organizacion> CargarOrganizacionesTodos();
-        DataTable ConvertirOrganizacionADataTable(Organizacion organizacion);
+		List<Organizacion> CargarOrganizacionesTodas();
+        Organizacion CargarOrganizacionPorID(int IDorganizacion);
+		void ActualizarOrganizacionPorID(int IDorganizacion, Organizacion organizacion);
+        DataTable OrganizacionADataTable(Organizacion organizacion);
 	}
 }

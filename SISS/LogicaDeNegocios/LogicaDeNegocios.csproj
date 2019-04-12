@@ -43,8 +43,7 @@
   <ItemGroup>
     <Compile Include="ClasesDominio\Alumno.cs" />
     <Compile Include="ClasesDominio\Asignacion.cs" />
-    <Compile Include="ClasesDominio\CuentaHabiente.cs" />
-    <Compile Include="ClasesDominio\DocenteAdministrativo.cs" />
+    <Compile Include="ClasesDominio\DocenteAcademico.cs" />
     <Compile Include="ClasesDominio\DocumentoDeEntregaUnica.cs" />
     <Compile Include="ClasesDominio\Encargado.cs" />
     <Compile Include="ClasesDominio\Liberacion.cs" />
@@ -65,6 +64,7 @@
     <Compile Include="ObjetoAccesoDeDatos\AsignacionDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\AutenticacionDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\DocenteAdministrativoDAO.cs" />
+    <Compile Include="ObjetoAccesoDeDatos\DocumentoDeEntregaUnicaDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\EncargadoDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\LiberacionDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\OrganizacionDAO.cs" />
@@ -77,6 +77,12 @@
     <Compile Include="ClasesDominio\Solicitud.cs" />
     <Compile Include="Servicios\ServiciosDeAutenticacion.cs" />
     <Compile Include="Servicios\ServiciosDeValidacion.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataBaseAccess\DataBaseAccess.csproj">
+      <Project>{b4c6239b-4914-496f-baa6-23009db9048a}</Project>
+      <Name>DataBaseAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
