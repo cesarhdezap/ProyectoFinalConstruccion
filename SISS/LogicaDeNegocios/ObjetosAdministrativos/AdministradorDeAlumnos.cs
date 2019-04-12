@@ -1,9 +1,5 @@
-﻿using System;
+﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System.Collections.Generic;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicaDeNegocios.ObjetosAdministrativos
 {
