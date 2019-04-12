@@ -52,6 +52,7 @@
     <Compile Include="ClasesDominio\Persona.cs" />
     <Compile Include="Interfaces\IAlumnoDAO.cs" />
     <Compile Include="Interfaces\IAsignacionDAO.cs" />
+    <Compile Include="Interfaces\IAutenticacionDAO.cs" />
     <Compile Include="Interfaces\IDocenteAdministrativoDAO.cs" />
     <Compile Include="Interfaces\IDocumentoDeEntregaUnicaDAO.cs" />
     <Compile Include="Interfaces\IEncargadoDAO.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Interfaces\ISolicitudDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\AlumnoDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\AsignacionDAO.cs" />
+    <Compile Include="ObjetoAccesoDeDatos\AutenticacionDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\DocenteAdministrativoDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\EncargadoDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\LiberacionDAO.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="ClasesDominio\Proyecto.cs" />
     <Compile Include="ClasesDominio\ReporteMensual.cs" />
     <Compile Include="ClasesDominio\Solicitud.cs" />
+    <Compile Include="Servicios\ServiciosDeAutenticacion.cs" />
     <Compile Include="Servicios\ServiciosDeValidacion.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -10,8 +10,8 @@ namespace LogicaDeNegocios.Interfaces
 	interface ILiberacionDAO
 	{
         int GuardarLiberacion(Liberacion liberacion);
-        Liberacion CargarLiberacionPorID(int IDLiberacion);
-        DataTable LiberacionADataTable(Liberacion liberacion);
+        Liberacion CargarLiberacionPorIDAsignacion(int IDAsignacion);
+        DataTable ConvertirLiberacionADataTable(Liberacion liberacion);
 
 	}
 }

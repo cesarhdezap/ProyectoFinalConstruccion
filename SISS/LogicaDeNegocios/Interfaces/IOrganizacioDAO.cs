@@ -11,7 +11,7 @@ namespace LogicaDeNegocios.Interfaces
 	{
         int GuardarOrganizacion(Organizacion organizacion);
         Organizacion CargarOrganizacionPorID(int IDOrganizacion);
-        List<Organizacion> CargarOrganizacionesTodos(Organizacion organizacion);
-        DataTable OrganizacionADataTable(Organizacion organizacion);
+        List<Organizacion> CargarOrganizacionesTodos();
+        DataTable ConvertirOrganizacionADataTable(Organizacion organizacion);
 	}
 }

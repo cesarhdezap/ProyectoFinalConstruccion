@@ -11,7 +11,7 @@ namespace LogicaDeNegocios.Interfaces
 	{
         int GuardarProyecto(Proyecto proyecto);
         Proyecto CargarProyectoPorID(int IDProyecto);
-        List<Proyecto> CargarProyectosTodos(Proyecto proyecto);
-        DataTable ProyectoADataTable(Proyecto proyecto);
+        List<Proyecto> CargarProyectosTodos();
+        DataTable ConvertirProyectoADataTable(Proyecto proyecto);
 	}
 }
