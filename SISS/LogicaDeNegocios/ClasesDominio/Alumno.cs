@@ -1,41 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace LogicaDeNegocios
 {
 	public class Alumno : Persona
 	{
 		private const int MAXIMO_DE_ASIGNACIONES = 2;
-
-		public string matricula { get; set; }
-		public string carrera { get; set; }
-		public string contraseña { get; set; }
-		public EestadoAlumno estadoAlumno { get; set; }
-		private List<Asignacion> asignaciones { get; set; }	
+		public string Matricula { get; set; }
+		public string Carrera { get; set; }
+		public string Contraseña { get; set; }
+		public EEstadoAlumno EstadoAlumno { get; set; }
+		public List<Asignacion> Asignaciones { get; set; }	
 
 		public void DarDeBaja()
 		{
-			estadoAlumno = EestadoAlumno.Desactivado;
-
+			EstadoAlumno = EEstadoAlumno.Desactivado;
 		}
 
-		public void Aceptar()
+		public void AceptarAlumno()
 		{
-			estadoAlumno = EestadoAlumno.Aceptado;
+			EstadoAlumno = EEstadoAlumno.Aceptado;
 		}
 
-		public void Rechazar()
+		public void RechazarAlumno()
 		{
-			estadoAlumno = EestadoAlumno.Rechazado;
+			EstadoAlumno = EEstadoAlumno.Rechazado;
 		}
+    }
 
-
-	}
-
-	public enum EestadoAlumno
+	public enum EEstadoAlumno
 	{
 		EnEspera, 
 		Liberado,

@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicaDeNegocios
 {
@@ -10,16 +7,16 @@ namespace LogicaDeNegocios
 	{
 		private const int HORAS_MAXIMAS_CUBIERTAS = 480;
 		private int IDAsignacion { get; set; }
-		private EestadoAsignacion estadoAsignacion { get; set; }
-		private DateTime fechaDeInicio { get; set; }
-		private DateTime fechaDeFinal { get; set; }
-		private int horasCubiertas { get; set; }
-		private Alumno alumno { get; set; }
-		public Proyecto proyecto { get; set; }
-		private List<DocumentoDeEntregaUnica> documentosDeEntregaUnica { get; set; }
-		private List<ReporteMensual> reportesMensuales { get; set; }
-		private Liberacion liberacion { get; set; }
-		private Solicitud solicitud { get; set; }
+		private EEstadoAsignacion EstadoAsignacion { get; set; }
+		private DateTime FechaDeInicio { get; set; }
+		private DateTime FechaDeFinal { get; set; }
+		private int HorasCubiertas { get; set; }
+		private Alumno Alumno { get; set; }
+		public Proyecto Proyecto { get; set; }
+		private List<DocumentoDeEntregaUnica> DocumentosDeEntregaUnica { get; set; }
+		private List<ReporteMensual> ReportesMensuales { get; set; }
+		private Liberacion Liberacion { get; set; }
+		private Solicitud Solicitud { get; set; }
 		
 		
 		public void RegistrarReporteMensual(ReporteMensual reporteMensual, DocenteAcademico docenteAcademico)
@@ -42,7 +39,7 @@ namespace LogicaDeNegocios
 			//TODO
 		}
 
-		public bool isLiberable()
+		public bool EsLiberable()
 		{
 			//TODO
 			return false;
@@ -52,7 +49,7 @@ namespace LogicaDeNegocios
 	}
 
 
-	public enum EestadoAsignacion
+	public enum EEstadoAsignacion
 	{
 		Activo,
 		Liberado,

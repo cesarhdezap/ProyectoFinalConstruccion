@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LogicaDeNegocios
+﻿namespace LogicaDeNegocios
 {
-    public abstract class Persona
+	public abstract class Persona
     {
-		private string nombre { get; set; }
-		private string correoElectronico { get; set; }
-		private string telefono { get; set; }
+		private string Nombre { get; set; }
+		private string CorreoElectronico { get; set; }
+		private string Telefono { get; set; }
 	}
 }

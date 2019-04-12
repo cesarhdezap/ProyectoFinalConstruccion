@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace LogicaDeNegocios.Interfaces
 {
@@ -13,6 +8,5 @@ namespace LogicaDeNegocios.Interfaces
 		List<Organizacion> CargarOrganizacionesTodas();
         Organizacion CargarOrganizacionPorID(int IDorganizacion);
 		void ActualizarOrganizacionPorID(int IDorganizacion, Organizacion organizacion);
-        DataTable OrganizacionADataTable(Organizacion organizacion);
 	}
 }

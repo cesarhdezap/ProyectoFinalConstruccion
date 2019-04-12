@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	class AsignacionDAO : Interfaces.IAsignacionDAO
+	public class AsignacionDAO : Interfaces.IAsignacionDAO
 	{
 		public void ActualizarAsignacionPorID(int IDasignacion, Asignacion asignacion)
 		{
@@ -18,6 +15,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		public Asignacion CargarAsignacionPorID(int IDasignacion)
 		{
 			throw new NotImplementedException();
+		}
+
+		public List<Asignacion> CargarIDsPorMatriculaDeAlumno(string matricula)
+		{
+			return null;
 		}
 
 		public DataTable ConvertirAsignacionADataTable(Asignacion asignacion)

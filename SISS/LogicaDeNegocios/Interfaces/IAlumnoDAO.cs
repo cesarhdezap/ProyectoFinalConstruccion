@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System.Collections.Generic;
 
 namespace LogicaDeNegocios.Interfaces
 {
@@ -13,8 +7,7 @@ namespace LogicaDeNegocios.Interfaces
 		void GuardarAlumno(Alumno alumno);
 		List<Alumno> CargarAlumnosTodos();
 		Alumno CargarAlumnoPorMatricula(string matricula);
-		List<Alumno> CargarAlumnosPorEstado(EestadoAlumno estadoAlumno);
+		List<Alumno> CargarAlumnosPorEstado(EEstadoAlumno estadoAlumno);
 		void ActualizarAlumnoPorMatricula(string matricula, Alumno alumno);
-		DataTable ConvertirAlumnoADataTable(Alumno alumno);
 	}
 }

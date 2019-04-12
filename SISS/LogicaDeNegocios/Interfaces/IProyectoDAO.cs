@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace LogicaDeNegocios.Interfaces
 {
@@ -12,7 +7,7 @@ namespace LogicaDeNegocios.Interfaces
         int GuardarProyecto(Proyecto proyecto);
 		List<Proyecto> CargarProyectosTodos();
         Proyecto CargarProyectoPorID(int IDproyecto);
+		List<Proyecto> CargarIDsPorIDEncargado(int IDencargado);
 		void ActualizarProyectoPorID(int IDproyecto, Proyecto proyecto);
-        DataTable ProyectoADataTable(Proyecto proyecto);
 	}
 }

@@ -1,26 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace LogicaDeNegocios
 {
 	public class Proyecto
 	{
-		private int IDproyecto { get; set; }
-		private string nombre { get; set; }
-		private string descripcionGeneral { get; set; }
-		private string objetivoGeneral { get; set; }
-		private int cupo { get; set; }
-		private List<Asignacion> asignaciones { get; set; }
+		private int IDProyecto { get; set; }
+		private string Nombre { get; set; }
+		private string DescripcionGeneral { get; set; }
+		private string ObjetivoGeneral { get; set; }
+		private int Cupo { get; set; }
+		private List<Asignacion> Asignaciones { get; set; }
 
 
-		public int getDisponibilidad()
+		public int ObtenerDisponibilidad()
 		{
 			//TODO
 			return 0;
 		}
+
 		public void AsignarAlumno(Alumno alumno)
 		{
 			//TODO
