@@ -11,8 +11,8 @@ namespace LogicaDeNegocios.Services
 
 		public enum EresultadoDeValidacion
 		{
-			Valido = 1,
-			NoValido = 0,
+			Valido,
+			NoValido,
 		}
 
 		public static EresultadoDeValidacion ValidarCorreoElectronico(string correoElectronico)
