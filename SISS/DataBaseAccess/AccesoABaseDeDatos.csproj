@@ -7,8 +7,8 @@
     <ProjectGuid>{B4C6239B-4914-496F-BAA6-23009DB9048A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataBaseAccess</RootNamespace>
-    <AssemblyName>DataBaseAccess</AssemblyName>
+    <RootNamespace>AccesoABaseDeDatos</RootNamespace>
+    <AssemblyName>AccesoABaseDeDatos</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
