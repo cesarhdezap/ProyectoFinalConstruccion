@@ -1,4 +1,4 @@
-﻿using DataBaseAccess;
+﻿using AccesoABaseDeDatos;
 using LogicaDeNegocios.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	class AlumnoDAO : IAlumnoDAO
+	public class AlumnoDAO : IAlumnoDAO
 	{
 		public void GuardarAlumno(Alumno alumno)
 		{
@@ -63,18 +63,19 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			AsignacionDAO asignacionDAO = new AsignacionDAO();
 
-			Alumno alumno = (Alumno)(from DataRow fila in TablaDeAlumnos.Rows
-                             select new Alumno()
-                            {
-                                
-                                Matricula = fila["matricula"].ToString(),
-                                Carrera = fila["carrera"].ToString(),
-                                Contraseña = fila["contraseña"].ToString(),
-                                EstadoAlumno = (EEstadoAlumno)fila["estadoAlumno"],
-                                Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["matricula"].ToString())
+            Alumno alumno = (Alumno)(from DataRow fila in TablaDeAlumnos.Rows
+                select new Alumno()
+                {
+                    Matricula = fila["matricula"].ToString(),
+                    Nombre = fila["nombre"].ToString(),
+                    Carrera = fila["carrera"].ToString(),
+                    EstadoAlumno = (EEstadoAlumno)fila["estadoAlumno"],
+                    Telefono = fila["telefono"].ToString(),
+                    CorreoElectronico = fila["correo Electronico"].ToString(),
+                    Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["matricula"].ToString())
 
-                            }
-                           );
+                }
+             );
 
             return alumno;
 		}

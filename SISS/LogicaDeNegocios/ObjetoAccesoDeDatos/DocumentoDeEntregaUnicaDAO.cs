@@ -16,7 +16,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		{
 			//TODO
 			throw new NotImplementedException();
-		}
+        }
 
 		public List<DocumentoDeEntregaUnica> CargarIDsPorMatriculaAlumno(string matricula)
 		{
