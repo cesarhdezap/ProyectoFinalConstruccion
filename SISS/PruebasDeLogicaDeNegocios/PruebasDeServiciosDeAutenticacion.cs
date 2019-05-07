@@ -65,18 +65,13 @@ namespace PruebasDeLogicaDeNegocios
         [DataRow("c8A_7FRnEBB]9v", "497b69033b944db49e0ab1fbe0e088734db03e5d51c10e3d5b995be6a6a8ceb7")]
         [DataRow("gCsC?~af_Q<b)e}PEU>SKu[A>wC]<[<uf5},aq3kke%}aJwbgH", "162f07cd00e241d6533ea31acc6dcf2db24d9b5482fb2df3977c0f5c807aebe0")]
 
-        public void ProbarEncriptarContraseña_RegresaContraseñaConHash(string input, string contrasenaHasheadaEsperada)
+        public void ProbarEncriptarContraseña_ConsultaCorrecta_RegresaContraseñaConHash(string input, string contrasenaHasheadaEsperada)
         {
-            //Organizar
             string contrasenaHasheadaActual;
 
-            //Actuar
             contrasenaHasheadaActual = LogicaDeNegocios.Servicios.ServiciosDeAutenticacion.EncriptarContraseña(input);
 
-            //Declarar
-            Console.WriteLine("\n\n\n" + contrasenaHasheadaActual);
             Assert.AreEqual(contrasenaHasheadaEsperada, contrasenaHasheadaActual);
         }
-
     }
 }

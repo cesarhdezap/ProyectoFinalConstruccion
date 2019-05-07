@@ -64,18 +64,14 @@ namespace PruebasDeLogicaDeNegocios
         [DataRow("@gmail.com")]
         [DataRow("email@gmail")]
         [DataRow("email.com")]
-        public void ProbarValidarCorreoElectronicoIncorrecto_RegresaNoValido(string input)
+        public void ProbarValidarCorreoElectronico_Incorrecto_RegresaNoValido(string input)
         {
-            //Organizar
             EresultadoDeValidacion resultadoActual = new EresultadoDeValidacion();
             EresultadoDeValidacion resultadoEsperado = EresultadoDeValidacion.NoValido;
 
-            //Actuar
             resultadoActual = ValidarCorreoElectronico(input);
 
-            //Declarar
             Assert.AreEqual(resultadoEsperado, resultadoActual);
-
         }
         
         [DataTestMethod]
@@ -83,18 +79,14 @@ namespace PruebasDeLogicaDeNegocios
         [DataRow("222 333 111")]
         [DataRow("abc")]
         [DataRow("777777'111")]
-        public void ProbarValidarTelefonoIncorrecto_RegresaNoValido(string input)
+        public void ProbarValidarTelefono_Incorrecto_RegresaNoValido(string input)
         {
-            //Organizar
             EresultadoDeValidacion resultadoActual = new EresultadoDeValidacion();
             EresultadoDeValidacion resultadoEsperado = EresultadoDeValidacion.NoValido;
 
-            //Actuar
             resultadoActual = ValidarTelefono(input);
 
-            //Declarar
             Assert.AreEqual(resultadoEsperado, resultadoActual);
-
         }
 
         [DataTestMethod]
@@ -102,16 +94,13 @@ namespace PruebasDeLogicaDeNegocios
         [DataRow("Cesar21 Hernandez")]
         [DataRow("")]
         [DataRow("24534o")]
-        public void ProbarValidarNombreIncorrecto_RegresaNoValido(string input)
+        public void ProbarValidarNombre_Incorrecto_RegresaNoValido(string input)
         {
-            //Organizar
             EresultadoDeValidacion resultadoActual = new EresultadoDeValidacion();
             EresultadoDeValidacion resultadoEsperado = EresultadoDeValidacion.NoValido;
 
-            //Actuar
             resultadoActual = ValidarNombre(input);
 
-            //Declarar
             Assert.AreEqual(resultadoEsperado, resultadoActual);
         }
 
@@ -120,16 +109,13 @@ namespace PruebasDeLogicaDeNegocios
         [DataRow("zS29056217")]
         [DataRow("")]
         [DataRow("290066217")]
-        public void ProbarValidarMatriculaIncorrecta_RegresaNoValido(string input)
+        public void ProbarValidarMatricula_Incorrecto_RegresaNoValido(string input)
         {
-            //Organizar
             EresultadoDeValidacion resultadoActual = new EresultadoDeValidacion();
             EresultadoDeValidacion resultadoEsperado = EresultadoDeValidacion.NoValido;
 
-            //Actuar
             resultadoActual = ValidarMatricula(input);
 
-            //Declarar
             Assert.AreEqual(resultadoEsperado, resultadoActual);
         }
     }

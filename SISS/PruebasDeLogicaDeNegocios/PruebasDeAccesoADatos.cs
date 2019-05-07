@@ -64,20 +64,18 @@ namespace PruebasDeLogicaDeNegocios
         [DataTestMethod]
         [DataRow("INSERT INTO Alumnos VALUES ('s17012947', 'Cesar Hernandez','LIS', 'Activo', '2282437357', 'cesarhdez@gmail.com','passwordsegura', '21')")]
 
-        public void ProbarEjecutarInsertIntoConsultaCorrecta_RegresaNumeroDeFilasAfectadas(string input)
+        public void ProbarEjecutarInsertInto_ConsultaCorrecta_RegresaNumeroDeFilasAfectadas(string input)
         {
-            //Organizar
             int numeroDeFilasAfectadas;
-
-            //Actuar
+            const int UNA_FILA_AFECTADA = 1;
             numeroDeFilasAfectadas = AccesoADatos.EjecutarInsertInto(input);
 
-            //Declarar
-            Assert.AreEqual(1, numeroDeFilasAfectadas);
+            Assert.AreEqual(UNA_FILA_AFECTADA, numeroDeFilasAfectadas);
         }
+
         [DataTestMethod]
         [DataRow("SELECT Matricula FROM Alumno WHERE Matricula = @Matricula", "s17012970")]
-        public void ProbarEjecutarSelectConsultaCorrecta_RegresaDatatable (string consulta, string matricula)
+        public void ProbarEjecutarSelect_ConsultaCorrecta_RegresaDatatable (string consulta, string matricula)
         {
             DataTable tablaAlumnosActual;
             string matriculaActual;
@@ -86,7 +84,6 @@ namespace PruebasDeLogicaDeNegocios
             parametros[0].ParameterName = "@Matricula";
             parametros[0].Value = matricula;
 
-            //Actuar
             tablaAlumnosActual = AccesoADatos.EjecutarSelect(consulta, parametros);
 
             DataRow filaAlumno;
