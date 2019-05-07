@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace DataBaseAccess
+
+namespace AccesoABaseDeDatos
 {
-	public class AccesoADatos
+	public static class AccesoADatos
 	{
 		private const int PRIMERA_POSICION_EN_DATATABLE = 0;
-		private static readonly String CadenaDeConexion = System.Configuration.ConfigurationManager.ConnectionStrings["myConnection"].ConnectionString;
+        public static readonly string CadenaDeConexion = ConfigurationManager.ConnectionStrings["myConection"].ConnectionString.ToString();
 		
 
 		public static DataTable EjecutarSelect(String consulta, SqlParameter[] parametros = null)
@@ -58,17 +60,22 @@ namespace DataBaseAccess
 		}
 			
 	
-		public static void EjecutarInsertInto(string consulta, SqlParameter[] parametros)
+		public static int EjecutarInsertInto(string consulta, SqlParameter[] parametros = null)
 		{
 			using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
 			{
-				
+                const int VALOR_DE_ERROR_POR_DEFECTO = -1;
 				SqlCommand comando = new SqlCommand(consulta, conexion);
-				comando.Parameters.AddRange(parametros);
+                if (parametros != null)
+                {
+                    comando.Parameters.AddRange(parametros);
+                }
+                Console.WriteLine("\n*\n*\n*\n* " + CadenaDeConexion);
+                int numeroDeFilasAfectadas = VALOR_DE_ERROR_POR_DEFECTO;
 				try
 				{
 					conexion.Open();
-					comando.ExecuteNonQuery();
+					numeroDeFilasAfectadas = comando.ExecuteNonQuery();
 				}
 				catch (SqlException sqlException)
 				{
@@ -80,7 +87,8 @@ namespace DataBaseAccess
 				{
 					CerrarConexion(conexion);
 				}
-			}
+                return numeroDeFilasAfectadas;
+            }
 		}
 	}
 }
