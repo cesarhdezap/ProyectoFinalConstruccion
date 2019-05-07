@@ -1,4 +1,4 @@
-﻿using DataBaseAccess;
+﻿using AccesoABaseDeDatos;
 using LogicaDeNegocios.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using LogicaDeNegocios.ObjetoAccesoDeDatos;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	class AlumnoDAO : IAlumnoDAO
+	public class AlumnoDAO : IAlumnoDAO
 	{
 		public void GuardarAlumno(Alumno alumno)
 		{
