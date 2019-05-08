@@ -8,7 +8,7 @@
 		public int Cubiculo { get; set; }
 		public bool EsActivo { get; set; }
 		public DocenteAcademico Coordinador { get; set; }
-		public ERol Rol { get; set; }
+		public Rol Rol { get; set; }
 
         public void Desactivar()
 		{
@@ -17,7 +17,7 @@
 
 	}
 	
-	public enum ERol
+	public enum Rol
 	{
 		TecnicoAcademico,
 		Coordinador

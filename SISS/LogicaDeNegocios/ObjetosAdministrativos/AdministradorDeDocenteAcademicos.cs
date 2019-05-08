@@ -19,7 +19,7 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 			throw new NotImplementedException();
 		}
 
-        public void CargarDocentesAcademicosPorRol(ERol rol)
+        public void CargarDocentesAcademicosPorRol(Rol rol)
         {
 			//TODO
 			throw new NotImplementedException();

@@ -61,7 +61,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return alumno;
 		}
 
-		public List<Alumno> CargarAlumnosPorEstado(EEstadoAlumno estadoAlumno)
+		public List<Alumno> CargarAlumnosPorEstado(EstadoAlumno estadoAlumno)
 		{
 			DataTable TablaDeAlumnos = new DataTable();
 			SqlParameter[] parametroEstadoAlumno = new SqlParameter[1];
@@ -101,19 +101,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		private Alumno ConvertirDataTableAAlumno(DataTable DataTableAlumnos)
 		{
 			AsignacionDAO asignacionDAO = new AsignacionDAO();
-			Alumno alumno = (Alumno)(from DataRow fila in DataTableAlumnos.Rows
-									 select new Alumno()
-									 {
-
-										 Matricula = fila["matricula"].ToString(),
-										 Carrera = fila["carrera"].ToString(),
-										 Contraseña = fila["contraseña"].ToString(),
-										 EstadoAlumno = (EEstadoAlumno)fila["estadoAlumno"],
-										 Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["matricula"].ToString())
-
-									 }
-						   );
-			return alumno;
+            Alumno alumno = new Alumno();
+            DataRow filaAlumno;
+			if (DataTableAlumnos.Rows.Count > 0)
+            {
+                filaAlumno = DataTableAlumnos.Rows[0];
+                alumno.Matricula = filaAlumno.ItemArray[0].ToString();
+                alumno.Nombre = filaAlumno.ItemArray[1].ToString();
+                alumno.Carrera = filaAlumno.ItemArray[2].ToString();
+                //TODO Campos adicionales
+            }
+            return alumno;
 		}
 
 		private List<Alumno> ConvertirDataTableAListaDeAlumnos(DataTable DataTableAlumnos)
@@ -125,7 +123,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                                  Matricula = fila["matricula"].ToString(),
                                  Carrera = fila["carrera"].ToString(),
                                  Contraseña = fila["contraseña"].ToString(),
-                                 EstadoAlumno = (EEstadoAlumno)fila["estadoAlumno"],
+                                 EstadoAlumno = (EstadoAlumno)fila["estadoAlumno"],
                                  Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["matricula"].ToString()),
 
                              }

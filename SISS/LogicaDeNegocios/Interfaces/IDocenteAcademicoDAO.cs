@@ -7,7 +7,7 @@ namespace LogicaDeNegocios.Interfaces
 		void GuardarDocenteAcademico(DocenteAcademico docenteAcademico);
 		DocenteAcademico CargarDocenteAcademicoPorIDPersonal(int IDpersonal);
 		List<DocenteAcademico> CargarDocentesAcademicosPorEstado(bool isActivo);
-		List<DocenteAcademico> CargarDocentesAcademicosPorRol(ERol rol);
+		List<DocenteAcademico> CargarDocentesAcademicosPorRol(Rol rol);
 		void ActualizarDocenteAcademicoPorIDPersonal(int IDpersonal, DocenteAcademico docenteAcademico);  
 	}
 }
