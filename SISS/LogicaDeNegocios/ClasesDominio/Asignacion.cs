@@ -7,7 +7,7 @@ namespace LogicaDeNegocios
 	{
 		private const int HORAS_MAXIMAS_CUBIERTAS = 480;
 		private int IDAsignacion { get; set; }
-		private EEstadoAsignacion EstadoAsignacion { get; set; }
+		private EstadoAsignacion EstadoAsignacion { get; set; }
 		private DateTime FechaDeInicio { get; set; }
 		private DateTime FechaDeFinal { get; set; }
 		private int HorasCubiertas { get; set; }
@@ -53,7 +53,7 @@ namespace LogicaDeNegocios
 	}
 
 
-	public enum EEstadoAsignacion
+	public enum EstadoAsignacion
 	{
 		Activo,
 		Liberado,
