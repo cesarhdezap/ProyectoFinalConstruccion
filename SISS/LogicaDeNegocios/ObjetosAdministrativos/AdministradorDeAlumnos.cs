@@ -24,7 +24,7 @@ namespace LogicaDeNegocios.ObjetosAdministrativos
 			this.Alumnos = alumnoDAO.CargarAlumnosTodos();
 		}
 
-		public void CargarAlumnosPorEstado(EEstadoAlumno estadoAlumno)
+		public void CargarAlumnosPorEstado(EstadoAlumno estadoAlumno)
 		{
 			AlumnoDAO alumnoDAO = new AlumnoDAO();
 			this.Alumnos = alumnoDAO.CargarAlumnosPorEstado(estadoAlumno);

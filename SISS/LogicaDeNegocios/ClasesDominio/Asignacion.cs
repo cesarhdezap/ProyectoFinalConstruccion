@@ -6,13 +6,13 @@ namespace LogicaDeNegocios
 	public class Asignacion
 	{
 		private const int HORAS_MAXIMAS_CUBIERTAS = 480;
-		private int IDAsignacion { get; set; }
-		private EEstadoAsignacion EstadoAsignacion { get; set; }
-		private DateTime FechaDeInicio { get; set; }
-		private DateTime FechaDeFinal { get; set; }
-		private int HorasCubiertas { get; set; }
-		private Alumno Alumno { get; set; }
-		public Proyecto Proyecto { get; set; }
+		public int IDAsignacion { get; set; }
+        public EEstadoAsignacion EstadoAsignacion { get; set; }
+        public DateTime FechaDeInicio { get; set; }
+        public DateTime FechaDeFinal { get; set; }
+        public int HorasCubiertas { get; set; }
+        public Alumno Alumno { get; set; }
+        public Proyecto Proyecto { get; set; }
 		private List<DocumentoDeEntregaUnica> DocumentosDeEntregaUnica { get; set; }
 		private List<ReporteMensual> ReportesMensuales { get; set; }
 		private Liberacion Liberacion { get; set; }

@@ -37,7 +37,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 								Matricula = fila["matricula"].ToString(),
 								Carrera = fila["carrera"].ToString(),
 								Contraseña = fila["contraseña"].ToString(),
-								EstadoAlumno = (EEstadoAlumno)fila["estadoAlumno"],
+								EstadoAlumno = (EstadoAlumno)fila["estadoAlumno"],
 								Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["matricula"].ToString()),
                             }
                            ).ToList();
@@ -70,7 +70,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                                 Matricula = fila["matricula"].ToString(),
                                 Carrera = fila["carrera"].ToString(),
                                 Contraseña = fila["contraseña"].ToString(),
-                                EstadoAlumno = (EEstadoAlumno)fila["estadoAlumno"],
+                                EstadoAlumno = (EstadoAlumno)fila["estadoAlumno"],
                                 Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["matricula"].ToString())
 
                             }
@@ -79,7 +79,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return alumno;
 		}
 
-		public List<Alumno> CargarAlumnosPorEstado(EEstadoAlumno estadoAlumno)
+		public List<Alumno> CargarAlumnosPorEstado(EstadoAlumno estadoAlumno)
 		{
 			DataTable TablaDeAlumnos = new DataTable();
 			SqlParameter[] parametroEstadoAlumno = new SqlParameter[1];
@@ -105,7 +105,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                                  Matricula = fila["matricula"].ToString(),
                                  Carrera = fila["carrera"].ToString(),
                                  Contraseña = fila["contraseña"].ToString(),
-                                 EstadoAlumno = (EEstadoAlumno)fila["estadoAlumno"],
+                                 EstadoAlumno = (EstadoAlumno)fila["estadoAlumno"],
                                  Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["matricula"].ToString()),
 
                              }
