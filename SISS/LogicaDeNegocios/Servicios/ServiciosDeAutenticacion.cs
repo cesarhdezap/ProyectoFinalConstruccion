@@ -9,14 +9,14 @@ namespace LogicaDeNegocios.Servicios
 {
 	public class ServiciosDeAutenticacion
     {
-        public enum EResultadoDeAutenticacion
+        public enum ResultadoDeAutenticacion
         {
-            Valido = 1,
-            NoValido = 0,
+            Valido,
+            NoValido,
         }
-        public static EResultadoDeAutenticacion AutenticarCredenciales(string correoElectronico, string contraseña)
+        public static ResultadoDeAutenticacion AutenticarCredenciales(string correoElectronico, string contraseña)
         {
-            EResultadoDeAutenticacion resultadoDeAutenticacion = EResultadoDeAutenticacion.NoValido;
+            ResultadoDeAutenticacion resultadoDeAutenticacion = ResultadoDeAutenticacion.NoValido;
 
 			AutenticacionDAO autenticacionDAO = new AutenticacionDAO();
 
@@ -34,13 +34,13 @@ namespace LogicaDeNegocios.Servicios
 
             if (contraseñaDeUsuario != null && contraseña == contraseñaDeUsuario )
             {
-				resultadoDeAutenticacion = EResultadoDeAutenticacion.Valido;
+				resultadoDeAutenticacion = ResultadoDeAutenticacion.Valido;
             }
           
             return resultadoDeAutenticacion;
         }
 
-        private static string EncriptarContraseña(string contraseña)
+        public static string EncriptarContraseña(string contraseña)
         {
             StringBuilder cadenaFinal = new StringBuilder();
 
@@ -48,11 +48,11 @@ namespace LogicaDeNegocios.Servicios
             {
                 try
                 {
-                    Encoding unicode = Encoding.Unicode;
-                    byte[] ContrasenaEncriptada = hash.ComputeHash(unicode.GetBytes(contraseña));
-                    foreach (byte byteI in ContrasenaEncriptada)
+                    byte[] ContrasenaEncriptada = hash.ComputeHash(Encoding.UTF8.GetBytes(contraseña));
+
+                    for (int indice = 0; indice < ContrasenaEncriptada.Length; indice++)
                     {
-                        cadenaFinal.Append(byteI.ToString());
+                        cadenaFinal.Append(ContrasenaEncriptada[indice].ToString("x2"));
                     }
 
                 }

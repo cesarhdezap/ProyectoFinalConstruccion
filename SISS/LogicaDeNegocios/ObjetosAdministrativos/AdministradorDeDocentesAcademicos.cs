@@ -1,9 +1,5 @@
-﻿using System;
+﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System.Collections.Generic;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicaDeNegocios.ObjetosAdministrativos
 {
@@ -18,7 +14,7 @@ namespace LogicaDeNegocios.ObjetosAdministrativos
 			this.DocentesAcademicos.Add(docenteAcademico);
 		}
 
-		public void CargarDocentesPorRol(ERol rol)
+		public void CargarDocentesPorRol(Rol rol)
 		{
 			DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
 			this.DocentesAcademicos = docenteAcademicoDAO.CargarDocentesAcademicosPorRol(rol);
