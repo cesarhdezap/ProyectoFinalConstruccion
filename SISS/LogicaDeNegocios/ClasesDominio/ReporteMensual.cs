@@ -9,10 +9,10 @@ namespace LogicaDeNegocios
 		public int IDReporte { get; set; }
 		public int NumeroDeReporte { get; set; }
 		public DocenteAcademico DocenteAcademico { get; set; }
-		public EMes Mes { get; set; }
+		public Mes Mes { get; set; }
 	}
 
-	public enum EMes
+	public enum Mes
 	{
 		Enero,
 		Febrero,

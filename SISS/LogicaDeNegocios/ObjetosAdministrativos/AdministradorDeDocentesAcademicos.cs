@@ -14,7 +14,7 @@ namespace LogicaDeNegocios.ObjetosAdministrativos
 			this.DocentesAcademicos.Add(docenteAcademico);
 		}
 
-		public void CargarDocentesPorRol(ERol rol)
+		public void CargarDocentesPorRol(Rol rol)
 		{
 			DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
 			this.DocentesAcademicos = docenteAcademicoDAO.CargarDocentesAcademicosPorRol(rol);

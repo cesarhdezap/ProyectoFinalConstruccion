@@ -75,23 +75,41 @@ namespace PruebasDeLogicaDeNegocios
 
         [DataTestMethod]
         [DataRow("SELECT Matricula FROM Alumno WHERE Matricula = @Matricula", "s17012970")]
-        public void ProbarEjecutarSelect_ConsultaCorrecta_RegresaDatatable (string consulta, string matricula)
+        public void ProbarEjecutarSelect_AlumnoConsultaNoVacia_RegresaDatatable (string consulta, string llavePrimaria)
+        {
+            DataTable tablaActual;
+            SqlParameter[] parametros = new SqlParameter[1];
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@Matricula";
+            parametros[0].Value = llavePrimaria;
+
+            tablaActual = AccesoADatos.EjecutarSelect(consulta, parametros);
+
+            Assert.IsNotNull(tablaActual);
+        }
+
+        [DataTestMethod]
+        [DataRow("SELECT Matricula FROM Alumno WHERE Matricula = @Matricula", "s17012950")]
+        public void ProbarEjecutarSelect_AlumnoDatosCorrectos_RegresaDatatable(string consulta, string matricula)
         {
             DataTable tablaAlumnosActual;
-            string matriculaActual;
             SqlParameter[] parametros = new SqlParameter[1];
             parametros[0] = new SqlParameter();
             parametros[0].ParameterName = "@Matricula";
             parametros[0].Value = matricula;
+            DataRow filaAlumno;
+            string matriculaActual = String.Empty;
 
             tablaAlumnosActual = AccesoADatos.EjecutarSelect(consulta, parametros);
-
-            DataRow filaAlumno;
-            filaAlumno = tablaAlumnosActual.Rows[0];
-            matriculaActual = filaAlumno["matricula"].ToString();
+            if (tablaAlumnosActual.Rows.Count > 0)
+            {
+                filaAlumno = tablaAlumnosActual.Rows[0];
+                matriculaActual = filaAlumno.ItemArray[0].ToString();
+            }
 
             Assert.AreEqual(matricula, matriculaActual);
         }
+
         
     }
 }

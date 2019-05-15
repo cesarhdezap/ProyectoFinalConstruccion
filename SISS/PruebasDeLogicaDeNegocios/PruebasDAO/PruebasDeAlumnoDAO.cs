@@ -60,9 +60,18 @@ namespace PruebasDeLogicaDeNegocios.PruebasDAO
         //
         #endregion
 
-        public void PruebaCargarAlumnoPorMatricula_RegresaAlumno(string input)
+        [DataTestMethod]
+        [DataRow("s17017091")]
+        public void PruebaCargarAlumnoPorMatricula_MatriculaCorrecta_RegresaAlumno(string matricula)
         {
-            //TODO
+            Alumno alumnoActual;
+            AlumnoDAO alumnoDAO = new AlumnoDAO();
+            string matriculaActual;
+
+            alumnoActual = alumnoDAO.CargarAlumnoPorMatricula(matricula);
+            matriculaActual = alumnoActual.Matricula;
+
+            Assert.AreEqual(matricula, matriculaActual);
         }
     }
 }

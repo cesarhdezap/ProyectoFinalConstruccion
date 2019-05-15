@@ -8,26 +8,26 @@ namespace LogicaDeNegocios
 		public string Matricula { get; set; }
 		public string Carrera { get; set; }
 		public string Contraseña { get; set; }
-		public EEstadoAlumno EstadoAlumno { get; set; }
+		public EstadoAlumno EstadoAlumno { get; set; }
 		public List<Asignacion> Asignaciones { get; set; }	
 
 		public void DarDeBaja()
 		{
-			EstadoAlumno = EEstadoAlumno.Desactivado;
+			EstadoAlumno = EstadoAlumno.Desactivado;
 		}
 
 		public void AceptarAlumno()
 		{
-			EstadoAlumno = EEstadoAlumno.Aceptado;
+			EstadoAlumno = EstadoAlumno.Aceptado;
 		}
 
 		public void RechazarAlumno()
 		{
-			EstadoAlumno = EEstadoAlumno.Rechazado;
+			EstadoAlumno = EstadoAlumno.Rechazado;
 		}
     }
 
-	public enum EEstadoAlumno
+	public enum EstadoAlumno
 	{
 		EnEspera, 
 		Liberado,
