@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace LogicaDeNegocios.Services
+namespace LogicaDeNegocios.Servicios
 {
 	public class ServiciosDeValidacion
 	{
