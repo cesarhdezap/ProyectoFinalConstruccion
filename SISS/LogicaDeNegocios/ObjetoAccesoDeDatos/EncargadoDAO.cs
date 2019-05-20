@@ -1,6 +1,12 @@
-﻿using System;
+﻿using AccesoABaseDeDatos;
+using LogicaDeNegocios.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using LogicaDeNegocios.ObjetoAccesoDeDatos;
+
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -20,9 +26,25 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 		public List<Encargado> CargarEncargadosTodos()
 		{
-			//TODO
-			throw new NotImplementedException();
+			DataTable TablaDeEncargados = new DataTable();
+
+            try
+            {    
+                TablaDeEncargados = AccesoADatos.EjecutarSelect("SELECT * FROM Encargado");
+            }
+            catch (SqlException ExcepcionSQL)
+            {
+                Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
+            }
+            
+			List<Encargado> ListaEncargados = new List<Encargado>();
+			ListaEncargados = ConvertirDataTableAListaDeEncargados(ListaEncargados);
+
+			return ListaEncargados;
 		}
+
+
+
 
 		public List<Encargado> CargarIDsPorIDOrganizacion(int IDorganizacion)
 		{
