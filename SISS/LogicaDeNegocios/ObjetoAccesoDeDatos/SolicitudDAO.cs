@@ -5,7 +5,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
 	class SolicitudDAO : Interfaces.ISolicitudDAO
 	{
-		public Solicitud CargarSolicitudPorIDAsignacion(int IDasignacion)
+		public Solicitud CargarSolicitudPorID(int IDSolicitud)
 		{
 			//TODO
 			throw new NotImplementedException();

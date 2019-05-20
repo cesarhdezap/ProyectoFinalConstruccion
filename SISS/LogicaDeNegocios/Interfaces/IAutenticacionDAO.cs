@@ -4,8 +4,9 @@ namespace LogicaDeNegocios.Interfaces
 {
 	interface IAutenticacionDAO
     {
-        List<string> CargarCorreoDeUsuarios();
         string CargarContraseñaPorCorreo(string correoElectronico);
+        List<string> CargarCorreoDeUsuarios();
+        
 
     }
 }
