@@ -4,7 +4,7 @@ using System.Data;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	class OrganizacionDAO : Interfaces.IOrganizacioDAO
+	class OrganizacionDAO : Interfaces.IOrganizacionDAO
 	{
 		public void ActualizarOrganizacionPorID(int IDorganizacion, Organizacion organizacion)
 		{
