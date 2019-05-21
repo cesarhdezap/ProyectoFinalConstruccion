@@ -43,22 +43,31 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			return ListaEncargados;
 		}
 
-
-
-
 		public List<Encargado> CargarIDsPorIDOrganizacion(int IDorganizacion)
 		{
 			//TODO
 			throw new NotImplementedException();
 		}
 
-		public DataTable ConvertirEncargadoADataTable(Encargado encargado)
+        private Encargado ConvertirDataTableAEncargado (DataTable dataTable)
 		{
 			//TODO
 			throw new NotImplementedException();
 		}
 
-		public int GuardarEncargado(Encargado encargado)
+        private List<Encargado> ConvertirDataTableAListaDeEncargados (DataTable dataTable)
+		{
+			//TODO
+			throw new NotImplementedException();
+		}
+
+        private DataTable  ConvertirEncargadoADataTable (Encargado encargado)
+		{
+			//TODO
+			throw new NotImplementedException();
+		}
+
+        public int GuardarEncargado(Encargado encargado)
 		{
 			//TODO
 			throw new NotImplementedException();

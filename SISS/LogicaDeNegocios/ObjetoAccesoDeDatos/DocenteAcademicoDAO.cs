@@ -30,7 +30,21 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			throw new NotImplementedException();
 		}
 
-		public DataTable ConvertirDocenteAcademicoADataTable(DocenteAcademico docenteAdministrativo)
+		private DocenteAcademico ConvertirDataTableADocenteAcademico(DataTable dataTable)
+        {
+            
+			//TODO
+			throw new NotImplementedException();
+        }
+        
+        private List<DocenteAcademico> ConvertirDataTableAListaDeDocentesAcademicos(DataTable dataTable)
+        {
+            
+			//TODO
+			throw new NotImplementedException();
+        }
+        
+        private DataTable ConvertirDocenteAcademicoADataTable(DocenteAcademico docenteAdministrativo)
 		{
 			//TODO
 			throw new NotImplementedException();

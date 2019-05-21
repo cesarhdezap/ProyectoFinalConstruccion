@@ -19,17 +19,37 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			throw new NotImplementedException();
 		}
 
-		public List<Asignacion> CargarIDsPorMatriculaDeAlumno(string matricula)
+        public List<Asignacion> CargarIDsPorMatricula(string matricula)
+        {
+            //TODO
+			throw new NotImplementedException();
+        }
+
+        public List<Asignacion> CargarIDsPorMatriculaDeAlumno(string matricula)
 		{
 			//TODO
 			throw new NotImplementedException();
 		}
 
-		public DataTable ConvertirAsignacionADataTable(Asignacion asignacion)
-		{
-			//TODO
+		private DataTable ConvertirAsignacionADataTable(Asignacion asignación)
+        {
+            //TODO
 			throw new NotImplementedException();
-		}
+        }
+
+        private Asignacion ConvertirDataTableAAsignacion(DataTable tablaAsignaciones)
+        {
+            
+            //TODO
+			throw new NotImplementedException();
+        }
+
+        private List<Asignacion> ConvertirDataTableAListaDeAsignaciones(DataTable tablaAsignaciones)
+        {
+            
+            //TODO
+			throw new NotImplementedException();
+        }
 
 		public int GuardarAsignacion(Asignacion asignacion)
 		{

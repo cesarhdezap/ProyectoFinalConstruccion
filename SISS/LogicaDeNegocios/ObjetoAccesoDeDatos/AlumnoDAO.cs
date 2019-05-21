@@ -132,6 +132,5 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			throw new NotImplementedException();
 		}
 
-
     }
 }

@@ -16,8 +16,6 @@ namespace LogicaDeNegocios.Interfaces
         ReporteMensual ConvertirDataTableAReporteMensual (DataTable TablaDeReportesMensuales);
         DataTable ConvertirReporteMensualADataTable (ReporteMensual reporteMensual); 
         int GuardarReporteMensual(ReporteMensual reporteMensual);
-        
-		
-		
+
 	}
 }
