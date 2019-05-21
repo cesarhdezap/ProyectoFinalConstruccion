@@ -11,57 +11,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
 	public class AlumnoDAO : IAlumnoDAO
 	{
-		public void GuardarAlumno(Alumno alumno)
+		
+        public void ActualizarAlumnoPorMatricula(string matricula, Alumno alumno)
 		{
 			//TODO
 			throw new NotImplementedException();
 		}
 
-		public List<Alumno> CargarAlumnosTodos()
-		{
-			DataTable TablaDeAlumnos = new DataTable();
-			try
-			{
-				TablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumno");
-			}
-			catch (SqlException ExcepcionSQL)
-			{
-				Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
-			}
-
-			AsignacionDAO asignacionDAO = new AsignacionDAO();
-			List<Alumno> ListaAlumnos = new List<Alumno>();
-
-			ListaAlumnos = ConvertirDataTableAListaDeAlumnos(TablaDeAlumnos);
-
-			return ListaAlumnos;
-		}
-
-		public Alumno CargarAlumnoPorMatricula(string matricula)
-		{
-            DataTable TablaDeAlumnos = new DataTable();
-			SqlParameter[] parametroMatricula = new SqlParameter[1];
-			parametroMatricula[0] = new SqlParameter();
-			parametroMatricula[0].ParameterName = "@matricula";
-			parametroMatricula[0].Value = matricula;
-
-			try
-            {
-                TablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE matricula = @matricula", parametroMatricula);
-            }
-			catch (SqlException ExcepcionSQL)
-            {
-                Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
-            }
-
-			AsignacionDAO asignacionDAO = new AsignacionDAO();
-
-			Alumno alumno = ConvertirDataTableAAlumno(TablaDeAlumnos);
-
-            return alumno;
-		}
-
-		public List<Alumno> CargarAlumnosPorEstado(EstadoAlumno estadoAlumno)
+        public List<Alumno> CargarAlumnosPorEstado(EstadoAlumno estadoAlumno)
 		{
 			DataTable TablaDeAlumnos = new DataTable();
 			SqlParameter[] parametroEstadoAlumno = new SqlParameter[1];
@@ -86,19 +43,57 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return alumnos;
         }
 
-		public void ActualizarAlumnoPorMatricula(string matricula, Alumno alumno)
+        public Alumno CargarAlumnoPorMatricula(string matricula)
+		{
+            DataTable TablaDeAlumnos = new DataTable();
+			SqlParameter[] parametroMatricula = new SqlParameter[1];
+			parametroMatricula[0] = new SqlParameter();
+			parametroMatricula[0].ParameterName = "@matricula";
+			parametroMatricula[0].Value = matricula;
+
+			try
+            {
+                TablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE matricula = @matricula", parametroMatricula);
+            }
+			catch (SqlException ExcepcionSQL)
+            {
+                Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
+            }
+
+			AsignacionDAO asignacionDAO = new AsignacionDAO();
+
+			Alumno alumno = ConvertirDataTableAAlumno(TablaDeAlumnos);
+
+            return alumno;
+		}
+
+        public List<Alumno> CargarAlumnosTodos()
+		{
+			DataTable TablaDeAlumnos = new DataTable();
+			try
+			{
+				TablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumno");
+			}
+			catch (SqlException ExcepcionSQL)
+			{
+				Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
+			}
+
+			AsignacionDAO asignacionDAO = new AsignacionDAO();
+			List<Alumno> ListaAlumnos = new List<Alumno>();
+
+			ListaAlumnos = ConvertirDataTableAListaDeAlumnos(TablaDeAlumnos);
+
+			return ListaAlumnos;
+		}
+
+        private DataTable ConvertirAlumnoADataTable(Alumno alumno)
 		{
 			//TODO
 			throw new NotImplementedException();
 		}
 
-		private DataTable ConvertirAlumnoADataTable(Alumno alumno)
-		{
-			//TODO
-			throw new NotImplementedException();
-		}
-
-		private Alumno ConvertirDataTableAAlumno(DataTable DataTableAlumnos)
+        private Alumno ConvertirDataTableAAlumno(DataTable DataTableAlumnos)
 		{
 			AsignacionDAO asignacionDAO = new AsignacionDAO();
             Alumno alumno = new Alumno();
@@ -131,12 +126,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			return listaDeAlumnos;
 		}
 
-        public List<Alumno> CargarAlumnosPorCorreo(string correo)
-        {
+        public void GuardarAlumno(Alumno alumno)
+		{
 			//TODO
 			throw new NotImplementedException();
 		}
-
 
     }
 }
