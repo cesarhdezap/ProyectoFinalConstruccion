@@ -12,6 +12,7 @@ namespace LogicaDeNegocios.Interfaces
         DataTable ConvertirAsignacionADataTable(Asignacion asignacion);
         Asignacion ConvertirDataTableAAsignacion(DataTable dataTable);
         List<Asignacion> ConvertirDataTableAListaDeAsignaciones(DataTable dataTable);
+        DataTable  ConvertirDocumentoDeEntregaUnicaADataTable(DocumentoDeEntregaUnica documentoDeEntregaUnica);
         int GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica);	
 	}
 }
