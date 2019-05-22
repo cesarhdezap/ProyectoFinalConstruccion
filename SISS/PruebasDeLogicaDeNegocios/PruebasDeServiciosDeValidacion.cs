@@ -2,8 +2,8 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static LogicaDeNegocios.Services.ServiciosDeValidacion;
-using LogicaDeNegocios.Services;
+using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
+using LogicaDeNegocios.Servicios;
 
 namespace PruebasDeLogicaDeNegocios
 {
