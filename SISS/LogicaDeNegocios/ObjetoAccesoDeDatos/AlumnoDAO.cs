@@ -35,7 +35,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
             }
 
-			AsignacionDAO asignacionDAO = new AsignacionDAO();
 			List<Alumno> alumnos = new List<Alumno>();
 
 			alumnos = ConvertirDataTableAListaDeAlumnos(TablaDeAlumnos);
@@ -60,8 +59,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
             }
 
-			AsignacionDAO asignacionDAO = new AsignacionDAO();
-
 			Alumno alumno = ConvertirDataTableAAlumno(TablaDeAlumnos);
 
             return alumno;
@@ -69,23 +66,27 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
         public List<Alumno> CargarAlumnosTodos()
 		{
-			DataTable TablaDeAlumnos = new DataTable();
+			DataTable tablaDeAlumnos = new DataTable();
 			try
 			{
-				TablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumno");
+				tablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumno");
 			}
 			catch (SqlException ExcepcionSQL)
 			{
 				Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
 			}
+			List<Alumno> listaAlumnos = new List<Alumno>();
 
-			AsignacionDAO asignacionDAO = new AsignacionDAO();
-			List<Alumno> ListaAlumnos = new List<Alumno>();
+			listaAlumnos = ConvertirDataTableAListaDeAlumnos(tablaDeAlumnos);
 
-			ListaAlumnos = ConvertirDataTableAListaDeAlumnos(TablaDeAlumnos);
-
-			return ListaAlumnos;
+			return listaAlumnos;
 		}
+
+        public Alumno CargarMatriculaPorIDAsignacion(int IDAsignacion)
+        {
+            //TODO
+            throw new NotImplementedException();    
+        }
 
         private DataTable ConvertirAlumnoADataTable(Alumno alumno)
 		{
@@ -93,26 +94,26 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			throw new NotImplementedException();
 		}
 
-        private Alumno ConvertirDataTableAAlumno(DataTable DataTableAlumnos)
+        private Alumno ConvertirDataTableAAlumno(DataTable tablaDeAlumno)
 		{
-			AsignacionDAO asignacionDAO = new AsignacionDAO();
-            Alumno alumno = new Alumno();
-            DataRow filaAlumno;
-			if (DataTableAlumnos.Rows.Count > 0)
-            {
-                filaAlumno = DataTableAlumnos.Rows[0];
-                alumno.Matricula = filaAlumno.ItemArray[0].ToString();
-                alumno.Nombre = filaAlumno.ItemArray[1].ToString();
-                alumno.Carrera = filaAlumno.ItemArray[2].ToString();
-                //TODO Campos adicionales
-            }
+            AsignacionDAO asignacionDAO = new AsignacionDAO();
+            Alumno alumno = (Alumno)(from DataRow fila in tablaDeAlumno.Rows
+                             select new Alumno()
+                             {
+                                 Matricula = fila["matricula"].ToString(),
+                                 Carrera = fila["carrera"].ToString(),
+                                 Contraseña = fila["contraseña"].ToString(),
+                                 EstadoAlumno = (EstadoAlumno)fila["estadoAlumno"],
+                                 Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["matricula"].ToString())
+                             }
+                           );
             return alumno;
-		}
+        }
 
-		private List<Alumno> ConvertirDataTableAListaDeAlumnos(DataTable DataTableAlumnos)
+		private List<Alumno> ConvertirDataTableAListaDeAlumnos(DataTable tablaDeAlumnos)
 		{
 			AsignacionDAO asignacionDAO = new AsignacionDAO();
-			List<Alumno> listaDeAlumnos = (from DataRow fila in DataTableAlumnos.Rows
+			List<Alumno> listaDeAlumnos = (from DataRow fila in tablaDeAlumnos.Rows
                              select new Alumno()
                              {
                                  Matricula = fila["matricula"].ToString(),
@@ -128,9 +129,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
         public void GuardarAlumno(Alumno alumno)
 		{
-			//TODO
-			throw new NotImplementedException();
+			
 		}
-
     }
 }

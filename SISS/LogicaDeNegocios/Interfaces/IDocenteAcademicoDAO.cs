@@ -9,9 +9,6 @@ namespace LogicaDeNegocios.Interfaces
         DocenteAcademico CargarDocenteAcademicoPorIDPersonal(int IDpersonal);
         List<DocenteAcademico> CargarDocentesAcademicosPorEstado(bool isActivo);
 		List<DocenteAcademico> CargarDocentesAcademicosPorRol(Rol rol);
-        DocenteAcademico ConvertirDataTableADocenteAcademico(DataTable dataTable);
-        List<DocenteAcademico> ConvertirDataTableAListaDeDocentesAcademicos(DataTable dataTable);
-        DataTable ConvertirDocenteAcademicoADataTable(DocenteAcademico docenteAcademico);
         void GuardarDocenteAcademico(DocenteAcademico docenteAcademico);
 	}
 }

@@ -9,10 +9,6 @@ namespace LogicaDeNegocios.Interfaces
         DocumentoDeEntregaUnica CargarDocumentoDeEntregaUnicaPorID(int IDdocumentoDeEntregaUnica);
         List<DocumentoDeEntregaUnica> CargarIDsPorIDAsignacion(int IDAsignacion);
 		List<DocumentoDeEntregaUnica> CargarIDsPorMatriculaAlumno(string matricula);
-        DataTable ConvertirAsignacionADataTable(Asignacion asignacion);
-        Asignacion ConvertirDataTableAAsignacion(DataTable dataTable);
-        List<Asignacion> ConvertirDataTableAListaDeAsignaciones(DataTable dataTable);
-        DataTable  ConvertirDocumentoDeEntregaUnicaADataTable(DocumentoDeEntregaUnica documentoDeEntregaUnica);
         int GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica);	
 	}
 }

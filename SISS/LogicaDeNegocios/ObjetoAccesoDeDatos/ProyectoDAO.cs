@@ -32,6 +32,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			throw new NotImplementedException();
 		}
 
+        public Proyecto CargarIDProyectoPorIDAsignacion(int IDAsignacion)
+        {
+            //TODO
+            throw new NotImplementedException();
+        }
         private List<Proyecto> ConvertirDataTableAListaDeProyectos (DataTable dataTable){
 			//TODO
 			throw new NotImplementedException();
@@ -52,6 +57,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			throw new NotImplementedException();
 		}
 
+        public List<Proyecto> CargarIDsPorIDEncargado(int IDEncargado)
+        {
+            //TODO
+            throw new NotImplementedException();
+        }
 
 	}
 }

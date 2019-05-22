@@ -17,7 +17,6 @@ namespace AccesoABaseDeDatos
 			using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
 			{
 				SqlCommand comando = new SqlCommand(consulta, conexion);
-
 				if (parametros != null)
 				{
 					comando.Parameters.AddRange(parametros);
