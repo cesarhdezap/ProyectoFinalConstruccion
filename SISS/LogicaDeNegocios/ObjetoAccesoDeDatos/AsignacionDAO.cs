@@ -1,7 +1,10 @@
-﻿using System;
+﻿using AccesoABaseDeDatos;
+using LogicaDeNegocios.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Data;
-
+using System.Data.SqlClient;
+using System.Linq;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -15,40 +18,99 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 		public Asignacion CargarAsignacionPorID(int IDasignacion)
 		{
-			//TODO
-			throw new NotImplementedException();
+            DataTable tablaDeAsignacion = new DataTable();
+            SqlParameter[] parametros = new SqlParameter[1];
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@IDasignacion";
+            parametros[0].Value = IDasignacion;
+            try
+            {
+                tablaDeAsignacion = AccesoADatos.EjecutarSelect("SELECT * FROM Asignaciones WHERE IDAsignacion = @IDasignacion", parametros);
+            } catch (SqlException ExcepcionSQL)
+            {
+                Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
+            }
+
+            Asignacion asignacion = new Asignacion();
+
+            asignacion = ConvertirDataTableAAsignacion(tablaDeAsignacion);
+
+            return asignacion;
+
 		}
-
-        public List<Asignacion> CargarIDsPorMatricula(string matricula)
-        {
-            //TODO
-			throw new NotImplementedException();
-        }
-
         public List<Asignacion> CargarIDsPorMatriculaDeAlumno(string matricula)
 		{
-			//TODO
-			throw new NotImplementedException();
-		}
+            DataTable tablaDeAsignaciones = new DataTable();
+            SqlParameter[] parametros = new SqlParameter[1];
+            parametros[0] = new SqlParameter();
+            parametros[0].ParameterName = "@matricula";
+            parametros[0].Value = matricula;
+            try
+            {
+                tablaDeAsignaciones = AccesoADatos.EjecutarSelect("SELECT IDAsignacion FROM Alumnos WHERE Matricula = @Matricula", parametros);
+            }
+            catch (SqlException ExcepcionSQL)
+            {
+                Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
+            }
+
+            List<Asignacion> asignaciones = new List<Asignacion>();
+
+            asignaciones = ConvertirDataTableAListaDeAsignaciones(tablaDeAsignaciones);
+
+            return asignaciones;
+        }
 
 		private DataTable ConvertirAsignacionADataTable(Asignacion asignación)
         {
             //TODO
-			throw new NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        private Asignacion ConvertirDataTableAAsignacion(DataTable tablaAsignaciones)
+        private Asignacion ConvertirDataTableAAsignacion(DataTable DataTableAsignaciones)
         {
-            
-            //TODO
-			throw new NotImplementedException();
+            AlumnoDAO alumnoDAO = new AlumnoDAO();
+            ProyectoDAO proyectoDAO = new ProyectoDAO();
+            ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
+            DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
+            Asignacion asignacion = (Asignacion)(from DataRow fila in DataTableAsignaciones.Rows
+                                                 select new Asignacion()
+                                                 {
+                                                     IDAsignacion = (int)fila["IDAsignacion"],
+                                                     EstadoAsignacion = (EstadoAsignacion)fila["estadoAsignacion"],
+                                                     FechaDeInicio = (DateTime)fila["fechaDeInicio"],
+                                                     FechaDeFinal = (DateTime)fila["fechaDeFinal"],
+                                                     Alumno = alumnoDAO.CargarMatriculaPorIDAsignacion((int)fila["IDAsignacion"]),
+                                                     Proyecto = proyectoDAO.CargarIDProyectoPorIDAsignacion((int)fila["IDAsignacion"]),
+                                                     DocumentosDeEntregaUnica = documentoDeEntregaUnicaDAO.CargarIDsPorIDAsignacion((int)fila["IDAsignacion"]),
+                                                     ReportesMensuales = reporteMensualDAO.CargarIDsPorIDAsignacion((int)fila["IDAsignacion"]),
+                                                     //TODO Logica para cargar liberacion y solicitud si es que existe
+                                                 }
+                             );
+            return asignacion;
         }
 
-        private List<Asignacion> ConvertirDataTableAListaDeAsignaciones(DataTable tablaAsignaciones)
+        private List<Asignacion> ConvertirDataTableAListaDeAsignaciones(DataTable dataTableAsignaciones)
         {
-            
-            //TODO
-			throw new NotImplementedException();
+            AlumnoDAO alumnoDAO = new AlumnoDAO();
+            ProyectoDAO proyectoDAO = new ProyectoDAO();
+            ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
+            DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
+            List<Asignacion> listaDeAsignaciones = (from DataRow fila in dataTableAsignaciones.Rows
+                                                         select new Asignacion()
+                                                         {
+                                                             IDAsignacion = (int)fila["IDAsignacion"],
+                                                             EstadoAsignacion = (EstadoAsignacion)fila["estadoAsignacion"],
+                                                             FechaDeInicio = (DateTime)fila["fechaDeInicio"],
+                                                             FechaDeFinal = (DateTime)fila["fechaDeFinal"],
+                                                             Alumno = alumnoDAO.CargarMatriculaPorIDAsignacion((int)fila["IDAsignacion"]),
+                                                             Proyecto = proyectoDAO.CargarIDProyectoPorIDAsignacion((int)fila["IDAsignacion"]),
+                                                             DocumentosDeEntregaUnica = documentoDeEntregaUnicaDAO.CargarIDsPorIDAsignacion((int)fila["IDAsignacion"]),
+                                                             ReportesMensuales = reporteMensualDAO.CargarIDsPorIDAsignacion((int)fila["IDAsignacion"]),
+                                                             //TODO Logica para cargar liberacion y solicitud si es que existe
+                                                         }
+                             ).ToList();
+            return listaDeAsignaciones;
         }
 
 		public int GuardarAsignacion(Asignacion asignacion)
@@ -56,5 +118,5 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			//TODO
 			throw new NotImplementedException();
 		}
-	}
+    }
 }
