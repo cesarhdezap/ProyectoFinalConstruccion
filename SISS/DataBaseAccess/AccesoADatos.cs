@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-
+using System.IO;
 
 namespace AccesoABaseDeDatos
 {
@@ -14,38 +15,40 @@ namespace AccesoABaseDeDatos
 
 		public static DataTable EjecutarSelect(String consulta, SqlParameter[] parametros = null)
 		{
-			using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
-			{
-				SqlCommand comando = new SqlCommand(consulta, conexion);
-				if (parametros != null)
-				{
-					comando.Parameters.AddRange(parametros);
-				}
-				
-				SqlDataAdapter dataAdapter = new SqlDataAdapter(comando);
-				DataTable dataTable = new DataTable();
+            using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
+            {
+                SqlCommand comando = new SqlCommand(consulta, conexion);
 
-				try
-				{
-					conexion.Open();
-					comando.ExecuteNonQuery();
-					DataSet dataSet = new DataSet();
-					dataAdapter.Fill(dataSet);
-					dataTable = dataSet.Tables[PRIMERA_POSICION_EN_DATATABLE];
-				}
-				catch (SqlException SqlException)
-				{
-					//TODO
-					Console.Write("Error - Coneccion.ejecutarConsultaSeleccionada - Consulta: " + consulta + " \nExcepcion: " + SqlException.StackTrace.ToString());
-				}		
-				finally
-				{
-					CerrarConexion(conexion);
-				}
+                if (parametros != null)
+                {
+                    comando.Parameters.AddRange(parametros);
+                }
 
-				return dataTable;
-			}
-		}
+                SqlDataAdapter dataAdapter = new SqlDataAdapter(comando);
+                DataTable dataTable = new DataTable();
+
+                try
+                {
+                    conexion.Open();
+                    comando.ExecuteNonQuery();
+                    dataAdapter.Fill(dataTable);
+                }
+                catch (SqlException SqlException)
+                {
+                    Console.WriteLine("Error - Coneccion.ejecutarConsultaSeleccionada - Consulta: {0} \nExcepcion: {1}", consulta, SqlException.StackTrace.ToString());
+                }
+                catch(IOException e)
+                {
+                    throw new IOException("Error al intentar conectarse a la base de datos " + e.StackTrace);
+                }
+                finally
+                {
+                    CerrarConexion(conexion);
+                }
+                
+                return dataTable;
+            }
+        }
 
 		public static void CerrarConexion(SqlConnection conexion)
 		{
@@ -69,7 +72,7 @@ namespace AccesoABaseDeDatos
                 {
                     comando.Parameters.AddRange(parametros);
                 }
-                Console.WriteLine("\n*\n*\n*\n* " + CadenaDeConexion);
+
                 int numeroDeFilasAfectadas = VALOR_DE_ERROR_POR_DEFECTO;
 				try
 				{
@@ -78,9 +81,8 @@ namespace AccesoABaseDeDatos
 				}
 				catch (SqlException sqlException)
 				{
-					//TODO
-					Console.Write("Error - Coneccion.ejecutarConsultaSeleccionada - Consulta: " + consulta + " \nExcepcion: " + sqlException.StackTrace.ToString());
-					throw sqlException;
+                    //TODO
+                    Console.WriteLine("Error. Coneccion.ejecutarConsultaSeleccionada - Consulta: {0}\nExcepcion: {1}", consulta, sqlException.StackTrace.ToString());
 				}
 				finally
 				{
