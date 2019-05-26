@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 
 namespace LogicaDeNegocios.Interfaces
 {
 	interface IProyectoDAO
 	{
-        int GuardarProyecto(Proyecto proyecto);
-		List<Proyecto> CargarProyectosTodos();
+        void ActualizarProyectoPorID(int IDproyecto, Proyecto proyecto);
+        List<Proyecto> CargarIDsPorIDEncargado(int IDencargado);
         Proyecto CargarProyectoPorID(int IDproyecto);
-		List<Proyecto> CargarIDsPorIDEncargado(int IDencargado);
-		void ActualizarProyectoPorID(int IDproyecto, Proyecto proyecto);
+        List<Proyecto> CargarProyectosPorEstado(EstadoProyecto estado);
+        List<Proyecto> CargarProyectosTodos();
+        int GuardarProyecto(Proyecto proyecto);
 	}
 }

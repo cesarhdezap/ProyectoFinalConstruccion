@@ -1,26 +1,40 @@
 ﻿using System;
 using System.Data;
+using System.Collections.Generic;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
 	class SolicitudDAO : Interfaces.ISolicitudDAO
 	{
-		public Solicitud CargarSolicitudPorIDAsignacion(int IDasignacion)
+		public Solicitud CargarSolicitudPorID(int IDSolicitud)
 		{
 			//TODO
 			throw new NotImplementedException();
 		}
-
-		public int GuardarSolicitud(Solicitud solicitud)
+        
+        private List<Solicitud> ConvertirDataTableAListaDeSolicitudes(DataTable dataTable)
 		{
 			//TODO
 			throw new NotImplementedException();
 		}
-
-		public DataTable SolicitudADataTable(Solicitud solicitud)
+        
+        private Solicitud ConvertirDataTableASolicutud(DataTable dataTable)
 		{
 			//TODO
 			throw new NotImplementedException();
 		}
+        
+        private DataTable ConvertirSolicitudADataTable (Solicitud Solicitud)
+		{
+			//TODO
+			throw new NotImplementedException();
+		}
+        
+        int GuardarSolicitud(Solicitud solicitud)
+		{
+			//TODO
+			throw new NotImplementedException();
+		}
+        
 	}
 }
