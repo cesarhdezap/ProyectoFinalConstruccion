@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using LogicaDeNegocios.Interfaces;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -46,5 +48,20 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             //TODO
 			throw new NotImplementedException();
         }
-	}
+
+        List<Organizacion> IOrganizacionDAO.ConvertirDataTableAListaDeOrganizaciones(DataTable tablaOrganizacion)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        Organizacion IOrganizacionDAO.ConvertirDataTableAOrganizacion(DataTable tablaOrganizacion)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        DataTable IOrganizacionDAO.ConvertirOrganizacionADataTable(Organizacion organizacion)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

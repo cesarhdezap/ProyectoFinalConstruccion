@@ -61,7 +61,7 @@ namespace PruebasDeLogicaDeNegocios.PruebasDAO
         #endregion
 
         [DataTestMethod]
-        [DataRow("s17017091")]
+        [DataRow("s17012947")]
         public void PruebaCargarAlumnoPorMatricula_MatriculaCorrecta_RegresaAlumno(string matricula)
         {
             Alumno alumnoActual;
@@ -72,6 +72,29 @@ namespace PruebasDeLogicaDeNegocios.PruebasDAO
             matriculaActual = alumnoActual.Matricula;
 
             Assert.AreEqual(matricula, matriculaActual);
+        }
+
+        [TestMethod]
+        public void ProbarGuardarAlumno()
+        {
+            Alumno alumnoDePrueba = new Alumno();
+            alumnoDePrueba.Nombre = "Cesar Andres Alarcon Anteo";
+            alumnoDePrueba.CorreoElectronico = "Welock099@Gmail.com";
+            alumnoDePrueba.Telefono = "2281346756";
+            alumnoDePrueba.Matricula = "z16012931";
+            alumnoDePrueba.Carrera = "Ingenieria de Software";
+            alumnoDePrueba.Contraseña = "Contraseña122333";
+            alumnoDePrueba.EstadoAlumno = EstadoAlumno.EnEspera;
+
+            AlumnoDAO alumnoDAO = new AlumnoDAO();
+            try
+            {
+                alumnoDAO.GuardarAlumno(alumnoDePrueba);
+            }
+            catch
+            {
+                Assert.Fail("Se detecto una excepcion");
+            }
         }
     }
 }

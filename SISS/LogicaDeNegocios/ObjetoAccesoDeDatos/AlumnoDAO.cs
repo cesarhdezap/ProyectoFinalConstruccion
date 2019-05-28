@@ -128,8 +128,34 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		}
 
         public void GuardarAlumno(Alumno alumno)
-		{
-			
-		}
+        {
+            SqlParameter[] parametros = new SqlParameter[7];
+
+            for (int i = 0; i < 7; i++)
+            {
+                parametros[i] = new SqlParameter();
+            }
+
+            parametros[0].ParameterName = "@NombreAlumno";
+            parametros[0].Value = alumno.Nombre;
+            parametros[1].ParameterName = "@CorreoElectronicoAlumno";
+            parametros[1].Value = alumno.CorreoElectronico;
+            parametros[2].ParameterName = "@TelefonoAlumno";
+            parametros[2].Value = alumno.Telefono;
+            parametros[3].ParameterName = "@MatriculaAlumno";
+            parametros[3].Value = alumno.Matricula;
+            parametros[4].ParameterName = "@CarreraAlumno";
+            parametros[4].Value = alumno.Carrera;
+            parametros[5].ParameterName = "@ContraseñaAlumno";
+            parametros[5].Value = alumno.Contraseña;
+            parametros[6].ParameterName = "@EstadoAlumno";
+            parametros[6].Value = alumno.EstadoAlumno.ToString();
+            int filas = 0;
+            filas = AccesoADatos.EjecutarInsertInto("INSERT INTO Alumnos(Nombre, CorreoElectronico, Telefono, Matricula, Carrera, Contraseña, Estado) VALUES(@NombreAlumno, @CorreoAlumno, @TelefonoAlumno, @MatriculaAlumno, @CarreraAlumno, @ContraseñaAlumno, @EstadoAlumno)", parametros);
+            if (filas >0)
+            {
+                throw new Exception("Guardar Alumno correcto");
+            }
+        }
     }
 }

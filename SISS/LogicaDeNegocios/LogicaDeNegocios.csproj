@@ -56,7 +56,7 @@
     <Compile Include="Interfaces\IDocumentoDeEntregaUnicaDAO.cs" />
     <Compile Include="Interfaces\IEncargadoDAO.cs" />
     <Compile Include="Interfaces\ILiberacionDAO.cs" />
-    <Compile Include="Interfaces\IOrganizacioDAO.cs" />
+    <Compile Include="Interfaces\IOrganizacionDAO.cs" />
     <Compile Include="Interfaces\IProyectoDAO.cs" />
     <Compile Include="Interfaces\IReporteMensualDAO.cs" />
     <Compile Include="Interfaces\ISolicitudDAO.cs" />
@@ -81,6 +81,7 @@
     <Compile Include="ClasesDominio\Proyecto.cs" />
     <Compile Include="ClasesDominio\ReporteMensual.cs" />
     <Compile Include="ClasesDominio\Solicitud.cs" />
+    <Compile Include="Servicios\ServiciosDeSesion.cs" />
     <Compile Include="Servicios\ServiciosDeAutenticacion.cs" />
     <Compile Include="Servicios\ServiciosDeValidacion.cs" />
   </ItemGroup>

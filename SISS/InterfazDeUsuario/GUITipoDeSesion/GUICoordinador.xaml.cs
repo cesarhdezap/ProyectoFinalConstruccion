@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace InterfazDeUsuario
+namespace InterfazDeUsuario.GUITipoDeSesion
 {
     /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
+    /// Lógica de interacción para GUICoordinador.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class GUICoordinador : Window
     {
-        public MainWindow()
+        public GUICoordinador()
         {
             InitializeComponent();
         }
