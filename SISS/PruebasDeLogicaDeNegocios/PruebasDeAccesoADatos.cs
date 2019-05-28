@@ -74,6 +74,13 @@ namespace PruebasDeLogicaDeNegocios
         }
 
         [DataTestMethod]
+        [DataRow("z16012931", "Cesar Andres Alarcon Anteo")]
+        public void ProbarEjecutarInsertInto_ConSqlParameter_RegresaNumeroDeFilasAfectadas(string args[])
+        {
+
+        }
+
+        [DataTestMethod]
         [DataRow("SELECT Matricula FROM Alumnos WHERE Matricula = @Matricula", "s17012947")]
         public void ProbarEjecutarSelect_AlumnoDatosCorrectos_RegresaDatatable(string consulta, string matricula)
         {

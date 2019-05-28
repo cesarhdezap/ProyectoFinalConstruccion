@@ -33,9 +33,9 @@ namespace AccesoABaseDeDatos
                     comando.ExecuteNonQuery();
                     dataAdapter.Fill(dataTable);
                 }
-                catch (SqlException SqlException)
+                catch (SqlException e)
                 {
-                    Console.WriteLine("Error - Coneccion.ejecutarConsultaSeleccionada - Consulta: {0} \nExcepcion: {1}", consulta, SqlException.StackTrace.ToString());
+                    throw e;
                 }
                 catch(IOException e)
                 {

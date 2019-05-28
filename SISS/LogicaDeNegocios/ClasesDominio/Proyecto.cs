@@ -7,6 +7,7 @@ namespace LogicaDeNegocios
 	{
 		public int IDProyecto { get; set; }
 		public string Nombre { get; set; }
+        public EstadoProyecto Estado { get; set; }
 		public string DescripcionGeneral { get; set; }
 		public string ObjetivoGeneral { get; set; }
 		public int Cupo { get; set; }
@@ -25,6 +26,11 @@ namespace LogicaDeNegocios
 			throw new NotImplementedException();
 		}
 
+        public enum EstadoProyecto
+        {
+            Activo,
+            Inactivo
+        }
 		
 	}
 }

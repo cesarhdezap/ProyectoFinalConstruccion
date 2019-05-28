@@ -3,8 +3,8 @@ using System.Data;
 
 namespace LogicaDeNegocios.Interfaces
 {
-	interface IOrganizacionDAO
-	{
+    interface IOrganizacionDAO
+    {
         void ActualizarOrganizacionPorID(int IDorganizacion, Organizacion organizacion);
         List<Organizacion> CargarOrganizacionesTodas();
         Organizacion CargarOrganizacionPorID(int IDorganizacion);
@@ -14,3 +14,4 @@ namespace LogicaDeNegocios.Interfaces
         int GuardarOrganizacion(Organizacion organizacion);
     }
 }
+
