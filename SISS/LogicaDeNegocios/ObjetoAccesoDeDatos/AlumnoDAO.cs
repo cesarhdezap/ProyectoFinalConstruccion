@@ -131,8 +131,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             SqlParameter[] parametros = new SqlParameter[7];
 
-            for (int i = 0; i < 7; i++)
-            {
+            for (int i = 0; i < 7; i++) {
                 parametros[i] = new SqlParameter();
             }
 
@@ -150,11 +149,19 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametros[5].Value = alumno.Contraseña;
             parametros[6].ParameterName = "@EstadoAlumno";
             parametros[6].Value = alumno.EstadoAlumno.ToString();
+
             int filas = 0;
-            filas = AccesoADatos.EjecutarInsertInto("INSERT INTO Alumnos(Nombre, CorreoElectronico, Telefono, Matricula, Carrera, Contraseña, Estado) VALUES(@NombreAlumno, @CorreoAlumno, @TelefonoAlumno, @MatriculaAlumno, @CarreraAlumno, @ContraseñaAlumno, @EstadoAlumno)", parametros);
-            if (filas >0)
+            try
             {
-                throw new Exception("Guardar Alumno correcto");
+                filas = AccesoADatos.EjecutarInsertInto("INSERT INTO Alumnos(Matricula, Nombre, Carrera, Estado, Telefono, CorreoElectronico, Contraseña) VALUES (@MatriculaAlumno, @NombreAlumno, @CarreraAlumno, @EstadoAlumno, @TelefonoAlumno, @CorreoElectronicoAlumno, @ContraseñaAlumno)", parametros);
+            }
+            catch (SqlException e)
+            {
+                throw new NotImplementedException("No se ha implementado excepcion personalizara, AlumnoDAO.GuardarAlumno");
+            }
+            if (filas <= 0)
+            {
+                throw new MissingFieldException("Error en AlumnoDAO.GuardarAlumno");
             }
         }
     }
