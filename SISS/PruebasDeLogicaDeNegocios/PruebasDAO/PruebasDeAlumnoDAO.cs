@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LogicaDeNegocios;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using System.Data.SqlClient;
 
 namespace PruebasDeLogicaDeNegocios.PruebasDAO
 {
@@ -82,18 +83,31 @@ namespace PruebasDeLogicaDeNegocios.PruebasDAO
             alumnoDePrueba.CorreoElectronico = "Welock099@Gmail.com";
             alumnoDePrueba.Telefono = "2281346756";
             alumnoDePrueba.Matricula = "z16012931";
-            alumnoDePrueba.Carrera = "Ingenieria de Software";
+            alumnoDePrueba.Carrera = "LIS";
             alumnoDePrueba.Contraseña = "Contraseña122333";
             alumnoDePrueba.EstadoAlumno = EstadoAlumno.EnEspera;
+            
 
             AlumnoDAO alumnoDAO = new AlumnoDAO();
             try
             {
                 alumnoDAO.GuardarAlumno(alumnoDePrueba);
             }
-            catch
+            catch (SqlException e)
             {
-                Assert.Fail("Se detecto una excepcion");
+                Assert.Fail("Se detecto una excepcion de sql Mensaje: " + e.Message + " Stacktrace: " + e.StackTrace + "\n");
+            }
+            catch (NotImplementedException e)
+            {
+                Assert.Fail("Se detecto una excepcion de asignacion Mensaje: " + e.Message + " Stacktrace: " + e.StackTrace + "\n");
+            }
+            catch (MissingFieldException e)
+            {
+                Assert.Fail("Se detecto una excepcion de campo faltante Mensaje: " + e.Message + " Stacktrace: " + e.StackTrace + "\n");
+            }
+            catch (Exception e)
+            {
+                Assert.Fail("Se detecto una excepcion externa Mensaje: " + e.Message + " Stacktrace: " + e.StackTrace + "\n");
             }
         }
     }
