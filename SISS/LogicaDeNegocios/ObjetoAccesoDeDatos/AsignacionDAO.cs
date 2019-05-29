@@ -112,8 +112,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                              ).ToList();
             return listaDeAsignaciones;
         }
-
-		public int GuardarAsignacion(Asignacion asignacion)
+        public List<Asignacion> CargarIDsPorIDProyecto(int IDProyecto)
+        {
+            //TODO
+            throw new NotImplementedException();
+        }
+        public int GuardarAsignacion(Asignacion asignacion)
 		{
 			//TODO
 			throw new NotImplementedException();

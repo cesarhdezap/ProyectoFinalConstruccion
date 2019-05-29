@@ -25,6 +25,9 @@ namespace LogicaDeNegocios
 			throw new NotImplementedException();
 		}
 
-		
+		public enum EstadoProyecto
+        {
+
+        }
 	}
 }
