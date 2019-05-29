@@ -23,9 +23,9 @@
         <TextBox x:Name="TxtContraseña" HorizontalAlignment="Left" Height="24" Margin="437,409,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20"/>
         <TextBox x:Name="TxtConfirmarContraseña" HorizontalAlignment="Left" Height="24" Margin="437,456,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20"/>
         <ComboBox x:Name="CbxCarrera" HorizontalAlignment="Left" Margin="438,227,0,0" VerticalAlignment="Top" Width="247"/>
-        <Button Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="320,524,0,0"/>
-        <Button Content="Aceptar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="583,524,0,0"/>
-        <Label Content="Matricula:" HorizontalAlignment="Left" Margin="284,141,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" Width="93"/>
+        <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" Margin="283,523,0,0" FontFamily="Arial" FontSize="20"/>
+        <Button x:Name="BtnAceptar" Content="Aceptar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" Margin="606,523,0,0" FontFamily="Arial" FontSize="20"/>
+        <Label Content="Matricula:" HorizontalAlignment="Left" Margin="284,141,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" Width="97"/>
         <TextBox x:Name="TxtMatricula" HorizontalAlignment="Left" Height="24" Margin="437,141,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20" TextChanged="TxtNombre_TextChanged"/>
     </Grid>
 </Window>
