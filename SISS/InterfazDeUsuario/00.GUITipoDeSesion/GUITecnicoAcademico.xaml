@@ -1,0 +1,16 @@
+﻿<Window x:Class="InterfazDeUsuario.GUITipoDeSesion.GUITecnicoAcademico"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InterfazDeUsuario.GUITipoDeSesion"
+        mc:Ignorable="d"
+        Title="GUITecnicoAcademico" Height="450" Width="876.5">
+    <Grid Margin="0,0,2,0">
+        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="876" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C" Margin="0,0,-10,0"/>
+        <Label Content="Sistema Informático de Servicio Social" HorizontalAlignment="Left" Margin="250,87,0,0" VerticalAlignment="Top" Height="33" Width="392" FontFamily="Arial" FontSize="22" BorderBrush="#FF1B1414"/>
+        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="626,27,0,0" Width="119"/>
+        <Label x:Name="LblNombreDeUsuario_Copy" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="750,27,-40,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
+        <Button x:Name="BtnBuscarAlumno" Content="Buscar alumno" HorizontalAlignment="Left" Margin="327,194,0,0" VerticalAlignment="Top" Width="265" Height="126" FontFamily="Arial" FontSize="36" BorderBrush="#FF171414"/>
+    </Grid>
+</Window>

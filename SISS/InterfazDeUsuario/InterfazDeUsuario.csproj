@@ -59,26 +59,75 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Alumno\GUIEscogerProyectos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Alumno\GUILoginAnonimoEsperarValidacion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Alumno\GUIRegistrarAlumno.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Director\GUIRegistrarCoordinador.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUILoginAnonimo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Alumno\GUIEscogerProyectos.xaml.cs">
+      <DependentUpon>GUIEscogerProyectos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Alumno\GUILoginAnonimoEsperarValidacion.xaml.cs">
+      <DependentUpon>GUILoginAnonimoEsperarValidacion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Alumno\GUIRegistrarAlumno.xaml.cs">
+      <DependentUpon>GUIRegistrarAlumno.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Director\GUIRegistrarCoordinador.xaml.cs">
+      <DependentUpon>GUIRegistrarCoordinador.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUILoginAnonimo.xaml.cs">
       <DependentUpon>GUILoginAnonimo.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="GUITipoDeSesion\GUICoordinador.xaml">
+    <Page Include="00.GUITipoDeSesion\GUIAlumno.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="00.GUITipoDeSesion\GUICoordinador.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="00.GUITipoDeSesion\GUIDirector.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="00.GUITipoDeSesion\GUITecnicoAcademico.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GUITipoDeSesion\GUICoordinador.xaml.cs">
+    <Compile Include="00.GUITipoDeSesion\GUIAlumno.xaml.cs">
+      <DependentUpon>GUIAlumno.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="00.GUITipoDeSesion\GUICoordinador.xaml.cs">
       <DependentUpon>GUICoordinador.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="00.GUITipoDeSesion\GUIDirector.xaml.cs">
+      <DependentUpon>GUIDirector.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="00.GUITipoDeSesion\GUITecnicoAcademico.xaml.cs">
+      <DependentUpon>GUITecnicoAcademico.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -110,6 +159,10 @@
       <Project>{555b197d-8a02-468d-93c7-ece4c20dcf55}</Project>
       <Name>LogicaDeNegocios</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Coordinador\" />
+    <Folder Include="TecnicoAcademico\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
