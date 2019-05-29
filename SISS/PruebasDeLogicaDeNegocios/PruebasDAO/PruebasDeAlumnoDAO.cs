@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LogicaDeNegocios;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using System.Data.SqlClient;
 
 namespace PruebasDeLogicaDeNegocios.PruebasDAO
 {
@@ -61,7 +62,7 @@ namespace PruebasDeLogicaDeNegocios.PruebasDAO
         #endregion
 
         [DataTestMethod]
-        [DataRow("s17017091")]
+        [DataRow("s17012947")]
         public void PruebaCargarAlumnoPorMatricula_MatriculaCorrecta_RegresaAlumno(string matricula)
         {
             Alumno alumnoActual;
@@ -72,6 +73,42 @@ namespace PruebasDeLogicaDeNegocios.PruebasDAO
             matriculaActual = alumnoActual.Matricula;
 
             Assert.AreEqual(matricula, matriculaActual);
+        }
+
+        [TestMethod]
+        public void ProbarGuardarAlumno()
+        {
+            Alumno alumnoDePrueba = new Alumno();
+            alumnoDePrueba.Nombre = "Cesar Andres Alarcon Anteo";
+            alumnoDePrueba.CorreoElectronico = "Welock099@Gmail.com";
+            alumnoDePrueba.Telefono = "2281346756";
+            alumnoDePrueba.Matricula = "z16012931";
+            alumnoDePrueba.Carrera = "LIS";
+            alumnoDePrueba.Contraseña = "Contraseña122333";
+            alumnoDePrueba.EstadoAlumno = EstadoAlumno.EnEspera;
+            
+
+            AlumnoDAO alumnoDAO = new AlumnoDAO();
+            try
+            {
+                alumnoDAO.GuardarAlumno(alumnoDePrueba);
+            }
+            catch (SqlException e)
+            {
+                Assert.Fail("Se detecto una excepcion de sql Mensaje: " + e.Message + " Stacktrace: " + e.StackTrace + "\n");
+            }
+            catch (NotImplementedException e)
+            {
+                Assert.Fail("Se detecto una excepcion de asignacion Mensaje: " + e.Message + " Stacktrace: " + e.StackTrace + "\n");
+            }
+            catch (MissingFieldException e)
+            {
+                Assert.Fail("Se detecto una excepcion de campo faltante Mensaje: " + e.Message + " Stacktrace: " + e.StackTrace + "\n");
+            }
+            catch (Exception e)
+            {
+                Assert.Fail("Se detecto una excepcion externa Mensaje: " + e.Message + " Stacktrace: " + e.StackTrace + "\n");
+            }
         }
     }
 }

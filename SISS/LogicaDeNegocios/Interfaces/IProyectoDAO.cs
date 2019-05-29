@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using static LogicaDeNegocios.Proyecto;
 using System.Data;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using static LogicaDeNegocios.Proyecto;
 
 namespace LogicaDeNegocios.Interfaces
 {
