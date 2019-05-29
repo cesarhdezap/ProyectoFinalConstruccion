@@ -71,6 +71,30 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Coordinador\GUIBuscarProyecto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Coordinador\GUIRegistrarEncargado.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Coordinador\GUIRegistrarOrganizacion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Coordinador\GUIRegistrarProyecto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Coordinador\GUIRegistrarTecnicoAcademico.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Coordinador\GUIValidarAlumno.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Director\GUIRegistrarCoordinador.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -91,6 +115,24 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Coordinador\GUIBuscarProyecto.xaml.cs">
+      <DependentUpon>GUIBuscarProyecto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Coordinador\GUIRegistrarEncargado.xaml.cs">
+      <DependentUpon>GUIRegistrarEncargado.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Coordinador\GUIRegistrarOrganizacion.xaml.cs">
+      <DependentUpon>GUIRegistrarOrganizacion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Coordinador\GUIRegistrarProyecto.xaml.cs">
+      <DependentUpon>GUIRegistrarProyecto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Coordinador\GUIRegistrarTecnicoAcademico.xaml.cs">
+      <DependentUpon>GUIRegistrarTecnicoAcademico.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Coordinador\GUIValidarAlumno.xaml.cs">
+      <DependentUpon>GUIValidarAlumno.xaml</DependentUpon>
     </Compile>
     <Compile Include="Director\GUIRegistrarCoordinador.xaml.cs">
       <DependentUpon>GUIRegistrarCoordinador.xaml</DependentUpon>
@@ -161,7 +203,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Coordinador\" />
     <Folder Include="TecnicoAcademico\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

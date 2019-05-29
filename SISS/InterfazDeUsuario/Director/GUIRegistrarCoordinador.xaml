@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="GUIRegistrarCoordinador" Height="621" Width="881">
     <Grid Margin="0,0,2,1">
-        <Label Content="Registrar coordinador" HorizontalAlignment="Left" Margin="349,84,0,0" VerticalAlignment="Top" Height="38" Width="241" FontFamily="Arial" FontSize="24" BorderBrush="#FF1B1414"/>
+        <Label Content="Registrar coordinador" HorizontalAlignment="Left" Margin="352,69,0,0" VerticalAlignment="Top" Height="38" Width="241" FontFamily="Arial" FontSize="24" BorderBrush="#FF1B1414"/>
         <Label Content="Teléfono:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="284,364,0,0" RenderTransformOrigin="2.5,4.269" FontFamily="Arial" FontSize="20"/>
         <Label Content="Confirmar correo electrónico:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="112,316,0,0" FontFamily="Arial" FontSize="20"/>
         <Label Content="Correo electrónico:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="196,272,0,0" FontFamily="Arial" FontSize="20"/>
