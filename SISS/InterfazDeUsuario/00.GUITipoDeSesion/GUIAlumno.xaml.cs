@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace InterfazDeUsuario.GUITipoDeSesion
 {
     /// <summary>
-    /// Lógica de interacción para GUICoordinador.xaml
+    /// Interaction logic for GUIAlumno.xaml
     /// </summary>
-    public partial class GUICoordinador : Window
+    public partial class GUIAlumno : Window
     {
-        public GUICoordinador()
+        public GUIAlumno()
         {
             InitializeComponent();
         }
