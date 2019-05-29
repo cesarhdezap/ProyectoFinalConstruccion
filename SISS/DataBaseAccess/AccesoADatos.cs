@@ -33,10 +33,6 @@ namespace AccesoABaseDeDatos
                     comando.ExecuteNonQuery();
                     dataAdapter.Fill(dataTable);
                 }
-                catch (SqlException SqlException)
-                {
-                    Console.WriteLine("Error - Coneccion.ejecutarConsultaSeleccionada - Consulta: {0} \nExcepcion: {1}", consulta, SqlException.StackTrace.ToString());
-                }
                 catch(IOException e)
                 {
                     throw new IOException("Error al intentar conectarse a la base de datos " + e.StackTrace);
@@ -78,11 +74,6 @@ namespace AccesoABaseDeDatos
 				{
 					conexion.Open();
 					numeroDeFilasAfectadas = comando.ExecuteNonQuery();
-				}
-				catch (SqlException sqlException)
-				{
-                    //TODO
-                    Console.WriteLine("Error. Coneccion.ejecutarConsultaSeleccionada - Consulta: {0}\nExcepcion: {1}", consulta, sqlException.StackTrace.ToString());
 				}
 				finally
 				{

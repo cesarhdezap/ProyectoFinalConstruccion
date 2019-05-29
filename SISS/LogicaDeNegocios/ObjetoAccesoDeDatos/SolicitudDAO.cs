@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Collections.Generic;
+using LogicaDeNegocios.Interfaces;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -35,6 +36,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			//TODO
 			throw new NotImplementedException();
 		}
-        
-	}
+
+        int ISolicitudDAO.GuardarSolicitud(Solicitud solicitud)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

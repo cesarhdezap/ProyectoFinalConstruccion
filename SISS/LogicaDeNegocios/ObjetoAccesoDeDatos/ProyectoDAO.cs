@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using LogicaDeNegocios.Interfaces;
+using static LogicaDeNegocios.Proyecto;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -12,7 +14,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			throw new NotImplementedException();
 		}
 
-        List<Proyecto> CargarIDsPorIDEncargado(int IDencargado){
+        public List<Proyecto> CargarIDsPorIDEncargado(int IDencargado){
 			//TODO
 			throw new NotImplementedException();
 		}
@@ -57,11 +59,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			throw new NotImplementedException();
 		}
 
-        public List<Proyecto> CargarIDsPorIDEncargado(int IDEncargado)
+        List<Proyecto> IProyectoDAO.CargarIDsPorIDEncargado(int IDencargado)
         {
-            //TODO
             throw new NotImplementedException();
         }
-
-	}
+    }
 }
