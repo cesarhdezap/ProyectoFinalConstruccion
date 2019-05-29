@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
+using static LogicaDeNegocios.Proyecto;
 
 namespace LogicaDeNegocios.Interfaces
 {
@@ -10,9 +11,6 @@ namespace LogicaDeNegocios.Interfaces
         Proyecto CargarProyectoPorID(int IDproyecto);
         List<Proyecto> CargarProyectosPorEstado(EstadoProyecto estado);
         List<Proyecto> CargarProyectosTodos();
-        List<Proyecto> ConvertirDataTableAListaDeProyectos (DataTable dataTable);
-        Proyecto ConvertirDataTableAProyecto (DataTable dataTable);
-        DataTable ConvertirProyectoADataTable (Proyecto proyecto);
         int GuardarProyecto(Proyecto proyecto);
 	}
 }

@@ -62,34 +62,20 @@ namespace PruebasDeLogicaDeNegocios
         #endregion
 
         [DataTestMethod]
-        [DataRow("INSERT INTO Alumnos VALUES ('s17012947', 'Cesar Hernandez','LIS', 'Activo', '2282437357', 'cesarhdez@gmail.com','passwordsegura', '21')")]
+        [DataRow("INSERT INTO Alumnos VALUES ('s17012947', 'Cesar Hernandez','LIS', 'Activo', '2282437357', 'cesarhdez@gmail.com','passwordsegura')")]
 
         public void ProbarEjecutarInsertInto_ConsultaCorrecta_RegresaNumeroDeFilasAfectadas(string input)
         {
-            int numeroDeFilasAfectadas;
+            int numeroDeFilasAfectadas = 0;
             const int UNA_FILA_AFECTADA = 1;
             numeroDeFilasAfectadas = AccesoADatos.EjecutarInsertInto(input);
 
             Assert.AreEqual(UNA_FILA_AFECTADA, numeroDeFilasAfectadas);
         }
 
-        [DataTestMethod]
-        [DataRow("SELECT Matricula FROM Alumno WHERE Matricula = @Matricula", "s17012970")]
-        public void ProbarEjecutarSelect_AlumnoConsultaNoVacia_RegresaDatatable (string consulta, string llavePrimaria)
-        {
-            DataTable tablaActual;
-            SqlParameter[] parametros = new SqlParameter[1];
-            parametros[0] = new SqlParameter();
-            parametros[0].ParameterName = "@Matricula";
-            parametros[0].Value = llavePrimaria;
-
-            tablaActual = AccesoADatos.EjecutarSelect(consulta, parametros);
-
-            Assert.IsNotNull(tablaActual);
-        }
 
         [DataTestMethod]
-        [DataRow("SELECT Matricula FROM Alumno WHERE Matricula = @Matricula", "s17012950")]
+        [DataRow("SELECT Matricula FROM Alumnos WHERE Matricula = @Matricula", "s17012947")]
         public void ProbarEjecutarSelect_AlumnoDatosCorrectos_RegresaDatatable(string consulta, string matricula)
         {
             DataTable tablaAlumnosActual;
@@ -97,19 +83,25 @@ namespace PruebasDeLogicaDeNegocios
             parametros[0] = new SqlParameter();
             parametros[0].ParameterName = "@Matricula";
             parametros[0].Value = matricula;
-            DataRow filaAlumno;
+            
             string matriculaActual = String.Empty;
 
+
             tablaAlumnosActual = AccesoADatos.EjecutarSelect(consulta, parametros);
-            if (tablaAlumnosActual.Rows.Count > 0)
-            {
-                filaAlumno = tablaAlumnosActual.Rows[0];
-                matriculaActual = filaAlumno.ItemArray[0].ToString();
-            }
+
+            matriculaActual = tablaAlumnosActual.Rows[0][0].ToString();
 
             Assert.AreEqual(matricula, matriculaActual);
         }
 
-        
+        [DataTestMethod]
+        [DataRow("SELECT * FROM Alumnos",7)]
+        public void ProbarEjecutarSelect_AlumnosTodos_RegresaDatatable(string consulta, int numeroDeFilasEsperado)
+        {
+            DataTable tablaAlumnosActual;
+            tablaAlumnosActual = AccesoADatos.EjecutarSelect(consulta);
+            int numeroDeFilas = tablaAlumnosActual.Rows.Count;
+            Assert.AreEqual(numeroDeFilasEsperado, numeroDeFilas);
+        }
     }
 }
