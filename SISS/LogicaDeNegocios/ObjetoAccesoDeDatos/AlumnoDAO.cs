@@ -61,13 +61,19 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE Matricula = @matricula", parametroMatricula);
             }
-			catch (SqlException ExcepcionSQL)
+			catch(SqlException ExcepcionSQL)
             {
                 Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
             }
-
-			Alumno alumno = ConvertirDataTableAAlumno(tablaDeAlumnos);
-
+            Alumno alumno;
+            try
+            {
+                alumno = ConvertirDataTableAAlumno(tablaDeAlumnos);
+            }
+            catch(InvalidCastException e)
+            {
+                throw new AccesoADatosException("Error al convertir a datatable. ",e);
+            }
             return alumno;
 		}
 
@@ -114,6 +120,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         private Alumno ConvertirDataTableAAlumno(DataTable tablaDeAlumno)
 		{
             AsignacionDAO asignacionDAO = new AsignacionDAO();
+
             Alumno alumno = (Alumno)(from DataRow fila in tablaDeAlumno.Rows
                              select new Alumno()
                              {

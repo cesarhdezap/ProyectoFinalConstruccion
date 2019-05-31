@@ -65,18 +65,14 @@ namespace PruebasDeLogicaDeNegocios.PruebasDAO
         [DataRow("s17012947")]
         public void PruebaCargarAlumnoPorMatricula_MatriculaCorrecta_RegresaAlumno(string matricula)
         {
-            Alumno alumnoActual;
             AlumnoDAO alumnoDAO = new AlumnoDAO();
-            string matriculaActual;
-
-            alumnoActual = alumnoDAO.CargarAlumnoPorMatricula(matricula);
-            matriculaActual = alumnoActual.Matricula;
-
+            Alumno alumnoActual = alumnoDAO.CargarAlumnoPorMatricula(matricula);
+            string matriculaActual = alumnoActual.Matricula;
             Assert.AreEqual(matricula, matriculaActual);
         }
 
         [TestMethod]
-        public void ProbarGuardarAlumno()
+        public void ProbarGuardarAlumno_Correcto_RegresaVoid()
         {
             Alumno alumnoDePrueba = new Alumno();
             alumnoDePrueba.Nombre = "Cesar Andres Alarcon Anteo";
@@ -86,29 +82,9 @@ namespace PruebasDeLogicaDeNegocios.PruebasDAO
             alumnoDePrueba.Carrera = "LIS";
             alumnoDePrueba.Contraseña = "Contraseña122333";
             alumnoDePrueba.EstadoAlumno = EstadoAlumno.EnEspera;
-            
-
             AlumnoDAO alumnoDAO = new AlumnoDAO();
-            try
-            {
-                alumnoDAO.GuardarAlumno(alumnoDePrueba);
-            }
-            catch (SqlException e)
-            {
-                Assert.Fail("Se detecto una excepcion de sql Mensaje: " + e.Message + " Stacktrace: " + e.StackTrace + "\n");
-            }
-            catch (NotImplementedException e)
-            {
-                Assert.Fail("Se detecto una excepcion de asignacion Mensaje: " + e.Message + " Stacktrace: " + e.StackTrace + "\n");
-            }
-            catch (MissingFieldException e)
-            {
-                Assert.Fail("Se detecto una excepcion de campo faltante Mensaje: " + e.Message + " Stacktrace: " + e.StackTrace + "\n");
-            }
-            catch (Exception e)
-            {
-                Assert.Fail("Se detecto una excepcion externa Mensaje: " + e.Message + " Stacktrace: " + e.StackTrace + "\n");
-            }
+            alumnoDAO.GuardarAlumno(alumnoDePrueba);
+            Assert.IsTrue(true);
         }
     }
 }
