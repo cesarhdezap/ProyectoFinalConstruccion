@@ -32,9 +32,15 @@ namespace LogicaDeNegocios
 		}
 
 		private void ActualizarHorasCubiertas()
-		{
-			//TODO
-			throw new NotImplementedException();
+        {
+            int horasCubiertas = 0;
+
+            foreach (ReporteMensual reporteMensual in this.ReportesMensuales)
+            {
+                horasCubiertas = horasCubiertas + reporteMensual.HorasReportadas;
+            }
+
+            this.HorasCubiertas = horasCubiertas;
 		}
 
 		public void Liberar()

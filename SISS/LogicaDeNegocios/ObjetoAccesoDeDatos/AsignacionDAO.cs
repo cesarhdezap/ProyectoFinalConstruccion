@@ -12,9 +12,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 	{
 		public void ActualizarAsignacionPorID(int IDasignacion, Asignacion asignacion)
 		{
-			//TODO
-			throw new NotImplementedException();
-		}
+            SqlParameter[] parametrosDeAsignacion = InicializarParametrosDeSql(asignacion);
+
+            try
+            {
+                AccesoADatos.EjecutarInsertInto("UPDATE Asignaciones SET EstadoAsignacion = @EstadoAsignacion, FechaDeFinal = @FechaDeFinalAsignacion, IDLiberacion = @IDLiberacionAsignacion WHERE IDAsignacion = @IDAsignacion ", parametrosDeAsignacion);
+            }
+            catch (SqlException e)
+            {
+
+            }
+        }
 
 		public Asignacion CargarAsignacionPorID(int IDasignacion)
 		{
@@ -61,11 +69,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return asignaciones;
         }
 
-		private DataTable ConvertirAsignacionADataTable(Asignacion asignación)
-        {
-            //TODO
-            throw new NotImplementedException();
-        }
 
         private Asignacion ConvertirDataTableAAsignacion(DataTable DataTableAsignaciones)
         {
@@ -112,11 +115,70 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                              ).ToList();
             return listaDeAsignaciones;
         }
+        public List<Asignacion> CargarIDsPorIDProyecto(int IDProyecto)
+        {
+            DataTable tablaDeAsignaciones = new DataTable();
+            SqlParameter[] parametroIDProyecto = new SqlParameter[1];
+            parametroIDProyecto[1] = new SqlParameter();
+            parametroIDProyecto[1].ParameterName = "@IDProyecto";
+            parametroIDProyecto[1].Value = IDProyecto;
 
-		public int GuardarAsignacion(Asignacion asignacion)
+            try
+            {
+                tablaDeAsignaciones = AccesoADatos.EjecutarSelect("SELECT IDAsignacion FROM Asignaciones WHERE IDProyecto = @IDProyecto", parametroIDProyecto);
+            }
+            catch (SqlException e)
+            {
+
+            }
+
+            List<Asignacion> asignaciones = ConvertirDataTableAListaDeAsignaciones(tablaDeAsignaciones);
+
+            return asignaciones;
+
+        }
+        public void GuardarAsignacion(Asignacion asignacion)
 		{
-			//TODO
-			throw new NotImplementedException();
+            SqlParameter[] parametrosDeAsignacion = InicializarParametrosDeSql(asignacion);
+
+            try
+            {
+                AccesoADatos.EjecutarInsertInto("INSERT INTO Asignaciones(EstadoAsignacion, FechaDeInicion, MatriculaDeAlumno, IDProyecto, IDSolicitud) VALUES(@EstadoAsignacion, @FechaDeInicio, @MatriculaDeAlumnoAsignacion, @IDProyectoAsignacion, @IDSolicitudAsignacion)", parametrosDeAsignacion);
+            }
+            catch (SqlException e)
+            {
+
+            }
+			
 		}
+        
+        private SqlParameter[] InicializarParametrosDeSql(Asignacion asignacion)
+        {
+            SqlParameter[] parametrosDeAsignacion = new SqlParameter[8];
+
+            for (int i = 0; i < parametrosDeAsignacion.Length; i++)
+            {
+                parametrosDeAsignacion[i] = new SqlParameter();
+            }
+
+            parametrosDeAsignacion[0].ParameterName = "@IDAsignacion";
+            parametrosDeAsignacion[0].Value = asignacion.IDAsignacion;
+            parametrosDeAsignacion[1].ParameterName = "@EstadoAsignacion";
+            parametrosDeAsignacion[1].Value = asignacion.EstadoAsignacion;
+            parametrosDeAsignacion[2].ParameterName = "@FechaDeInicioAsignacion";
+            parametrosDeAsignacion[2].Value = asignacion.FechaDeInicio;
+            parametrosDeAsignacion[3].ParameterName = "@FechaDeFinalAsignacion";
+            parametrosDeAsignacion[3].Value = asignacion.FechaDeFinal;
+            parametrosDeAsignacion[4].ParameterName = "@MatriculaDeAlumnoAsignacion";
+            parametrosDeAsignacion[4].Value = asignacion.Alumno.Matricula;
+            parametrosDeAsignacion[5].ParameterName = "@IDProyectoAsignacion";
+            parametrosDeAsignacion[5].Value = asignacion.Proyecto.IDProyecto;
+            parametrosDeAsignacion[6].ParameterName = "@IDSolicitudAsignacion";
+            parametrosDeAsignacion[6].Value = asignacion.Solicitud.IDSolicitud; 
+            parametrosDeAsignacion[7].ParameterName = "@IDLiberacionAsignacion";
+            parametrosDeAsignacion[7].Value = asignacion.Liberacion.IDLiberacion;
+
+            return parametrosDeAsignacion;
+        }
     }
 }
