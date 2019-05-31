@@ -14,21 +14,28 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		
         public void ActualizarAlumnoPorMatricula(string matricula, Alumno alumno)
 		{
-			//TODO
-			throw new NotImplementedException();
-		}
+            SqlParameter[] parametrosDeAlumno = InicializarParametrosDeSql(alumno);
+            try
+            {
+                AccesoADatos.EjecutarInsertInto("UPDATE Alumnos SET Nombre = @NombreAlumno, Estado = @EstadoAlumno, Telefono = @TelefonoAlumno, CorreoElectronico = @CorreoElectronicoAlumno WHERE Matricula = @MatriculaAlumno", parametrosDeAlumno);
+            } catch (SqlException e)
+            {
+                //Definir tipo de excepcion 
+                //throw new ??????(e);
+            }
+        }
 
         public List<Alumno> CargarAlumnosPorEstado(EstadoAlumno estadoAlumno)
 		{
-			DataTable TablaDeAlumnos = new DataTable();
+			DataTable tablaDeAlumnos = new DataTable();
 			SqlParameter[] parametroEstadoAlumno = new SqlParameter[1];
 			parametroEstadoAlumno[0] = new SqlParameter();
-			parametroEstadoAlumno[0].ParameterName = "@estadoAlumno";
+			parametroEstadoAlumno[0].ParameterName = "@EstadoAlumno";
 			parametroEstadoAlumno[0].Value = estadoAlumno;
 
             try
             {
-                TablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE estado = @estadoAlumno", parametroEstadoAlumno);
+                tablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE Estado = @EstadoAlumno", parametroEstadoAlumno);
             }
             catch (SqlException ExcepcionSQL)
             {
@@ -37,14 +44,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			List<Alumno> alumnos = new List<Alumno>();
 
-			alumnos = ConvertirDataTableAListaDeAlumnos(TablaDeAlumnos);
+			alumnos = ConvertirDataTableAListaDeAlumnos(tablaDeAlumnos);
 
             return alumnos;
         }
 
         public Alumno CargarAlumnoPorMatricula(string matricula)
 		{
-            DataTable TablaDeAlumnos = new DataTable();
+            DataTable tablaDeAlumnos = new DataTable();
 			SqlParameter[] parametroMatricula = new SqlParameter[1];
 			parametroMatricula[0] = new SqlParameter();
 			parametroMatricula[0].ParameterName = "@matricula";
@@ -52,14 +59,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			try
             {
-                TablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE matricula = @matricula", parametroMatricula);
+                tablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE Matricula = @matricula", parametroMatricula);
             }
 			catch (SqlException ExcepcionSQL)
             {
                 Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
             }
 
-			Alumno alumno = ConvertirDataTableAAlumno(TablaDeAlumnos);
+			Alumno alumno = ConvertirDataTableAAlumno(tablaDeAlumnos);
 
             return alumno;
 		}
@@ -69,7 +76,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			DataTable tablaDeAlumnos = new DataTable();
 			try
 			{
-				tablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumno");
+				tablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos");
 			}
 			catch (SqlException ExcepcionSQL)
 			{
@@ -84,15 +91,25 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
         public Alumno CargarMatriculaPorIDAsignacion(int IDAsignacion)
         {
-            //TODO
-            throw new NotImplementedException();    
-        }
+            DataTable tablaDeAlumno = new DataTable();
+            SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
+            parametroIDAsignacion[0] = new SqlParameter();
+            parametroIDAsignacion[0].ParameterName = "@IDAsignacion";
+            parametroIDAsignacion[0].Value = IDAsignacion;
+                
+            try
+            {
+                tablaDeAlumno = AccesoADatos.EjecutarSelect("SELECT Matricula FROM Asignaciones WHERE IDAsignacion = @IDAsignacion", parametroIDAsignacion);
+            }
+            catch (SqlException ExcepcionSQL)
+            {
+                Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
+            }
 
-        private DataTable ConvertirAlumnoADataTable(Alumno alumno)
-		{
-			//TODO
-			throw new NotImplementedException();
-		}
+            Alumno alumno = ConvertirDataTableAAlumno(tablaDeAlumno);
+
+            return alumno;
+        }
 
         private Alumno ConvertirDataTableAAlumno(DataTable tablaDeAlumno)
 		{
@@ -129,40 +146,48 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
         public void GuardarAlumno(Alumno alumno)
         {
-            SqlParameter[] parametros = new SqlParameter[7];
+            SqlParameter[] parametrosDeAlumno = InicializarParametrosDeSql(alumno);
 
-            for (int i = 0; i < 7; i++) {
-                parametros[i] = new SqlParameter();
-            }
-
-            parametros[0].ParameterName = "@NombreAlumno";
-            parametros[0].Value = alumno.Nombre;
-            parametros[1].ParameterName = "@CorreoElectronicoAlumno";
-            parametros[1].Value = alumno.CorreoElectronico;
-            parametros[2].ParameterName = "@TelefonoAlumno";
-            parametros[2].Value = alumno.Telefono;
-            parametros[3].ParameterName = "@MatriculaAlumno";
-            parametros[3].Value = alumno.Matricula;
-            parametros[4].ParameterName = "@CarreraAlumno";
-            parametros[4].Value = alumno.Carrera;
-            parametros[5].ParameterName = "@ContraseñaAlumno";
-            parametros[5].Value = alumno.Contraseña;
-            parametros[6].ParameterName = "@EstadoAlumno";
-            parametros[6].Value = alumno.EstadoAlumno.ToString();
-
-            int filas = 0;
+            int filasAfectadas = 0;
             try
             {
-                filas = AccesoADatos.EjecutarInsertInto("INSERT INTO Alumnos(Matricula, Nombre, Carrera, Estado, Telefono, CorreoElectronico, Contraseña) VALUES (@MatriculaAlumno, @NombreAlumno, @CarreraAlumno, @EstadoAlumno, @TelefonoAlumno, @CorreoElectronicoAlumno, @ContraseñaAlumno)", parametros);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Alumnos(Matricula, Nombre, Carrera, Estado, Telefono, CorreoElectronico, Contraseña) VALUES (@MatriculaAlumno, @NombreAlumno, @CarreraAlumno, @EstadoAlumno, @TelefonoAlumno, @CorreoElectronicoAlumno, @ContraseñaAlumno)", parametrosDeAlumno);
             }
-            catch (SqlException e)
+            catch (SqlException)
             {
                 throw new NotImplementedException("No se ha implementado excepcion personalizara, AlumnoDAO.GuardarAlumno");
             }
-            if (filas <= 0)
+            if (filasAfectadas <= 0)
             {
                 throw new MissingFieldException("Error en AlumnoDAO.GuardarAlumno");
             }
+        }
+         
+        private SqlParameter[] InicializarParametrosDeSql(Alumno alumno)
+        { 
+            SqlParameter[] parametrosDeAlumno = new SqlParameter[7];
+
+            for (int i = 0; i < parametrosDeAlumno.Length; i++)
+            {
+                parametrosDeAlumno[i] = new SqlParameter();
+            }
+
+            parametrosDeAlumno[0].ParameterName = "@NombreAlumno";
+            parametrosDeAlumno[0].Value = alumno.Nombre;
+            parametrosDeAlumno[1].ParameterName = "@CorreoElectronicoAlumno";
+            parametrosDeAlumno[1].Value = alumno.CorreoElectronico;
+            parametrosDeAlumno[2].ParameterName = "@TelefonoAlumno";
+            parametrosDeAlumno[2].Value = alumno.Telefono;
+            parametrosDeAlumno[3].ParameterName = "@MatriculaAlumno";
+            parametrosDeAlumno[3].Value = alumno.Matricula;
+            parametrosDeAlumno[4].ParameterName = "@CarreraAlumno";
+            parametrosDeAlumno[4].Value = alumno.Carrera;
+            parametrosDeAlumno[5].ParameterName = "@ContraseñaAlumno";
+            parametrosDeAlumno[5].Value = alumno.Contraseña;
+            parametrosDeAlumno[6].ParameterName = "@EstadoAlumno";
+            parametrosDeAlumno[6].Value = alumno.EstadoAlumno.ToString();
+
+            return parametrosDeAlumno;
         }
     }
 }

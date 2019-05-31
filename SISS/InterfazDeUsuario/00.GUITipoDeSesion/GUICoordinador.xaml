@@ -1,0 +1,26 @@
+﻿<Window x:Class="InterfazDeUsuario.GUITipoDeSesion.GUICoordinador"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InterfazDeUsuario.GUITipoDeSesion"
+        mc:Ignorable="d"
+        Title="GUICoordinador" Height="553.5" Width="998.619">
+    <Grid Margin="0,0,2,-3">
+        <StackPanel HorizontalAlignment="Left" Height="60" Margin="51,181,0,0" VerticalAlignment="Top" Width="904" UseLayoutRounding="False"  Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"  />
+        <StackPanel HorizontalAlignment="Left" Height="60" Margin="51,283,0,0" VerticalAlignment="Top" Width="904" UseLayoutRounding="False" Background="{DynamicResource {x:Static SystemColors.ActiveCaptionBrushKey}}"/>
+        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="1003" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C" Margin="0,0,-14,0"/>
+        <Label Content="Sistema Informático de Servicio Social" HorizontalAlignment="Left" Margin="250,87,0,0" VerticalAlignment="Top" Height="33" Width="392" FontFamily="Arial" FontSize="22" BorderBrush="#FF1B1414"/>
+        <Button x:Name="BtnValidarAlumno" Content="Validar alumno" HorizontalAlignment="Left" Margin="71,191,0,0" VerticalAlignment="Top" Width="150" Height="37" Click="BtnValidarAlumno_Click" BorderBrush="#FF1D1A1A" FontFamily="Arial" FontSize="20"/>
+        <Button x:Name="BtnBuscarAlumno" Content="Buscar alumno" HorizontalAlignment="Left" Margin="255,191,0,0" VerticalAlignment="Top" Width="154" Height="37" BorderBrush="#FF1D1616" FontFamily="Arial" FontSize="20"/>
+        <Button x:Name="BtnAsignarProyectosAAlumnos" Content="Asignar proyectos a alumnos" HorizontalAlignment="Left" Margin="441,191,0,0" VerticalAlignment="Top" Width="281" Height="37" BorderBrush="#FF130F0F" FontFamily="Arial" FontSize="20"/>
+        <Button x:Name="BtnRegistrarOrganizacion" Content="Registrar organización" HorizontalAlignment="Left" Margin="71,296,0,0" VerticalAlignment="Top" Width="216" Height="37" BorderBrush="#FF0C0B0B" FontFamily="Arial" FontSize="20"/>
+        <Button x:Name="BtnRegistrarEncargado" Content="Registrar encargado" HorizontalAlignment="Left" Margin="309,296,0,0" VerticalAlignment="Top" Width="202" Height="37" BorderBrush="#FF252121" FontFamily="Arial" FontSize="20"/>
+        <Button x:Name="BtnTecnicoAcademico" Content="Registrar técnico académico" HorizontalAlignment="Left" Margin="71,388,0,0" VerticalAlignment="Top" Width="270" Height="40" BorderBrush="#FF0C0909" FontFamily="Arial" FontSize="20"/>
+        <Button x:Name="BtnRegistrarProyecto" Content="Registrar proyecto" HorizontalAlignment="Left" Margin="538,296,0,0" VerticalAlignment="Top" Width="195" Height="37" Foreground="#FF343333" BorderBrush="#FF191B17" FontFamily="Arial" FontSize="20"/>
+        <Button x:Name="BtnBuscarProyecto" Content="Buscar proyecto" HorizontalAlignment="Left" Margin="776,296,0,0" VerticalAlignment="Top" Width="166" Height="37" BorderBrush="#FF080707" FontFamily="Arial" FontSize="20"/>
+        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="626,27,0,0" Width="119"/>
+        <Label x:Name="LblNombreDeUsuario_Copy" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="750,27,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
+
+    </Grid>
+</Window>

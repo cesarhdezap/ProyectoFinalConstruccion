@@ -10,13 +10,21 @@ using LogicaDeNegocios.ObjetoAccesoDeDatos;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	class EncargadoDAO : Interfaces.IEncargadoDAO
+	class EncargadoDAO : IEncargadoDAO
 	{
 		public void ActualizarEncargadoPorID(int IDencargado, Encargado encargado)
 		{
-			//TODO
-			throw new NotImplementedException();
-		}
+            SqlParameter[] parametrosDeEncargado = InicializarParametrosDeSql(encargado);
+
+            try
+            {
+                AccesoADatos.EjecutarInsertInto("UPDATE Encargados SET Nombre = @NombreEncargado, CorreoElectronico = @CorreoElectronicoEncargado, Telefono = @TelefonoEncargado, Puesto = @PuestoEncargado WHERE IDOrganizacion = @IDOrganizacion", parametrosDeEncargado);
+            }
+            catch (SqlException e)              //Aqui debe ir la ID de la organizacion a la que pertenece de alguna manera
+            {                                   //Todavia no se como hacerle 
+
+            }
+        }
 
 		public Encargado CargarEncargadoPorID(int IDEncargado)
 		{
@@ -46,7 +54,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {    
-                tablaDeEncargados = AccesoADatos.EjecutarSelect("SELECT * FROM Encargado");
+                tablaDeEncargados = AccesoADatos.EjecutarSelect("SELECT * FROM Encargados");
             }
             catch (SqlException ExcepcionSQL)
             {
@@ -68,7 +76,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametroIDOrganicacion[0].Value = IDOrganizacion;
             try
             {
-                tablaDeEncargados = AccesoADatos.EjecutarSelect("SELECT IDEncargado FROM Alumno WHERE IDOrganizacion = @IDOrganizacion");
+                tablaDeEncargados = AccesoADatos.EjecutarSelect("SELECT IDEncargado FROM Encargados WHERE IDOrganizacion = @IDOrganizacion");
             }
             catch (SqlException ExcepcionSQL)
             {
@@ -115,16 +123,42 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return encargados;
         }
 
-        private DataTable  ConvertirEncargadoADataTable (Encargado encargado)
+        public void GuardarEncargado(Encargado encargado)
 		{
-			//TODO
-			throw new NotImplementedException();
-		}
+            SqlParameter[] parametrosDeEncargado = InicializarParametrosDeSql(encargado);
 
-        public int GuardarEncargado(Encargado encargado)
-		{
-			//TODO
-			throw new NotImplementedException();
-		}
+            try
+            {
+                AccesoADatos.EjecutarInsertInto("INSERT INTO Encargados(Nombre, CorreoElectronico, Telefono, Puesto, IDOrganizacion) VALUES(@NombreEncargado, @CorreoElectronicoEncargado, @TelefonoEncargado, @PuestoEncargado, @IDOrganizacion)", parametrosDeEncargado);
+            } catch (SqlException e)
+            { 
+
+            }
+        }
+
+        private SqlParameter[] InicializarParametrosDeSql(Encargado encargado)
+        {
+            SqlParameter[] parametrosDeEncargado = new SqlParameter[6];
+
+            for (int i = 0; i < parametrosDeEncargado.Length; i++)
+            {
+                parametrosDeEncargado[i] = new SqlParameter();
+            }
+
+            parametrosDeEncargado[0].ParameterName = "@NombreEncargado";
+            parametrosDeEncargado[0].Value = encargado.Nombre;
+            parametrosDeEncargado[1].ParameterName = "@CorreoElectronicoEncargado";
+            parametrosDeEncargado[1].Value = encargado.CorreoElectronico;
+            parametrosDeEncargado[2].ParameterName = "@TelefonoEncargado";
+            parametrosDeEncargado[2].Value = encargado.Telefono;
+            parametrosDeEncargado[3].ParameterName = "@PuestoEncargado";
+            parametrosDeEncargado[3].Value = encargado.Puesto;
+            parametrosDeEncargado[4].ParameterName = "@IDEncargado";
+            parametrosDeEncargado[4].Value = encargado.IDEncargado;
+            parametrosDeEncargado[5].ParameterName = "@IDOrganizacion";
+            parametrosDeEncargado[5].Value = encargado.Organizacion.IDOrganizacion;
+
+            return parametrosDeEncargado;
+        }
 	}
 }
