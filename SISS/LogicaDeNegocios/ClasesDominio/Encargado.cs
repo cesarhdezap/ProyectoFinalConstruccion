@@ -8,11 +8,12 @@ namespace LogicaDeNegocios
 		public int IDEncargado { get; set; }
 		public string Puesto { get; set; }
 		public List<Proyecto> Proyectos { get; set; }
+        public Organizacion Organizacion { get; set; }
 
 		public void AñadirProyecto(Proyecto proyecto)
 		{
-			//TODO	
-			throw new NotImplementedException();
+            proyecto.encargado = this;
+            this.Proyectos.Add(proyecto);
 		}
 	}
 }

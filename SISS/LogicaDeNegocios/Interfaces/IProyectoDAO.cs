@@ -11,6 +11,6 @@ namespace LogicaDeNegocios.Interfaces
         Proyecto CargarProyectoPorID(int IDproyecto);
         List<Proyecto> CargarProyectosPorEstado(EstadoProyecto estado);
         List<Proyecto> CargarProyectosTodos();
-        int GuardarProyecto(Proyecto proyecto);
+        void GuardarProyecto(Proyecto proyecto);
 	}
 }

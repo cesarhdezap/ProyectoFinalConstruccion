@@ -13,8 +13,16 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 	{
         public void ActualizarProyectoPorID(int IDproyecto, Proyecto proyecto)
 		{
-			//TODO
-			throw new NotImplementedException();
+            SqlParameter[] parametrosDrProyecto = InicializarParametrosDeSql(proyecto);
+
+            try
+            {
+                AccesoADatos.EjecutarInsertInto("UPDATE Proyectos SET Estado = @EstadoProyecto WHERE IDProyecto = @IDProyecto", parametrosDrProyecto);
+            }
+            catch (SqlException e)
+            {
+
+            }
 		}
 
         public List<Proyecto> CargarIDsPorIDEncargado(int IDEncargado){
@@ -59,6 +67,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             proyectos = ConvertirDataTableAProyecto(tablaDeProyecto);
 
             return proyectos;
+        }
+
+        internal List<Proyecto> CargarIDProyectosPorIDSolicitud(int v)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Proyecto> CargarProyectosPorEstado(EstadoProyecto estadoDeProyecto){
@@ -119,7 +132,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                                             ObjetivoGeneral = fila["ObjetivoGeneral"].ToString(),
                                             Cupo = (int)fila["Cupo"],
                                             Asignaciones = asignacionDAO.CargarIDsPorIDProyecto((int)fila["IDProyecto"])
-                                        }
+                                           }
                                        ).ToList();
             return proyectos;
         }
@@ -163,10 +176,43 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return tablaDeProyecto;
         }
 
-        public int GuardarProyecto(Proyecto proyecto)
-        { 
-			//TODO
-			throw new NotImplementedException();
-		}
+        public void GuardarProyecto(Proyecto proyecto)
+        {
+            SqlParameter[] parametrosDeProyecto = InicializarParametrosDeSql(proyecto);
+            try
+            {
+                AccesoADatos.EjecutarInsertInto("INSERT INTO Proyectos(Nombre, Estado, DescripcionGeneral, ObjetivoGeneral, Cupo, IDEncargado) VALUES(@NombreProyecto, @EstadoProyecto, @DescripcionGeneralProyecto, @ObjetivoGeneralProyecto, @CupoProyecto, @IDEncargado)", parametrosDeProyecto);
+            }
+            catch (SqlException e)
+            {
+
+            }
+        }
+
+        private SqlParameter[] InicializarParametrosDeSql(Proyecto proyecto)
+        {
+            SqlParameter[] parametrosDeProyecto = new SqlParameter[7];
+
+            for (int i = 0; i < parametrosDeProyecto.Length; i++)
+            {
+                parametrosDeProyecto[i] = new SqlParameter();
+            }
+            parametrosDeProyecto[0].ParameterName = "@IDProyecto";
+            parametrosDeProyecto[0].Value = proyecto.IDProyecto;
+            parametrosDeProyecto[1].ParameterName = "@NombreProyecto";
+            parametrosDeProyecto[1].Value = proyecto.Nombre;
+            parametrosDeProyecto[2].ParameterName = "@EstadoProyecto";
+            parametrosDeProyecto[2].Value = proyecto.Estado.ToString();
+            parametrosDeProyecto[3].ParameterName = "@DescripcionGeneralProyecto";
+            parametrosDeProyecto[3].Value = proyecto.DescripcionGeneral;
+            parametrosDeProyecto[4].ParameterName = "@ObjetivoGeneralProyecto";
+            parametrosDeProyecto[4].Value = proyecto.ObjetivoGeneral;
+            parametrosDeProyecto[5].ParameterName = "@CupoProyecto";
+            parametrosDeProyecto[5].Value = proyecto.Cupo;
+            parametrosDeProyecto[6].ParameterName = "@IDEncargado";
+            parametrosDeProyecto[6].Value = proyecto.Encargado.IDEncargado;
+
+            return parametrosDeProyecto;
+        }
     }
 }

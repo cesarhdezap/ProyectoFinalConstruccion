@@ -12,6 +12,7 @@ namespace LogicaDeNegocios
 		public string ObjetivoGeneral { get; set; }
 		public int Cupo { get; set; }
 		public List<Asignacion> Asignaciones { get; set; }
+        public Encargado Encargado { get; set; }
 
 
 		public int ObtenerDisponibilidad()
