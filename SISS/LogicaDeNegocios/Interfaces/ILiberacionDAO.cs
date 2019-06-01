@@ -5,7 +5,9 @@ namespace LogicaDeNegocios.Interfaces
 {
 	interface ILiberacionDAO
 	{
-        Liberacion CargarLiberacionPorIDAsignacion(int IDasignacion);
-        int GuardarLiberacion(Liberacion liberacion);
+        Liberacion CargarLiberacionPorID(int IDLiberacion);
+        void GuardarLiberacion(Liberacion liberacion);
+        Liberacion CargarIDPorIDAsignacion(int IDAsignacion);
+
 	}
 }
