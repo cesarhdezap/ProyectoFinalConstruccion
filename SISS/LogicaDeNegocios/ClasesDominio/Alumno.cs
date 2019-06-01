@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+
 namespace LogicaDeNegocios
 {
 	public class Alumno : Persona
@@ -25,6 +26,20 @@ namespace LogicaDeNegocios
 		{
 			EstadoAlumno = EstadoAlumno.Rechazado;
 		}
+
+        public override string ToString()
+        {
+            
+            string alumno = System.Environment.NewLine +
+                            "Matricula: " + this.Matricula + System.Environment.NewLine +
+                            "Nombre: " + this.Nombre + System.Environment.NewLine +
+                            "Correo Electronico: " + this.CorreoElectronico + System.Environment.NewLine +
+                            "Telefono: " + this.Telefono + System.Environment.NewLine +
+                            "Estado: " + this.EstadoAlumno.ToString() + System.Environment.NewLine +
+                            "Carrera" + this.Carrera;
+
+            return alumno;
+        }
     }
 
 	public enum EstadoAlumno
