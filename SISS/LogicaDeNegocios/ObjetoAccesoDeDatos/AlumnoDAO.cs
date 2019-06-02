@@ -82,6 +82,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al convertir datatable a alumno en cargar alumno con matricula: " + matricula, e);
             }
+
+            Alumno alumno;
+            try
+            {
+                alumno = ConvertirDataTableAAlumno(tablaDeAlumnos);
+            }
+            catch(InvalidCastException e)
+            {
+                throw new AccesoADatosException("Error al convertir a datatable a Alumno. ",e);
+            }
+
             return alumno;
 		}
 
