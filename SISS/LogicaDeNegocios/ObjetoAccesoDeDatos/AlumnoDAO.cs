@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using LogicaDeNegocios.Excepciones;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -72,7 +73,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch(InvalidCastException e)
             {
-                throw new AccesoADatosException("Error al convertir a datatable. ",e);
+                throw new AccesoADatosException("Error al convertir a datatable a Alumno. ",e);
             }
             return alumno;
 		}
@@ -120,17 +121,16 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         private Alumno ConvertirDataTableAAlumno(DataTable tablaDeAlumno)
 		{
             AsignacionDAO asignacionDAO = new AsignacionDAO();
+            Alumno alumno = new Alumno();
+            foreach (DataRow fila in tablaDeAlumno.Rows)
+            {
+                alumno.Matricula = fila["Matricula"].ToString();
+                alumno.Carrera = fila["Carrera"].ToString();
+                alumno.Contraseña = fila["Contraseña"].ToString();
+                alumno.EstadoAlumno = (EstadoAlumno)fila["Estado"];
+                alumno.Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["matricula"].ToString());
+            }
 
-            Alumno alumno = (Alumno)(from DataRow fila in tablaDeAlumno.Rows
-                             select new Alumno()
-                             {
-                                 Matricula = fila["matricula"].ToString(),
-                                 Carrera = fila["carrera"].ToString(),
-                                 Contraseña = fila["contraseña"].ToString(),
-                                 EstadoAlumno = (EstadoAlumno)fila["estadoAlumno"],
-                                 Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["matricula"].ToString())
-                             }
-                           );
             return alumno;
         }
 
