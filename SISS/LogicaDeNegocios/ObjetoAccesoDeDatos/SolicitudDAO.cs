@@ -32,20 +32,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return solicitud;
 
         }
-        
-        private List<Solicitud> ConvertirDataTableAListaDeSolicitudes(DataTable tablaDeSolicitudes)
-		{
-            ProyectoDAO proyectoDAO = new ProyectoDAO();
-            List<Solicitud> solicitudes = (from DataRow fila in tablaDeSolicitudes.Rows
-                                              select new Solicitud()
-                                              {
-                                                  IDSolicitud = (int)fila["IDSolicitud"],
-                                                  Fecha = (DateTime)fila["Fecha"],
-                                                  Proyectos = proyectoDAO.CargarIDProyectosPorIDSolicitud((int)fila["IDSolicitud"])
-                                              }
-                           ).ToList();
-            return solicitudes;
-        }
+
         
         private Solicitud ConvertirDataTableASolicutud(DataTable tablaDeSolicitud)
 		{
@@ -89,6 +76,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 parametrosDeSolicitud[2].Value = proyecto.IDProyecto;
                 AccesoADatos.EjecutarInsertInto("INSERT INTO SolicitudProyecto(IDSolicitud, IDProyecto) VALUES(@IDSolicitud, @IDProyecto)", parametrosDeSolicitud);
             }
+        }
+
+        public Solicitud CargarIDPorIDAsignacion(int IDAsignacion)
+        {
+            throw new NotImplementedException();
         }
     }
 }
