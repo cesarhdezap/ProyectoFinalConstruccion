@@ -8,8 +8,13 @@ namespace LogicaDeNegocios
 {
     public class ServiciosDeSesion
     {
+        public TipoDeSesion ObtenerTipoDeSesionPorCorreo(string correo)
+        {
+            throw new NotImplementedException("ServiciosDeSesion.ObtenerTipoDeSesionPorCorreo");
+        }
         public enum TipoDeSesion
         {
+            NoValido = -1,
             Director = 0,
             Coordinador = 1,
             Tecnico = 2,

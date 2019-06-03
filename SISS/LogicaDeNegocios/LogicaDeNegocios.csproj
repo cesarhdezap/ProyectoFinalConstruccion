@@ -49,6 +49,7 @@
     <Compile Include="ClasesDominio\Liberacion.cs" />
     <Compile Include="ClasesDominio\Organizacion.cs" />
     <Compile Include="ClasesDominio\Persona.cs" />
+    <Compile Include="ClasesDominio\Sesion.cs" />
     <Compile Include="Excepciones\AccesoADatosException.cs" />
     <Compile Include="Interfaces\IAlumnoDAO.cs" />
     <Compile Include="Interfaces\IAsignacionDAO.cs" />
