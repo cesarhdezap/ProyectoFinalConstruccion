@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using LogicaDeNegocios.Excepciones;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -14,52 +15,83 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		
         public void ActualizarAlumnoPorMatricula(string matricula, Alumno alumno)
 		{
-			//TODO
-			throw new NotImplementedException();
-		}
+            SqlParameter[] parametrosDeAlumno = InicializarParametrosDeSql(alumno);
+            try
+            {
+                AccesoADatos.EjecutarInsertInto("UPDATE Alumnos SET Nombre = @NombreAlumno, Estado = @EstadoAlumno, Telefono = @TelefonoAlumno, CorreoElectronico = @CorreoElectronicoAlumno WHERE Matricula = @MatriculaAlumno", parametrosDeAlumno);
+            } catch (SqlException e)
+            {
+                throw new AccesoADatosException("Error al actualizar alumno: " + alumno.ToString() + "Con matricula: " + matricula, e);
+            }
+        }
 
         public List<Alumno> CargarAlumnosPorEstado(EstadoAlumno estadoAlumno)
 		{
-			DataTable TablaDeAlumnos = new DataTable();
+			DataTable tablaDeAlumnos = new DataTable();
 			SqlParameter[] parametroEstadoAlumno = new SqlParameter[1];
-			parametroEstadoAlumno[0] = new SqlParameter();
-			parametroEstadoAlumno[0].ParameterName = "@estadoAlumno";
-			parametroEstadoAlumno[0].Value = estadoAlumno;
+            parametroEstadoAlumno[0] = new SqlParameter
+            {
+                ParameterName = "@EstadoAlumno",
+                Value = (int)estadoAlumno
+            };
 
             try
             {
-                TablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE estado = @estadoAlumno", parametroEstadoAlumno);
+                tablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE Estado = @EstadoAlumno", parametroEstadoAlumno);
             }
-            catch (SqlException ExcepcionSQL)
+            catch (SqlException e)
             {
-                Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
-            }
-
+                throw new AccesoADatosException("Error al cargar alumnos con estado: " + estadoAlumno.ToString(), e);
+            } 
 			List<Alumno> alumnos = new List<Alumno>();
-
-			alumnos = ConvertirDataTableAListaDeAlumnos(TablaDeAlumnos);
-
+            try
+            {
+                alumnos = ConvertirDataTableAListaDeAlumnos(tablaDeAlumnos);
+            }
+            catch (FormatException e)
+            {
+                throw new AccesoADatosException("Error al convertir datatable a alumno en cargar alumnos con estado: " + estadoAlumno.ToString(), e);
+            }
             return alumnos;
         }
 
         public Alumno CargarAlumnoPorMatricula(string matricula)
 		{
-            DataTable TablaDeAlumnos = new DataTable();
+            DataTable tablaDeAlumno = new DataTable();
 			SqlParameter[] parametroMatricula = new SqlParameter[1];
-			parametroMatricula[0] = new SqlParameter();
-			parametroMatricula[0].ParameterName = "@matricula";
-			parametroMatricula[0].Value = matricula;
+            parametroMatricula[0] = new SqlParameter
+            {
+                ParameterName = "@matricula",
+                Value = matricula
+            };
 
 			try
             {
-                TablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE matricula = @matricula", parametroMatricula);
+                tablaDeAlumno = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE Matricula = @matricula", parametroMatricula);
             }
-			catch (SqlException ExcepcionSQL)
+			catch (SqlException e)
             {
-                Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
+                throw new AccesoADatosException("Error al cargar alumno con matricula: " + matricula, e);
+            }
+            Alumno alumno = new Alumno();
+            try
+            {
+                alumno = ConvertirDataTableAAlumno(tablaDeAlumno);
+            }
+            catch (FormatException e)
+            {
+                throw new AccesoADatosException("Error al convertir datatable a alumno en cargar alumno con matricula: " + matricula, e);
             }
 
-			Alumno alumno = ConvertirDataTableAAlumno(TablaDeAlumnos);
+            Alumno alumno;
+            try
+            {
+                alumno = ConvertirDataTableAAlumno(tablaDeAlumnos);
+            }
+            catch(InvalidCastException e)
+            {
+                throw new AccesoADatosException("Error al convertir a datatable a Alumno. ",e);
+            }
 
             return alumno;
 		}
@@ -69,100 +101,139 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			DataTable tablaDeAlumnos = new DataTable();
 			try
 			{
-				tablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumno");
+				tablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos");
 			}
-			catch (SqlException ExcepcionSQL)
+			catch (SqlException e)
 			{
-				Console.Write(" \nExcepcion: " + ExcepcionSQL.StackTrace.ToString());
-			}
-			List<Alumno> listaAlumnos = new List<Alumno>();
+                throw new AccesoADatosException("Error al cargar todos los alumnos", e);
+            }
+            List<Alumno> alumnos = new List<Alumno>();
+            try
+            {
+                alumnos = ConvertirDataTableAListaDeAlumnos(tablaDeAlumnos);
+            }
+            catch (FormatException e)
+            {
+                throw new AccesoADatosException("Error al convertir datatable a lista de alumnos en cargar todos los alumnos", e);
+            }
 
-			listaAlumnos = ConvertirDataTableAListaDeAlumnos(tablaDeAlumnos);
-
-			return listaAlumnos;
+            return alumnos;
 		}
 
         public Alumno CargarMatriculaPorIDAsignacion(int IDAsignacion)
         {
-            //TODO
-            throw new NotImplementedException();    
-        }
+            DataTable tablaDeAlumno = new DataTable();
+            SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
+            parametroIDAsignacion[0] = new SqlParameter
+            {
+                ParameterName = "@IDAsignacion",
+                Value = IDAsignacion
+            };
 
-        private DataTable ConvertirAlumnoADataTable(Alumno alumno)
-		{
-			//TODO
-			throw new NotImplementedException();
-		}
+            try
+            {
+                tablaDeAlumno = AccesoADatos.EjecutarSelect("SELECT Matricula FROM Asignaciones WHERE IDAsignacion = @IDAsignacion", parametroIDAsignacion);
+            }
+            catch (SqlException e)
+            {
+                throw new AccesoADatosException("Error al cargar matricula con IDAsignacion: " + IDAsignacion, e);
+            }
+            Alumno alumno = new Alumno();
+            try
+            {
+                alumno = ConvertirDataTableAAlumno(tablaDeAlumno);
+            }
+            catch (FormatException e)
+            {
+                throw new AccesoADatosException("Error al convertir datatable a alumno en cargar alumno con IDAsignacion: " + IDAsignacion, e);
+            }
+            return alumno;
+        }
 
         private Alumno ConvertirDataTableAAlumno(DataTable tablaDeAlumno)
 		{
             AsignacionDAO asignacionDAO = new AsignacionDAO();
-            Alumno alumno = (Alumno)(from DataRow fila in tablaDeAlumno.Rows
-                             select new Alumno()
-                             {
-                                 Matricula = fila["matricula"].ToString(),
-                                 Carrera = fila["carrera"].ToString(),
-                                 Contraseña = fila["contraseña"].ToString(),
-                                 EstadoAlumno = (EstadoAlumno)fila["estadoAlumno"],
-                                 Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["matricula"].ToString())
-                             }
-                           );
+            Alumno alumno = new Alumno();
+            foreach (DataRow fila in tablaDeAlumno.Rows)
+            {
+                alumno.Nombre = fila["Nombre"].ToString();
+                alumno.CorreoElectronico = fila["CorreoElectronico"].ToString();
+                alumno.Telefono = fila["Telefono"].ToString();
+                alumno.Matricula = fila["Matricula"].ToString();
+                alumno.Carrera = fila["Carrera"].ToString();
+                alumno.Contraseña = fila["Contraseña"].ToString();
+                alumno.EstadoAlumno = (EstadoAlumno)fila["Estado"];
+                alumno.Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["Matricula"].ToString());
+            }
             return alumno;
         }
 
 		private List<Alumno> ConvertirDataTableAListaDeAlumnos(DataTable tablaDeAlumnos)
 		{
 			AsignacionDAO asignacionDAO = new AsignacionDAO();
-			List<Alumno> listaDeAlumnos = (from DataRow fila in tablaDeAlumnos.Rows
-                             select new Alumno()
-                             {
-                                 Matricula = fila["matricula"].ToString(),
-                                 Carrera = fila["carrera"].ToString(),
-                                 Contraseña = fila["contraseña"].ToString(),
-                                 EstadoAlumno = (EstadoAlumno)fila["estadoAlumno"],
-                                 Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["matricula"].ToString()),
-
-                             }
-                           ).ToList();
-			return listaDeAlumnos;
+            List<Alumno> listaDeAlumnos = new List<Alumno>();
+           foreach (DataRow fila in tablaDeAlumnos.Rows)
+           {
+                Alumno alumno = new Alumno
+                {
+                    Nombre = fila["Nombre"].ToString(),
+                    CorreoElectronico = fila["CorreoElectronico"].ToString(),
+                    Telefono = fila["Telefono"].ToString(),
+                    Matricula = fila["Matricula"].ToString(),
+                    Carrera = fila["Carrera"].ToString(),
+                    Contraseña = fila["Contraseña"].ToString(),
+                    EstadoAlumno = (EstadoAlumno)fila["Estado"],
+                    Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["Matricula"].ToString())
+                };
+                listaDeAlumnos.Add(alumno);
+            }
+            return listaDeAlumnos;
 		}
 
         public void GuardarAlumno(Alumno alumno)
         {
-            SqlParameter[] parametros = new SqlParameter[7];
+            SqlParameter[] parametrosDeAlumno = InicializarParametrosDeSql(alumno);
 
-            for (int i = 0; i < 7; i++) {
-                parametros[i] = new SqlParameter();
-            }
-
-            parametros[0].ParameterName = "@NombreAlumno";
-            parametros[0].Value = alumno.Nombre;
-            parametros[1].ParameterName = "@CorreoElectronicoAlumno";
-            parametros[1].Value = alumno.CorreoElectronico;
-            parametros[2].ParameterName = "@TelefonoAlumno";
-            parametros[2].Value = alumno.Telefono;
-            parametros[3].ParameterName = "@MatriculaAlumno";
-            parametros[3].Value = alumno.Matricula;
-            parametros[4].ParameterName = "@CarreraAlumno";
-            parametros[4].Value = alumno.Carrera;
-            parametros[5].ParameterName = "@ContraseñaAlumno";
-            parametros[5].Value = alumno.Contraseña;
-            parametros[6].ParameterName = "@EstadoAlumno";
-            parametros[6].Value = alumno.EstadoAlumno.ToString();
-
-            int filas = 0;
+            int filasAfectadas = 0;
             try
             {
-                filas = AccesoADatos.EjecutarInsertInto("INSERT INTO Alumnos(Matricula, Nombre, Carrera, Estado, Telefono, CorreoElectronico, Contraseña) VALUES (@MatriculaAlumno, @NombreAlumno, @CarreraAlumno, @EstadoAlumno, @TelefonoAlumno, @CorreoElectronicoAlumno, @ContraseñaAlumno)", parametros);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Alumnos(Matricula, Nombre, Carrera, Estado, Telefono, CorreoElectronico, Contraseña) VALUES (@MatriculaAlumno, @NombreAlumno, @CarreraAlumno, @EstadoAlumno, @TelefonoAlumno, @CorreoElectronicoAlumno, @ContraseñaAlumno)", parametrosDeAlumno);
             }
             catch (SqlException e)
             {
-                throw new NotImplementedException("No se ha implementado excepcion personalizara, AlumnoDAO.GuardarAlumno");
+                throw new AccesoADatosException("Error al guardar alumno:" + alumno.ToString(), e);
             }
-            if (filas <= 0)
+            if (filasAfectadas <= 0)
             {
-                throw new MissingFieldException("Error en AlumnoDAO.GuardarAlumno");
+                throw new AccesoADatosException("Alumno: " + alumno.ToString() + "no fue guardado.");
             }
+        }
+         
+        private SqlParameter[] InicializarParametrosDeSql(Alumno alumno)
+        { 
+            SqlParameter[] parametrosDeAlumno = new SqlParameter[7];
+
+            for (int i = 0; i < parametrosDeAlumno.Length; i++)
+            {
+                parametrosDeAlumno[i] = new SqlParameter();
+            }
+
+            parametrosDeAlumno[0].ParameterName = "@NombreAlumno";
+            parametrosDeAlumno[0].Value = alumno.Nombre;
+            parametrosDeAlumno[1].ParameterName = "@CorreoElectronicoAlumno";
+            parametrosDeAlumno[1].Value = alumno.CorreoElectronico;
+            parametrosDeAlumno[2].ParameterName = "@TelefonoAlumno";
+            parametrosDeAlumno[2].Value = alumno.Telefono;
+            parametrosDeAlumno[3].ParameterName = "@MatriculaAlumno";
+            parametrosDeAlumno[3].Value = alumno.Matricula;
+            parametrosDeAlumno[4].ParameterName = "@CarreraAlumno";
+            parametrosDeAlumno[4].Value = alumno.Carrera;
+            parametrosDeAlumno[5].ParameterName = "@ContraseñaAlumno";
+            parametrosDeAlumno[5].Value = alumno.Contraseña;
+            parametrosDeAlumno[6].ParameterName = "@EstadoAlumno";
+            parametrosDeAlumno[6].Value = (int)alumno.EstadoAlumno;
+
+            return parametrosDeAlumno;
         }
     }
 }

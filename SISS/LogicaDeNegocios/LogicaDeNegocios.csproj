@@ -49,6 +49,7 @@
     <Compile Include="ClasesDominio\Liberacion.cs" />
     <Compile Include="ClasesDominio\Organizacion.cs" />
     <Compile Include="ClasesDominio\Persona.cs" />
+    <Compile Include="Excepciones\AccesoADatosException.cs" />
     <Compile Include="Interfaces\IAlumnoDAO.cs" />
     <Compile Include="Interfaces\IAsignacionDAO.cs" />
     <Compile Include="Interfaces\IAutenticacionDAO.cs" />
@@ -94,5 +95,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
