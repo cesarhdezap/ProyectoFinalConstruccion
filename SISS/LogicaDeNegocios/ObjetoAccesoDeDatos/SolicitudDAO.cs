@@ -82,10 +82,5 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             throw new NotImplementedException();
         }
-
-        public int ObtenerUltimoIDInsertado()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
