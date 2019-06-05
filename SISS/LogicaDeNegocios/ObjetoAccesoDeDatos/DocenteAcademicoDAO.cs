@@ -54,6 +54,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return docenteAcademico;
         }
 
+        internal DocenteAcademico CargarIDPorIDDocumento(int IDDocumento)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<DocenteAcademico> CargarDocentesAcademicosPorEstado(bool isActivo)
         {
             DataTable tablaDeDocenteAcademico = new DataTable();

@@ -14,12 +14,18 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         public void ActualizarAlumnoPorMatricula(string matricula, Alumno alumno)
 		{
             SqlParameter[] parametrosDeAlumno = InicializarParametrosDeSql(alumno);
+            int filasAfectadas = 0;
             try
             {
-                AccesoADatos.EjecutarInsertInto("UPDATE Alumnos SET Nombre = @NombreAlumno, Estado = @EstadoAlumno, Telefono = @TelefonoAlumno, CorreoElectronico = @CorreoElectronicoAlumno WHERE Matricula = @MatriculaAlumno", parametrosDeAlumno);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Alumnos SET Nombre = @NombreAlumno, Estado = @EstadoAlumno, Telefono = @TelefonoAlumno, CorreoElectronico = @CorreoElectronicoAlumno WHERE Matricula = @MatriculaAlumno", parametrosDeAlumno);
             } catch (SqlException e)
             {
                 throw new AccesoADatosException("Error al actualizar alumno: " + alumno.ToString() + "Con matricula: " + matricula, e);
+            }
+
+            if (filasAfectadas <= 0)
+            {
+                throw new AccesoADatosException("El alumno con matricula: " + matricula + " no existe.");
             }
         }
 
@@ -143,7 +149,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             Alumno alumno = new Alumno();
             try
             {
-                alumno = ConvertirDataTableAAlumno(tablaDeAlumno);
+                alumno = ConvertirDataTableAAlumnoConSoloMatricula(tablaDeAlumno);
             }
             catch (FormatException e)
             {
@@ -170,12 +176,23 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return alumno;
         }
 
-		private List<Alumno> ConvertirDataTableAListaDeAlumnos(DataTable tablaDeAlumnos)
+        private Alumno ConvertirDataTableAAlumnoConSoloMatricula(DataTable tablaDeAlumno)
+        {
+            AsignacionDAO asignacionDAO = new AsignacionDAO();
+            Alumno alumno = new Alumno();
+            foreach (DataRow fila in tablaDeAlumno.Rows)
+            {
+                alumno.Matricula = fila["Matricula"].ToString();
+            }
+            return alumno;
+        }
+
+        private List<Alumno> ConvertirDataTableAListaDeAlumnos(DataTable tablaDeAlumnos)
 		{
 			AsignacionDAO asignacionDAO = new AsignacionDAO();
             List<Alumno> listaDeAlumnos = new List<Alumno>();
-           foreach (DataRow fila in tablaDeAlumnos.Rows)
-           {
+            foreach (DataRow fila in tablaDeAlumnos.Rows)
+            {
                 Alumno alumno = new Alumno
                 {
                     Nombre = fila["Nombre"].ToString(),

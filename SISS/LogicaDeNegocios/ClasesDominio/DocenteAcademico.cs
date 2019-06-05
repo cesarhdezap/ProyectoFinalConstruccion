@@ -10,6 +10,20 @@
 		public DocenteAcademico Coordinador { get; set; }
 		public Rol Rol { get; set; }
 
+
+        public override string ToString()
+        {
+            string docenteAcademico = System.Environment.NewLine +
+                                      "IDPersonal: " + this.IDPersonal + System.Environment.NewLine +
+                                      "Nombre: " + this.Nombre + System.Environment.NewLine +
+                                      "CorreoElectronico: " + this.CorreoElectronico + System.Environment.NewLine +
+                                      "Telefono: " + this.Telefono + System.Environment.NewLine +
+                                      "Cubiculo: " + this.Cubiculo + System.Environment.NewLine +
+                                      "EsActivo: " + this.EsActivo + System.Environment.NewLine +
+                                      "Rol: " + this.Rol.ToString() + System.Environment.NewLine;
+
+            return docenteAcademico;
+        }
         public void Desactivar()
 		{
 			this.EsActivo = false;
