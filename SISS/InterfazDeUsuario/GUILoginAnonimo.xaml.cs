@@ -1,6 +1,6 @@
-﻿using LogicaDeNegocios.ClasesDominio;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
-using System;
+﻿using InterfazDeUsuario.GUITipoDeSesion;
+using LogicaDeNegocios;
+using LogicaDeNegocios.ClasesDominio;
 using System.Windows;
 using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
 using static LogicaDeNegocios.ServiciosDeSesion;
@@ -14,11 +14,6 @@ namespace InterfazDeUsuario
             InitializeComponent();
         }
 
-        public TipoDeSesion IdentificarSesion()
-        {
-            throw new NotImplementedException();
-        }
-
         private void ButtonIngresar_Click(object sender, RoutedEventArgs e)
         {
             string correo = TextBoxCorreo.Text;
@@ -29,23 +24,49 @@ namespace InterfazDeUsuario
             if (resultadoDeAutenticacion == ResultadoDeAutenticacion.Valido)
             {
                 TipoDeSesion tipoDeSesion = TipoDeSesion.NoValido;
-                SesionDAO sesionDAO = new SesionDAO();
-                tipoDeSesion = sesionDAO.CargarTipoDeSesionPorCorreo(correo);
+                tipoDeSesion = CargarTipoDeSesionPorCorreo(correo);
 
                 if (tipoDeSesion == TipoDeSesion.Alumno)
                 {
-                    sesion.IDUsuario = sesionDAO.CargarMatriculaDeAlumnoPorCorreo(correo);
+                    sesion.IDUsuario = ServiciosDeSesion.CargarMatriculaDeAlumnoPorCorreo(correo);
                 }
                 else if (tipoDeSesion != TipoDeSesion.NoValido)
                 {
-                    sesion.IDUsuario = sesionDAO.CargarIDDeUsuarioPorCorreo(correo).ToString();
+                    sesion.IDUsuario = CargarIDDeUsuarioPorCorreo(correo).ToString();
                 }
                 sesion.TipoDeUsuario = tipoDeSesion;
+                InstanciarVentanaDeSesion(sesion);
             }
             else
             {
                 MessageBox.Show("Usuario o contraseña incorrectos.");
             }
+        }
+
+        private void InstanciarVentanaDeSesion(Sesion sesion)
+        {
+            if (sesion.TipoDeUsuario == TipoDeSesion.Alumno)
+            {
+                GUIAlumno interfazAlumno = new GUIAlumno(sesion);
+                interfazAlumno.ShowDialog();
+            }
+            else if (sesion.TipoDeUsuario == TipoDeSesion.Coordinador)
+            {
+                GUICoordinador interfazCoordinador = new GUICoordinador(sesion);
+            }
+            else if (sesion.TipoDeUsuario == TipoDeSesion.Director)
+            {
+                GUIDirector interfazDirector = new GUIDirector(sesion);
+            }
+            else if (sesion.TipoDeUsuario == TipoDeSesion.Tecnico)
+            {
+                GUITecnicoAcademico interfazTecnico = new GUITecnicoAcademico(sesion);
+            }
+            else
+            {
+                MessageBox.Show("Tipo de sesion no valida.");
+            }
+            Hide();
         }
     }
 }

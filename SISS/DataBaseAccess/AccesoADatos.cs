@@ -26,20 +26,25 @@ namespace AccesoABaseDeDatos
 
                 SqlDataAdapter dataAdapter = new SqlDataAdapter(comando);
                 DataTable dataTable = new DataTable();
-
+                int filasAfectadas = 0;
                 try
                 {
                     conexion.Open();
-                    comando.ExecuteNonQuery();
+                    filasAfectadas = comando.ExecuteNonQuery();
                     dataAdapter.Fill(dataTable);
                 }
                 catch(IOException e)
                 {
-                    throw new IOException("Error al intentar conectarse a la base de datos " + e.StackTrace);
+                    throw new IOException("Error al intentar conectarse a la base de datos ",e);
                 }
                 finally
                 {
                     CerrarConexion(conexion);
+                }
+
+                if (filasAfectadas == 0)
+                {
+                    throw new AccesoADatosException();
                 }
                 
                 return dataTable;

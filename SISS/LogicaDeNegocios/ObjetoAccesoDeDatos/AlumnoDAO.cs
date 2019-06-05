@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.Excepciones;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
@@ -23,6 +21,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al actualizar alumno: " + alumno.ToString() + "Con matricula: " + matricula, e);
             }
+        }
+
+        public string CargarMatriculaPorCorreo(string correo)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Alumno> CargarAlumnosPorEstado(EstadoAlumno estadoAlumno)
