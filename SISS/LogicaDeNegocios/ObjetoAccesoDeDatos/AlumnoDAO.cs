@@ -18,9 +18,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             try
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Alumnos SET Nombre = @NombreAlumno, Estado = @EstadoAlumno, Telefono = @TelefonoAlumno, CorreoElectronico = @CorreoElectronicoAlumno WHERE Matricula = @MatriculaAlumno", parametrosDeAlumno);
-            } catch (SqlException e)
+            } 
+            catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al actualizar alumno: " + alumno.ToString() + "Con matricula: " + matricula, e);
+                throw new AccesoADatosException("Error al actualizar Alumno: " + alumno.ToString() + "Con matricula: " + matricula, e);
             }
 
             if (filasAfectadas <= 0)
@@ -34,14 +35,15 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             throw new NotImplementedException();
         }
 
-        public List<Alumno> CargarAlumnosPorEstado(EstadoAlumno estadoAlumno)
+        public List<Alumno> CargarAlumnosPorEstado(EstadoAlumno estadoDeAlumno)
+
 		{
 			DataTable tablaDeAlumnos = new DataTable();
 			SqlParameter[] parametroEstadoAlumno = new SqlParameter[1];
             parametroEstadoAlumno[0] = new SqlParameter
             {
                 ParameterName = "@EstadoAlumno",
-                Value = (int)estadoAlumno
+                Value = (int)estadoDeAlumno
             };
 
             try
@@ -50,7 +52,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al cargar alumnos con estado: " + estadoAlumno.ToString(), e);
+                throw new AccesoADatosException("Error al cargar alumnos con estado: " + estadoDeAlumno.ToString(), e);
             } 
 			List<Alumno> alumnos = new List<Alumno>();
             try
@@ -59,7 +61,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a alumno en cargar alumnos con estado: " + estadoAlumno.ToString(), e);
+                throw new AccesoADatosException("Error al convertir datatable a alumno en cargar alumnos con estado: " + estadoDeAlumno.ToString(), e);
             }
             return alumnos;
         }
@@ -70,17 +72,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			SqlParameter[] parametroMatricula = new SqlParameter[1];
             parametroMatricula[0] = new SqlParameter
             {
-                ParameterName = "@matricula",
+                ParameterName = "@Matricula",
                 Value = matricula
             };
 
 			try
             {
-                tablaDeAlumno = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE Matricula = @matricula", parametroMatricula);
+                tablaDeAlumno = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE Matricula = @Matricula", parametroMatricula);
             }
 			catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al cargar alumno con matricula: " + matricula, e);
+                throw new AccesoADatosException("Error al cargar Alumno con matricula: " + matricula, e);
             }
             Alumno alumno = new Alumno();
             try
@@ -89,16 +91,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a alumno en cargar alumno con matricula: " + matricula, e);
-            }
-
-            try
-            {
-                alumno = ConvertirDataTableAAlumno(tablaDeAlumno);
-            }
-            catch(InvalidCastException e)
-            {
-                throw new AccesoADatosException("Error al convertir a datatable a Alumno. ",e);
+                throw new AccesoADatosException("Error al convertir datatable a Alumno en cargar alumno con matricula: " + matricula, e);
             }
 
             return alumno;
@@ -113,23 +106,26 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 			catch (SqlException e)
 			{
-                throw new AccesoADatosException("Error al cargar todos los alumnos", e);
+                throw new AccesoADatosException("Error al cargar todos los Alumnos", e);
             }
-            List<Alumno> alumnos = new List<Alumno>();
+            List<Alumno> listaDeAlumnos = new List<Alumno>();
             try
             {
-                alumnos = ConvertirDataTableAListaDeAlumnos(tablaDeAlumnos);
+                listaDeAlumnos = ConvertirDataTableAListaDeAlumnos(tablaDeAlumnos);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a lista de alumnos en cargar todos los alumnos", e);
+                throw new AccesoADatosException("Error al convertir datatable a lista de Alumnos en cargar todos los Alumnos", e);
             }
-
-            return alumnos;
+            return listaDeAlumnos;
 		}
 
         public Alumno CargarMatriculaPorIDAsignacion(int IDAsignacion)
         {
+            if (IDAsignacion <= 0)
+            {
+                throw new AccesoADatosException("Error al cargar matricula Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.");
+            }
             DataTable tablaDeAlumno = new DataTable();
             SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
             parametroIDAsignacion[0] = new SqlParameter
@@ -153,7 +149,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a alumno en cargar alumno con IDAsignacion: " + IDAsignacion, e);
+                throw new AccesoADatosException("Error al convertir datatable a Alumno en cargar alumno con IDAsignacion: " + IDAsignacion, e);
             }
             return alumno;
         }
@@ -212,7 +208,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         public void GuardarAlumno(Alumno alumno)
         {
             SqlParameter[] parametrosDeAlumno = InicializarParametrosDeSql(alumno);
-
             int filasAfectadas = 0;
             try
             {
@@ -220,7 +215,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al guardar alumno:" + alumno.ToString(), e);
+                throw new AccesoADatosException("Error al guardar Alumno:" + alumno.ToString(), e);
             }
             if (filasAfectadas <= 0)
             {
