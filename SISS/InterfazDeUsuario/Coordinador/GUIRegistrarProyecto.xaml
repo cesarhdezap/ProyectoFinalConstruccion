@@ -26,7 +26,7 @@
         <TextBox x:Name="TxtEstudiantesSolicitados" HorizontalAlignment="Left" Height="23" Margin="755,275,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="251"/>
         <Button x:Name="BtnAdjuntarEvidencia" Content="Adjuntar evidencia" HorizontalAlignment="Left" Margin="506,318,0,0" VerticalAlignment="Top" Width="186" BorderBrush="#FF1B1717" FontFamily="Arial" FontSize="20"/>
         <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="322,400,0,0" VerticalAlignment="Top" Width="96" BorderBrush="#FF1B1717" FontFamily="Arial" FontSize="20"/>
-        <Button x:Name="BtnAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="532,400,0,0" VerticalAlignment="Top" Width="90" Click="Button_Click" BorderBrush="#FF1B1717" FontFamily="Arial" FontSize="20"/>
+        <Button x:Name="BtnAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="532,400,0,0" VerticalAlignment="Top" Width="90" BorderBrush="#FF1B1717" FontFamily="Arial" FontSize="20"/>
         <Label Content="Estudiantes solicitados:" HorizontalAlignment="Left" Margin="516,270,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" Width="218"/>
 
     </Grid>

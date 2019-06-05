@@ -15,7 +15,7 @@
         <Label Content="Nombre:" HorizontalAlignment="Left" Margin="292,186,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20"/>
         <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="256,412,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20"/>
         <Label Content="Confirmar contraseña:" HorizontalAlignment="Left" Margin="168,464,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20"/>
-        <TextBox x:Name="TxtNombre" HorizontalAlignment="Left" Height="24" Margin="436,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20" TextChanged="TxtNombre_TextChanged"/>
+        <TextBox x:Name="TxtNombre" HorizontalAlignment="Left" Height="24" Margin="436,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20"/>
         <TextBox x:Name="TxtTelefono" HorizontalAlignment="Left" Height="24" Margin="436,368,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20"/>
         <TextBox x:Name="TxtConfirmarCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="436,320,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20"/>
         <TextBox x:Name="TxtCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="436,276,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20"/>
@@ -28,7 +28,7 @@
         <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="626,27,0,0" Width="119"/>
         <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="750,27,-40,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
         <Label Content="ID Personal:" HorizontalAlignment="Left" Margin="255,148,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20"/>
-        <TextBox x:Name="TxtIDPersonal" HorizontalAlignment="Left" Height="24" Margin="436,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20" TextChanged="TxtNombre_TextChanged"/>
+        <TextBox x:Name="TxtIDPersonal" HorizontalAlignment="Left" Height="24" Margin="436,148,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20"/>
 
     </Grid>
 </Window>

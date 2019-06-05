@@ -12,9 +12,9 @@
         <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="627,23,0,0" Width="119"/>
         <Label x:Name="LblNombreDeUsuario_Copy" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="751,23,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
         <Label Content="Nombre:" HorizontalAlignment="Left" Margin="216,139,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20"/>
-        <TextBox x:Name="TxtPuesto" HorizontalAlignment="Left" Height="24" Margin="400,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20" TextChanged="TxtNombre_TextChanged"/>
+        <TextBox x:Name="TxtPuesto" HorizontalAlignment="Left" Height="24" Margin="400,179,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20"/>
         <Label Content="Puesto:" HorizontalAlignment="Left" Margin="227,177,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" Width="76"/>
-        <TextBox x:Name="TxtNombre" HorizontalAlignment="Left" Height="24" Margin="400,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20" TextChanged="TxtNombre_TextChanged"/>
+        <TextBox x:Name="TxtNombre" HorizontalAlignment="Left" Height="24" Margin="400,139,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20"/>
         <Label Content="Organización:" HorizontalAlignment="Left" Margin="169,224,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" Width="134"/>
         <Label Content="Correo electrónico: " HorizontalAlignment="Left" Margin="125,268,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" Width="178"/>
         <Label Content="Confirmar correo electrónico:" HorizontalAlignment="Left" Margin="37,314,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" Width="266"/>

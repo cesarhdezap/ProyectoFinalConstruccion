@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace InterfazDeUsuario.Coordinador
 {
-    /// <summary>
-    /// Interaction logic for GUIRegistrarEncargado.xaml
-    /// </summary>
     public partial class GUIRegistrarEncargado : Window
     {
         public GUIRegistrarEncargado()
