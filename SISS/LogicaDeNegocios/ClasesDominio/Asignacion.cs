@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
 
 namespace LogicaDeNegocios
 {
@@ -32,18 +31,14 @@ namespace LogicaDeNegocios
 
         public void RegistrarReporteMensual(ReporteMensual reporteMensual, DocenteAcademico docenteAcademico)
 		{
-            reporteMensual.DocenteAcademico = docenteAcademico;
-            this.ReportesMensuales.Add(reporteMensual);
-            ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
-            reporteMensualDAO.GuardarReporteMensual(reporteMensual, this.IDAsignacion);
+			//TODO
+			throw new NotImplementedException();
 		}
 
 		public void RegistrarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica, DocenteAcademico docenteAcademico)
 		{
-            documentoDeEntregaUnica.DocenteAcademico = docenteAcademico;
-            this.DocumentosDeEntregaUnica.Add(documentoDeEntregaUnica);
-            DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
-            documentoDeEntregaUnicaDAO.GuardarDocumentoDeEntregaUnica(documentoDeEntregaUnica, this.IDAsignacion);
+			//TODO
+			throw new NotImplementedException();
 		}
 
 		private void ActualizarHorasCubiertas()
@@ -58,37 +53,19 @@ namespace LogicaDeNegocios
             this.HorasCubiertas = horasCubiertas;
 		}
 
-		public bool Liberar(DocumentoDeEntregaUnica cartaDeLiberacion)
+		public void Liberar()
 		{
-            bool fueLiberado = false;
-            Liberacion liberacion = new Liberacion();
-            LiberacionDAO liberacionDAO = new LiberacionDAO();
-            if (EsLiberable())
-            {
-                liberacion.Fecha = DateTime.Now;
-                liberacion.Asignacion = this;
-                liberacion.CartaDeLiberacion = cartaDeLiberacion;
-                liberacionDAO.GuardarLiberacion(liberacion);
-                liberacion.IDLiberacion = liberacionDAO.ObtenerUltimoIDInsertado();
-                this.Liberacion = liberacion;
-                fueLiberado = true;
-            }
-            return fueLiberado;
+			//TODO
+			throw new NotImplementedException();
 		}
 
 		public bool EsLiberable()
 		{
-            bool esLiberable = false;
-
-            ActualizarHorasCubiertas();
-
-            if (HorasCubiertas >= HORAS_MAXIMAS_CUBIERTAS)
-            {
-                esLiberable = true;
-            }
-
-            return esLiberable;
+			//TODO
+			throw new NotImplementedException();
 		}
+
+
 	}
 
 

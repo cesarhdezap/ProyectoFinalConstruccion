@@ -30,7 +30,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
+        public string CargarMatriculaPorCorreo(string correo)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Alumno> CargarAlumnosPorEstado(EstadoAlumno estadoDeAlumno)
+
 		{
 			DataTable tablaDeAlumnos = new DataTable();
 			SqlParameter[] parametroEstadoAlumno = new SqlParameter[1];
@@ -242,11 +248,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeAlumno[6].Value = (int)alumno.EstadoAlumno;
 
             return parametrosDeAlumno;
-        }
-
-        public int ObtenerUltimoIDInsertado()
-        {
-            throw new NotImplementedException();
         }
     }
 }

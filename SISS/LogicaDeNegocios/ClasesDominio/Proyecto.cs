@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
 
 namespace LogicaDeNegocios
 {
@@ -22,20 +21,10 @@ namespace LogicaDeNegocios
 			throw new NotImplementedException();
 		}
 
-        public void AsignarAlumno(Alumno alumno, Solicitud solicitud = null)
+		public void AsignarAlumno(Alumno alumno)
 		{
-            Asignacion asignacion = new Asignacion
-            {
-                EstadoAsignacion = EstadoAsignacion.Activo,
-                FechaDeInicio = DateTime.Now,
-                HorasCubiertas = 0,
-                Alumno = alumno,
-                Proyecto = this,
-                Solicitud = solicitud
-            };
-
-            AsignacionDAO asignacionDAO = new AsignacionDAO();
-            asignacionDAO.GuardarAsignacion(asignacion);
+			//TODO
+			throw new NotImplementedException();
 		}
 
         public enum EstadoProyecto
