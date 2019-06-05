@@ -293,10 +293,5 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             return parametrosDeProyecto;
         }
-
-        public int ObtenerUltimoIDInsertado()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

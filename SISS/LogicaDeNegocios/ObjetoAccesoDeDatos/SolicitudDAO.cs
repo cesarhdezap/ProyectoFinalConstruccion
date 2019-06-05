@@ -156,10 +156,5 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             return solicitud;
         }
-
-        public int ObtenerUltimoIDInsertado()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

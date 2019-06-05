@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogicaDeNegocios.ClasesDominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace InterfazDeUsuario.GUITipoDeSesion
     /// </summary>
     public partial class GUICoordinador : Window
     {
-        public GUICoordinador()
+        public GUICoordinador(Sesion sesion)
         {
             InitializeComponent();
         }

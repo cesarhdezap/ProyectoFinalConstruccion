@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
+
 
 namespace LogicaDeNegocios
 {
@@ -15,21 +15,17 @@ namespace LogicaDeNegocios
 		public void DarDeBaja()
 		{
 			EstadoAlumno = EstadoAlumno.Desactivado;
-            ActualizarRegistroDeAlumno();
-
-        }
+		}
 
 		public void AceptarAlumno()
 		{
 			EstadoAlumno = EstadoAlumno.Aceptado;
-            ActualizarRegistroDeAlumno();
-        }
+		}
 
 		public void RechazarAlumno()
 		{
 			EstadoAlumno = EstadoAlumno.Rechazado;
-            ActualizarRegistroDeAlumno();
-        }
+		}
 
         public override string ToString()
         {
@@ -43,12 +39,6 @@ namespace LogicaDeNegocios
                             "Carrera" + this.Carrera;
 
             return alumno;
-        }
-        
-        private void ActualizarRegistroDeAlumno()
-        {
-            AlumnoDAO alumnoDAO = new AlumnoDAO();
-            alumnoDAO.ActualizarAlumnoPorMatricula(this.Matricula, this);
         }
     }
 
