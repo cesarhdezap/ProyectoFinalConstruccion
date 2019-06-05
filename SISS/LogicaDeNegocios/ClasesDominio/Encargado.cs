@@ -12,7 +12,7 @@ namespace LogicaDeNegocios
 
 		public void AñadirProyecto(Proyecto proyecto)
 		{
-            proyecto.encargado = this;
+            proyecto.Encargado = this;
             this.Proyectos.Add(proyecto);
 		}
 	}

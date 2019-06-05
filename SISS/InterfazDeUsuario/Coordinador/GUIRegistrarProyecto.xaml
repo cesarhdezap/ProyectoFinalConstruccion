@@ -1,0 +1,33 @@
+﻿<Window x:Class="InterfazDeUsuario.Coordinador.GUIRegistrarProyecto"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InterfazDeUsuario.Coordinador"
+        mc:Ignorable="d"
+        Title="GUIRegistrarProyecto" Height="496.375" Width="1073.375">
+    <Grid>
+        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="1065" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C"/>
+        <Label Content="Registrar proyecto" HorizontalAlignment="Left" Margin="421,69,0,0" VerticalAlignment="Top" Height="39" Width="201" FontFamily="Arial" FontSize="22" BorderBrush="#FF1B1414"/>
+        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="835,22,0,0" Width="125"/>
+        <Label x:Name="LblNombreDeUsuario_Copy" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="966,22,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
+        <Label Content="Organización asociada:" HorizontalAlignment="Left" Margin="31,179,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20"/>
+        <Label Content="Nombre del proyecto:" HorizontalAlignment="Left" Margin="37,223,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20"/>
+        <Label Content="Encargado asociado:" HorizontalAlignment="Left" Margin="44,265,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20"/>
+        <Label Content="Puesto del encargado" HorizontalAlignment="Left" Margin="38,312,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20"/>
+        <Label Content="Usuarios directos:" HorizontalAlignment="Left" Margin="564,179,0,0" VerticalAlignment="Top" Width="170" FontFamily="Arial" FontSize="20"/>
+        <Label Content="Usuarios indirectos:" HorizontalAlignment="Left" Margin="548,223,0,0" VerticalAlignment="Top" Width="186" FontFamily="Arial" FontSize="20"/>
+        <ComboBox x:Name="CbxOrganizacionAsociada" HorizontalAlignment="Left" Margin="258,186,0,0" VerticalAlignment="Top" Width="212"/>
+        <ComboBox x:Name="CbxEncargadoAsociado" HorizontalAlignment="Left" Margin="258,276,0,0" VerticalAlignment="Top" Width="212"/>
+        <TextBox x:Name="TxtNombre" HorizontalAlignment="Left" Height="23" Margin="258,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="212"/>
+        <TextBox x:Name="TxtPuestoDelEncargado" HorizontalAlignment="Left" Height="23" Margin="258,322,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="212"/>
+        <TextBox x:Name="TxtUsuariosDirectos" HorizontalAlignment="Left" Height="23" Margin="755,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="251"/>
+        <TextBox x:Name="TxtUsuariosIndirectos" HorizontalAlignment="Left" Height="23" Margin="755,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="251"/>
+        <TextBox x:Name="TxtEstudiantesSolicitados" HorizontalAlignment="Left" Height="23" Margin="755,275,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="251"/>
+        <Button x:Name="BtnAdjuntarEvidencia" Content="Adjuntar evidencia" HorizontalAlignment="Left" Margin="506,318,0,0" VerticalAlignment="Top" Width="186" BorderBrush="#FF1B1717" FontFamily="Arial" FontSize="20"/>
+        <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="322,400,0,0" VerticalAlignment="Top" Width="96" BorderBrush="#FF1B1717" FontFamily="Arial" FontSize="20"/>
+        <Button x:Name="BtnAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="532,400,0,0" VerticalAlignment="Top" Width="90" BorderBrush="#FF1B1717" FontFamily="Arial" FontSize="20"/>
+        <Label Content="Estudiantes solicitados:" HorizontalAlignment="Left" Margin="516,270,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" Width="218"/>
+
+    </Grid>
+</Window>

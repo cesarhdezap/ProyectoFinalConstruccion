@@ -6,5 +6,13 @@
         xmlns:local="clr-namespace:InterfazDeUsuario"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid/>
+    <Grid>
+        <Label x:Name="LabelCorreo" Content="Correo: " HorizontalAlignment="Left" Margin="227,130,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="TextBoxCorreo" HorizontalAlignment="Left" Height="26" Margin="284,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192"/>
+        <Label x:Name="LabelContraseña" Content="Contraseña:" HorizontalAlignment="Left" Margin="207,179,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="ButtonIngresar" Content="Ingresar" HorizontalAlignment="Left" Margin="332,235,0,0" VerticalAlignment="Top" Width="75" Click="ButtonIngresar_Click"/>
+        <Label x:Name="LabelInicioDeSesion" Content="Inicio De Sesión" HorizontalAlignment="Left" Margin="313,65,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="ButtonRegistrarseComoAlumno" Content="Registrarse como alumno" HorizontalAlignment="Left" Margin="296,337,0,0" VerticalAlignment="Top" Width="154"/>
+        <PasswordBox x:Name="PasswordBoxContraseña" HorizontalAlignment="Left" Height="23" Margin="284,179,0,0" VerticalAlignment="Top" Width="192"/>
+    </Grid>
 </Window>

@@ -17,16 +17,16 @@ namespace LogicaDeNegocios.Servicios
         public static ResultadoDeAutenticacion AutenticarCredenciales(string correoElectronico, string contraseña)
         {
             ResultadoDeAutenticacion resultadoDeAutenticacion = ResultadoDeAutenticacion.NoValido;
-
 			AutenticacionDAO autenticacionDAO = new AutenticacionDAO();
-
             List<string> correosDeUsuario = autenticacionDAO.CargarCorreoDeUsuarios();
             string contraseñaDeUsuario = string.Empty;
+
             for (int i=0; i < correosDeUsuario.Count; i++)
             {
                 if (correoElectronico == correosDeUsuario[i])
                 {
-                     contraseñaDeUsuario = autenticacionDAO.CargarContraseñaPorCorreo(correoElectronico);
+                    contraseñaDeUsuario = autenticacionDAO.CargarContraseñaPorCorreo(correoElectronico);
+                    break;
                 }
             }
 
@@ -46,10 +46,9 @@ namespace LogicaDeNegocios.Servicios
 
             using (SHA256 hash = SHA256.Create())
             {
+                byte[] ContrasenaEncriptada = hash.ComputeHash(Encoding.UTF8.GetBytes(contraseña));
                 try
                 {
-                    byte[] ContrasenaEncriptada = hash.ComputeHash(Encoding.UTF8.GetBytes(contraseña));
-
                     for (int indice = 0; indice < ContrasenaEncriptada.Length; indice++)
                     {
                         cadenaFinal.Append(ContrasenaEncriptada[indice].ToString("x2"));
