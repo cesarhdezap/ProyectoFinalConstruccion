@@ -59,6 +59,6 @@ namespace LogicaDeNegocios
 		Aceptado,
 		Rechazado,
 		Desactivado,
-		Asignado
+		EsperandoAsignacion
 	}
 }
