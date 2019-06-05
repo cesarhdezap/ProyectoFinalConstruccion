@@ -18,11 +18,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
     {
         public void ActualizarImagenPorIDDocumentno(Imagen imagen)
         {
-            SqlParameter[] parametroIDDocumento = InicializarParametrosDeSql(imagen);
+            SqlParameter[] parametrosDeImagen = InicializarParametrosDeSql(imagen);
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Imagenes SET DatosDeImagen = @DatosDeImagen WHERE IDDocumento = @IDDocuemnto AND TipoDeDocumentoEnImagen = @TipoDeDocumentoEnImagen");
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Imagenes SET DatosDeImagen = @DatosDeImagen WHERE IDDocumento = @IDDocuemnto AND TipoDeDocumentoEnImagen = @TipoDeDocumentoEnImagen", parametrosDeImagen);
             }
             catch (SqlException e)
             {
@@ -48,7 +48,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeImagen = AccesoADatos.EjecutarSelect("SELECT DatosDeImagen FROM Imagenes WHERE IDDocumento = @IDDocumento", parametroIDDocumento);
+                tablaDeImagen = AccesoADatos.EjecutarSelect("SELECT DatosDeImagen FROM Imagenes WHERE IDDocumento = @IDDocumento AND TipoDeDocumentoEnImagen = @TipoDeDocumentoEnimagen", parametroIDDocumento);
             }
             catch(SqlException e)
             {
@@ -73,7 +73,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Imagenes(IDDocumento, DatosDeImagen, TipoDeDocumentoEnImagen) VALUES(@IDDocumento, @DatosDeImagen, @TipoDeDocumentoEnImagen)");
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Imagenes(IDDocumento, DatosDeImagen, TipoDeDocumentoEnImagen) VALUES(@IDDocumento, @DatosDeImagen, @TipoDeDocumentoEnImagen)",parametroIDDocumento);
             }
             catch (SqlException e)
             {
@@ -101,7 +101,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             };
             parametrosDeImagen[2] = new SqlParameter
             {
-                ParameterName = "@TipoDeDocumento",
+                ParameterName = "@TipoDeDocumentoEnImagen",
                 Value = (int)imagen.TipoDeDocumentoEnImagen
             };
 

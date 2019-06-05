@@ -10,9 +10,9 @@ namespace LogicaDeNegocios.Interfaces
 	interface IReporteMensualDAO
 	{
         void ActualizarReporteMensualPorID(int IDReporteMensual, ReporteMensual reporteMensual);
-        List<ReporteMensual> CargarIDsPorIDAsignacion(int IDasignacion);
+        List<ReporteMensual> CargarIDsPorIDAsignacion(int IDAsignacion);
         ReporteMensual CargarReporteMensualPorID(int IDReporteMensual);
-        int GuardarReporteMensual(ReporteMensual reporteMensual);
+        void GuardarReporteMensual(ReporteMensual reporteMensual);
 
 	}
 }

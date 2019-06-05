@@ -6,7 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
-
+using LogicaDeNegocios.Excepciones;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -130,9 +130,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             try
             {
                 AccesoADatos.EjecutarInsertInto("INSERT INTO Encargados(Nombre, CorreoElectronico, Telefono, Puesto, IDOrganizacion) VALUES(@NombreEncargado, @CorreoElectronicoEncargado, @TelefonoEncargado, @PuestoEncargado, @IDOrganizacion)", parametrosDeEncargado);
-            } catch (SqlException e)
-            { 
-
+            }
+            catch (SqlException e)
+            {
+                throw new AccesoADatosException("Error al guardar encargado con id: " + encargado.IDEncargado, e);
             }
         }
 

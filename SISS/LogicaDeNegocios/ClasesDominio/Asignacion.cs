@@ -17,9 +17,19 @@ namespace LogicaDeNegocios
 		public List<ReporteMensual> ReportesMensuales { get; set; }
 		public Liberacion Liberacion { get; set; }
 		public Solicitud Solicitud { get; set; }
-		
-		
-		public void RegistrarReporteMensual(ReporteMensual reporteMensual, DocenteAcademico docenteAcademico)
+
+        public override string ToString()
+        {
+            string asignacion = System.Environment.NewLine +
+                                "IDAsignacion: " + this.IDAsignacion + System.Environment.NewLine +
+                                "Estado: " + this.EstadoAsignacion.ToString() + System.Environment.NewLine +
+                                "FechaDeInicio: " + this.FechaDeInicio.ToString() + System.Environment.NewLine +
+                                "FechaDeFinal: " + this.FechaDeFinal.ToString() + System.Environment.NewLine +
+                                "HorasCubiertas: " + this.HorasCubiertas + System.Environment.NewLine;
+            return asignacion;
+        }
+
+        public void RegistrarReporteMensual(ReporteMensual reporteMensual, DocenteAcademico docenteAcademico)
 		{
 			//TODO
 			throw new NotImplementedException();

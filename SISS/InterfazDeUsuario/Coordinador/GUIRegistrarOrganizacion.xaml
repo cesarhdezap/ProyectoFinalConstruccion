@@ -21,7 +21,7 @@
         <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Margin="273,529,0,0" FontFamily="Arial" FontSize="20"/>
         <Button x:Name="BtnAceptar" Content="Aceptar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="87" Margin="583,529,0,0" FontFamily="Arial" FontSize="20"/>
         <Label Content="Nombre:" HorizontalAlignment="Left" Margin="263,133,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20"/>
-        <TextBox x:Name="TxtNombre" HorizontalAlignment="Left" Height="24" Margin="444,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20" TextChanged="TxtNombre_TextChanged"/>
+        <TextBox x:Name="TxtNombre" HorizontalAlignment="Left" Height="24" Margin="444,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20"/>
         <TextBox x:Name="TxtDireccion" HorizontalAlignment="Left" Height="23" Margin="444,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248"/>
         <Label Content="Estado:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="272,247,0,0" FontFamily="Arial" FontSize="20"/>
         <Label Content="Ciudad:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="271,293,0,0" FontFamily="Arial" FontSize="20"/>
