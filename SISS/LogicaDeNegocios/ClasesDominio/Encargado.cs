@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using LogicaDeNegocios.ObjetoAccesoDeDatos;
 
 namespace LogicaDeNegocios
 {
@@ -14,6 +15,8 @@ namespace LogicaDeNegocios
 		{
             proyecto.Encargado = this;
             this.Proyectos.Add(proyecto);
+            ProyectoDAO proyectoDAO = new ProyectoDAO();
+            proyectoDAO.GuardarProyecto(proyecto);
 		}
 	}
 }
