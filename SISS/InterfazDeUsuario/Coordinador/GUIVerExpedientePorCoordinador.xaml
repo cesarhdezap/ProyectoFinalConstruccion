@@ -1,0 +1,69 @@
+﻿<Window x:Class="InterfazDeUsuario.Coordinador.GUIVerExpedientePorCoordinador"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InterfazDeUsuario.Coordinador"
+        mc:Ignorable="d"
+        Title="GUIVerExpedientePorCoordinador" Height="1523" Width="1212.75">
+    <Grid>
+        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="1218" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C" Margin="0,0,-13,0"/>
+        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="960,20,0,0" Width="120"/>
+        <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1084,20,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" RenderTransformOrigin="0.335,1.596"/>
+        <Label x:Name="LblHorasCubiertas1" Content="Horas cubiertas: " HorizontalAlignment="Left" Margin="45,69,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16"/>
+        <Label x:Name="LblTotalDeHoras" Content="[Total de horas]" HorizontalAlignment="Left" Margin="166,69,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16"/>
+        <StackPanel HorizontalAlignment="Left" Height="231" Margin="45,139,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE">
+            <Label Content="Carta de aceptacion"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Height="231" Margin="282,139,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE">
+            <Label Content="Formato de registro"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Height="231" Margin="523,139,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE">
+            <Label Content="Reporte mensual #1"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Height="231" Margin="751,139,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE">
+            <Label Content="Reporte mensual #2"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Height="232" Margin="45,482,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE"/>
+        <StackPanel HorizontalAlignment="Left" Height="231" Margin="282,482,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE"/>
+        <StackPanel HorizontalAlignment="Left" Height="231" Margin="523,483,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE">
+            <Label Content="Reporte mensual #6"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Height="231" Margin="751,483,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE"/>
+        <StackPanel HorizontalAlignment="Left" Height="232" Margin="45,804,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE"/>
+        <StackPanel HorizontalAlignment="Left" Height="231" Margin="282,804,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE"/>
+        <StackPanel HorizontalAlignment="Left" Height="231" Margin="523,805,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE"/>
+        <StackPanel HorizontalAlignment="Left" Height="231" Margin="751,805,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE">
+            <Label Content="Reporte mensual #12"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Height="231" Margin="982,139,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE">
+            <Label Content="Reporte mensual #3"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Height="231" Margin="982,483,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE"/>
+        <StackPanel HorizontalAlignment="Left" Height="231" Margin="982,805,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE">
+            <Label Content="Carta de liberación"/>
+        </StackPanel>
+        <Label x:Name="LblNombreDelAlumno" Content="[Nombre del alumno]" HorizontalAlignment="Left" Margin="305,69,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16"/>
+        <StackPanel HorizontalAlignment="Left" Height="232" Margin="45,1135,0,0" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE">
+            <Label Content="Memoria"/>
+        </StackPanel>
+        <Button x:Name="BtnVerProyecto" Content="Ver proyecto" HorizontalAlignment="Left" Margin="718,82,0,0" VerticalAlignment="Top" Width="134" FontFamily="Arial" Click="BtnVerProyecto_Click"/>
+        <Button x:Name="BtnDarAlumnoDeBaja" Content="Dar alumno de baja" HorizontalAlignment="Left" Margin="1032,82,0,0" VerticalAlignment="Top" Width="134" FontFamily="Arial" Click="BtnDarAlumnoDeBaja_Click"/>
+        <Button x:Name="BtnActualizarExpediente" Content="Actualizar expediente" HorizontalAlignment="Left" Margin="875,82,0,0" VerticalAlignment="Top" Width="134" FontFamily="Arial" Click="BtnActualizarExpediente_Click"/>
+        <Label Content="Entregado el [dia] &#xD;&#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="54,401,0,0" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="305,401,0,0" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="1015,383,0,0" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="789,383,0,0" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="553,383,0,0" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="1015,1067,0,0" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="789,1067,0,0" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="65,1067,0,0" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="553,1067,0,0" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="305,1067,0,0" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="65,1399,0,0" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
+        <Label Content="Horas reportadas: [Horas]" HorizontalAlignment="Left" Margin="537,430,0,0" VerticalAlignment="Top" FontFamily="Arial"/>
+        <Label Content="Entrega no agendada" HorizontalAlignment="Left" Margin="997,430,0,0" VerticalAlignment="Top" Width="148" FontFamily="Arial"/>
+        <Label Content="Horas reportadas: [Horas]" HorizontalAlignment="Left" Margin="770,430,0,0" VerticalAlignment="Top" FontFamily="Arial"/>
+
+    </Grid>
+</Window>
