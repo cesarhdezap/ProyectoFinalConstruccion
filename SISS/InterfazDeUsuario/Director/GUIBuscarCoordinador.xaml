@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:InterfazDeUsuario.Director"
         mc:Ignorable="d"
         Title="GUIBuscarCoordinadorxaml" Height="538.875" Width="888.875">
     <Grid>
@@ -17,6 +16,6 @@
         <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="412,463,0,0" VerticalAlignment="Top" Width="81" FontFamily="Arial" Height="25"/>
         <DataGrid x:Name="DtgCoordinadores" HorizontalAlignment="Left" Height="265" Margin="38,182,0,0" VerticalAlignment="Top" Width="803"/>
         <Label x:Name="LblBuscarCoordinadorPorNombre" Content="Buscar coordinador por nombre:" HorizontalAlignment="Left" Margin="472,81,0,0" VerticalAlignment="Top" Width="186"/>
-
+        
     </Grid>
 </Window>

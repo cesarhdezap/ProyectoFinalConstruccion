@@ -23,5 +23,10 @@ namespace InterfazDeUsuario.Director
         {
             InitializeComponent();
         }
+
+        private void TxtNombre_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
