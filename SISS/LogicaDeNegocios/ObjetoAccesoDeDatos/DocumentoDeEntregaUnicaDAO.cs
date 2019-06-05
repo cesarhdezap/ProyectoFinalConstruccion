@@ -25,7 +25,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeDocumentoDeEntregaUnica = AccesoADatos.EjecutarSelect("SELECT * FROM DocumentosDeEntregaUnica WHERE IDDocumento = @IDDocumento",parametroIDDocumentoDeEntregaUnica);
             }
-            catch(SqlException e)   
+            catch(SqlException e)
             {
                 throw new AccesoADatosException("Error al cargar DocumentoDeEntregaUnica con IDDocumento: " + IDDocumento, e);
             }
@@ -71,14 +71,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeDocumentosDeEntregaUnica;
         }
 
-        public void GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion)
+        public void GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica)
         {
-            SqlParameter[] parametrosDocumentoDeEntregaUnica = InicializarParametrosDeSQL(documentoDeEntregaUnica, IDAsignacion);
+            SqlParameter[] parametrosDocumentoDeEntregaUnica = InicializarParametrosDeSQL(documentoDeEntregaUnica);
 
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO DocumentosDeEntregaUnica(FechaDeEntrega, TipoDeDocumento, Nombre, DocenteAdministrativo, IDAsignacion) VALUES(@IDDocumento, @FechaDeEntrega, @TipoDeDocumento, @Nombre, @DocenteAdministrativo, @IDAsignacion)", parametrosDocumentoDeEntregaUnica);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO DocumentosDeEntregaUnica(FechaDeEntrega, TipoDeDocumento, Nombre, DocenteAdministrativo) VALUES(@IDDocumento, @FechaDeEntrega, @TipoDeDocumento, @Nombre, @DocenteAdministrativo)", parametrosDocumentoDeEntregaUnica);
             }
             catch (SqlException e)
             {
@@ -144,9 +144,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return documentoDeEntregaUnica;
         }
 
-        private SqlParameter[] InicializarParametrosDeSQL(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion)
+        private SqlParameter[] InicializarParametrosDeSQL(DocumentoDeEntregaUnica documentoDeEntregaUnica)
         {
-            SqlParameter[] parametrosDeDocumentoDeEntregaUnica = new SqlParameter[6];
+            SqlParameter[] parametrosDeDocumentoDeEntregaUnica = new SqlParameter[5];
 
             for (int i = 0; i < parametrosDeDocumentoDeEntregaUnica.Length; i++)
             {
@@ -163,15 +163,8 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeDocumentoDeEntregaUnica[3].Value = documentoDeEntregaUnica.Nombre;
             parametrosDeDocumentoDeEntregaUnica[4].ParameterName = "@DocenteAdministrativo";
             parametrosDeDocumentoDeEntregaUnica[4].Value = documentoDeEntregaUnica.DocenteAcademico.IDPersonal;
-            parametrosDeDocumentoDeEntregaUnica[5].ParameterName = "@IDAsignacion";
-            parametrosDeDocumentoDeEntregaUnica[5].Value = IDAsignacion;
 
             return parametrosDeDocumentoDeEntregaUnica;
-        }
-
-        public int ObtenerUltimoIDInsertado()
-        {
-            throw new NotImplementedException();
         }
     }
 }

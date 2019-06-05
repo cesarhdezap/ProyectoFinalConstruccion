@@ -10,6 +10,5 @@ namespace LogicaDeNegocios.Interfaces
         List<DocenteAcademico> CargarDocentesAcademicosPorEstado(bool isActivo);
 		List<DocenteAcademico> CargarDocentesAcademicosPorRol(Rol rol);
         void GuardarDocenteAcademico(DocenteAcademico docenteAcademico);
-        int ObtenerUltimoIDInsertado();
-    }
+	}
 }
