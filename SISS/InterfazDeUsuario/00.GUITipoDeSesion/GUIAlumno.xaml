@@ -10,7 +10,7 @@
         <Button x:Name="BtnEscogerProyecto" Content="Escoger proyecto" HorizontalAlignment="Left" Margin="135,225,0,0" VerticalAlignment="Top" Width="197" Height="102" BorderBrush="#FF231A1A" FontFamily="Arial" FontSize="20"/>
         <Button x:Name="BtnVerExpediente" Content="Ver expediente" HorizontalAlignment="Left" Margin="563,225,0,0" VerticalAlignment="Top" Width="182" Height="102" BorderBrush="#FF151111" FontFamily="Arial" FontSize="20"/>
         <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="895" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C" Margin="0,0,-12,0"/>
-        <Label Content="Sistema Informático de Servicio Social" HorizontalAlignment="Left" Margin="251,83,0,0" VerticalAlignment="Top" Height="33" Width="392" FontFamily="Arial" FontSize="22" BorderBrush="#FF1B1414"/>
+        <Label x:Name="LblSISS" Content="Sistema Informático de Servicio Social" HorizontalAlignment="Left" Margin="251,83,0,0" VerticalAlignment="Top" Height="33" Width="392" FontFamily="Arial" FontSize="22" BorderBrush="#FF1B1414"/>
         <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="627,23,0,0" Width="119"/>
         <Label x:Name="LblNombreDeUsuario_Copy" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="751,23,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
     </Grid>

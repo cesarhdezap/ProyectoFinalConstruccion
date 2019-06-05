@@ -71,6 +71,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Coordinador\GUIAsignarProyectoAAlumnoxaml.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Coordinador\GUIBuscarAlumnoPorCoordinador.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Coordinador\GUIBuscarProyecto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -95,6 +103,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Coordinador\GUIVerExpedientePorCoordinador.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Director\GUIBuscarCoordinador.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Director\GUIRegistrarCoordinador.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -116,6 +132,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Coordinador\GUIAsignarProyectoAAlumnoxaml.xaml.cs">
+      <DependentUpon>GUIAsignarProyectoAAlumnoxaml.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Coordinador\GUIBuscarAlumnoPorCoordinador.xaml.cs">
+      <DependentUpon>GUIBuscarAlumnoPorCoordinador.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Coordinador\GUIBuscarProyecto.xaml.cs">
       <DependentUpon>GUIBuscarProyecto.xaml</DependentUpon>
     </Compile>
@@ -133,6 +155,12 @@
     </Compile>
     <Compile Include="Coordinador\GUIValidarAlumno.xaml.cs">
       <DependentUpon>GUIValidarAlumno.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Coordinador\GUIVerExpedientePorCoordinador.xaml.cs">
+      <DependentUpon>GUIVerExpedientePorCoordinador.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Director\GUIBuscarCoordinador.xaml.cs">
+      <DependentUpon>GUIBuscarCoordinador.xaml</DependentUpon>
     </Compile>
     <Compile Include="Director\GUIRegistrarCoordinador.xaml.cs">
       <DependentUpon>GUIRegistrarCoordinador.xaml</DependentUpon>
