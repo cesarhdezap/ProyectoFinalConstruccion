@@ -29,6 +29,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
+        public string CargarMatriculaPorCorreo(string correo)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Alumno> CargarAlumnosPorEstado(EstadoAlumno estadoAlumno)
 		{
 			DataTable tablaDeAlumnos = new DataTable();
