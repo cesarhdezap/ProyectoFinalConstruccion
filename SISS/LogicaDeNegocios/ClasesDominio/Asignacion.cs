@@ -63,7 +63,7 @@ namespace LogicaDeNegocios
             bool fueLiberado = false;
             Liberacion liberacion = new Liberacion();
             LiberacionDAO liberacionDAO = new LiberacionDAO();
-            if (EsLiberable())
+            if (this.EsLiberable())
             {
                 liberacion.Fecha = DateTime.Now;
                 liberacion.Asignacion = this;
@@ -71,6 +71,7 @@ namespace LogicaDeNegocios
                 liberacionDAO.GuardarLiberacion(liberacion);
                 liberacion.IDLiberacion = liberacionDAO.ObtenerUltimoIDInsertado();
                 this.Liberacion = liberacion;
+                this.EstadoAsignacion = EstadoAsignacion.Liberado;
                 fueLiberado = true;
             }
             return fueLiberado;
