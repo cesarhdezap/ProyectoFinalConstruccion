@@ -6,7 +6,7 @@ namespace LogicaDeNegocios
 	{
 		public DateTime FechaDeEntrega { get; set; }
 		public int HorasReportadas { get; set; }
-		public int IDReporte { get; set; }
+		public int IDDocumento { get; set; }
 		public int NumeroDeReporte { get; set; }
 		public DocenteAcademico DocenteAcademico { get; set; }
 		public Mes Mes { get; set; }
