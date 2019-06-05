@@ -11,7 +11,6 @@ namespace LogicaDeNegocios.ClasesDominio
     {
         public string IDUsuario { get; set; }
         public TipoDeSesion TipoDeUsuario { get; set; }            
-        public string Nombre { get; set; }
 
     }
 }

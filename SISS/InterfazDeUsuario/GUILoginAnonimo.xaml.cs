@@ -1,5 +1,5 @@
 ﻿using LogicaDeNegocios.ClasesDominio;
-using LogicaDeNegocios.Servicios;
+using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System;
 using System.Windows;
 using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
@@ -17,22 +17,35 @@ namespace InterfazDeUsuario
         public TipoDeSesion IdentificarSesion()
         {
             throw new NotImplementedException();
-            this.Show();
         }
 
         private void ButtonIngresar_Click(object sender, RoutedEventArgs e)
         {
+            string correo = TextBoxCorreo.Text;
             ResultadoDeAutenticacion resultadoDeAutenticacion;
-            resultadoDeAutenticacion = AutenticarCredenciales(TextBoxCorreo.Text,PasswordBoxContraseña.Password);
-            
+            resultadoDeAutenticacion = AutenticarCredenciales(correo, PasswordBoxContraseña.Password);
+            Sesion sesion = new Sesion();
+
             if (resultadoDeAutenticacion == ResultadoDeAutenticacion.Valido)
             {
-                
+                TipoDeSesion tipoDeSesion = TipoDeSesion.NoValido;
+                SesionDAO sesionDAO = new SesionDAO();
+                tipoDeSesion = sesionDAO.CargarTipoDeSesionPorCorreo(correo);
+
+                if (tipoDeSesion == TipoDeSesion.Alumno)
+                {
+                    sesion.IDUsuario = sesionDAO.CargarMatriculaDeAlumnoPorCorreo(correo);
+                }
+                else if (tipoDeSesion != TipoDeSesion.NoValido)
+                {
+                    sesion.IDUsuario = sesionDAO.CargarIDDeUsuarioPorCorreo(correo).ToString();
+                }
+                sesion.TipoDeUsuario = tipoDeSesion;
             }
-            
-
-
-
+            else
+            {
+                MessageBox.Show("Usuario o contraseña incorrectos.");
+            }
         }
     }
 }

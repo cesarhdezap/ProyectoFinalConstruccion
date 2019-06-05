@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using AccesoABaseDeDatos;
 using System.Data.SqlClient;
-
+using LogicaDeNegocios.Excepciones;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -21,15 +21,16 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             try
             {
                 tablaDeContraseña= AccesoADatos.EjecutarSelect("Query?", parametroCorreoElectronico);
-            } 
+            }
             catch (SqlException e)
             {
-
+                throw new AccesoADatosException(e.Message,e);
             }
             string contraseña = ConvertirDataTableACadena(tablaDeContraseña);
 
             return contraseña;
         }
+
 
         public List<string> CargarCorreoDeUsuarios()
         {
