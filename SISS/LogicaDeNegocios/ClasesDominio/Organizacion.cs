@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using LogicaDeNegocios.ObjetoAccesoDeDatos;
 
 namespace LogicaDeNegocios
 {
@@ -14,8 +15,10 @@ namespace LogicaDeNegocios
 
         public void AñadirEncargado(Encargado encargado)
 		{
-			//TODO
-			throw new NotImplementedException();
+            encargado.Organizacion = this;
+            this.Encargados.Add(encargado);
+            EncargadoDAO encargadoDAO = new EncargadoDAO();
+            encargadoDAO.GuardarEncargado(encargado);
 		}
 	}
 }

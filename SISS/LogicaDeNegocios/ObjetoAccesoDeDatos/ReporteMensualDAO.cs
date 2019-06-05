@@ -48,13 +48,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 		}
 
-        public void GuardarReporteMensual(ReporteMensual reporteMensual)
+        public void GuardarReporteMensual(ReporteMensual reporteMensual, int IDAsignacion)
 		{
 			//TODO
 			throw new NotImplementedException();
 		}
 
-        private SqlParameter[] InicializarParametrosDeSql(ReporteMensual reporteMensual)
+        private SqlParameter[] InicializarParametrosDeSql(ReporteMensual reporteMensual, int IDAsignacion)
         {
             SqlParameter[] parametrosDeReporteMensual = new SqlParameter[6];
 
@@ -75,8 +75,15 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeReporteMensual[4].Value = reporteMensual.DocenteAcademico.IDPersonal;
             parametrosDeReporteMensual[5].ParameterName = "@Mes";
             parametrosDeReporteMensual[5].Value = (int)reporteMensual.Mes;
+            parametrosDeReporteMensual[6].ParameterName = "@IDAsignacion";
+            parametrosDeReporteMensual[6].Value = IDAsignacion;
 
             return parametrosDeReporteMensual;
         }
-	}
+
+        public int ObtenerUltimoIDInsertado()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

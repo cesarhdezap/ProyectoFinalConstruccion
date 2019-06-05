@@ -225,5 +225,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             return parametrosDeDocenteAcademico;
         }
-	}
+
+        public int ObtenerUltimoIDInsertado()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

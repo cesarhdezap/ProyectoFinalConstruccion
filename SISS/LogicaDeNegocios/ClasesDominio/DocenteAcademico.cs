@@ -1,4 +1,6 @@
-﻿namespace LogicaDeNegocios
+﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
+
+namespace LogicaDeNegocios
 {
 	public class DocenteAcademico : Persona
 	{
@@ -26,7 +28,10 @@
         }
         public void Desactivar()
 		{
-			this.EsActivo = false;
+			EsActivo = false;
+            DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
+            docenteAcademicoDAO.ActualizarDocenteAcademicoPorIDPersonal(IDPersonal, this);
+
 		}
 
 	}
