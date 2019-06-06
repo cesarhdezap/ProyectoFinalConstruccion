@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfazDeUsuario.Alumno"
         mc:Ignorable="d"
-        Title="GUIEscogerProyectos" Height="450" Width="800">
+        Title="GUIEscogerProyectos" Height="592.823" Width="883.287">
     <Grid>
-        
+        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="883" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C" Margin="0,0,-91,0"/>
+        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="626,27,0,0" Width="119"/>
+        <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="750,27,-40,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
+        <Label x:Name="LblEscogerProyectoDeServicioSocial" Content="Escoger proyecto de servicio social" HorizontalAlignment="Left" Margin="251,85,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="24"/>
+        <DataGrid x:Name="DtgProyectos" HorizontalAlignment="Left" Height="312" Margin="38,148,0,0" VerticalAlignment="Top" Width="794"/>
+        <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="187,516,0,0" VerticalAlignment="Top" Width="75" FontFamily="Arial" FontSize="14"/>
+        <Button x:Name="BtnAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="562,516,0,0" VerticalAlignment="Top" Width="75" FontFamily="Arial" FontSize="14"/>
+        <Label Content="Escoja 3 proyectos en los que desee participar." HorizontalAlignment="Left" Margin="303,465,0,0" VerticalAlignment="Top" FontFamily="Arial"/>
+
     </Grid>
 </Window>
