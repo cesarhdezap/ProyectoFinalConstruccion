@@ -23,5 +23,10 @@ namespace InterfazDeUsuario.TecnicoAcademico
         {
             InitializeComponent();
         }
+
+        private void CbxTipoDeDocumento_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

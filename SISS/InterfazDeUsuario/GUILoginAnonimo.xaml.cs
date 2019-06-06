@@ -1,4 +1,4 @@
-﻿using LogicaDeNegocios.ClasesDominio;
+using LogicaDeNegocios.ClasesDominio;
 using System.Windows;
 using static LogicaDeNegocios.Servicios.ServiciosDeSesion;
 using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
@@ -15,6 +15,10 @@ namespace InterfazDeUsuario
 
         private void ButtonIngresar_Click(object sender, RoutedEventArgs e)
         {
+            string correo = TextBoxCorreo.Text;
+            string contraseña = PasswordBoxContraseña.Password;
+            bool resultadoDeAutenticacion = AutenticarCredenciales(correo, contraseña);
+
 
             string correo = TextBoxCorreo.Text;
             if (correo != null && PasswordBoxContraseña.Password != null)

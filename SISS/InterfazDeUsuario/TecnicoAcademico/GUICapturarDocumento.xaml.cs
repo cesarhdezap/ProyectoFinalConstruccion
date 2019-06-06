@@ -23,5 +23,15 @@ namespace InterfazDeUsuario.TecnicoAcademico
         {
             InitializeComponent();
         }
+
+        private void BtnCapturarOtroDocumento_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnCapturarReporteMensual_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
