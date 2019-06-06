@@ -30,9 +30,26 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        public string CargarMatriculaPorCorreo(string correo)
+        public string CargarMatriculaPorCorreo(string correoElectronico)
         {
-            throw new NotImplementedException();
+            string matricula = string.Empty;
+            DataTable tablaDeMatricula = new DataTable();
+            SqlParameter[] parametroCorreo = new SqlParameter[1];
+            parametroCorreo[0] = new SqlParameter
+            {
+                ParameterName = "@CorreoElectronico",
+                Value = correoElectronico
+            };
+
+            try
+            {
+                tablaDeMatricula = AccesoADatos.EjecutarSelect("SELECT Matricula FROM Alumnos WHERE CorreoElectronico = @CorreoElectronico", parametroCorreo);
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine("No se encontro la matricula del alumno con correo: {0}", correoElectronico);
+            }
+            return matricula;
         }
 
         public List<Alumno> CargarAlumnosPorEstado(EstadoAlumno estadoDeAlumno)
@@ -53,7 +70,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             catch (SqlException e)
             {
                 throw new AccesoADatosException("Error al cargar alumnos con estado: " + estadoDeAlumno.ToString(), e);
-            } 
+            }
 			List<Alumno> alumnos = new List<Alumno>();
             try
             {

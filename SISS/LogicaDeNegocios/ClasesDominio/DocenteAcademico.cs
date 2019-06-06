@@ -39,7 +39,7 @@ namespace LogicaDeNegocios
 	
 	public enum Rol
 	{
-		TecnicoAcademico,
-		Coordinador
+        Coordinador = 1,
+        TecnicoAcademico = 2
 	}
 }

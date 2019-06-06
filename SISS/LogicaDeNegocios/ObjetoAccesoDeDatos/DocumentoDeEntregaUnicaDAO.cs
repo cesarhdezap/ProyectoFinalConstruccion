@@ -164,6 +164,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             throw new NotImplementedException();
         }
+
+        public void GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

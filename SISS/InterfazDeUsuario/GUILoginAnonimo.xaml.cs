@@ -1,9 +1,8 @@
-﻿using InterfazDeUsuario.GUITipoDeSesion;
-using LogicaDeNegocios;
-using LogicaDeNegocios.ClasesDominio;
+﻿using LogicaDeNegocios.ClasesDominio;
 using System.Windows;
+using static LogicaDeNegocios.Servicios.ServiciosDeSesion;
 using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
-using static LogicaDeNegocios.ServiciosDeSesion;
+using InterfazDeUsuario.GUITipoDeSesion;
 
 namespace InterfazDeUsuario
 {
@@ -17,29 +16,16 @@ namespace InterfazDeUsuario
         private void ButtonIngresar_Click(object sender, RoutedEventArgs e)
         {
             string correo = TextBoxCorreo.Text;
-            ResultadoDeAutenticacion resultadoDeAutenticacion;
-            resultadoDeAutenticacion = AutenticarCredenciales(correo, PasswordBoxContraseña.Password);
-            Sesion sesion = new Sesion();
+            bool resultadoDeAutenticacion = AutenticarCredenciales(correo, PasswordBoxContraseña.Password);
 
-            if (resultadoDeAutenticacion == ResultadoDeAutenticacion.Valido)
+            if (resultadoDeAutenticacion)
             {
-                TipoDeSesion tipoDeSesion = TipoDeSesion.NoValido;
-                tipoDeSesion = CargarTipoDeSesionPorCorreo(correo);
-
-                if (tipoDeSesion == TipoDeSesion.Alumno)
-                {
-                    sesion.IDUsuario = ServiciosDeSesion.CargarMatriculaDeAlumnoPorCorreo(correo);
-                }
-                else if (tipoDeSesion != TipoDeSesion.NoValido)
-                {
-                    sesion.IDUsuario = CargarIDDeUsuarioPorCorreo(correo).ToString();
-                }
-                sesion.TipoDeUsuario = tipoDeSesion;
+                Sesion sesion = CargarSesion(correo);
                 InstanciarVentanaDeSesion(sesion);
             }
             else
             {
-                MessageBox.Show("Usuario o contraseña incorrectos.");
+                MessageBox.Show("Usuario o contraseña no validos.");
             }
         }
 

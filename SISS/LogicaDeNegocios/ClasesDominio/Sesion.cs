@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static LogicaDeNegocios.ServiciosDeSesion;
+using static LogicaDeNegocios.Servicios.ServiciosDeSesion;
 
 namespace LogicaDeNegocios.ClasesDominio
 {

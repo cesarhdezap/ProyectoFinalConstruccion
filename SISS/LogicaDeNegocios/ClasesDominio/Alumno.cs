@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using System.Collections.Generic;
 
 
 namespace LogicaDeNegocios

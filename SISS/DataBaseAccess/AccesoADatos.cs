@@ -44,7 +44,7 @@ namespace AccesoABaseDeDatos
 
                 if (filasAfectadas == 0)
                 {
-                    throw new AccesoADatosException();
+                    throw new NotImplementedException("Debe implementarse una excepcion personalizada");
                 }
                 
                 return dataTable;
