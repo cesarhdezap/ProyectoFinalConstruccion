@@ -22,8 +22,8 @@
         <TextBox x:Name="TxtContraseña" HorizontalAlignment="Left" Height="24" Margin="436,416,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20"/>
         <TextBox x:Name="TxtConfirmarContraseña" HorizontalAlignment="Left" Height="24" Margin="436,464,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontFamily="Arial" FontSize="20"/>
         <ComboBox x:Name="CbxCarrera" HorizontalAlignment="Left" Margin="436,234,0,0" VerticalAlignment="Top" Width="248"/>
-        <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Margin="318,532,0,0"/>
-        <Button x:Name="BtnAceptar" Content="Aceptar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Margin="582,532,0,0"/>
+        <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Margin="318,532,0,0" FontFamily="Arial" FontSize="14"/>
+        <Button x:Name="BtnAceptar" Content="Aceptar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Margin="582,532,0,0" FontFamily="Arial" FontSize="14"/>
         <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="883" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C" Margin="0,0,-91,0"/>
         <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="626,27,0,0" Width="119"/>
         <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="750,27,-40,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
