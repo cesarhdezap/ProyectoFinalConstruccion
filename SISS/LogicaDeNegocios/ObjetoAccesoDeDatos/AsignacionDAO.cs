@@ -174,7 +174,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Asignaciones(EstadoAsignacion, FechaDeInicion, MatriculaDeAlumno, IDProyecto, IDSolicitud) VALUES(@EstadoAsignacion, @FechaDeInicio, @MatriculaDeAlumnoAsignacion, @IDProyectoAsignacion, @IDSolicitudAsignacion)", parametrosDeAsignacion);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Asignaciones(EstadoAsignacion, FechaDeInicion, HorasCubiertas, MatriculaDeAlumno, IDProyecto, IDSolicitud) VALUES(@EstadoAsignacion, @FechaDeInicio, @HorasCubiertas, @MatriculaDeAlumnoAsignacion, @IDProyectoAsignacion, @IDSolicitudAsignacion)", parametrosDeAsignacion);
             }
             catch (SqlException e)
             {
@@ -188,7 +188,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         
         private SqlParameter[] InicializarParametrosDeSql(Asignacion asignacion)
         {
-            SqlParameter[] parametrosDeAsignacion = new SqlParameter[8];
+            SqlParameter[] parametrosDeAsignacion = new SqlParameter[9];
 
             for (int i = 0; i < parametrosDeAsignacion.Length; i++)
             {
@@ -211,8 +211,15 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeAsignacion[6].Value = asignacion.Solicitud.IDSolicitud; 
             parametrosDeAsignacion[7].ParameterName = "@IDLiberacionAsignacion";
             parametrosDeAsignacion[7].Value = asignacion.Liberacion.IDLiberacion;
+            parametrosDeAsignacion[8].ParameterName = "@HorasCubiertas";
+            parametrosDeAsignacion[8].Value = asignacion.HorasCubiertas;
 
             return parametrosDeAsignacion;
+        }
+
+        public int ObtenerUltimoIDInsertado()
+        {
+            throw new NotImplementedException();
         }
     }
 }
