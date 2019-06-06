@@ -14,8 +14,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         public string CargarContraseñaPorCorreo(string correoElectronico)
         {
             SqlParameter[] parametroCorreoElectronico = new SqlParameter[1];
-            parametroCorreoElectronico[1].ParameterName = "@CorreoElectronico";
-            parametroCorreoElectronico[1].Value = correoElectronico;
+            parametroCorreoElectronico[0] = new SqlParameter
+            {
+                ParameterName = "@CorreoElectronico",
+                Value = correoElectronico
+            };
             DataTable tablaDeContraseña = new DataTable();
 
             try
@@ -37,7 +40,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             DataTable tablaDeCorreos = new DataTable();
             try
             {
-                tablaDeCorreos = AccesoADatos.EjecutarSelect("SELECT CorreoElectronico FROM Alumnos UNION SELECT CorreoElectronico FROM DocentesAcademicos UNION SELECT CorreoElectronico From Directores");
+                tablaDeCorreos = AccesoADatos.EjecutarSelect("SELECT CorreoElectronico FROM Alumnos UNION SELECT CorreoElectronico FROM DocentesAcademicos UNION SELECT CorreoElectronico FROM Directores");
             }
             catch (SqlException e)
             {

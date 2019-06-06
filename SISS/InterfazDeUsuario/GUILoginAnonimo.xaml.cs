@@ -16,7 +16,8 @@ namespace InterfazDeUsuario
         private void ButtonIngresar_Click(object sender, RoutedEventArgs e)
         {
             string correo = TextBoxCorreo.Text;
-            bool resultadoDeAutenticacion = AutenticarCredenciales(correo, PasswordBoxContraseña.Password);
+            string contraseña = PasswordBoxContraseña.Password;
+            bool resultadoDeAutenticacion = AutenticarCredenciales(correo, contraseña);
 
             if (resultadoDeAutenticacion)
             {

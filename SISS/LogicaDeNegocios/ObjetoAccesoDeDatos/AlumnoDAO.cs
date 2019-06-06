@@ -32,7 +32,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
         public string CargarMatriculaPorCorreo(string correoElectronico)
         {
-            string matricula = string.Empty;
+            
             DataTable tablaDeMatricula = new DataTable();
             SqlParameter[] parametroCorreo = new SqlParameter[1];
             parametroCorreo[0] = new SqlParameter
@@ -48,6 +48,15 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             catch (SqlException e)
             {
                 Console.WriteLine("No se encontro la matricula del alumno con correo: {0}", correoElectronico);
+            }
+            string matricula = string.Empty;
+            try
+            {
+                matricula = ConvertirDataTableAAlumnoConSoloMatricula(tablaDeMatricula).Matricula;
+            }
+            catch (FormatException e)
+            {
+
             }
             return matricula;
         }
