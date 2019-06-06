@@ -27,7 +27,35 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
 		}
 
-		public DocenteAcademico CargarDocenteAcademicoPorIDPersonal(int IDPersonal)
+        public string CargarIDPorCorreoYRol(string correoElectronico, Rol rol)
+        {
+            string IDUsuario = string.Empty;
+            DataTable tablaDeMatricula = new DataTable();
+            SqlParameter[] parametroCorreo = new SqlParameter[2];
+            parametroCorreo[0] = new SqlParameter
+            {
+                ParameterName = "@CorreoElectronico",
+                Value = correoElectronico
+            };
+            parametroCorreo[1] = new SqlParameter
+            {
+                ParameterName = "@Rol",
+                Value = (int)rol
+            };
+
+            try
+            {
+                tablaDeMatricula = AccesoADatos.EjecutarSelect("SELECT IDPersonal FROM DocentesAcademicos WHERE CorreoElectronico = 'julio@correo.com' AND Rol = 1", parametroCorreo);
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine("No se encontro la id del {0} con correo: {1}",rol.ToString(),correoElectronico);
+            }
+
+            return IDUsuario;
+        }
+
+        public DocenteAcademico CargarDocenteAcademicoPorIDPersonal(int IDPersonal)
 		{
 
             if (IDPersonal <= 0)

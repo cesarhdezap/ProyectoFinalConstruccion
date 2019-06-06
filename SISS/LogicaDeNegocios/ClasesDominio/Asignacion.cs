@@ -96,10 +96,6 @@ namespace LogicaDeNegocios
         }
     }
 
-        
-
-
-	}
 
 
 	public enum EstadoAsignacion

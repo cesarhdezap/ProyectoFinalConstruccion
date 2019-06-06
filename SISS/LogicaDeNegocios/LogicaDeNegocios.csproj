@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="ClasesDominio\Alumno.cs" />
     <Compile Include="ClasesDominio\Asignacion.cs" />
+    <Compile Include="ClasesDominio\Director.cs" />
     <Compile Include="ClasesDominio\DocenteAcademico.cs" />
     <Compile Include="ClasesDominio\DocumentoDeEntregaUnica.cs" />
     <Compile Include="ClasesDominio\Encargado.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Interfaces\IAlumnoDAO.cs" />
     <Compile Include="Interfaces\IAsignacionDAO.cs" />
     <Compile Include="Interfaces\IAutenticacionDAO.cs" />
+    <Compile Include="Interfaces\IDirectorDAO.cs" />
     <Compile Include="Interfaces\IDocenteAcademicoDAO.cs" />
     <Compile Include="Interfaces\IDocumentoDeEntregaUnicaDAO.cs" />
     <Compile Include="Interfaces\IEncargadoDAO.cs" />
@@ -70,6 +72,7 @@
     <Compile Include="ObjetoAccesoDeDatos\AlumnoDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\AsignacionDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\AutenticacionDAO.cs" />
+    <Compile Include="ObjetoAccesoDeDatos\DirectorDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\DocenteAcademicoDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\DocumentoDeEntregaUnicaDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\EncargadoDAO.cs" />
