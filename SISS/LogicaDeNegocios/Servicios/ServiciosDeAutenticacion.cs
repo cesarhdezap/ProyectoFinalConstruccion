@@ -13,7 +13,7 @@ namespace LogicaDeNegocios.Servicios
         {
             bool resultadoDeAutenticacion = false;
 			AutenticacionDAO autenticacionDAO = new AutenticacionDAO();
-            List<string> correosDeUsuario = autenticacionDAO.CargarCorreoDeUsuarios();
+            List<string> correosDeUsuario = autenticacionDAO.CargarCorreosDeUsuarios();
             string contraseñaDeUsuario = string.Empty;
 
             for (int i=0; i < correosDeUsuario.Count; i++)
