@@ -59,6 +59,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Alumno\GUIVerExpedientePorAlumno.xaml.cs">
+      <DependentUpon>GUIVerExpedientePorAlumno.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Alumno\GUIVerProyectoActual.xaml.cs">
+      <DependentUpon>GUIVerProyectoActual.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Coordinador\GUIActualizarExpediente.xaml.cs">
+      <DependentUpon>GUIActualizarExpediente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TecnicoAcademico\GUIBuscarAlumnoPorTecnicoAcademico.xaml.cs">
+      <DependentUpon>GUIBuscarAlumnoPorTecnicoAcademico.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TecnicoAcademico\GUICapturarDocumento.xaml.cs">
+      <DependentUpon>GUICapturarDocumento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TecnicoAcademico\GUICapturarOtroDocumento.xaml.cs">
+      <DependentUpon>GUICapturarOtroDocumento.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TecnicoAcademico\GUIEntregarReporteMensual.xaml.cs">
+      <DependentUpon>GUIEntregarReporteMensual.xaml</DependentUpon>
+    </Compile>
     <Page Include="Alumno\GUIEscogerProyectos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -68,6 +89,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Alumno\GUIRegistrarAlumno.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Alumno\GUIVerExpedientePorAlumno.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Alumno\GUIVerProyectoActual.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Coordinador\GUIActualizarExpediente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -185,6 +218,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TecnicoAcademico\GUIBuscarAlumnoPorTecnicoAcademico.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TecnicoAcademico\GUICapturarDocumento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TecnicoAcademico\GUICapturarOtroDocumento.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TecnicoAcademico\GUIEntregarReporteMensual.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="00.GUITipoDeSesion\GUIAlumno.xaml.cs">
@@ -230,8 +279,6 @@
       <Name>LogicaDeNegocios</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TecnicoAcademico\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

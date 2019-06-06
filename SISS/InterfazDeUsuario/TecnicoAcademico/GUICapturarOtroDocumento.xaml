@@ -1,0 +1,19 @@
+﻿<Window x:Class="InterfazDeUsuario.TecnicoAcademico.GUICapturarOtroDocumento"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InterfazDeUsuario.TecnicoAcademico"
+        mc:Ignorable="d"
+        Title="GUICapturarOtroDocumento" Height="395.304" Width="530.249">
+    <Grid>
+        <Button x:Name="BtnRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="22,72,0,0" VerticalAlignment="Top" Width="105" FontFamily="Arial" FontSize="16"/>
+        <Label x:Name="LblEntregarDocumento" Content="      &#x9;     Entregar documento" HorizontalAlignment="Left" VerticalAlignment="Top" Height="53" Width="523" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="24" BorderThickness="2" BorderBrush="#FF110C0C"/>
+        <Label x:Name="LblTipoDeDocumento" Content="Tipo de documento: " HorizontalAlignment="Left" Margin="102,117,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14" Width="133"/>
+        <Button x:Name="BtnBuscarDocumento" Content="Buscar documento" HorizontalAlignment="Left" Margin="81,267,0,0" VerticalAlignment="Top" Width="154" FontFamily="Arial" FontSize="16"/>
+        <Button x:Name="BtnRegistrarDocumento" Content="Registrar documento" HorizontalAlignment="Left" Margin="287,267,0,0" VerticalAlignment="Top" Width="156" FontFamily="Arial" FontSize="16"/>
+        <Label x:Name="LblDireccionDeArchivo" Content="Documento seleccionado: [Dirección del archivo seleccionado]..." HorizontalAlignment="Left" Margin="66,179,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14" Width="422"/>
+        <ComboBox x:Name="CbxTipoDeDocumento" HorizontalAlignment="Left" Margin="280,117,0,0" VerticalAlignment="Top" Width="163" SelectionChanged="ComboBox_SelectionChanged"/>
+
+    </Grid>
+</Window>

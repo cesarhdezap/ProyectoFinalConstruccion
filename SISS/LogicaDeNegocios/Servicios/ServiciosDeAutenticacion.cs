@@ -9,14 +9,9 @@ namespace LogicaDeNegocios.Servicios
 {
 	public class ServiciosDeAutenticacion
     {
-        public enum ResultadoDeAutenticacion
+        public static bool AutenticarCredenciales(string correoElectronico, string contraseña)
         {
-            Valido,
-            NoValido,
-        }
-        public static ResultadoDeAutenticacion AutenticarCredenciales(string correoElectronico, string contraseña)
-        {
-            ResultadoDeAutenticacion resultadoDeAutenticacion = ResultadoDeAutenticacion.NoValido;
+            bool resultadoDeAutenticacion = false;
 			AutenticacionDAO autenticacionDAO = new AutenticacionDAO();
             List<string> correosDeUsuario = autenticacionDAO.CargarCorreoDeUsuarios();
             string contraseñaDeUsuario = string.Empty;
@@ -32,9 +27,9 @@ namespace LogicaDeNegocios.Servicios
 
             contraseña = EncriptarContraseña(contraseña);
 
-            if (contraseñaDeUsuario != null && contraseña == contraseñaDeUsuario )
+            if (contraseñaDeUsuario != string.Empty && contraseña == contraseñaDeUsuario )
             {
-				resultadoDeAutenticacion = ResultadoDeAutenticacion.Valido;
+				resultadoDeAutenticacion = true;
             }
           
             return resultadoDeAutenticacion;
