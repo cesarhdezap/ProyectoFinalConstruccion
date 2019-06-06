@@ -121,5 +121,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             return imagen;
         }
+
+        public int ObtenerUltimoIDInsertado()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

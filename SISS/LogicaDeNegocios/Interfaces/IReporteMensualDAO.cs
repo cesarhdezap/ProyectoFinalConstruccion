@@ -12,7 +12,7 @@ namespace LogicaDeNegocios.Interfaces
         void ActualizarReporteMensualPorID(int IDReporteMensual, ReporteMensual reporteMensual);
         List<ReporteMensual> CargarIDsPorIDAsignacion(int IDAsignacion);
         ReporteMensual CargarReporteMensualPorID(int IDReporteMensual);
-        void GuardarReporteMensual(ReporteMensual reporteMensual);
-
-	}
+        void GuardarReporteMensual(ReporteMensual reporteMensual, int IDAsignacion);
+        int ObtenerUltimoIDInsertado();
+    }
 }

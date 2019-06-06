@@ -10,5 +10,6 @@ namespace LogicaDeNegocios.Interfaces
         List<Asignacion> CargarIDsPorMatriculaDeAlumno(string matricula);
         void GuardarAsignacion(Asignacion asignacion);
         List<Asignacion> CargarIDsPorIDProyecto(int IDProyecto);
-	}
+        int ObtenerUltimoIDInsertado();
+    }
 }

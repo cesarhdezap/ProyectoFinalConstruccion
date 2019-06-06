@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using System;
 using System.Collections.Generic;
 
 namespace LogicaDeNegocios
@@ -21,11 +22,21 @@ namespace LogicaDeNegocios
 			throw new NotImplementedException();
 		}
 
-		public void AsignarAlumno(Alumno alumno)
-		{
-			//TODO
-			throw new NotImplementedException();
-		}
+        public void AsignarAlumno(Alumno alumno, Solicitud solicitud = null)
+        {
+            Asignacion asignacion = new Asignacion
+            {
+                EstadoAsignacion = EstadoAsignacion.Activo,
+                FechaDeInicio = DateTime.Now,
+                HorasCubiertas = 0,
+                Alumno = alumno,
+                Proyecto = this,
+                Solicitud = solicitud
+            };
+
+            AsignacionDAO asignacionDAO = new AsignacionDAO();
+            asignacionDAO.GuardarAsignacion(asignacion);
+        }
 
         public enum EstadoProyecto
         {
