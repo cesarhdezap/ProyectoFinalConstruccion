@@ -23,5 +23,10 @@ namespace InterfazDeUsuario.Alumno
         {
             InitializeComponent();
         }
+
+        private void BtnVerProyectoActual_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
