@@ -129,8 +129,8 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return reporteMensual;
 		}
 
-        public void GuardarReporteMensual(ReporteMensual reporteMensual)
-		{
+        public void GuardarReporteMensual(ReporteMensual reporteMensual, int IDAsignacion)
+        {
             if (IDAsignacion <= 0)
             {
                 throw new AccesoADatosException("Error al guardar ReporteMensual Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.");
@@ -152,9 +152,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        private SqlParameter[] InicializarParametrosDeSql(ReporteMensual reporteMensual)
+        private SqlParameter[] InicializarParametrosDeSql(ReporteMensual reporteMensual, int IDAsignacion)
         {
-            SqlParameter[] parametrosDeReporteMensual = new SqlParameter[6];
+            SqlParameter[] parametrosDeReporteMensual = new SqlParameter[7];
 
             for (int i = 0; i < parametrosDeReporteMensual.Length; i++)
             {
@@ -173,8 +173,20 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeReporteMensual[4].Value = reporteMensual.DocenteAcademico.IDPersonal;
             parametrosDeReporteMensual[5].ParameterName = "@Mes";
             parametrosDeReporteMensual[5].Value = (int)reporteMensual.Mes;
+            parametrosDeReporteMensual[6].ParameterName = "@IDAsignacion";
+            parametrosDeReporteMensual[6].Value = IDAsignacion;
 
             return parametrosDeReporteMensual;
         }
-	}
+
+        public void ActualizarReporteMensualPorID(int IDReporteMensual, ReporteMensual reporteMensual)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int ObtenerUltimoIDInsertado()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

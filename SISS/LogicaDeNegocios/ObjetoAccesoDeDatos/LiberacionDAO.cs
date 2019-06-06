@@ -89,5 +89,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             return parametrosDeLiberacion;
         }
+
+        public int ObtenerUltimoIDInsertado()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
