@@ -15,17 +15,24 @@ namespace InterfazDeUsuario
 
         private void ButtonIngresar_Click(object sender, RoutedEventArgs e)
         {
-            string correo = TextBoxCorreo.Text;
-            bool resultadoDeAutenticacion = AutenticarCredenciales(correo, PasswordBoxContraseña.Password);
 
-            if (resultadoDeAutenticacion)
+            string correo = TextBoxCorreo.Text;
+            if (correo != null && PasswordBoxContraseña.Password != null)
             {
-                Sesion sesion = CargarSesion(correo);
-                InstanciarVentanaDeSesion(sesion);
+                bool resultadoDeAutenticacion = AutenticarCredenciales(correo, PasswordBoxContraseña.Password);
+                if (resultadoDeAutenticacion)
+                {
+                    Sesion sesion = CargarSesion(correo);
+                    InstanciarVentanaDeSesion(sesion);
+                }
+                else
+                {
+                    MessageBox.Show("Usuario o contraseña no validos.");
+                }
             }
             else
             {
-                MessageBox.Show("Usuario o contraseña no validos.");
+                MessageBox.Show("No se han detectado datos.");
             }
         }
 

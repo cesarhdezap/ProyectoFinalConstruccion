@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccesoABaseDeDatos", "DataB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogicaDeNegocios", "LogicaDeNegocios\LogicaDeNegocios.csproj", "{555B197D-8A02-468D-93C7-ECE4C20DCF55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PruebasDeLogicaDeNegocios", "PruebasDeLogicaDeNegocios\PruebasDeLogicaDeNegocios.csproj", "{37DB3DEF-B212-4E3F-9587-DFB81B8F34B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pruebas", "PruebasDeLogicaDeNegocios\Pruebas.csproj", "{37DB3DEF-B212-4E3F-9587-DFB81B8F34B3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfazDeUsuario", "InterfazDeUsuario\InterfazDeUsuario.csproj", "{4A8F1DA3-0C8C-4D73-85D1-CBD6BA080864}"
 EndProject

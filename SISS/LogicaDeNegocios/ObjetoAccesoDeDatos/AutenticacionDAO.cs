@@ -32,7 +32,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 
-        public List<string> CargarCorreoDeUsuarios()
+        public List<string> CargarCorreosDeUsuarios()
         {
             DataTable tablaDeCorreos = new DataTable();
             try
