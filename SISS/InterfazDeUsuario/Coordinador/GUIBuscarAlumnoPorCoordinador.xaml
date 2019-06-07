@@ -7,16 +7,16 @@
         mc:Ignorable="d"
         Title="BuscarAlumnoCoordinador" Height="556.875" Width="994.625">
     <Grid>
-        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="1004" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C" Margin="-6,0,-11,0"/>
-        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="766,18,-94,0" Width="120"/>
-        <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="890,18,-180,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
-        <Label x:Name="LblBuscarAlumno" Content="Buscar alumno" HorizontalAlignment="Left" Margin="286,80,0,0" VerticalAlignment="Top" Width="258" FontFamily="Arial" FontSize="36"/>
-        <TextBox x:Name="TxtBuscarAlumnoPorNombre" HorizontalAlignment="Left" Height="23" Margin="766,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206"/>
-        <Label x:Name="LblBuscarAlumnosPorNombre" Content="Buscar alumno por nombre:" HorizontalAlignment="Left" Margin="578,103,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14"/>
-        <ComboBox x:Name="CbxEstadoDeAlumnos" HorizontalAlignment="Left" Margin="834,153,0,0" VerticalAlignment="Top" Width="138"/>
-        <Label x:Name="LblEstadoDeAlumnos" Content="Estado de los alumnos:" HorizontalAlignment="Left" Margin="673,153,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14"/>
+        <Label x:Name="LblBuscarAlumno" Content="Buscar alumno" HorizontalAlignment="Left" Margin="406,69,0,0" VerticalAlignment="Top" Width="172" FontSize="24"/>
+        <TextBox x:Name="TxtBuscarAlumnoPorNombre" HorizontalAlignment="Left" Height="23" Margin="766,103,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" FontSize="14"/>
+        <ComboBox x:Name="CbxEstadoDeAlumnos" HorizontalAlignment="Left" Margin="834,153,0,0" VerticalAlignment="Top" Width="138" FontSize="14"/>
+        <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="461,493,0,0" VerticalAlignment="Top" Width="75" FontSize="14"/>
+        <Label x:Name="LblBuscarAlumnosPorNombre" Content="Buscar alumno por nombre:" HorizontalAlignment="Left" Margin="578,103,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <Label x:Name="LblEstadoDeAlumnos" Content="Estado de los alumnos:" HorizontalAlignment="Left" Margin="673,153,0,0" VerticalAlignment="Top" FontSize="14"/>
         <DataGrid x:Name="DtgAlumnos" HorizontalAlignment="Left" Height="281" Margin="31,184,0,0" VerticalAlignment="Top" Width="925"/>
-        <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="469,496,0,0" VerticalAlignment="Top" Width="75" FontFamily="Arial" FontSize="14"/>
+        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="491" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="226,0,0,0"/>
+        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="722,24,0,0" Width="119"/>
+        <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="852,24,0,0" Width="85" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
 
     </Grid>
 </Window>
