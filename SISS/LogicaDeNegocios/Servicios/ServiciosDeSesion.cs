@@ -12,7 +12,7 @@ namespace LogicaDeNegocios.Servicios
             string[] listaDeIDs = new string[4];
 
             AlumnoDAO alumnoDAO = new AlumnoDAO();
-            listaDeIDs[(int)TipoDeSesion.Alumno] = alumnoDAO.CargarMatriculaPorCorreo(correo);
+            listaDeIDs[(int)TipoDeSesion.Alumno] = alumnoDAO.CargarMatriculaPorCorreoElectronico(correo);
             if (listaDeIDs[(int)TipoDeSesion.Alumno] != string.Empty)
             {
                 sesion.IDUsuario = listaDeIDs[(int)TipoDeSesion.Alumno];

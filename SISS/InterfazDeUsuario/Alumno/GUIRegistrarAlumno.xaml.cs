@@ -11,9 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LogicaDeNegocios.Excepciones;
+using LogicaDeNegocios;
+using LogicaDeNegocios.ClasesDominio;
+using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using LogicaDeNegocios.Servicios;
+using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
-namespace InterfazDeUsuario.Alumno
-{
+namespace InterfazDeUsuario.GUIsDeAlumno
+{ 
     /// <summary>
     /// Interaction logic for GUIRegistrarAlumno.xaml
     /// </summary>
@@ -22,11 +28,165 @@ namespace InterfazDeUsuario.Alumno
         public GUIRegistrarAlumno()
         {
             InitializeComponent();
+            CbxCarrera.Items.Add("LIS");
+            CbxCarrera.Items.Add("RYSC");
+            CbxCarrera.Items.Add("TC");
+            CbxCarrera.SelectedIndex = 0;
+        }
+
+        private void TxtMatricula_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (ValidarMatricula (TxtMatricula.Text) == ResultadoDeValidacion.Valido)
+            {
+                TxtMatricula.BorderBrush = Brushes.Green;
+            } else
+            {
+                TxtMatricula.BorderBrush = Brushes.Red;
+            }
+
         }
 
         private void TxtNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (ValidarNombre(TxtNombre.Text) == ResultadoDeValidacion.Valido)
+            {
+                TxtNombre.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                TxtNombre.BorderBrush = Brushes.Red;
+            }
+        }
 
+        private void TxtCorreoElectronico_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (ValidarCorreoElectronico(TxtCorreoElectronico.Text) == ResultadoDeValidacion.Valido)
+            {
+                TxtCorreoElectronico.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                TxtCorreoElectronico.BorderBrush = Brushes.Red;
+            }
+
+            if (TxtCorreoElectronico.Text == TxtConfirmarCorreoElectronico.Text)
+            {
+                TxtConfirmarCorreoElectronico.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                TxtConfirmarCorreoElectronico.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void TxtConfirmarCorreoElectronico_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (TxtCorreoElectronico.Text == TxtConfirmarCorreoElectronico.Text)
+            {
+                TxtConfirmarCorreoElectronico.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                TxtConfirmarCorreoElectronico.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void TxtTelefono_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (ValidarTelefono(TxtTelefono.Text) == ResultadoDeValidacion.Valido)
+            {
+                TxtTelefono.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                TxtTelefono.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void TxtContraseña_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (ValidarContraseña(TxtContraseña.Text) == ResultadoDeValidacion.Valido)
+            {
+                TxtContraseña.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                TxtContraseña.BorderBrush = Brushes.Red;
+            }
+            if (TxtContraseña.Text == TxtConfirmarContraseña.Text)
+            {
+                TxtConfirmarContraseña.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                TxtConfirmarContraseña.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void TxtConfirmarContraseña_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (TxtContraseña.Text == TxtConfirmarContraseña.Text)
+            {
+                TxtConfirmarContraseña.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                TxtConfirmarContraseña.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void BtnAceptar_Click(object sender, RoutedEventArgs e)
+        {
+            Mouse.OverrideCursor = Cursors.Wait;
+            Alumno alumno = new Alumno
+            {
+                Nombre = TxtNombre.Text,
+                CorreoElectronico = TxtCorreoElectronico.Text,
+                Telefono = TxtTelefono.Text,
+                Matricula = TxtMatricula.Text,
+                Carrera = CbxCarrera.SelectedValue.ToString(),
+                EstadoAlumno = EstadoAlumno.EsperandoAceptacion,
+                Contraseña = ServiciosDeAutenticacion.EncriptarContraseña(TxtContraseña.Text)
+            };
+            if (ValidarAlumno(alumno) == ResultadoDeValidacion.Valido && TxtCorreoElectronico.Text == TxtConfirmarCorreoElectronico.Text && TxtContraseña.Text == TxtConfirmarContraseña.Text && CbxCarrera.SelectedValue != null)
+            {   
+                AlumnoDAO alumnoDAO = new AlumnoDAO();
+                try
+                {
+                    alumnoDAO.GuardarAlumno(alumno);
+                    Mouse.OverrideCursor = null;
+                    MessageBoxResult messageBoxCerrada = MessageBox.Show("Ha sido registrado exitosamente.", "¡Registro Exitoso!", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
+                    if (messageBoxCerrada == MessageBoxResult.OK)
+                    {
+                        this.Close();
+                    }
+                } 
+                catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.InsercionFallidaPorLlavePrimariDuplicada)
+                {
+                    MessageBox.Show("Hubo un error al completar el registro. La matricula ingresada ya existe.", "Matricula duplicada", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Mouse.OverrideCursor = null;
+
+                }
+                catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
+                {
+                    MessageBox.Show("No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Mouse.OverrideCursor = null;
+                }
+                catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos)
+                {
+                    MessageBox.Show("No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Mouse.OverrideCursor = null;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
