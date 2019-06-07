@@ -11,15 +11,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LogicaDeNegocios;
 
-namespace InterfazDeUsuario.Alumno
+namespace InterfazDeUsuario.GUIsDeAlumno
 {
     /// <summary>
     /// Interaction logic for GUIVerExpedientePorAlumno.xaml
     /// </summary>
     public partial class GUIVerExpedientePorAlumno : Window
     {
-        public GUIVerExpedientePorAlumno()
+        public GUIVerExpedientePorAlumno(Alumno alumno)
         {
             InitializeComponent();
         }

@@ -10,7 +10,7 @@ using LogicaDeNegocios.Excepciones;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	class EncargadoDAO : IEncargadoDAO
+	public class EncargadoDAO : IEncargadoDAO
 	{
 		public void ActualizarEncargadoPorID(int IDEncargado, Encargado encargado)
 		{
@@ -109,7 +109,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             };
             try
             {
-                tablaDeEncargados = AccesoADatos.EjecutarSelect("SELECT IDEncargado FROM Encargados WHERE IDOrganizacion = @IDOrganizacion");
+                tablaDeEncargados = AccesoADatos.EjecutarSelect("SELECT IDEncargado FROM Encargados WHERE IDOrganizacion = @IDOrganizacion",parametroIDOrganicacion);
             }
             catch (SqlException e)
             {
@@ -127,6 +127,39 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeEncargados;
         }
 
+        public Encargado CargarIDPorIDProyecto(int IDProyecto)
+        {
+            if (IDProyecto <= 0)
+            {
+                throw new AccesoADatosException("Error al cargar IDEncargado Por IDProyecto: " + IDProyecto + ". IDProyecto no es valido.");
+            }
+            DataTable tablaDeEncargado = new DataTable();
+            SqlParameter[] parametroIDProyecto = new SqlParameter[1];
+            parametroIDProyecto[0] = new SqlParameter
+            {
+                ParameterName = "@IDProyecto",
+                Value = IDProyecto
+            };
+            try
+            {
+                tablaDeEncargado = AccesoADatos.EjecutarSelect("SELECT IDEncargado FROM Proyectos WHERE IDProyecto = @IDProyecto",parametroIDProyecto);
+            }
+            catch (SqlException e)
+            {
+                throw new AccesoADatosException("Error al cargar IDEncargado con IDProyecto: " + IDProyecto, e);
+            }
+            Encargado encargado = new Encargado();
+            try
+            {
+                encargado = ConvertirDataTableAEncargadoConSoloID(tablaDeEncargado);
+            }
+            catch (FormatException e)
+            {
+                throw new AccesoADatosException("Error al convertir datatable a Encargado en cargar IDEncargado con IDProyecto: " + IDProyecto, e);
+            }
+            return encargado;
+        }
+
         private Encargado ConvertirDataTableAEncargado(DataTable tablaDeEncargado)
 		{
             ProyectoDAO proyectoDAO = new ProyectoDAO();
@@ -142,6 +175,16 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             return encargado;
 		}
+        private Encargado ConvertirDataTableAEncargadoConSoloID(DataTable tablaDeEncargado)
+        {
+            ProyectoDAO proyectoDAO = new ProyectoDAO();
+            Encargado encargado = new Encargado();
+            foreach (DataRow fila in tablaDeEncargado.Rows)
+            {
+                encargado.IDEncargado = (int)fila["IDEncargado"];
+            }
+            return encargado;
+        }
 
         private List<Encargado> ConvertirDataTableAListaDeEncargados(DataTable tablaDeEncargados)
 		{

@@ -49,7 +49,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             };
             try
             {
-                tablaDeProyectos = AccesoADatos.EjecutarSelect("SELECT IDProyectos FROM Proyectos WHERE IDEncargado = @IDEncargado",parametroIDEncargado);
+                tablaDeProyectos = AccesoADatos.EjecutarSelect("SELECT IDProyecto FROM Proyectos WHERE IDEncargado = @IDEncargado",parametroIDEncargado);
             }
             catch (SqlException e)
             {
@@ -105,7 +105,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             throw new NotImplementedException();
         }
 
-        public List<Proyecto> CargarProyectosPorEstado(Proyecto.EstadoProyecto estadoDeProyecto){
+        public List<Proyecto> CargarProyectosPorEstado(EstadoProyecto estadoDeProyecto){
             DataTable tablaDeProyectos = new DataTable();
             SqlParameter[] parametroEstadoDeProyecto = new SqlParameter[1];
             parametroEstadoDeProyecto[0] = new SqlParameter
@@ -200,7 +200,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 {
                     IDProyecto = (int)fila["IDProyecto"],
                     Nombre = fila["Nombre"].ToString(),
-                    DescripcionGeneral = fila["DecripcionGeneral"].ToString(),
+                    DescripcionGeneral = fila["DescripcionGeneral"].ToString(),
                     ObjetivoGeneral = fila["ObjetivoGeneral"].ToString(),
                     Cupo = (int)fila["Cupo"],
                     Asignaciones = asignacionDAO.CargarIDsPorIDProyecto((int)fila["IDProyecto"])
@@ -232,7 +232,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 proyecto.IDProyecto = (int)fila["IDProyecto"];
                 proyecto.Nombre = fila["Nombre"].ToString();
-                proyecto.DescripcionGeneral = fila["DecripcionGeneral"].ToString();
+                proyecto.DescripcionGeneral = fila["DescripcionGeneral"].ToString();
                 proyecto.ObjetivoGeneral = fila["ObjetivoGeneral"].ToString();
                 proyecto.Cupo = (int)fila["Cupo"];
                 proyecto.Asignaciones = asignacionDAO.CargarIDsPorIDProyecto((int)fila["IDProyecto"]);

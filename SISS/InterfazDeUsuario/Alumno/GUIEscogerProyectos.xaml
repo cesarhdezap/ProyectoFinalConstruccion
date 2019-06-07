@@ -1,19 +1,62 @@
-﻿<Window x:Class="InterfazDeUsuario.Alumno.GUIEscogerProyectos"
+﻿<Window x:Class="InterfazDeUsuario.GUIsDeAlumno.GUIEscogerProyectos"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:l="clr-namespace:InterfazDeUsuario"
+        
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:InterfazDeUsuario.Alumno"
+        xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeAlumno"
         mc:Ignorable="d"
         Title="GUIEscogerProyectos" Height="592.823" Width="883.287">
+    <Window.Resources>
+        <l:ConvertidorIDProyectoADetallesDeProyecto x:Key="ConvertidorIDProyectoADetallesDeProyecto" />
+    </Window.Resources>
     <Grid>
         <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="883" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C" Margin="0,0,-91,0"/>
         <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="626,27,0,0" Width="119"/>
         <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="750,27,-40,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
         <Label x:Name="LblEscogerProyectoDeServicioSocial" Content="Escoger proyecto de servicio social" HorizontalAlignment="Left" Margin="251,85,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="24"/>
-        <DataGrid x:Name="DtgProyectos" HorizontalAlignment="Left" Height="312" Margin="38,148,0,0" VerticalAlignment="Top" Width="794"/>
+
+
+
+        <DataGrid x:Name="DtgProyectos" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="false" CanUserDeleteRows="False" SelectionUnit="FullRow" HorizontalAlignment="Left" Height="312" Margin="38,148,0,0" VerticalAlignment="Top" Width="794" SelectionChanged="DtgProyectos_SelectionChanged">
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.RowHeaderTemplate>
+                <DataTemplate>
+                    <Expander Expanded="Expander_Expanded" Collapsed="Expander_Collapsed">
+                    </Expander>
+                </DataTemplate>
+            </DataGrid.RowHeaderTemplate>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nombre de Proyecto" IsReadOnly="True" Width="600" Binding="{Binding Nombre}"/>
+                <DataGridCheckBoxColumn Header="Selección de proyecto" Width="auto">
+                    <DataGridCheckBoxColumn.CellStyle>
+                        <Style>
+                            <EventSetter Event="CheckBox.Checked" Handler="CheckBox_Checked"/>
+                            <EventSetter Event="CheckBox.Unchecked" Handler="CheckBox_Unchecked"/>
+                        </Style>
+                    </DataGridCheckBoxColumn.CellStyle>
+                </DataGridCheckBoxColumn>
+            </DataGrid.Columns>
+
+ 
+            
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding IDProyecto, Converter={StaticResource ResourceKey=ConvertidorIDProyectoADetallesDeProyecto}}"  Margin="10,5,10,10" />
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+            
+        </DataGrid>
+
+
+
         <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="187,516,0,0" VerticalAlignment="Top" Width="75" FontFamily="Arial" FontSize="14"/>
-        <Button x:Name="BtnAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="562,516,0,0" VerticalAlignment="Top" Width="75" FontFamily="Arial" FontSize="14"/>
+        <Button x:Name="BtnAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="562,516,0,0" VerticalAlignment="Top" Width="75" FontFamily="Arial" FontSize="14" Click="BtnAceptar_Click"/>
         <Label Content="Escoja 3 proyectos en los que desee participar." HorizontalAlignment="Left" Margin="303,465,0,0" VerticalAlignment="Top" FontFamily="Arial"/>
 
     </Grid>

@@ -3,6 +3,7 @@ using System.Windows;
 using static LogicaDeNegocios.Servicios.ServiciosDeSesion;
 using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
 using InterfazDeUsuario.GUITipoDeSesion;
+using InterfazDeUsuario.GUIsDeAlumno;
 
 namespace InterfazDeUsuario
 {
@@ -54,6 +55,12 @@ namespace InterfazDeUsuario
                 MessageBox.Show("Tipo de sesion no valida.");
             }
             Hide();
+        }
+
+        private void ButtonRegistrarseComoAlumno_Click(object sender, RoutedEventArgs e)
+        {
+            GUIRegistrarAlumno registrarAlumno = new GUIRegistrarAlumno();
+            registrarAlumno.Show();
         }
     }
 }
