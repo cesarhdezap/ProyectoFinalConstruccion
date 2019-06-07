@@ -1,4 +1,4 @@
-﻿using LogicaDeNegocios.ClasesDominio;
+using LogicaDeNegocios.ClasesDominio;
 using System.Windows;
 using static LogicaDeNegocios.Servicios.ServiciosDeSesion;
 using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
@@ -20,14 +20,24 @@ namespace InterfazDeUsuario
             string contraseña = PasswordBoxContraseña.Password;
             bool resultadoDeAutenticacion = AutenticarCredenciales(correo, contraseña);
 
-            if (resultadoDeAutenticacion)
+
+            string correo = TextBoxCorreo.Text;
+            if (correo != null && PasswordBoxContraseña.Password != null)
             {
-                Sesion sesion = CargarSesion(correo);
-                InstanciarVentanaDeSesion(sesion);
+                bool resultadoDeAutenticacion = AutenticarCredenciales(correo, PasswordBoxContraseña.Password);
+                if (resultadoDeAutenticacion)
+                {
+                    Sesion sesion = CargarSesion(correo);
+                    InstanciarVentanaDeSesion(sesion);
+                }
+                else
+                {
+                    MessageBox.Show("Usuario o contraseña no validos.");
+                }
             }
             else
             {
-                MessageBox.Show("Usuario o contraseña no validos.");
+                MessageBox.Show("No se han detectado datos.");
             }
         }
 
