@@ -38,28 +38,28 @@
         <StackPanel HorizontalAlignment="Left" Height="231" Margin="982,805,-282,-617" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE">
             <Label Content="Carta de liberación"/>
         </StackPanel>
-        <Label x:Name="LblHorasCubiertas" Content="Horas cubiertas: [Horas cubiertas]" HorizontalAlignment="Left" Margin="124,80,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16"/>
+        <Label x:Name="LblHorasCubiertas" Content="Horas cubiertas: [Horas cubiertas]" HorizontalAlignment="Left" Margin="124,80,0,0" VerticalAlignment="Top" FontSize="16"/>
         <StackPanel HorizontalAlignment="Left" Height="232" Margin="45,1135,0,-948" VerticalAlignment="Top" Width="177" Background="#FFC9CCDE">
             <Label Content="Memoria"/>
         </StackPanel>
-        <Button x:Name="BtnVerProyectoActual" Content="Ver proyecto actual" HorizontalAlignment="Left" Margin="986,87,0,0" VerticalAlignment="Top" Width="159" FontFamily="Arial" Click="BtnVerProyectoActual_Click"/>
-        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="54,401,0,-20" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
-        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="305,401,0,-20" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
-        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="1015,383,-249,-2" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
-        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="789,383,-23,-2" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
-        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="553,383,0,-2" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
-        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="1015,1067,-249,-686" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
-        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="789,1067,-23,-686" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
-        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="65,1067,0,-686" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
-        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="553,1067,0,-686" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
-        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="305,1067,0,-686" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
-        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="65,1399,0,-1018" VerticalAlignment="Top" Width="111" FontFamily="Arial"/>
-        <Label Content="Horas reportadas: [Horas]" HorizontalAlignment="Left" Margin="537,430,0,-35" VerticalAlignment="Top" FontFamily="Arial"/>
-        <Label Content="Entrega no agendada" HorizontalAlignment="Left" Margin="997,430,-268,-35" VerticalAlignment="Top" Width="148" FontFamily="Arial"/>
-        <Label Content="Horas reportadas: [Horas]" HorizontalAlignment="Left" Margin="770,430,-41,-35" VerticalAlignment="Top" FontFamily="Arial"/>
-        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="1218" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C" Margin="0,0,-341,0"/>
-        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="960,20,-203,0" Width="120"/>
-        <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1084,20,-289,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" RenderTransformOrigin="0.335,1.596"/>
-        <Button x:Name="BtnRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="25,82,0,0" VerticalAlignment="Top" Width="75" FontFamily="Arial"/>
+        <Button x:Name="BtnVerProyectoActual" Content="Ver proyecto actual" HorizontalAlignment="Left" Margin="986,87,0,0" VerticalAlignment="Top" Width="159" Click="BtnVerProyectoActual_Click"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="54,401,0,-20" VerticalAlignment="Top" Width="111"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="305,401,0,-20" VerticalAlignment="Top" Width="111"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="1015,383,-249,-2" VerticalAlignment="Top" Width="111"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="789,383,-23,-2" VerticalAlignment="Top" Width="111"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="553,383,0,-2" VerticalAlignment="Top" Width="111"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="1015,1067,-249,-686" VerticalAlignment="Top" Width="111"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="789,1067,-23,-686" VerticalAlignment="Top" Width="111"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="65,1067,0,-686" VerticalAlignment="Top" Width="111"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="553,1067,0,-686" VerticalAlignment="Top" Width="111"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="305,1067,0,-686" VerticalAlignment="Top" Width="111"/>
+        <Label Content="Entregado el [dia] &#xA;de [mes]  del [año]" HorizontalAlignment="Left" Margin="65,1399,0,-1018" VerticalAlignment="Top" Width="111"/>
+        <Label Content="Horas reportadas: [Horas]" HorizontalAlignment="Left" Margin="537,430,0,-35" VerticalAlignment="Top"/>
+        <Label Content="Entrega no agendada" HorizontalAlignment="Left" Margin="997,430,-268,-35" VerticalAlignment="Top" Width="148"/>
+        <Label Content="Horas reportadas: [Horas]" HorizontalAlignment="Left" Margin="770,430,-41,-35" VerticalAlignment="Top"/>
+        <Button x:Name="BtnRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="25,82,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="491" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="305,0,0,0"/>
+        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="939,24,0,0" Width="119"/>
+        <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1063,24,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
     </Grid>
 </Window>
