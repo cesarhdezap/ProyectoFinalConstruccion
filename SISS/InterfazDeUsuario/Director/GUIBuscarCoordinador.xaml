@@ -6,17 +6,17 @@
         mc:Ignorable="d"
         Title="GUIBuscarCoordinadorxaml" Height="619.558" Width="888.875">
     <Grid>
-        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="883" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C" Margin="0,0,-91,0"/>
-        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="626,27,0,0" Width="119"/>
-        <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="750,27,-40,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
-        <Label x:Name="LblCoordinadores" Content="Coordinadores" HorizontalAlignment="Left" Margin="38,81,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="22"/>
-        <Button x:Name="BtnRegistrarNuevoCoordinador" Content="Registrar nuevo coordinador" HorizontalAlignment="Left" Margin="472,179,0,0" VerticalAlignment="Top" Width="186" FontFamily="Arial" Height="22"/>
-        <TextBox x:Name="TxtBuscarCoordinadorPorNombre" HorizontalAlignment="Left" Height="23" Margin="668,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173"/>
-        <ComboBox x:Name="CbxEstadoCoordinador" HorizontalAlignment="Left" Margin="668,122,0,0" VerticalAlignment="Top" Width="173"/>
-        <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="412,530,0,0" VerticalAlignment="Top" Width="81" FontFamily="Arial" Height="25" FontSize="14"/>
+        <Label x:Name="LblCoordinadores" Content="Coordinadores" HorizontalAlignment="Left" Margin="38,81,0,0" VerticalAlignment="Top" FontSize="24"/>
+        <TextBox x:Name="TxtBuscarCoordinadorPorNombre" HorizontalAlignment="Left" Height="23" Margin="668,81,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="173" FontSize="14"/>
+        <ComboBox x:Name="CbxEstadoCoordinador" HorizontalAlignment="Left" Margin="668,122,0,0" VerticalAlignment="Top" Width="173" FontSize="14"/>
+        <Button x:Name="BtnRegistrarNuevoCoordinador" Content="Registrar nuevo coordinador" HorizontalAlignment="Left" Margin="472,179,0,0" VerticalAlignment="Top" Width="186" Height="22" FontSize="14"/>
+        <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="412,530,0,0" VerticalAlignment="Top" Width="81" Height="25" FontSize="14"/>
         <DataGrid x:Name="DtgCoordinadores" HorizontalAlignment="Left" Height="265" Margin="38,249,0,0" VerticalAlignment="Top" Width="803"/>
-        <Label x:Name="LblBuscarCoordinadorPorNombre" Content="Buscar coordinador por nombre:" HorizontalAlignment="Left" Margin="472,81,0,0" VerticalAlignment="Top" Width="186"/>
-        <Label x:Name="LblBuscarCoordinadorPorNombre_Copy" Content="Estado de los coordinadores:" HorizontalAlignment="Left" Margin="492,122,0,0" VerticalAlignment="Top" Width="166"/>
+        <Label x:Name="LblBuscarCoordinadorPorNombre" Content="Buscar coordinador por nombre:" HorizontalAlignment="Left" Margin="441,81,0,0" VerticalAlignment="Top" Width="217" FontSize="14"/>
+        <Label x:Name="LblEstadoDeCoordinadores" Content="Estado de los coordinadores:" HorizontalAlignment="Left" Margin="464,122,0,0" VerticalAlignment="Top" Width="194" FontSize="14"/>
+        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="491" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="145,0,0,0"/>
+        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="636,23,0,0" Width="119"/>
+        <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="760,23,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
 
     </Grid>
 </Window>
