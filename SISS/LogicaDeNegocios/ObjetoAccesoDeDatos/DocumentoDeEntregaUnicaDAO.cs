@@ -13,6 +13,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 	{
         public DocumentoDeEntregaUnica CargarDocumentoDeEntregaUnicaPorID(int IDDocumento)
         {
+            if (IDDocumento <= 0)
+            {
+                throw new AccesoADatosException("Error al cargar DocumentoDeEntregaUnica Por IDDocumento: " + IDDocumento + ". IDDocumento no es valido.");
+            }
             DataTable tablaDeDocumentoDeEntregaUnica = new DataTable();
             SqlParameter[] parametroIDDocumentoDeEntregaUnica = new SqlParameter[1];
             parametroIDDocumentoDeEntregaUnica[0] = new SqlParameter
@@ -43,6 +47,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
         public List<DocumentoDeEntregaUnica> CargarIDsPorIDAsignacion(int IDAsignacion)
         {
+            if (IDAsignacion <= 0)
+            {
+                throw new AccesoADatosException("Error al cargar IDs de DocumentoDeEntregaUnica Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.");
+            }
             DataTable tablaDeDocumentosDeEntregaUnica = new DataTable();
             SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
             parametroIDAsignacion[0] = new SqlParameter
@@ -71,14 +79,18 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeDocumentosDeEntregaUnica;
         }
 
-        public void GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica)
+        public void GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion)
         {
-            SqlParameter[] parametrosDocumentoDeEntregaUnica = InicializarParametrosDeSQL(documentoDeEntregaUnica);
+            if (IDAsignacion <= 0)
+            {
+                throw new AccesoADatosException("Error al guardar DocumentoDeEntregaUnica Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.");
+            }
+            SqlParameter[] parametrosDocumentoDeEntregaUnica = InicializarParametrosDeSQL(documentoDeEntregaUnica, IDAsignacion);
 
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO DocumentosDeEntregaUnica(FechaDeEntrega, TipoDeDocumento, Nombre, DocenteAdministrativo) VALUES(@IDDocumento, @FechaDeEntrega, @TipoDeDocumento, @Nombre, @DocenteAdministrativo)", parametrosDocumentoDeEntregaUnica);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO DocumentosDeEntregaUnica(FechaDeEntrega, TipoDeDocumento, Nombre, DocenteAdministrativo, IDAsignacion) VALUES(@IDDocumento, @FechaDeEntrega, @TipoDeDocumento, @Nombre, @DocenteAdministrativo, @IDAsignacion)", parametrosDocumentoDeEntregaUnica);
             }
             catch (SqlException e)
             {
@@ -88,27 +100,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("El DocumentoDeEntregaUnica: " + documentoDeEntregaUnica.ToString() + " no fue guardado.");
             }
-        }
-
-        private List<DocumentoDeEntregaUnica> ConvertirDataTableAListaDeDocumentosDeEntregaUnica(DataTable tablaDeDocumentosDeEntregaUnica)
-        {
-            ImagenDAO imagenDAO = new ImagenDAO();
-            DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
-            List<DocumentoDeEntregaUnica> listaDeDocumentosDeEntregaUnica = new List<DocumentoDeEntregaUnica>();
-            foreach (DataRow fila in tablaDeDocumentosDeEntregaUnica.Rows)
-            {
-                DocumentoDeEntregaUnica documentoDeEntregaUnica = new DocumentoDeEntregaUnica
-                {
-                    IDDocumento = (int)fila["IDDocumento"],
-                    FechaDeEntrega = DateTime.Parse(fila["FechaDeEntrega"].ToString()),
-                    TipoDeDocumento = (TipoDeDocumento)fila["TipoDeDocumento"],
-                    Nombre = fila["Nombre"].ToString(),
-                    DocenteAcademico = docenteAcademicoDAO.CargarIDPorIDDocumento((int)fila["IDDocumento"]),
-                    Imagen = imagenDAO.CargarImagenPorIDDocumento((int)fila["IDDocumento"])
-                };
-                listaDeDocumentosDeEntregaUnica.Add(documentoDeEntregaUnica);
-            }
-            return listaDeDocumentosDeEntregaUnica;
         }
 
         private List<DocumentoDeEntregaUnica> ConvertirDataTableAListaDeDocumentosDeEntregaUnicaConSoloIDDocumento(DataTable tablaDeDocumentosDeEntregaUnica)
@@ -144,9 +135,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return documentoDeEntregaUnica;
         }
 
-        private SqlParameter[] InicializarParametrosDeSQL(DocumentoDeEntregaUnica documentoDeEntregaUnica)
+        private SqlParameter[] InicializarParametrosDeSQL(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion)
         {
-            SqlParameter[] parametrosDeDocumentoDeEntregaUnica = new SqlParameter[5];
+            SqlParameter[] parametrosDeDocumentoDeEntregaUnica = new SqlParameter[6];
 
             for (int i = 0; i < parametrosDeDocumentoDeEntregaUnica.Length; i++)
             {
@@ -163,8 +154,20 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeDocumentoDeEntregaUnica[3].Value = documentoDeEntregaUnica.Nombre;
             parametrosDeDocumentoDeEntregaUnica[4].ParameterName = "@DocenteAdministrativo";
             parametrosDeDocumentoDeEntregaUnica[4].Value = documentoDeEntregaUnica.DocenteAcademico.IDPersonal;
+            parametrosDeDocumentoDeEntregaUnica[5].ParameterName = "@IDAsignacion";
+            parametrosDeDocumentoDeEntregaUnica[5].Value = IDAsignacion;
 
             return parametrosDeDocumentoDeEntregaUnica;
+        }
+
+        public int ObtenerUltimoIDInsertado()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica)
+        {
+            throw new NotImplementedException();
         }
     }
 }

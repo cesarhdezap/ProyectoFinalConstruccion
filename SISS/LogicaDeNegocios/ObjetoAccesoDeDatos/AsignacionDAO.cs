@@ -9,38 +9,50 @@ using System.Linq;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	public class AsignacionDAO : Interfaces.IAsignacionDAO
+	public class AsignacionDAO : IAsignacionDAO
 	{
-		public void ActualizarAsignacionPorID(int IDasignacion, Asignacion asignacion)
+		public void ActualizarAsignacionPorID(int IDAsignacion, Asignacion asignacion)
 		{
+            if (IDAsignacion <= 0)
+            {
+                throw new AccesoADatosException("Error al Actualizar Asignacion Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.");
+            }
             SqlParameter[] parametrosDeAsignacion = InicializarParametrosDeSql(asignacion);
-
+            int filasAfectadas = 0;
             try
             {
-                AccesoADatos.EjecutarInsertInto("UPDATE Asignaciones SET EstadoAsignacion = @EstadoAsignacion, FechaDeFinal = @FechaDeFinalAsignacion, IDLiberacion = @IDLiberacionAsignacion WHERE IDAsignacion = @IDAsignacion ", parametrosDeAsignacion);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Asignaciones SET EstadoAsignacion = @EstadoAsignacion, FechaDeFinal = @FechaDeFinalAsignacion, IDLiberacion = @IDLiberacionAsignacion WHERE IDAsignacion = @IDAsignacion ", parametrosDeAsignacion);
             }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al actualizar asignacion: " + asignacion.ToString(), e);
+                throw new AccesoADatosException("Error al actualizar Asignacion: " + asignacion.ToString(), e);
+            }
+            if (filasAfectadas <= 0)
+            {
+                throw new AccesoADatosException("La Asignacion con IDAsignacion: " + IDAsignacion + " no existe.");
             }
         }
 
 		public Asignacion CargarAsignacionPorID(int IDAsignacion)
 		{
+            if (IDAsignacion <= 0)
+            {
+                throw new AccesoADatosException("Error al cargar Asignacion Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.");
+            }
             DataTable tablaDeAsignacion = new DataTable();
-            SqlParameter[] parametros = new SqlParameter[1];
-            parametros[0] = new SqlParameter
+            SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
+            parametroIDAsignacion[0] = new SqlParameter
             {
                 ParameterName = "@IDAsignacion",
                 Value = IDAsignacion
             };
             try
             {
-                tablaDeAsignacion = AccesoADatos.EjecutarSelect("SELECT * FROM Asignaciones WHERE IDAsignacion = @IDAsignacion", parametros);
+                tablaDeAsignacion = AccesoADatos.EjecutarSelect("SELECT * FROM Asignaciones WHERE IDAsignacion = @IDAsignacion", parametroIDAsignacion);
             }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al cargar asignacion con ID: " + IDAsignacion, e);
+                throw new AccesoADatosException("Error al cargar Asignacion con IDAsigncion: " + IDAsignacion, e);
             }
 
             Asignacion asignacion = new Asignacion();
@@ -50,7 +62,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a asignacion en cargar asignacion con id: " + IDAsignacion, e);
+                throw new AccesoADatosException("Error al convertir datatable a Asignacion en cargar Asignacion con IDAsignacion: " + IDAsignacion, e);
             }
             return asignacion;
 
@@ -58,29 +70,29 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         public List<Asignacion> CargarIDsPorMatriculaDeAlumno(string matricula)
 		{
             DataTable tablaDeAsignaciones = new DataTable();
-            SqlParameter[] parametros = new SqlParameter[1];
-            parametros[0] = new SqlParameter
+            SqlParameter[] parametroMatricula = new SqlParameter[1];
+            parametroMatricula[0] = new SqlParameter
             {
-                ParameterName = "@matricula",
+                ParameterName = "@Matricula",
                 Value = matricula
             };
             try
             {
-                tablaDeAsignaciones = AccesoADatos.EjecutarSelect("SELECT IDAsignacion FROM Alumnos WHERE Matricula = @Matricula", parametros);
+                tablaDeAsignaciones = AccesoADatos.EjecutarSelect("SELECT IDAsignacion FROM Alumnos WHERE Matricula = @Matricula", parametroMatricula);
             }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al cargar is de asignacion con matricula: " + matricula, e);
+                throw new AccesoADatosException("Error al cargar IDAsignacion con matricula: " + matricula, e);
             }
 
             List<Asignacion> asignaciones = new List<Asignacion>();
             try
             {
-                asignaciones = ConvertirDataTableAListaDeAsignaciones(tablaDeAsignaciones);
+                asignaciones = ConvertirDataTableAListaDeAsignacionesConSoloID(tablaDeAsignaciones);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error convertir datatable a lista de asgianaciones al cargar asignacion con matricula: " + matricula, e);
+                throw new AccesoADatosException("Error al convertir datatable a lista de Asignaciones en cargar Asignacion con matricula: " + matricula, e);
             }
             return asignaciones;
         }
@@ -109,34 +121,26 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return asignacion;
         }
 
-        private List<Asignacion> ConvertirDataTableAListaDeAsignaciones(DataTable dataTableAsignaciones)
+        private List<Asignacion> ConvertirDataTableAListaDeAsignacionesConSoloID(DataTable dataTableAsignaciones)
         {
-            AlumnoDAO alumnoDAO = new AlumnoDAO();
-            ProyectoDAO proyectoDAO = new ProyectoDAO();
-            ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
-            DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
             List<Asignacion> listaDeAsignaciones = new List<Asignacion>();
             foreach (DataRow fila in dataTableAsignaciones.Rows)
             {
                 Asignacion asignacion = new Asignacion
                 {
                     IDAsignacion = (int)fila["IDAsignacion"],
-                    EstadoAsignacion = (EstadoAsignacion)fila["estadoAsignacion"],
-                    FechaDeInicio = DateTime.Parse(fila["fechaDeInicio"].ToString()),
-                    FechaDeFinal = DateTime.Parse(fila["fechaDeFinal"].ToString()),
-                    Alumno = alumnoDAO.CargarMatriculaPorIDAsignacion((int)fila["IDAsignacion"]),
-                    Proyecto = proyectoDAO.CargarIDProyectoPorIDAsignacion((int)fila["IDAsignacion"]),
-                    DocumentosDeEntregaUnica = documentoDeEntregaUnicaDAO.CargarIDsPorIDAsignacion((int)fila["IDAsignacion"]),
-                    ReportesMensuales = reporteMensualDAO.CargarIDsPorIDAsignacion((int)fila["IDAsignacion"]),
-                    Liberacion = new Liberacion { IDLiberacion = (int)fila["IDLiberacion"] },
-                    Solicitud = new Solicitud { IDSolicitud = (int)fila["IDLiberacion"] },
-            };
+                };
                 listaDeAsignaciones.Add(asignacion);
             }
             return listaDeAsignaciones;
         }
+
         public List<Asignacion> CargarIDsPorIDProyecto(int IDProyecto)
         {
+            if (IDProyecto <= 0)
+            {
+                throw new AccesoADatosException("Error al cargar IDAsignacion Por IDProyecto: " + IDProyecto + ". IDProyecto no es valido.");
+            }
             DataTable tablaDeAsignaciones = new DataTable();
             SqlParameter[] parametroIDProyecto = new SqlParameter[1];
             parametroIDProyecto[0] = new SqlParameter
@@ -151,16 +155,16 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al cargar IDs por ID de proyecto: " + IDProyecto, e);
+                throw new AccesoADatosException("Error al cargar IDsAsignacion con IDProyecto: " + IDProyecto, e);
             }
             List<Asignacion> listaDeAsignaciones = new List<Asignacion>();
             try
             {
-                listaDeAsignaciones = ConvertirDataTableAListaDeAsignaciones(tablaDeAsignaciones);
+                listaDeAsignaciones = ConvertirDataTableAListaDeAsignacionesConSoloID(tablaDeAsignaciones);
             }
             catch (FormatException e)
             { 
-                throw new AccesoADatosException("Error al convertir datatable a lista de asignaciones en cargar IDs por ID de proyecto: " + IDProyecto, e);
+                throw new AccesoADatosException("Error al convertir datatable a lista de Asignaciones en cargar IDsAsignacion con IDProyecto: " + IDProyecto, e);
             }
             return listaDeAsignaciones;
         }
@@ -170,22 +174,21 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Asignaciones(EstadoAsignacion, FechaDeInicion, MatriculaDeAlumno, IDProyecto, IDSolicitud) VALUES(@EstadoAsignacion, @FechaDeInicio, @MatriculaDeAlumnoAsignacion, @IDProyectoAsignacion, @IDSolicitudAsignacion)", parametrosDeAsignacion);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Asignaciones(EstadoAsignacion, FechaDeInicion, HorasCubiertas, MatriculaDeAlumno, IDProyecto, IDSolicitud) VALUES(@EstadoAsignacion, @FechaDeInicio, @HorasCubiertas, @MatriculaDeAlumnoAsignacion, @IDProyectoAsignacion, @IDSolicitudAsignacion)", parametrosDeAsignacion);
             }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al guardar asignacion:" + asignacion.ToString(), e);
+                throw new AccesoADatosException("Error al guardar Asignacion:" + asignacion.ToString(), e);
             }
             if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("Asignacion: " + asignacion.ToString() + " no fue guardada.");
             }
-			
 		}
         
         private SqlParameter[] InicializarParametrosDeSql(Asignacion asignacion)
         {
-            SqlParameter[] parametrosDeAsignacion = new SqlParameter[8];
+            SqlParameter[] parametrosDeAsignacion = new SqlParameter[9];
 
             for (int i = 0; i < parametrosDeAsignacion.Length; i++)
             {
@@ -208,8 +211,15 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeAsignacion[6].Value = asignacion.Solicitud.IDSolicitud; 
             parametrosDeAsignacion[7].ParameterName = "@IDLiberacionAsignacion";
             parametrosDeAsignacion[7].Value = asignacion.Liberacion.IDLiberacion;
+            parametrosDeAsignacion[8].ParameterName = "@HorasCubiertas";
+            parametrosDeAsignacion[8].Value = asignacion.HorasCubiertas;
 
             return parametrosDeAsignacion;
+        }
+
+        public int ObtenerUltimoIDInsertado()
+        {
+            throw new NotImplementedException();
         }
     }
 }

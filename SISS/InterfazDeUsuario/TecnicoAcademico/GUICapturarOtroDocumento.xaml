@@ -13,7 +13,7 @@
         <Button x:Name="BtnBuscarDocumento" Content="Buscar documento" HorizontalAlignment="Left" Margin="81,267,0,0" VerticalAlignment="Top" Width="154" FontFamily="Arial" FontSize="16"/>
         <Button x:Name="BtnRegistrarDocumento" Content="Registrar documento" HorizontalAlignment="Left" Margin="287,267,0,0" VerticalAlignment="Top" Width="156" FontFamily="Arial" FontSize="16"/>
         <Label x:Name="LblDireccionDeArchivo" Content="Documento seleccionado: [Dirección del archivo seleccionado]..." HorizontalAlignment="Left" Margin="66,179,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14" Width="422"/>
-        <ComboBox x:Name="CbxTipoDeDocumento" HorizontalAlignment="Left" Margin="280,117,0,0" VerticalAlignment="Top" Width="163" SelectionChanged="ComboBox_SelectionChanged"/>
+        <ComboBox x:Name="CbxTipoDeDocumento" HorizontalAlignment="Left" Margin="280,117,0,0" VerticalAlignment="Top" Width="163" SelectionChanged="CbxTipoDeDocumento_SelectionChanged"/>
 
     </Grid>
 </Window>

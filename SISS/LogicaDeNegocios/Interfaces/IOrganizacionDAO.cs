@@ -9,6 +9,7 @@ namespace LogicaDeNegocios.Interfaces
         List<Organizacion> CargarOrganizacionesTodas();
         Organizacion CargarOrganizacionPorID(int IDorganizacion);
         void GuardarOrganizacion(Organizacion organizacion);
+        int ObtenerUltimoIDInsertado();
     }
 }
 

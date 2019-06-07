@@ -10,5 +10,6 @@ namespace LogicaDeNegocios.Interfaces
 		List<Encargado> CargarEncargadosTodos();
 		List<Encargado> CargarIDsPorIDOrganizacion(int IDorganizacion);
         void GuardarEncargado(Encargado encargado);
-	}
+        int ObtenerUltimoIDInsertado();
+    }
 }

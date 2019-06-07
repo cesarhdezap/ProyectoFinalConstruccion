@@ -37,6 +37,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
         public BitmapImage CargarImagenPorIDDocumento(int IDDocumento)
         {
+            if (IDDocumento <= 0)
+            {
+                throw new AccesoADatosException("Error al cargar Imagen Por IDDocumento: " + IDDocumento + ". IDDocumento no es valido.");
+            }
             DataTable tablaDeImagen = new DataTable();
             SqlParameter[] parametroIDDocumento = new SqlParameter[1];
            
@@ -116,6 +120,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 imagen = ServiciosDeManejoDeImagenes.ConvertirArregloDeBytesAImagen((byte[])fila["DatosDeImagen"]);
             }
             return imagen;
+        }
+
+        public int ObtenerUltimoIDInsertado()
+        {
+            throw new NotImplementedException();
         }
     }
 }

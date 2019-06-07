@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using LogicaDeNegocios.Interfaces;
+using LogicaDeNegocios.Excepciones;
 using AccesoABaseDeDatos;
 using System.Data.SqlClient;
 using System.Linq;
@@ -10,34 +11,48 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
 	class OrganizacionDAO : IOrganizacionDAO
 	{
-        public void ActualizarOrganizacionPorID(int IDorganizacion, Organizacion organizacion)
+        public void ActualizarOrganizacionPorID(int IDOrganizacion, Organizacion organizacion)
         {
+            if (IDOrganizacion <= 0)
+            {
+                throw new AccesoADatosException("Error al Actualizar Organizacion Por IDOrganizacion: " + IDOrganizacion + ". IDOrganizacion no es valido.");
+            }
             SqlParameter[] parametrosDeOrganizacion = InicializarParametrosDeSql(organizacion);
-
+            int filasAfectadas = 0;
             try
             {
-                AccesoADatos.EjecutarInsertInto("UPDATE Organizaciones SET CorreoElectronico = @CorreoElectronicoOrganizacion, Direccion = @DireccionOrganizacion, Telefono = @TelefonoOrganizacion, Nombre = @NombreOrganizacion WHERE IDOrganizacion = @IDOrganizacion", parametrosDeOrganizacion);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Organizaciones SET CorreoElectronico = @CorreoElectronicoOrganizacion, Direccion = @DireccionOrganizacion, Telefono = @TelefonoOrganizacion, Nombre = @NombreOrganizacion WHERE IDOrganizacion = @IDOrganizacion", parametrosDeOrganizacion);
             }
             catch (SqlException e)
             {
-
+                throw new AccesoADatosException("Error al actualizar Organizacion: " + organizacion.ToString(), e);
+            }
+            if (filasAfectadas <= 0)
+            {
+                throw new AccesoADatosException("La Organizacion con IDOrganizacion: " + IDOrganizacion + " no existe.");
             }
         }
 
         public List<Organizacion> CargarOrganizacionesTodas()
         {
             DataTable tablaDeOrganizaciones = new DataTable();
-            
             try
             {
                 tablaDeOrganizaciones = AccesoADatos.EjecutarSelect("SELECT * FROM Organizaciones");
             }
             catch (SqlException e)
             {
-
+                throw new AccesoADatosException("Error al cargar todas las Organizaciones", e);
             }
-
-            List<Organizacion> listaDeOrganizaciones = ConvertirDataTableAListaDeOrganizaciones(tablaDeOrganizaciones);
+            List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
+            try
+            {
+                listaDeOrganizaciones = ConvertirDataTableAListaDeOrganizaciones(tablaDeOrganizaciones);
+            }
+            catch (FormatException e)
+            {
+                throw new AccesoADatosException("Error al convertir datatable a lista de Organizaciones en cargar todas las Organizaciones", e);
+            }
 
             return listaDeOrganizaciones;
         }
@@ -46,69 +61,84 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             DataTable tablaDeOrganizacion = new DataTable();
             SqlParameter[] parametroIDOrganizacion = new SqlParameter[1];
-            parametroIDOrganizacion[0] = new SqlParameter();
-            parametroIDOrganizacion[0].ParameterName = "@IDOrganizacion";
-            parametroIDOrganizacion[0].Value = IDOrganizacion;
+            parametroIDOrganizacion[0] = new SqlParameter
+            {
+                ParameterName = "@IDOrganizacion",
+                Value = IDOrganizacion
+            };
 
             try
             {
-                tablaDeOrganizacion = AccesoADatos.EjecutarSelect("SELECT * FROM Alumno WHERE IDOrgnizacion = @IDOrganizacion", parametroIDOrganizacion);
+                tablaDeOrganizacion = AccesoADatos.EjecutarSelect("SELECT * FROM Organizaciones WHERE IDOrganizacion = @IDOrganizacion", parametroIDOrganizacion);
             }
             catch (SqlException e)
             {
-                
+                throw new AccesoADatosException("Error al cargar Organizacion con IDOrganizacion: " + IDOrganizacion, e);
             }
 
-            Organizacion organizacion = ConvertirDataTableAOrganizacion(tablaDeOrganizacion);
-
+            Organizacion organizacion = new Organizacion();
+            try
+            {
+                organizacion = ConvertirDataTableAOrganizacion(tablaDeOrganizacion);
+            }
+            catch (FormatException e)
+            {
+                throw new AccesoADatosException("Error al convertir datatable a Organizacion en cargar Organizacion con IDOrganizacion: " + IDOrganizacion, e);
+            }
             return organizacion;
         }
 
         private List<Organizacion> ConvertirDataTableAListaDeOrganizaciones(DataTable tablaDeOrganizaciones)
         {
             EncargadoDAO encargadoDAO = new EncargadoDAO();
-            List<Organizacion> listaDeOrganizaciones = (from DataRow fila in tablaDeOrganizaciones.Rows
-                                                       select new Organizacion()
-                                                       {
-                                                           IDOrganizacion = (int)fila["IDOrganizacion"],
-                                                           CorreoElectronico = fila["CorreoElectronico"].ToString(),
-                                                           Direccion = fila["Direccion"].ToString(),
-                                                           Telefono = fila["Telefono"].ToString(),
-                                                           Nombre = fila["Nombre"].ToString(),
-                                                           Encargados = encargadoDAO.CargarIDsPorIDOrganizacion((int)fila["IDOrganizacion"])
-                                                       }
-                           ).ToList();
+            List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
+            foreach (DataRow fila in tablaDeOrganizaciones.Rows) {
+                Organizacion organizacion = new Organizacion
+                {
+                    IDOrganizacion = (int)fila["IDOrganizacion"],
+                    CorreoElectronico = fila["CorreoElectronico"].ToString(),
+                    Direccion = fila["Direccion"].ToString(),
+                    Telefono = fila["Telefono"].ToString(),
+                    Nombre = fila["Nombre"].ToString(),
+                    Encargados = encargadoDAO.CargarIDsPorIDOrganizacion((int)fila["IDOrganizacion"])
+                };
+                listaDeOrganizaciones.Add(organizacion);
+            }
             return listaDeOrganizaciones;
         }
 
         private Organizacion ConvertirDataTableAOrganizacion(DataTable tablaDeOrganizacion)
         {
             EncargadoDAO encargadoDAO = new EncargadoDAO();
-            Organizacion organizacion = (Organizacion)(from DataRow fila in tablaDeOrganizacion.Rows
-                                     select new Organizacion()
-                                     {
-                                         IDOrganizacion = (int)fila["IDOrganizacion"],
-                                         CorreoElectronico = fila["CorreoElectronico"].ToString(),
-                                         Direccion = fila["Direccion"].ToString(),
-                                         Telefono = fila["Telefono"].ToString(),
-                                         Nombre = fila["Nombre"].ToString(),
-                                         Encargados = encargadoDAO.CargarIDsPorIDOrganizacion((int)fila["IDOrganizacion"])
-                                     }
-                           );
+            Organizacion organizacion = new Organizacion();
+            foreach (DataRow fila in tablaDeOrganizacion.Rows)
+            {
+
+                organizacion.IDOrganizacion = (int)fila["IDOrganizacion"];
+                organizacion.CorreoElectronico = fila["CorreoElectronico"].ToString();
+                organizacion.Direccion = fila["Direccion"].ToString();
+                organizacion.Telefono = fila["Telefono"].ToString();
+                organizacion.Nombre = fila["Nombre"].ToString();
+                organizacion.Encargados = encargadoDAO.CargarIDsPorIDOrganizacion((int)fila["IDOrganizacion"]);
+            }
             return organizacion;
         }
 
         public void GuardarOrganizacion(Organizacion organizacion)
         {
             SqlParameter[] parametrosDeOrganizacion = InicializarParametrosDeSql(organizacion);
-
+            int filasAfectadas = 0;
             try
             {
-                AccesoADatos.EjecutarInsertInto("INSERT INTO Orgnizaciones(CorreoElectronico, Direccion, Telefono, Nombre) VALUES(@CorreoElectronicoOrganizacion, @DireccionOrganizacion, @TelefonoOrganizacion, @NombreOrganizacion)", parametrosDeOrganizacion);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Organizaciones(CorreoElectronico, Direccion, Telefono, Nombre) VALUES(@CorreoElectronicoOrganizacion, @DireccionOrganizacion, @TelefonoOrganizacion, @NombreOrganizacion)", parametrosDeOrganizacion);
             }
             catch (SqlException e)
             {
-
+                throw new AccesoADatosException("Error al guardar Organizacion:" + organizacion.ToString(), e);
+            }
+            if (filasAfectadas <= 0)
+            {
+                throw new AccesoADatosException("Organizacion: " + organizacion.ToString() + "no fue guardada.");
             }
         }
 
@@ -132,6 +162,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeOrganizacion[4].Value = organizacion.IDOrganizacion;
 
             return parametrosDeOrganizacion;
+        }
+
+        public int ObtenerUltimoIDInsertado()
+        {
+            throw new NotImplementedException();
         }
     }
 }

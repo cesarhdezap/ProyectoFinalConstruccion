@@ -14,13 +14,16 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         public string CargarContraseñaPorCorreo(string correoElectronico)
         {
             SqlParameter[] parametroCorreoElectronico = new SqlParameter[1];
-            parametroCorreoElectronico[1].ParameterName = "@CorreoElectronico";
-            parametroCorreoElectronico[1].Value = correoElectronico;
+            parametroCorreoElectronico[0] = new SqlParameter
+            {
+                ParameterName = "@CorreoElectronico",
+                Value = correoElectronico
+            };
             DataTable tablaDeContraseña = new DataTable();
 
             try
             {
-                tablaDeContraseña= AccesoADatos.EjecutarSelect("Query?", parametroCorreoElectronico);
+                tablaDeContraseña= AccesoADatos.EjecutarSelect("SELECT Contraseña FROM (SELECT CorreoElectronico,Contraseña FROM Alumnos UNION SELECT CorreoElectronico, Contraseña FROM DocentesAcademicos UNION SELECT CorreoElectronico, Contraseña From Directores) AS U WHERE CorreoElectronico = @CorreoElectronico", parametroCorreoElectronico);
             }
             catch (SqlException e)
             {
@@ -32,10 +35,31 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 
-        public List<string> CargarCorreoDeUsuarios()
+        public List<string> CargarCorreosDeUsuarios()
         {
-			//TODO
-			throw new NotImplementedException();
+            DataTable tablaDeCorreos = new DataTable();
+            try
+            {
+                tablaDeCorreos = AccesoADatos.EjecutarSelect("SELECT CorreoElectronico FROM Alumnos UNION SELECT CorreoElectronico FROM DocentesAcademicos UNION SELECT CorreoElectronico FROM Directores");
+            }
+            catch (SqlException e)
+            {
+                throw new AccesoADatosException(e.Message, e);
+            }
+            
+            List<string> listaDeCorreos = ConvertirDataTableAListaDeCadenas(tablaDeCorreos);
+
+            return listaDeCorreos;
+        }
+
+        private List<string> ConvertirDataTableAListaDeCadenas(DataTable tablaDeCorreos)
+        {
+            List<string> listaDeCorreos = new List<string>();
+            foreach (DataRow fila in tablaDeCorreos.Rows)
+            {
+                listaDeCorreos.Add(fila["CorreoElectronico"].ToString());
+            }
+            return listaDeCorreos;
         }
 
         private string ConvertirDataTableACadena(DataTable tablaDeContraseña)
