@@ -87,5 +87,27 @@ namespace AccesoABaseDeDatos
                 return numeroDeFilasAfectadas;
             }
 		}
-	}
+        public static int ObtenerUltimoIDInsertado(string consulta, SqlParameter[] parametros = null)
+        {
+            using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
+            {
+                SqlCommand comando = new SqlCommand(consulta, conexion);
+                if (parametros != null)
+                {
+                    comando.Parameters.AddRange(parametros);
+                }
+                int ultimoIDInsertado = 0;
+                try
+                {
+                    conexion.Open();
+                    ultimoIDInsertado = Convert.ToInt32(comando.ExecuteScalar());
+                }
+                finally
+                {
+                    CerrarConexion(conexion);
+                }
+                return ultimoIDInsertado;
+            }
+        }
+    }
 }

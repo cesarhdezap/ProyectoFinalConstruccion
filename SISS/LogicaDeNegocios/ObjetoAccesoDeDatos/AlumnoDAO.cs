@@ -19,18 +19,21 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Alumnos SET Nombre = @NombreAlumno, Estado = @EstadoAlumno, Telefono = @TelefonoAlumno, CorreoElectronico = @CorreoElectronicoAlumno WHERE Matricula = @MatriculaAlumno", parametrosDeAlumno);
             } 
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+            {
+                throw new AccesoADatosException("Error al actualizar Alumno: " + alumno.ToString() + "Con matricula: " + matricula, e, TipoDeError.ConexionABaseDeDatosFallida);
+            }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al actualizar Alumno: " + alumno.ToString() + "Con matricula: " + matricula, e);
+                throw new AccesoADatosException("Error al actualizar Alumno: " + alumno.ToString() + "Con matricula: " + matricula, e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
-
             if (filasAfectadas <= 0)
             {
-                throw new AccesoADatosException("El alumno con matricula: " + matricula + " no existe.");
+                throw new AccesoADatosException("El alumno con matricula: " + matricula + " no existe.", TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
         }
 
-        public string CargarMatriculaPorCorreo(string correoElectronico)
+        public string CargarMatriculaPorCorreoElectronico(string correoElectronico)
         {
             
             DataTable tablaDeMatricula = new DataTable();
@@ -45,9 +48,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeMatricula = AccesoADatos.EjecutarSelect("SELECT Matricula FROM Alumnos WHERE CorreoElectronico = @CorreoElectronico", parametroCorreo);
             }
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+            {
+                throw new AccesoADatosException("Error al cargar Matricula por CorreoElectronico: " + correoElectronico, e, TipoDeError.ConexionABaseDeDatosFallida);
+            }
             catch (SqlException e)
             {
-                Console.WriteLine("No se encontro la matricula del alumno con correo: {0}", correoElectronico);
+                throw new AccesoADatosException("Error al cargar Matricula por CorreoElectronico: " + correoElectronico, e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
             string matricula = string.Empty;
             try
@@ -56,7 +63,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (FormatException e)
             {
-
+                throw new AccesoADatosException("Error al convertir datatable a Alumno en cargar Matricula por CorreoElectronico: " + correoElectronico, e);
             }
             return matricula;
         }
@@ -76,11 +83,15 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE Estado = @EstadoAlumno", parametroEstadoAlumno);
             }
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+            {
+                throw new AccesoADatosException("Error al cargar alumnos con estado: " + estadoDeAlumno.ToString(), e, TipoDeError.ConexionABaseDeDatosFallida);
+            }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al cargar alumnos con estado: " + estadoDeAlumno.ToString(), e);
+                throw new AccesoADatosException("Error al cargar alumnos con estado: " + estadoDeAlumno.ToString(), e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
-			List<Alumno> alumnos = new List<Alumno>();
+            List<Alumno> alumnos = new List<Alumno>();
             try
             {
                 alumnos = ConvertirDataTableAListaDeAlumnos(tablaDeAlumnos);
@@ -106,9 +117,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeAlumno = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE Matricula = @Matricula", parametroMatricula);
             }
-			catch (SqlException e)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
             {
-                throw new AccesoADatosException("Error al cargar Alumno con matricula: " + matricula, e);
+                throw new AccesoADatosException("Error al cargar Alumno con matricula: " + matricula, e, TipoDeError.ConexionABaseDeDatosFallida);
+            }
+            catch (SqlException e)
+            {
+                throw new AccesoADatosException("Error al cargar Alumno con matricula: " + matricula, e, TipoDeError.ConexionABaseDeDatosFallida);
             }
             Alumno alumno = new Alumno();
             try
@@ -130,8 +145,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				tablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos");
 			}
-			catch (SqlException e)
-			{
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+            {
+                throw new AccesoADatosException("Error al cargar todos los Alumnos", e, TipoDeError.ConexionABaseDeDatosFallida);
+            }
+            catch (SqlException e)
+            {
                 throw new AccesoADatosException("Error al cargar todos los Alumnos", e);
             }
             List<Alumno> listaDeAlumnos = new List<Alumno>();
@@ -163,6 +182,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             try
             {
                 tablaDeAlumno = AccesoADatos.EjecutarSelect("SELECT Matricula FROM Asignaciones WHERE IDAsignacion = @IDAsignacion", parametroIDAsignacion);
+            }
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+            {
+                throw new AccesoADatosException("Error al cargar matricula con IDAsignacion: " + IDAsignacion, e, TipoDeError.ConexionABaseDeDatosFallida);
             }
             catch (SqlException e)
             {
@@ -239,13 +262,21 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Alumnos(Matricula, Nombre, Carrera, Estado, Telefono, CorreoElectronico, Contraseña) VALUES (@MatriculaAlumno, @NombreAlumno, @CarreraAlumno, @EstadoAlumno, @TelefonoAlumno, @CorreoElectronicoAlumno, @ContraseñaAlumno)", parametrosDeAlumno);
             }
-            catch (SqlException e)
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.InsercionFallidaPorLlavePrimariaDuplicada)
             {
-                throw new AccesoADatosException("Error al guardar Alumno:" + alumno.ToString(), e);
+                throw new AccesoADatosException("No se puede guardar el alumno: " + alumno.ToString() + " porque la matricula: " + alumno.Matricula + " ya existe." , e, TipoDeError.InsercionFallidaPorLlavePrimariDuplicada);
+            }
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+            {
+                throw new AccesoADatosException("No se puede guardar el alumno: " + alumno.ToString() + " porque no se pudo establecer conexion al servidor.", e, TipoDeError.ConexionABaseDeDatosFallida);
+            }
+            catch (SqlException e)
+            { 
+                throw new AccesoADatosException(e.Number.ToString() + "Error al guardar Alumno:" + alumno.ToString(), e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
             if (filasAfectadas <= 0)
             {
-                throw new AccesoADatosException("Alumno: " + alumno.ToString() + "no fue guardado.");
+                throw new AccesoADatosException("Alumno: " + alumno.ToString() + "no fue guardado.", TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
         }
          
