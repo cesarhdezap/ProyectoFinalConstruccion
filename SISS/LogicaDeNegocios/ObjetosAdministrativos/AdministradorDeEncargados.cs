@@ -1,5 +1,8 @@
-﻿using System;
+﻿using LogicaDeNegocios.Excepciones;
+using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using System;
 using System.Collections.Generic;
+using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace LogicaDeNegocios.ObjetosAdministrador
 {
@@ -9,14 +12,22 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 
         public void CargarEncargadosTodos()
         {
-			//TODO
-			throw new NotImplementedException();
-		}
+            EncargadoDAO encargadoDAO = new EncargadoDAO();
+            Encargados = encargadoDAO.CargarEncargadosTodos();
+        }
 
-        public void CrearEncargado(Encargado encargado)
+        public bool CrearEncargado(Encargado encargado)
         {
-			//TODO
-			throw new NotImplementedException();
+            CargarEncargadosTodos();
+            bool resultadoDeCreacion = false;
+            if (!Encargados.Exists(e => e.CorreoElectronico == encargado.CorreoElectronico))
+            {
+                EncargadoDAO encargadoDAO = new EncargadoDAO();
+                encargadoDAO.GuardarEncargado(encargado);
+                resultadoDeCreacion = true;
+
+            }
+            return resultadoDeCreacion;
 		}
     }
 }

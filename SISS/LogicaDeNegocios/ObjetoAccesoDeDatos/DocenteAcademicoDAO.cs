@@ -243,8 +243,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 docenteAcademico.Carrera = fila["Carrera"].ToString();
                 docenteAcademico.Cubiculo = (int)fila["Cubiculo"];
                 docenteAcademico.EsActivo = (bool)fila["EsActivo"];
-                docenteAcademico.Coordinador = new DocenteAcademico() { IDPersonal = (int)fila["IDCoordinador"] };
                 docenteAcademico.Rol = (Rol)fila["Rol"];
+                if (docenteAcademico.Rol == Rol.Coordinador)
+                {
+                    
+                }
+                else
+                {
+                    docenteAcademico.Coordinador = new DocenteAcademico() { IDPersonal = (int)fila["IDCoordinador"] };
+                }
+                
+                
             }
             return docenteAcademico;
         }

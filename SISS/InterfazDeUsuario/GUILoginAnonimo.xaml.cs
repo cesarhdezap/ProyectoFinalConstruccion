@@ -69,7 +69,9 @@ namespace InterfazDeUsuario
         private void ButtonRegistrarseComoAlumno_Click(object sender, RoutedEventArgs e)
         {
             GUIRegistrarAlumno registrarAlumno = new GUIRegistrarAlumno();
-            registrarAlumno.Show();
+            Hide();
+            registrarAlumno.ShowDialog();
+            Show();
         }
     }
 }

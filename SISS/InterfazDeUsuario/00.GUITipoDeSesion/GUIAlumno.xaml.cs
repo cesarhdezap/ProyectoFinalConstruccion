@@ -70,6 +70,7 @@ namespace InterfazDeUsuario.GUITipoDeSesion
 
         private void BtnEscogerProyecto_Click(object sender, RoutedEventArgs e)
         {
+            Hide();
             GUIsDeAlumno.GUIEscogerProyectos escogerProyectos = new GUIsDeAlumno.GUIEscogerProyectos(Alumno);
             escogerProyectos.ShowDialog();
             AlumnoDAO alumnoDAO = new AlumnoDAO();

@@ -11,91 +11,92 @@ namespace LogicaDeNegocios.Servicios
         private static readonly Regex regexContraseña = new Regex(@"^\S{6,255}$");
         
 
-		public enum ResultadoDeValidacion
+		public static bool ValidarCorreoElectronico(string correoElectronico)
 		{
-			Valido,
-			NoValido,
-		}
-
-		public static ResultadoDeValidacion ValidarCorreoElectronico(string correoElectronico)
-		{
-			ResultadoDeValidacion resultadoDeValidacion = ResultadoDeValidacion.NoValido;
+			bool resultadoDeValidacion = false;
 
 			if (regexCorreoElectronico.IsMatch(correoElectronico))
 			{
-				resultadoDeValidacion = ResultadoDeValidacion.Valido;
+				resultadoDeValidacion = true;
 			}
 			return resultadoDeValidacion;
 		}
 
-		public static ResultadoDeValidacion ValidarTelefono(string telefono)
+		public static bool ValidarTelefono(string telefono)
 		{
-			ResultadoDeValidacion resultadoDeValidacion = ResultadoDeValidacion.NoValido;
+            bool resultadoDeValidacion = false;
 
 			if (regexTelefono.IsMatch(telefono))
 			{
-				resultadoDeValidacion = ResultadoDeValidacion.Valido;
+                resultadoDeValidacion = true;
 			}
 			return resultadoDeValidacion;
 		}
 
-		public static ResultadoDeValidacion ValidarNombre(string nombre)
+		public static bool ValidarNombre(string nombre)
 		{
-			ResultadoDeValidacion resultadoDeValidacion = ResultadoDeValidacion.NoValido;
+            bool resultadoDeValidacion = false;
 
 			if (regexNombre.IsMatch(nombre))
 			{
-				resultadoDeValidacion = ResultadoDeValidacion.Valido;
+                resultadoDeValidacion = true;
 			}
 			return resultadoDeValidacion;
 		}
 
-		public static ResultadoDeValidacion ValidarMatricula(string matricula)
+		public static bool ValidarMatricula(string matricula)
 		{
-			ResultadoDeValidacion resultadoDeValidacion = ResultadoDeValidacion.NoValido;
+            bool resultadoDeValidacion = false;
 
 			if (regexMatricula.IsMatch(matricula))
 			{
-				resultadoDeValidacion = ResultadoDeValidacion.Valido;
+                resultadoDeValidacion = true;
 			}
 
 			return resultadoDeValidacion;
 		}
         
-        public static ResultadoDeValidacion ValidarContraseña(string contraseña)
+        public static bool ValidarContraseña(string contraseña)
         {
-            ResultadoDeValidacion resultadoDeValidacion = ResultadoDeValidacion.NoValido;
+            bool resultadoDeValidacion = false;
 
             if (regexContraseña.IsMatch(contraseña))
             {
-                resultadoDeValidacion = ResultadoDeValidacion.Valido;
+                resultadoDeValidacion = true;
             }
 
             return resultadoDeValidacion;
         }
 
-        public static ResultadoDeValidacion ValidarAlumno(Alumno alumno)
+        public static bool ValidarAlumno(Alumno alumno)
         {
-            ResultadoDeValidacion resultadoDeValidacion = ResultadoDeValidacion.NoValido;
+            bool resultadoDeValidacion = false;
 
-            if (ValidarContraseña(alumno.Contraseña) == ResultadoDeValidacion.Valido && ValidarCorreoElectronico(alumno.CorreoElectronico) == ResultadoDeValidacion.Valido && ValidarMatricula(alumno.Matricula) == ResultadoDeValidacion.Valido && ValidarNombre(alumno.Nombre) == ResultadoDeValidacion.Valido && ValidarTelefono(alumno.Telefono) == ResultadoDeValidacion.Valido)
+            if (ValidarContraseña(alumno.Contraseña)  && ValidarCorreoElectronico(alumno.CorreoElectronico)  && ValidarMatricula(alumno.Matricula)  && ValidarNombre(alumno.Nombre)  && ValidarTelefono(alumno.Telefono))
             {
-                resultadoDeValidacion = ResultadoDeValidacion.Valido;
+                resultadoDeValidacion = true;
             }
 
             return resultadoDeValidacion;
         }
 
-        public static ResultadoDeValidacion ValidarCoordinador(DocenteAcademico docenteAcademico)
+        public static bool ValidarCoordinador(DocenteAcademico docenteAcademico)
         {
-            ResultadoDeValidacion resultadoDeValidacion = ResultadoDeValidacion.NoValido;
+            bool resultadoDeValidacion = false;
 
-            if (ValidarContraseña(docenteAcademico.Contraseña) == ResultadoDeValidacion.Valido && ValidarCorreoElectronico(docenteAcademico.CorreoElectronico) == ResultadoDeValidacion.Valido && ValidarNombre(docenteAcademico.Nombre) == ResultadoDeValidacion.Valido && ValidarTelefono(docenteAcademico.Telefono) == ResultadoDeValidacion.Valido && docenteAcademico.Cubiculo > 0 && docenteAcademico.Coordinador == null)
+            if (ValidarContraseña(docenteAcademico.Contraseña)  
+                && ValidarCorreoElectronico(docenteAcademico.CorreoElectronico)  
+                && ValidarNombre(docenteAcademico.Nombre)  
+                && ValidarTelefono(docenteAcademico.Telefono)  
+                && docenteAcademico.Cubiculo > 0 
+                && docenteAcademico.Coordinador == null)
             {
-                resultadoDeValidacion = ResultadoDeValidacion.Valido;
+                resultadoDeValidacion = true;
             }
 
             return resultadoDeValidacion;
         }
+
+        
 	}
 }

@@ -18,5 +18,6 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 			//TODO
 			throw new NotImplementedException();
 		}
+
     }
 }
