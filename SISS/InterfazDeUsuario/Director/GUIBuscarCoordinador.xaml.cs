@@ -1,12 +1,15 @@
 ﻿using System.Windows;
+using LogicaDeNegocios.ClasesDominio;
 
-namespace InterfazDeUsuario.Director
+namespace InterfazDeUsuario.GUIsDeDirector
 {
-    public partial class GUIBuscarCoordinadorxaml : Window
+    public partial class GUIBuscarCoordinador : Window
     {
-        public GUIBuscarCoordinadorxaml()
+        private Director Director { get; set; }
+        public GUIBuscarCoordinador(Director director)
         {
             InitializeComponent();
+            this.Director = director;
         }
     }
 }

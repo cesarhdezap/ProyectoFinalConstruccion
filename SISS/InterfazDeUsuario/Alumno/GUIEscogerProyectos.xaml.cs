@@ -59,7 +59,6 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                     {
                         fila.DetailsVisibility = Visibility.Visible;
                     }
-                     
                     break;
                 }
             Mouse.OverrideCursor = null;

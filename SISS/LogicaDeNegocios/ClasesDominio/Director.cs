@@ -11,7 +11,6 @@ namespace LogicaDeNegocios.ClasesDominio
         public string Nombre { get; set; }
         public string CorreoElectronico { get; set; }
         public string Contraseña { get; set; }
-        public bool isActivo { get; set; }
 
     }
 }
