@@ -25,5 +25,10 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 			AlumnoDAO alumnoDAO = new AlumnoDAO();
 			this.Alumnos = alumnoDAO.CargarAlumnosPorEstado(estadoAlumno);
 		}
+        public void CargarAlumnosPorCarrera(string carrera)
+        {
+            AlumnoDAO alumnoDAO = new AlumnoDAO();
+            this.Alumnos = alumnoDAO.CargarAlumnosPorCarrera(carrera);
+        }
 	}
 }
