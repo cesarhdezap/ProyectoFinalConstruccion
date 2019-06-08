@@ -243,9 +243,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 docenteAcademico.Carrera = fila["Carrera"].ToString();
                 docenteAcademico.Cubiculo = (int)fila["Cubiculo"];
                 docenteAcademico.EsActivo = (bool)fila["EsActivo"];
-                docenteAcademico.Coordinador = new DocenteAcademico() { IDPersonal = (int)fila["IDCoordinador"] };
                 docenteAcademico.Rol = (Rol)fila["Rol"];
-            }
+				if (docenteAcademico.Rol == Rol.TecnicoAcademico)
+				{
+					docenteAcademico.Coordinador = new DocenteAcademico() { IDPersonal = (int)fila["IDCoordinador"] };
+				}
+				else
+				{
+					docenteAcademico.Coordinador = null;
+				}
+			}
+
             return docenteAcademico;
         }
 
@@ -276,9 +284,16 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                     Carrera = fila["Carrera"].ToString(),
                     Cubiculo = (int)fila["Cubiculo"],
                     EsActivo = (bool)fila["EsActivo"],
-                    Coordinador = new DocenteAcademico() { IDPersonal = (int)fila["IDCoordinador"] },
                     Rol = (Rol)fila["Rol"]
                 };
+				if (docenteAcademico.Rol == Rol.TecnicoAcademico)
+				{
+					docenteAcademico.Coordinador = new DocenteAcademico() { IDPersonal = (int)fila["IDCoordinador"] };
+				}
+				else
+				{
+					docenteAcademico.Coordinador = null;
+				}
                 listaDeDocentesAcademicos.Add(docenteAcademico);
             }
 
@@ -292,7 +307,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO DocentesAcademicos(Nombre, CorreoElectronico, Telefono, Carrera, EsActivo, Cubiculo, Rol, Contraseña) VALUES (@NombreDocenteAcademico, @CorreoElectronicoDocenteAcademico, @TelefonoDocenteAcademico, @CarreraDocenteAcademico, @oEsActivoDocenteAcademic, @CubiculoDocenteAcademico, @RolDocenteAcademico, @ContraseñaDocenteAcademico, @IDCoordinadorDocenteAcademico)", parametrosDeDocenteAcademico);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO DocentesAcademicos(Nombre, Rol, IDCoordinador, CorreoElectronico, Telefono, Carrera, EsActivo, Cubiculo, Contraseña) VALUES (@NombreDocenteAcademico, @RolDocenteAcademico, @IDCoordinadorDocenteAcademico, @CorreoElectronicoDocenteAcademico, @TelefonoDocenteAcademico, @CarreraDocenteAcademico, @EsActivoDocenteAcademico, @CubiculoDocenteAcademico, @ContraseñaDocenteAcademico)", parametrosDeDocenteAcademico);
             }
             catch (SqlException e)
             {
@@ -338,7 +353,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             else
             {
                 parametrosDeDocenteAcademico[8].ParameterName = "@IDCoordinadorDocenteAcademico";
-                parametrosDeDocenteAcademico[8].Value = null;
+                parametrosDeDocenteAcademico[8].Value = 0;
             }
 
             return parametrosDeDocenteAcademico;

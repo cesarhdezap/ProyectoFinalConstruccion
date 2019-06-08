@@ -23,24 +23,18 @@ namespace InterfazDeUsuario.GUIsDeAlumno
     /// </summary>
     public partial class GUIVerExpedientePorAlumno : Window
     {
-        private AdministradorDeReportesMensuales AdministradorDeReportesMensuales { get; set; }
-        private AdministradorDeDocumentosDeEntregaUnica AdministradorDeDocumentosDeEntregaUnica { get; set; }
+        private Asignacion Asignacion {get; set;}
         private Alumno Alumno { get; set; }
         public GUIVerExpedientePorAlumno(Alumno alumno)
         {
             InitializeComponent();
             this.Alumno = alumno;
             AsignacionDAO asignacionDAO = new AsignacionDAO();
-            Asignacion asignacion = new Asignacion();
-            AdministradorDeDocumentosDeEntregaUnica = new AdministradorDeDocumentosDeEntregaUnica();
-            AdministradorDeReportesMensuales = new AdministradorDeReportesMensuales();
-            ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
             try
             {
-                asignacion = asignacionDAO.CargarIDsPorMatriculaDeAlumno(Alumno.Matricula).ElementAt(0);
-                asignacion = asignacionDAO.CargarAsignacionPorID(asignacion.IDAsignacion);
-                AdministradorDeDocumentosDeEntregaUnica.CargarDocumentosDeEntregaUnicaPorMatricula(Alumno.Matricula);
-                AdministradorDeReportesMensuales.CargarReportesMensualesPorMatricula(Alumno.Matricula);
+                this.Asignacion = asignacionDAO.CargarIDsPorMatriculaDeAlumno(Alumno.Matricula).ElementAt(0);
+                this.Asignacion = asignacionDAO.CargarAsignacionPorID(this.Asignacion.IDAsignacion);
+                this.Asignacion.CargarDocumentos();
             }
             catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
             {
@@ -60,10 +54,10 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                 MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
             }
-            LblHorasCubiertas.Content = asignacion.ObtenerHorasCubiertas();
-            LblNombreDeUsuario.Content = Alumno.Nombre;
-            GrdDocumentosDeEntregaUnica.ItemsSource = AdministradorDeDocumentosDeEntregaUnica.DocumentosDeEntregaUnica;
-            GrdReportesMensuales.ItemsSource = AdministradorDeReportesMensuales.ReportesMensuales;
+            LblHorasCubiertas.Content = this.Asignacion.ObtenerHorasCubiertas();
+            LblNombreDeUsuario.Content = this.Alumno.Nombre;
+            GrdDocumentosDeEntregaUnica.ItemsSource = this.Asignacion.DocumentosDeEntregaUnica;
+            GrdReportesMensuales.ItemsSource = this.Asignacion.ReportesMensuales;
         }
 
         private void BtnVerProyectoActual_Click(object sender, RoutedEventArgs e)

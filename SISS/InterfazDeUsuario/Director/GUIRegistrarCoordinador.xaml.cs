@@ -179,7 +179,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
                     Mouse.OverrideCursor = null;
                     MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            } catch (InvalidCastException ex)
+            } catch (FormatException ex)
             {
                 Mouse.OverrideCursor = null;
                 MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);

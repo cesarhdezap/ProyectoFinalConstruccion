@@ -14,7 +14,7 @@ using System.Data;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-    class ImagenDAO : IImagenDAO
+    public class ImagenDAO : IImagenDAO
     {
         public void ActualizarImagenPorIDDocumentno(Imagen imagen)
         {

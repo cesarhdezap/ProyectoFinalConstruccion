@@ -91,6 +91,7 @@ namespace InterfazDeUsuario.GUITipoDeSesion
             if (Alumno.EstadoAlumno == EstadoAlumno.EsperandoAsignacion)
             {
                 LblEsperandoAsignacion.Visibility = Visibility.Visible;
+				BtnEscogerProyecto.Visibility = Visibility.Hidden;
             }
         }
 

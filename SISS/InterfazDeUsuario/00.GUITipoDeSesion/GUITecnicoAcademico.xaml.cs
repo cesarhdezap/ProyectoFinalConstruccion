@@ -55,10 +55,10 @@ namespace InterfazDeUsuario.GUITipoDeSesion
                 MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
             }
-            LblNombreDeUsuario.Content = this.TecnicoAdministrativo.Nombre;
+			LabelNombreDeUsuario.Content = this.TecnicoAdministrativo.Nombre;
         }
 
-        private void BtnBuscarAlumno_Click(object sender, RoutedEventArgs e)
+        private void ButtonBuscarAlumno_Click(object sender, RoutedEventArgs e)
         {
             GUIsDeTecnicoAcademico.GUIBuscarAlumnoPorTecnicoAcademico buscarAlumnoPorTecnicoAcademico = new GUIsDeTecnicoAcademico.GUIBuscarAlumnoPorTecnicoAcademico(TecnicoAdministrativo);
             buscarAlumnoPorTecnicoAcademico.ShowDialog();

@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Linq;
 using LogicaDeNegocios.ObjetosAdministrador;
 using LogicaDeNegocios.Excepciones;
 
@@ -21,12 +22,12 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
         {
             InitializeComponent();
             TecnicoAdministrativo = tecnicoAdministrativo;
-            LabelNombreDeUsuario.Content = TecnicoAdministrativo.Nombre;
+			LabelNombreDeUsuario.Content = TecnicoAdministrativo.Nombre;
             AdministradorDeAlumnos = new AdministradorDeAlumnos();
             Mouse.OverrideCursor = Cursors.Wait;
             try
             {
-                AdministradorDeAlumnos.CargarAlumnosPorCarrera(TecnicoAdministrativo.Carrera);
+                AdministradorDeAlumnos.CargarAlumnosPorCarreraYEstado(TecnicoAdministrativo.Carrera, EstadoAlumno.Asignado);
             }
             catch (AccesoADatosException ex) when(ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
             {
@@ -46,12 +47,14 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
                 MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
             }
-            DtgAlumnos.ItemsSource = AdministradorDeAlumnos.Alumnos;
+			Mouse.OverrideCursor = null;
+			DtgAlumnos.ItemsSource = AdministradorDeAlumnos.Alumnos;
         }
 
         private void BtnVerExpediente_Click(object sender, RoutedEventArgs e)
         {
-            GUIVerExpedienteDeAlumno verExpedienteDeAlumno = new GUIVerExpedienteDeAlumno(TecnicoAdministrativo, AdministradorDeAlumnos.Alumnos.ElementAt(DtgAlumnos.SelectedIndex));
+			Alumno alumnoSeleccionado = ((FrameworkElement)sender).DataContext as Alumno;
+            GUIVerExpedienteDeAlumno verExpedienteDeAlumno = new GUIVerExpedienteDeAlumno(TecnicoAdministrativo, alumnoSeleccionado);
             ShowDialog();
         }
 
@@ -92,5 +95,9 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
                 }
         }
 
-    }
+		private void TxtBuscarAlumnos_por_nombre_TextChanged(object sender, TextChangedEventArgs e)
+		{
+
+		}
+	}
 }

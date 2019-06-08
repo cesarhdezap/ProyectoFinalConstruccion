@@ -11,6 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LogicaDeNegocios;
+using LogicaDeNegocios.Excepciones;
+using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using LogicaDeNegocios.ObjetosAdministrador;
 
 namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 {
@@ -19,7 +23,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
     /// </summary>
     public partial class GUICapturarOtroDocumento : Window
     {
-        public GUICapturarOtroDocumento()
+        public GUICapturarOtroDocumento(DocenteAcademico docenteAcademico)
         {
             InitializeComponent();
         }

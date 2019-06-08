@@ -43,51 +43,58 @@ namespace InterfazDeUsuario.GUIsDeAlumno
         private void Expander_Expanded(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
-            for (Visual elementoVisual = sender as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
-                if (elementoVisual is DataGridRow fila)
-                { 
-                    if (fila.DetailsVisibility == Visibility.Visible)
-                    {
-                        fila.DetailsVisibility = Visibility.Collapsed;
-                    } else
-                    {
-                        fila.DetailsVisibility = Visibility.Visible;
-                    }
-                    break;
-                }
+			for (Visual elementoVisual = sender as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
+			{
+				if (elementoVisual is DataGridRow fila)
+				{
+					if (fila.DetailsVisibility == Visibility.Visible)
+					{
+						fila.DetailsVisibility = Visibility.Collapsed;
+					}
+					else
+					{
+						fila.DetailsVisibility = Visibility.Visible;
+					}
+					break;
+				}
+			}
             Mouse.OverrideCursor = null;
         }
 
         private void Expander_Collapsed(object sender, RoutedEventArgs e)
         {
-            for (var elementoVisual = sender as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
-                if (elementoVisual is DataGridRow fila)
-                {
-                    if (fila.DetailsVisibility == Visibility.Visible)
-                    {
-                        fila.DetailsVisibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        fila.DetailsVisibility = Visibility.Visible;
-                    }
-                    break;
-                }
+			for (var elementoVisual = sender as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
+			{
+				if (elementoVisual is DataGridRow fila)
+				{
+					if (fila.DetailsVisibility == Visibility.Visible)
+					{
+						fila.DetailsVisibility = Visibility.Collapsed;
+					}
+					else
+					{
+						fila.DetailsVisibility = Visibility.Visible;
+					}
+					break;
+				}
+			}
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            Solicitud.Proyectos.Add(AdministradorDeProyectos.Proyectos.ElementAt(DtgProyectos.SelectedIndex));
+			Proyecto proyectoSeleccionado = ((FrameworkElement)sender).DataContext as Proyecto;
+			Solicitud.Proyectos.Add(proyectoSeleccionado);
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            Solicitud.Proyectos.Remove(AdministradorDeProyectos.Proyectos.ElementAt(DtgProyectos.SelectedIndex));
+			Proyecto proyectoSeleccionado = ((FrameworkElement)sender).DataContext as Proyecto;
+			Solicitud.Proyectos.Remove(proyectoSeleccionado);
         }
 
         private void BtnAceptar_Click(object sender, RoutedEventArgs e)
         {
-            if (Solicitud.Proyectos.Count <= 3)
+            if (Solicitud.Proyectos.Count <= 3 && Solicitud.Proyectos.Count > 0)
             {
                 Solicitud.Fecha = DateTime.Now;
                 SolicitudDAO solicitudDAO = new SolicitudDAO();
@@ -116,7 +123,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
             }
             else
             {
-                MessageBox.Show("Solo puede escoger 3 proyectos como maximo", "Demasiados proyectos seleccionados", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Solo puede escoger 3 proyectos como maximo o 1 como minimo.", "Cantidad de proyectos seleccionados invalida", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }
