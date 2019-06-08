@@ -8,6 +8,8 @@ namespace LogicaDeNegocios.Excepciones
 {
     public class AccesoADatosException : Exception
     {
+        public TipoDeError TipoDeError { get; set; } = TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos;
+        
         public AccesoADatosException()
         {
 
@@ -15,12 +17,32 @@ namespace LogicaDeNegocios.Excepciones
 
         public AccesoADatosException(string mensaje)
             :base (mensaje)
-        { 
+        {
         }
 
         public AccesoADatosException(string mensaje, Exception excepcionInterna)
-            :base (mensaje, excepcionInterna)
+            : base(mensaje, excepcionInterna)
         {
         }
+
+        public AccesoADatosException(string mensaje, TipoDeError tipoDeError)
+            : base(mensaje)
+        {
+            this.TipoDeError = tipoDeError;
+        }
+
+        public AccesoADatosException(string mensaje, Exception excepcionInterna, TipoDeError tipoDeError)
+            :base (mensaje, excepcionInterna)
+        {
+            this.TipoDeError = tipoDeError;
+        }
+    }
+
+    public enum TipoDeError
+    {
+        ErrorDesconocidoDeAccesoABaseDeDatos,
+        ConexionABaseDeDatosFallida,
+        ObjetoNoExiste,
+        InsercionFallidaPorLlavePrimariDuplicada
     }
 }

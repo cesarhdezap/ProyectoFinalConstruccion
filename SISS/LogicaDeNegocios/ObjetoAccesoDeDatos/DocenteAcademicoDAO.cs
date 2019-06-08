@@ -9,10 +9,10 @@ using LogicaDeNegocios.Excepciones;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	public class DocenteAcademicoDAO : IDocenteAcademicoDAO
-	{
-		public void ActualizarDocenteAcademicoPorIDPersonal(int IDPersonal, DocenteAcademico docenteAcademico)
-		{
+    public class DocenteAcademicoDAO : IDocenteAcademicoDAO
+    {
+        public void ActualizarDocenteAcademicoPorIDPersonal(int IDPersonal, DocenteAcademico docenteAcademico)
+        {
             if (IDPersonal <= 0)
             {
                 throw new AccesoADatosException("Error al Actualizar DocenteAcademico Por IDpersonal: " + IDPersonal + ". IDpersonal no es valido.");
@@ -21,11 +21,41 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             try
             {
                 AccesoADatos.EjecutarInsertInto("UPDATE DocentesAcademicos SET (Nombre = @NombreDocenteAcademico, CorreoElectronico = @CorreoElectronicoDocenteAcademico, Telefono = @TelefonoDocenteAcademico, EsActivo = @EsActivoDocenteAcademico)", parametrosDeDocenteAcademico);
-            } catch (SqlException e)
+            }
+            catch (SqlException e)
             {
                 throw new AccesoADatosException("Error al actualizar DocenteAcademico: " + docenteAcademico.ToString() + "Con ID: " + IDPersonal, e);
             }
-		}
+        }
+
+        public DocenteAcademico CargarIDPorCarrera(string carrera)
+        {
+            DataTable tablaDeDocenteAcademico = new DataTable();
+            SqlParameter[] parametroCarrera = new SqlParameter[1];
+            parametroCarrera[0] = new SqlParameter
+            {
+                ParameterName = "@Carrera",
+                Value = carrera
+            };
+            try
+            {
+                tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect("SELECT IDPersonal FROM DocentesAcademicos WHERE Carrera = @Carrera", parametroCarrera);
+            }
+            catch (SqlException e)
+            {
+                throw new AccesoADatosException("Error al cargar IDPersonal con Carrera: " + carrera, e);
+            }
+            DocenteAcademico docenteAcademico = new DocenteAcademico();
+            try
+            {
+                docenteAcademico = ConvertirDataTableADocenteAcademicoConSoloID(tablaDeDocenteAcademico);
+            }
+            catch (FormatException e)
+            {
+                throw new AccesoADatosException("Error al convertir datatable a DocenteAcademico en cargar IDPersonal con Carrera: " + carrera, e);
+            }
+            return docenteAcademico;
+        }
 
         public string CargarIDPorCorreoYRol(string correoElectronico, Rol rol)
         {
@@ -49,14 +79,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (SqlException e)
             {
-                Console.WriteLine("No se encontro la id del {0} con correo: {1}",rol.ToString(),correoElectronico);
+                Console.WriteLine("No se encontro la id del {0} con correo: {1}", rol.ToString(), correoElectronico);
             }
 
             return IDUsuario;
         }
 
         public DocenteAcademico CargarDocenteAcademicoPorIDPersonal(int IDPersonal)
-		{
+        {
 
             if (IDPersonal <= 0)
             {
@@ -83,7 +113,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 docenteAcademico = ConvertirDataTableADocenteAcademico(tablaDeDocenteAcademico);
             }
-            catch(FormatException e)
+            catch (FormatException e)
             {
                 throw new AccesoADatosException("Error al convertir datatable a DocenteAcademico en cargar DocenteAcademico por IDPersonal: " + IDPersonal, e);
             }
@@ -92,7 +122,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
         internal DocenteAcademico CargarIDPorIDDocumento(int IDDocumento)
         {
-            if(IDDocumento <= 0)
+            if (IDDocumento <= 0)
             {
                 throw new AccesoADatosException("Error al cargar IDPersonal Por IDDocumento: " + IDDocumento + ". IDDocumento no es valido.");
             }
@@ -154,8 +184,8 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeDocentesAcademicos;
         }
 
-		public List<DocenteAcademico> CargarDocentesAcademicosPorRol(Rol rol)
-		{
+        public List<DocenteAcademico> CargarDocentesAcademicosPorRol(Rol rol)
+        {
             DataTable tablaDeDocenteAcademico = new DataTable();
             SqlParameter[] parametroRol = new SqlParameter[1];
             parametroRol[0] = new SqlParameter
@@ -185,7 +215,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeDocentesAcademicos;
         }
 
-		private DocenteAcademico ConvertirDataTableADocenteAcademico(DataTable tablaDocenteAcademico)
+        private DocenteAcademico ConvertirDataTableADocenteAcademico(DataTable tablaDocenteAcademico)
         {
             DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
             DocenteAcademico docenteAcademico = new DocenteAcademico();
@@ -239,12 +269,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 listaDeDocentesAcademicos.Add(docenteAcademico);
             }
 
-                                                                  
+
             return listaDeDocentesAcademicos;
         }
 
-		public void GuardarDocenteAcademico(DocenteAcademico docenteAcademico)
-		{
+        public void GuardarDocenteAcademico(DocenteAcademico docenteAcademico)
+        {
             SqlParameter[] parametrosDeDocenteAcademico = InicializarParametrosDeSql(docenteAcademico);
             int filasAfectadas = 0;
             try

@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	class OrganizacionDAO : IOrganizacionDAO
+	public class OrganizacionDAO : IOrganizacionDAO
 	{
         public void ActualizarOrganizacionPorID(int IDOrganizacion, Organizacion organizacion)
         {
@@ -88,6 +88,39 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return organizacion;
         }
 
+        public Organizacion CargarIDPorIDEncargado(int IDEncargado)
+        {
+            if (IDEncargado <= 0)
+            {
+                throw new AccesoADatosException("Error al  Cargar IDOrganizacion Por IDEncargado: " + IDEncargado + ". IDEncargado no es valido.");
+            }
+            DataTable tablaDeOrganizacion = new DataTable();
+            SqlParameter[] parametroIDEncargado = new SqlParameter[1];
+            parametroIDEncargado[0] = new SqlParameter
+            {
+                ParameterName = "@IDEncargado",
+                Value = IDEncargado
+            };
+            try
+            {
+                tablaDeOrganizacion = AccesoADatos.EjecutarSelect("SELECT IDOrganizacion FROM Encargados WHERE IDEncargado = @IDEncargado", parametroIDEncargado);
+            }
+            catch (SqlException e)
+            {
+                throw new AccesoADatosException("Error al Cargar IDOrganizacion Por IDEncargado: " + IDEncargado, e);
+            }
+            Organizacion organizacion = new Organizacion();
+            try
+            {
+                organizacion = ConvertirDataTableAOrganizacionConSoloID(tablaDeOrganizacion);
+            }
+            catch (FormatException e)
+            {
+                throw new AccesoADatosException("Error al convertir datatable a Organizacion en Cargar IDOrganizacion Por IDEncargado: " + IDEncargado, e);
+            }
+            return organizacion;
+        }
+
         private List<Organizacion> ConvertirDataTableAListaDeOrganizaciones(DataTable tablaDeOrganizaciones)
         {
             EncargadoDAO encargadoDAO = new EncargadoDAO();
@@ -124,6 +157,18 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return organizacion;
         }
 
+        private Organizacion ConvertirDataTableAOrganizacionConSoloID(DataTable tablaDeOrganizacion)
+        {
+            EncargadoDAO encargadoDAO = new EncargadoDAO();
+            Organizacion organizacion = new Organizacion();
+            foreach (DataRow fila in tablaDeOrganizacion.Rows)
+            {
+
+                organizacion.IDOrganizacion = (int)fila["IDOrganizacion"];
+
+            }
+            return organizacion;
+        }
         public void GuardarOrganizacion(Organizacion organizacion)
         {
             SqlParameter[] parametrosDeOrganizacion = InicializarParametrosDeSql(organizacion);

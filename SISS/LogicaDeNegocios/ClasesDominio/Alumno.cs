@@ -15,19 +15,25 @@ namespace LogicaDeNegocios
 
 		public void DarDeBaja()
 		{
-			EstadoAlumno = EstadoAlumno.Desactivado;
+			EstadoAlumno = EstadoAlumno.DadoDeBaja;
             ActualizarRegistroDeAlumno();
         }
 
-		public void AceptarAlumno()
+		public void Aceptar()
 		{
 			EstadoAlumno = EstadoAlumno.Aceptado;
             ActualizarRegistroDeAlumno();
         }
 
-		public void RechazarAlumno()
+		public void Rechazar()
 		{
 			EstadoAlumno = EstadoAlumno.Rechazado;
+            ActualizarRegistroDeAlumno();
+        }
+
+        public void Solicitar()
+        {
+            EstadoAlumno = EstadoAlumno.EsperandoAsignacion;
             ActualizarRegistroDeAlumno();
         }
 
@@ -54,11 +60,13 @@ namespace LogicaDeNegocios
 
 	public enum EstadoAlumno
 	{
-		EnEspera, 
+		EsperandoAceptacion, 
+        Aceptado,
+        Rechazado,
+        EsperandoAsignacion,
+        Asignado,
 		Liberado,
-		Aceptado,
-		Rechazado,
-		Desactivado,
-		EsperandoAsignacion
+		DadoDeBaja,
+		
 	}
 }

@@ -1,7 +1,7 @@
 ﻿using LogicaDeNegocios;
 using System.Windows;
 
-namespace InterfazDeUsuario.TecnicoAcademico
+namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 {
     /// <summary>
     /// Interaction logic for GUIBuscarAlumnoPorTecnicoAcademico.xaml

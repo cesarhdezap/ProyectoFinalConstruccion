@@ -78,7 +78,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             };
             try
             {
-                tablaDeAsignaciones = AccesoADatos.EjecutarSelect("SELECT IDAsignacion FROM Alumnos WHERE Matricula = @Matricula", parametroMatricula);
+                tablaDeAsignaciones = AccesoADatos.EjecutarSelect("SELECT IDAsignacion FROM Asignaciones WHERE MatriculaAlumno = @Matricula", parametroMatricula);
             }
             catch (SqlException e)
             {

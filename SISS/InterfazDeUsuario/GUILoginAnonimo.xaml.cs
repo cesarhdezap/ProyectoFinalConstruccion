@@ -3,6 +3,7 @@ using System.Windows;
 using static LogicaDeNegocios.Servicios.ServiciosDeSesion;
 using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
 using InterfazDeUsuario.GUITipoDeSesion;
+using InterfazDeUsuario.GUIsDeAlumno;
 
 namespace InterfazDeUsuario
 {
@@ -16,18 +17,13 @@ namespace InterfazDeUsuario
         private void ButtonIngresar_Click(object sender, RoutedEventArgs e)
         {
             string correo = TextBoxCorreo.Text;
-            string contraseña = PasswordBoxContraseña.Password;
-            
-
             if (correo != null && PasswordBoxContraseña.Password != null)
             {
-                bool resultadoDeAutenticacion = AutenticarCredenciales(correo, contraseña);
+                bool resultadoDeAutenticacion = AutenticarCredenciales(correo, PasswordBoxContraseña.Password);
                 if (resultadoDeAutenticacion)
                 {
                     Sesion sesion = CargarSesion(correo);
-                    Hide();
                     InstanciarVentanaDeSesion(sesion);
-                    Show();
                 }
                 else
                 {
@@ -63,6 +59,13 @@ namespace InterfazDeUsuario
             {
                 MessageBox.Show("Tipo de sesion no valida.");
             }
+            Hide();
+        }
+
+        private void ButtonRegistrarseComoAlumno_Click(object sender, RoutedEventArgs e)
+        {
+            GUIRegistrarAlumno registrarAlumno = new GUIRegistrarAlumno();
+            registrarAlumno.Show();
         }
     }
 }
