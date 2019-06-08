@@ -12,7 +12,7 @@
     </Window.Resources>
     <Grid>
         <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="994" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C"/>
-        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="766,21,0,0" Width="119" FontFamily="Arial"/>
+        <Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="766,21,0,0" Width="119" FontFamily="Arial"/>
         <Label x:Name="LblCerrarSesión" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="890,21,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontFamily="Arial"/>
         <Label x:Name="LblBuscarAlumno" Content="Buscar alumno" HorizontalAlignment="Left" Margin="286,80,0,0" VerticalAlignment="Top" Width="258" FontSize="36"/>
         <TextBox x:Name="TxtBuscarAlumnos_por_nombre" HorizontalAlignment="Left" Height="23" Margin="766,103,-93,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206"/>

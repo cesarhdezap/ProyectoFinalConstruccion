@@ -23,7 +23,9 @@ namespace InterfazDeUsuario
                 if (resultadoDeAutenticacion)
                 {
                     Sesion sesion = CargarSesion(correo);
+                    Hide();
                     InstanciarVentanaDeSesion(sesion);
+                    Show();
                 }
                 else
                 {
@@ -59,7 +61,6 @@ namespace InterfazDeUsuario
             {
                 MessageBox.Show("Tipo de sesion no valida.");
             }
-            Hide();
         }
 
         private void ButtonRegistrarseComoAlumno_Click(object sender, RoutedEventArgs e)
