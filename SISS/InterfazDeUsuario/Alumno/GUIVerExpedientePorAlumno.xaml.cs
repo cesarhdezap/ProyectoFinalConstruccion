@@ -23,8 +23,8 @@ namespace InterfazDeUsuario.GUIsDeAlumno
     /// </summary>
     public partial class GUIVerExpedientePorAlumno : Window
     {
-        private AdministradorDeReportesMensuales AdministradorDeReportesMensuales = new AdministradorDeReportesMensuales();
-        private AdministradorDeDocumentosDeEntregaUnica AdministradorDeDocumentosDeEntregaUnica = new AdministradorDeDocumentosDeEntregaUnica();
+        private AdministradorDeReportesMensuales AdministradorDeReportesMensuales { get; set; }
+        private AdministradorDeDocumentosDeEntregaUnica AdministradorDeDocumentosDeEntregaUnica { get; set; }
         private Alumno Alumno = new Alumno();
         public GUIVerExpedientePorAlumno(Alumno alumno)
         {
@@ -32,6 +32,8 @@ namespace InterfazDeUsuario.GUIsDeAlumno
             this.Alumno = alumno;
             AsignacionDAO asignacionDAO = new AsignacionDAO();
             Asignacion asignacion = new Asignacion();
+            AdministradorDeDocumentosDeEntregaUnica = new AdministradorDeDocumentosDeEntregaUnica();
+            AdministradorDeReportesMensuales = new AdministradorDeReportesMensuales();
             ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
             try
             {
