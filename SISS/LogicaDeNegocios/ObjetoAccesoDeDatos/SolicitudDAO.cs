@@ -9,13 +9,18 @@ using System.Linq;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	class SolicitudDAO : ISolicitudDAO
+	public class SolicitudDAO : ISolicitudDAO
 	{
+        public void ActualizarSolicitudPorID(int IDSolicitud, Solicitud solicitud)
+        {
+
+        }
+
 		public Solicitud CargarSolicitudPorID(int IDSolicitud)
 		{
             if (IDSolicitud <= 0)
             {
-                throw new AccesoADatosException("Error al Actualizar Solicitud Por IDSolicitud: " + IDSolicitud + ". IDSolicitud no es valido.");
+                throw new AccesoADatosException("Error al Cargar Solicitud Por IDSolicitud: " + IDSolicitud + ". IDSolicitud no es valido.");
             }
             DataTable tablaDeMatricula = new DataTable();
             SqlParameter[] parametroIDSolicitud = new SqlParameter[1];
@@ -72,13 +77,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return solicitud;
         }
 
-        public void GuardarSolicitud(Solicitud solicitud)
+        public void GuardarSolicitud(Solicitud solicitud, Alumno alumno)
         {
-            SqlParameter[] parametrosDeSolicitud = InicializarParametrosDeSql(solicitud);
+            SqlParameter[] parametrosDeSolicitud = InicializarParametrosDeSql(solicitud, alumno);
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Solicitudes(Fecha) VALUES(@Fecha)", parametrosDeSolicitud);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Solicitudes(Fecha, Matricula) VALUES(@Fecha, @Matricula)", parametrosDeSolicitud);
             }
             catch (SqlException e)
             {
@@ -90,11 +95,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             foreach (Proyecto proyecto in solicitud.Proyectos)
             {
-                parametrosDeSolicitud[1].Value = ObtenerUltimoIDInsertado();
-                parametrosDeSolicitud[2].Value = proyecto.IDProyecto;
+                parametrosDeSolicitud = InicializarParametrosDeSql(solicitud, alumno);
+                parametrosDeSolicitud[2].Value = ObtenerUltimoIDInsertado();
+                parametrosDeSolicitud[3].Value = proyecto.IDProyecto;
                 try
                 {
-                   filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Solicitudes-Proyectos(IDSolicitud, IDProyecto) VALUES(@IDSolicitud, @IDProyecto)", parametrosDeSolicitud);
+                   filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO SolicitudesProyectos(IDSolicitud, IDProyecto) VALUES(@IDSolicitud, @IDProyecto)", parametrosDeSolicitud);
                 }
                 catch (SqlException e)
                 {
@@ -107,9 +113,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        private static SqlParameter[] InicializarParametrosDeSql(Solicitud solicitud)
+        private static SqlParameter[] InicializarParametrosDeSql(Solicitud solicitud, Alumno alumno)
         {
-            SqlParameter[] parametrosDeSolicitud = new SqlParameter[3];
+            SqlParameter[] parametrosDeSolicitud = new SqlParameter[4];
             for (int i = 0; i < parametrosDeSolicitud.Length; i++)
             {
                 parametrosDeSolicitud[i] = new SqlParameter();
@@ -117,8 +123,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             parametrosDeSolicitud[0].ParameterName = "@Fecha";
             parametrosDeSolicitud[0].Value = solicitud.Fecha.ToString();
-            parametrosDeSolicitud[1].ParameterName = "@IDSolicitud";
-            parametrosDeSolicitud[2].ParameterName = "@IDProyecto";
+            parametrosDeSolicitud[1].ParameterName = "@Matricula";
+            parametrosDeSolicitud[1].Value = alumno.Matricula;
+            parametrosDeSolicitud[2].ParameterName = "@IDSolicitud";
+            parametrosDeSolicitud[2].Value = 0;
+            parametrosDeSolicitud[3].ParameterName = "@IDProyecto";
+            parametrosDeSolicitud[3].Value = 0;
 
             return parametrosDeSolicitud;
         }
@@ -159,7 +169,16 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
         public int ObtenerUltimoIDInsertado()
         {
-            throw new NotImplementedException();
+            int ultimoIDInsertado = 0;
+            try
+            {
+                ultimoIDInsertado = AccesoADatos.ObtenerUltimoIDInsertado("SELECT IDENT_CURRENT('Solicitudes')");
+            }
+            catch (SqlException e)
+            {
+                throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en SolicitudDAO", e);
+            }
+            return ultimoIDInsertado;
         }
     }
 }

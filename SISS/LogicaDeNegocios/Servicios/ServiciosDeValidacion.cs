@@ -8,6 +8,8 @@ namespace LogicaDeNegocios.Servicios
 		private static readonly Regex regexCorreoElectronico = new Regex(@"^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$");
 		private static readonly Regex regexNombre = new Regex(@"^[a-zA-Z àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð,.'-]+$");
 		private static readonly Regex regexMatricula = new Regex(@"^z[0-9]{8}$");
+        private static readonly Regex regexContraseña = new Regex(@"^\S{6,255}$");
+        
 
 		public enum ResultadoDeValidacion
 		{
@@ -59,5 +61,29 @@ namespace LogicaDeNegocios.Servicios
 
 			return resultadoDeValidacion;
 		}
+        
+        public static ResultadoDeValidacion ValidarContraseña(string contraseña)
+        {
+            ResultadoDeValidacion resultadoDeValidacion = ResultadoDeValidacion.NoValido;
+
+            if (regexContraseña.IsMatch(contraseña))
+            {
+                resultadoDeValidacion = ResultadoDeValidacion.Valido;
+            }
+
+            return resultadoDeValidacion;
+        }
+
+        public static ResultadoDeValidacion ValidarAlumno(Alumno alumno)
+        {
+            ResultadoDeValidacion resultadoDeValidacion = ResultadoDeValidacion.NoValido;
+
+            if (ValidarContraseña(alumno.Contraseña) == ResultadoDeValidacion.Valido && ValidarCorreoElectronico(alumno.CorreoElectronico) == ResultadoDeValidacion.Valido && ValidarMatricula(alumno.Matricula) == ResultadoDeValidacion.Valido && ValidarNombre(alumno.Nombre) == ResultadoDeValidacion.Valido && ValidarTelefono(alumno.Telefono) == ResultadoDeValidacion.Valido)
+            {
+                resultadoDeValidacion = ResultadoDeValidacion.Valido;
+            }
+
+            return resultadoDeValidacion;
+        }
 	}
 }

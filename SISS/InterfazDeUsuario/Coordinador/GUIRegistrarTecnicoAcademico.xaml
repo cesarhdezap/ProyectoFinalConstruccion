@@ -1,32 +1,32 @@
-﻿<Window x:Class="InterfazDeUsuario.Coordinador.GUIRegistrarTecnicoAcademico"
+﻿<Window x:Class="InterfazDeUsuario.GUIsDeCoordinador.GUIRegistrarTecnicoAcademico"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:InterfazDeUsuario.Coordinador"
+        xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeCoordinador"
         mc:Ignorable="d"
         Title="GUIRegistrarTecnicoAcademico" Height="642.25" Width="888.875">
     <Grid>
-        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="882" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C" Margin="0,0,-90,0"/>
-        <Label Content="Registrar técnico académico" HorizontalAlignment="Left" Margin="301,69,0,0" VerticalAlignment="Top" Height="39" Width="288" FontFamily="Arial" FontSize="22" BorderBrush="#FF1B1414"/>
-        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="627,23,0,0" Width="119"/>
-        <Label x:Name="LblNombreDeUsuario_Copy" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="751,23,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
-        <Label Content="Nombre:" HorizontalAlignment="Left" Margin="202,150,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" BorderBrush="#FF0E0B0B"/>
-        <Label Content="Carrera:" HorizontalAlignment="Left" Margin="206,197,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" BorderBrush="#FF0E0B0B"/>
-        <Label Content="Correo electrónico:" HorizontalAlignment="Left" Margin="110,246,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" BorderBrush="#FF0E0B0B"/>
-        <Label Content="Confirmar correo electrónico:" HorizontalAlignment="Left" Margin="21,300,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" BorderBrush="#FF0E0B0B"/>
-        <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="170,349,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" BorderBrush="#FF0E0B0B"/>
-        <Label Content="Teléfono:" HorizontalAlignment="Left" Margin="198,398,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" BorderBrush="#FF0E0B0B"/>
-        <Label Content="Cubículo:" HorizontalAlignment="Left" Margin="195,448,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" BorderBrush="#FF0E0B0B"/>
-        <TextBox x:Name="TxtNombre" HorizontalAlignment="Left" Height="23" Margin="328,155,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261"/>
-        <TextBox x:Name="TxtCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="328,251,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261"/>
-        <TextBox x:Name="TxtConfirmarCorreoElectronico" HorizontalAlignment="Left" Height="23" Margin="328,305,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261"/>
-        <TextBox x:Name="TxtContraseña" HorizontalAlignment="Left" Height="23" Margin="328,355,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261"/>
-        <TextBox x:Name="TxtTelefono" HorizontalAlignment="Left" Height="24" Margin="328,404,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261"/>
-        <TextBox x:Name="TxtCubiculo" HorizontalAlignment="Left" Height="23" Margin="328,453,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261"/>
-        <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="235,524,0,0" VerticalAlignment="Top" Width="91" FontFamily="Arial" FontSize="20"/>
-        <Button x:Name="BtnAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="522,524,0,0" VerticalAlignment="Top" Width="91" FontFamily="Arial" FontSize="20"/>
-        <ComboBox x:Name="CbxCarrera" HorizontalAlignment="Left" Margin="328,203,0,0" VerticalAlignment="Top" Width="261"/>
+        <Label Content="Registrar técnico académico" HorizontalAlignment="Left" Margin="306,64,0,0" VerticalAlignment="Top" Height="42" Width="312" FontSize="24" BorderBrush="#FF1B1414"/>
+        <Label Content="Nombre:" HorizontalAlignment="Left" Margin="276,152,0,0" VerticalAlignment="Top" FontSize="14" BorderBrush="#FF0E0B0B"/>
+        <Label Content="Carrera:" HorizontalAlignment="Left" Margin="282,200,0,0" VerticalAlignment="Top" FontSize="14" BorderBrush="#FF0E0B0B"/>
+        <Label Content="Correo electrónico:" HorizontalAlignment="Left" Margin="213,248,0,0" VerticalAlignment="Top" FontSize="14" BorderBrush="#FF0E0B0B"/>
+        <Label Content="Confirmar correo electrónico:" HorizontalAlignment="Left" Margin="150,302,0,0" VerticalAlignment="Top" FontSize="14" BorderBrush="#FF0E0B0B"/>
+        <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="257,352,0,0" VerticalAlignment="Top" FontSize="14" BorderBrush="#FF0E0B0B" RenderTransformOrigin="0.687,0.621"/>
+        <Label Content="Teléfono:" HorizontalAlignment="Left" Margin="274,401,0,0" VerticalAlignment="Top" FontSize="14" BorderBrush="#FF0E0B0B"/>
+        <Label Content="Cubículo:" HorizontalAlignment="Left" Margin="273,450,0,0" VerticalAlignment="Top" FontSize="14" BorderBrush="#FF0E0B0B"/>
+        <TextBox x:Name="TxtNombre" HorizontalAlignment="Left" Height="23" Margin="398,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="262" FontSize="14"/>
+        <ComboBox x:Name="CbxCarrera" HorizontalAlignment="Left" Margin="398,200,0,0" VerticalAlignment="Top" Width="262" FontSize="14"/>
+        <TextBox x:Name="TxtCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="398,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="262" FontSize="14"/>
+        <TextBox x:Name="TxtConfirmarCorreoElectronico" HorizontalAlignment="Left" Height="23" Margin="398,302,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="262" FontSize="14"/>
+        <TextBox x:Name="TxtContraseña" HorizontalAlignment="Left" Height="23" Margin="398,352,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="262" FontSize="14"/>
+        <TextBox x:Name="TxtTelefono" HorizontalAlignment="Left" Height="24" Margin="398,401,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="262" FontSize="14"/>
+        <TextBox x:Name="TxtCubiculo" HorizontalAlignment="Left" Height="23" Margin="398,450,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="262" FontSize="14"/>
+        <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="306,521,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
+        <Button x:Name="BtnAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="592,521,0,0" VerticalAlignment="Top" Width="92" FontSize="14"/>
+        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="59" Width="491" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="145,0,0,0"/>
+        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="636,23,0,0" Width="119"/>
+        <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="760,23,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
 
     </Grid>
 </Window>

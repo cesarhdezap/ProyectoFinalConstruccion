@@ -18,8 +18,7 @@ namespace LogicaDeNegocios
 
 		public int ObtenerDisponibilidad()
 		{
-			//TODO
-			throw new NotImplementedException();
+            return Cupo;
 		}
 
         public void AsignarAlumno(Alumno alumno, Solicitud solicitud = null)
@@ -38,11 +37,12 @@ namespace LogicaDeNegocios
             asignacionDAO.GuardarAsignacion(asignacion);
         }
 
-        public enum EstadoProyecto
-        {
-            Activo,
-            Inactivo
-        }
+        
 		
 	}
+    public enum EstadoProyecto
+    {
+        Activo,
+        Inactivo
+    }
 }

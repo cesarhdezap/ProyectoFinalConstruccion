@@ -9,7 +9,7 @@ using AccesoABaseDeDatos;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	class DocumentoDeEntregaUnicaDAO : Interfaces.IDocumentoDeEntregaUnicaDAO
+	public class DocumentoDeEntregaUnicaDAO : Interfaces.IDocumentoDeEntregaUnicaDAO
 	{
         public DocumentoDeEntregaUnica CargarDocumentoDeEntregaUnicaPorID(int IDDocumento)
         {
@@ -130,7 +130,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 documentoDeEntregaUnica.TipoDeDocumento = (TipoDeDocumento)fila["TipoDeDocumento"];
                 documentoDeEntregaUnica.Nombre = fila["Nombre"].ToString();
                 documentoDeEntregaUnica.DocenteAcademico = docenteAcademicoDAO.CargarIDPorIDDocumento((int)fila["IDDocumento"]);
-                documentoDeEntregaUnica.Imagen = imagenDAO.CargarImagenPorIDDocumento((int)fila["IDDocumento"]);
+                documentoDeEntregaUnica.Imagen = imagenDAO.CargarImagenPorIDDocumentoYTipoDeDocumentoEnImagen((int)fila["IDDocumento"], TipoDeDocumentoEnImagen.DocumentoDeEntregaUnica);
             }
             return documentoDeEntregaUnica;
         }
