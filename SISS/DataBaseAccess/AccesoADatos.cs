@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -7,7 +6,7 @@ using System.IO;
 
 namespace AccesoABaseDeDatos
 {
-	public static class AccesoADatos
+    public static class AccesoADatos
 	{
 		private const int PRIMERA_POSICION_EN_DATATABLE = 0;
         public static readonly string CadenaDeConexion = ConfigurationManager.ConnectionStrings["myConection"].ConnectionString.ToString();

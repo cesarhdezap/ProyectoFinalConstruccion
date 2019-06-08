@@ -17,17 +17,17 @@ namespace InterfazDeUsuario
         {
             string correo = TextBoxCorreo.Text;
             string contraseña = PasswordBoxContraseña.Password;
-            bool resultadoDeAutenticacion = AutenticarCredenciales(correo, contraseña);
+            
 
-
-            string correo = TextBoxCorreo.Text;
             if (correo != null && PasswordBoxContraseña.Password != null)
             {
-                bool resultadoDeAutenticacion = AutenticarCredenciales(correo, PasswordBoxContraseña.Password);
+                bool resultadoDeAutenticacion = AutenticarCredenciales(correo, contraseña);
                 if (resultadoDeAutenticacion)
                 {
                     Sesion sesion = CargarSesion(correo);
+                    Hide();
                     InstanciarVentanaDeSesion(sesion);
+                    Show();
                 }
                 else
                 {
@@ -63,7 +63,6 @@ namespace InterfazDeUsuario
             {
                 MessageBox.Show("Tipo de sesion no valida.");
             }
-            Hide();
         }
     }
 }

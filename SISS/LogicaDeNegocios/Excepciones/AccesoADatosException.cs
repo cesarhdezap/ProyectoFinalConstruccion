@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaDeNegocios.Excepciones
 {
-    class AccesoADatosException : Exception
+    public class AccesoADatosException : Exception
     {
         public AccesoADatosException()
         {

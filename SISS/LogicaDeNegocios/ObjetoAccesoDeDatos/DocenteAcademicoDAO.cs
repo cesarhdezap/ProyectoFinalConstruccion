@@ -9,7 +9,7 @@ using LogicaDeNegocios.Excepciones;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	class DocenteAcademicoDAO : IDocenteAcademicoDAO
+	public class DocenteAcademicoDAO : IDocenteAcademicoDAO
 	{
 		public void ActualizarDocenteAcademicoPorIDPersonal(int IDPersonal, DocenteAcademico docenteAcademico)
 		{
