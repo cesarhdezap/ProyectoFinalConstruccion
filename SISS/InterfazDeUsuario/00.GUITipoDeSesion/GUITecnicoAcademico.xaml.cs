@@ -1,4 +1,5 @@
 ﻿
+using InterfazDeUsuario.GUIsDeTecnicoAcademico;
 using LogicaDeNegocios;
 using LogicaDeNegocios.ClasesDominio;
 using LogicaDeNegocios.Excepciones;
@@ -39,7 +40,10 @@ namespace InterfazDeUsuario.GUITipoDeSesion
 
         private void ButtonBuscarAlumno_Click(object sender, RoutedEventArgs e)
         {
-            
+            Hide();
+            GUIBuscarAlumnoPorTecnicoAcademico buscarAlumno = new GUIBuscarAlumnoPorTecnicoAcademico(TecnicoAcademico);
+            buscarAlumno.ShowDialog();
+            Show();
         }
     }
 }
