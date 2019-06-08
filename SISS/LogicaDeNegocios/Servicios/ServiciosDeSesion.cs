@@ -1,66 +1,89 @@
 ﻿using LogicaDeNegocios.ClasesDominio;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using System;
 
 namespace LogicaDeNegocios.Servicios
 {
     public class ServiciosDeSesion
     {
+        private const int ID_NO_ASIGNADA = 0;
+
         public static Sesion CargarSesion(string correo)
         {
             Sesion sesion = new Sesion();
-            string[] listaDeIDs = new string[4];
 
             AlumnoDAO alumnoDAO = new AlumnoDAO();
-            listaDeIDs[(int)TipoDeSesion.Alumno] = alumnoDAO.CargarMatriculaPorCorreoElectronico(correo);
-            if (listaDeIDs[(int)TipoDeSesion.Alumno] != string.Empty)
+            try
             {
-                sesion.IDUsuario = listaDeIDs[(int)TipoDeSesion.Alumno];
+                sesion.IDUsuario = alumnoDAO.CargarMatriculaPorCorreoElectronico(correo);
                 sesion.TipoDeUsuario = TipoDeSesion.Alumno;
             }
-            else
+            catch (AccesoADatosException e)
             {
+                Console.WriteLine("No se encontro la ID del correo {0} en CargarMatriculaPorCorreo. Stacktrace: {1}", e.Message, e);
+            }
+
+            if (sesion.IDUsuario == string.Empty)
+            {
+                sesion.TipoDeUsuario = TipoDeSesion.NoValido;
                 DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
-                listaDeIDs[(int)TipoDeSesion.Coordinador] = docenteAcademicoDAO.CargarIDPorCorreoYRol(correo, Rol.Coordinador);
-                if (listaDeIDs[(int)TipoDeSesion.Coordinador] != string.Empty)
+                try
                 {
-                    sesion.IDUsuario = listaDeIDs[(int)TipoDeSesion.Coordinador];
+                    sesion.IDUsuario = docenteAcademicoDAO.CargarIDPorCorreoYRol(correo, Rol.Coordinador);
                     sesion.TipoDeUsuario = TipoDeSesion.Coordinador;
                 }
-                else
+                catch (AccesoADatosException e)
                 {
-                    listaDeIDs[(int)TipoDeSesion.Tecnico] = docenteAcademicoDAO.CargarIDPorCorreoYRol(correo, Rol.TecnicoAcademico);
-                    if (listaDeIDs[(int)TipoDeSesion.Tecnico] != string.Empty)
-                    {
-                        sesion.IDUsuario = listaDeIDs[(int)TipoDeSesion.Tecnico];
-                        sesion.TipoDeUsuario = TipoDeSesion.Tecnico;
-                    }
-                    else
-                    {
-                        DirectorDAO directorDAO = new DirectorDAO();
-                        listaDeIDs[(int)TipoDeSesion.Director] = directorDAO.CargarIDPorCorreo(correo);
-                        if (listaDeIDs[(int)TipoDeSesion.Director] != string.Empty)
-                        {
-                            sesion.IDUsuario = listaDeIDs[(int)TipoDeSesion.Director];
-                            sesion.TipoDeUsuario = TipoDeSesion.Director;
-                        }
-                        else
-                        {
-                            throw new AccesoADatosException("Error: ServiciosDeSesion.CargarTipoDeSesion No se encontro la id del correo: " + correo);
-                        }
-                    }
+                    Console.WriteLine("No se encontro la ID del correo {0} en CargarIDPorCorreoYRol. Stacktrace: {1}", e.Message, e);
                 }
             }
+
+            if (sesion.IDUsuario == ID_NO_ASIGNADA.ToString())
+            {
+                sesion.TipoDeUsuario = TipoDeSesion.NoValido;
+                DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
+                try
+                {
+                    sesion.IDUsuario = docenteAcademicoDAO.CargarIDPorCorreoYRol(correo, Rol.TecnicoAcademico);
+                    sesion.TipoDeUsuario = TipoDeSesion.Tecnico;
+                }
+                catch (AccesoADatosException e)
+                {
+                    Console.WriteLine("No se encontro la ID del correo {0} en CargarIDPorCorreoYRol. Stacktrace: {1}", e.Message, e);
+                    sesion.IDUsuario = string.Empty;
+                    sesion.TipoDeUsuario = TipoDeSesion.NoValido;
+                }
+            }
+
+            if (sesion.IDUsuario == ID_NO_ASIGNADA.ToString())
+            {
+                sesion.TipoDeUsuario = TipoDeSesion.NoValido;
+                DirectorDAO directorDAO = new DirectorDAO();
+                try
+                {
+                    sesion.IDUsuario = directorDAO.CargarIDPorCorreo(correo);
+                    sesion.TipoDeUsuario = TipoDeSesion.Director;
+                }
+                catch (AccesoADatosException e)
+                {
+                    Console.WriteLine("No se encontro la ID del correo {0} en CargarIDPorCorreoYRol. Stacktrace: {1}", e.Message, e);
+                    sesion.IDUsuario = string.Empty;
+                    sesion.TipoDeUsuario = TipoDeSesion.NoValido;
+                    throw new AccesoADatosException("Error: ServiciosDeSesion.CargarTipoDeSesion No se encontro la id del correo: " + correo);
+                }
+            }
+
             return sesion;
         }
 
         public enum TipoDeSesion
         {
-            NoValido = -1,
-            Director = 0,
-            Coordinador = 1,
-            Tecnico = 2,
-            Alumno = 3,
+            Director,
+            Coordinador,
+            Tecnico,
+            Alumno,
+            NoValido
         }
     }
 }

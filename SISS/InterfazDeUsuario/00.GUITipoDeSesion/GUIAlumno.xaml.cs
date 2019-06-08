@@ -28,6 +28,7 @@ namespace InterfazDeUsuario.GUITipoDeSesion
                 MessageBox.Show("No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
                 Mouse.OverrideCursor = null;
             }
+
             if (Alumno.EstadoAlumno == EstadoAlumno.EsperandoAsignacion)
             {
                 LblEsperandoAsignacion.Visibility = Visibility.Visible;

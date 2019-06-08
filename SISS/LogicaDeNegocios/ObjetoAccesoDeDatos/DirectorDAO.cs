@@ -17,8 +17,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
     {
         public string CargarIDPorCorreo(string correoElectronico)
         {
-            string IDDirector = string.Empty;
-            DataTable tablaDeMatricula = new DataTable();
+            DataTable tablaDeID = new DataTable();
             SqlParameter[] parametroCorreo = new SqlParameter[1];
             parametroCorreo[0] = new SqlParameter
             {
@@ -28,13 +27,40 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeMatricula = AccesoADatos.EjecutarSelect("SELECT IDPersonal FROM Directores WHERE CorreoElectronico = @CorreoElecronico", parametroCorreo);
+                tablaDeID = AccesoADatos.EjecutarSelect("SELECT IDPersonal FROM Directores WHERE CorreoElectronico = @CorreoElectronico", parametroCorreo);
+            }
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+            {
+                throw new AccesoADatosException("Error al cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeError.ConexionABaseDeDatosFallida);
             }
             catch (SqlException e)
             {
-                Console.WriteLine("No se encontro la matricula del alumno con correo: {0}", correoElectronico);
+                throw new AccesoADatosException("Error al cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
+
+            string IDDirector = string.Empty;
+            try
+            {
+                IDDirector = ConvertirDataTableADirectorConSoloID(tablaDeID).IDPersonal.ToString();
+            }
+            catch (FormatException e)
+            {
+                IDDirector = string.Empty;
+                throw new AccesoADatosException("Error al convertir datatable a Director en cargar ID por CorreoElectronico: " + correoElectronico, e);
+            }
+
+
             return IDDirector;
+        }
+
+        private Director ConvertirDataTableADirectorConSoloID(DataTable tablaDeID)
+        {
+            Director director = new Director();
+            foreach (DataRow fila in tablaDeID.Rows)
+            {
+                director.IDPersonal = (int)fila["IDPersonal"];
+            }
+            return director;
         }
 
         public Director CargarDirectorPorIDPersonal(int IDPersonal)

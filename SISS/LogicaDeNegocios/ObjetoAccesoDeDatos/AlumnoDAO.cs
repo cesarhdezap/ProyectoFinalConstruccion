@@ -56,7 +56,8 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar Matricula por CorreoElectronico: " + correoElectronico, e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
-            string matricula = string.Empty;
+
+            string matricula;
             try
             {
                 matricula = ConvertirDataTableAAlumnoConSoloMatricula(tablaDeMatricula).Matricula;

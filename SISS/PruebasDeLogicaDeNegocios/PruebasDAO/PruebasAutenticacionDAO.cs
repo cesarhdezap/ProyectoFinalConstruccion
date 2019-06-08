@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
-namespace PruebasDeLogicaDeNegocios.PruebasDAO
+namespace Pruebas.PruebasDAO
 {
     [TestClass]
     public class PruebasAutenticacionDAO
