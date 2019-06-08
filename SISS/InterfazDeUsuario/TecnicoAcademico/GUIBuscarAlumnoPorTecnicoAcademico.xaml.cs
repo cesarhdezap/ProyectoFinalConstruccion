@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LogicaDeNegocios;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -23,6 +19,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
     /// </summary>
     public partial class GUIBuscarAlumnoPorTecnicoAcademico : Window
     {
+
         private AdministradorDeAlumnos AdministradorDeAlumnos {get;set;}
         private DocenteAcademico DocenteAcademico { get; set; }
 
@@ -99,5 +96,6 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
                     break;
                 }
         }
+
     }
 }
