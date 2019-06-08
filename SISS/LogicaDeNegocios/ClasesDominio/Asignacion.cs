@@ -30,6 +30,18 @@ namespace LogicaDeNegocios
             return asignacion;
         }
 
+        public int ObtenerHorasCubiertas()
+        {
+            ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
+            for (int i = 0; i < ReportesMensuales.Count; i++)
+            {
+                ReportesMensuales[i] = reporteMensualDAO.CargarReporteMensualPorID(ReportesMensuales[i].IDDocumento);
+            }
+
+            this.ActualizarHorasCubiertas();
+            return this.HorasCubiertas;
+        }
+
         public void RegistrarReporteMensual(ReporteMensual reporteMensual, DocenteAcademico docenteAcademico)
         {
             reporteMensual.DocenteAcademico = docenteAcademico;
@@ -50,7 +62,7 @@ namespace LogicaDeNegocios
             throw new NotImplementedException();
         }
 
-        private void ActualizarHorasCubiertas()
+        public void ActualizarHorasCubiertas()
         {
             int horasCubiertas = 0;
 

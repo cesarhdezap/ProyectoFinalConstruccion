@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using LogicaDeNegocios.Interfaces;
+using LogicaDeNegocios.ClasesDominio;
 using LogicaDeNegocios.Excepciones;
 using AccesoABaseDeDatos;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 {
-	class ReporteMensualDAO : IReporteMensualDAO
+	public class ReporteMensualDAO : IReporteMensualDAO
 	{
 
         public List<ReporteMensual> CargarIDsPorIDAsignacion(int IDAsignacion)
@@ -80,25 +81,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return reporteMensual;
         }
 
-        private List<ReporteMensual> ConvertirDataTableAListaDeReportesMensuales (DataTable tablaDeReportesMensuales)
-		{
-            DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
-            List<ReporteMensual> listaDeReportesMensuales = new List<ReporteMensual>();
-            foreach (DataRow fila in tablaDeReportesMensuales.Rows)
-            {
-                ReporteMensual reporteMensual = new ReporteMensual
-                {
-                    IDDocumento = (int)fila["IDDocumento"],
-                    HorasReportadas = (int)fila["HorasReportadas"],
-                    FechaDeEntrega = DateTime.Parse(fila["FechaDeEntrega"].ToString()),
-                    NumeroDeReporte = (int)fila["NumeroDeReporte"],
-                    DocenteAcademico = docenteAcademicoDAO.CargarIDPorIDDocumento((int)fila["IDDocumento"]),
-                    Mes = (Mes)fila["Mes"]
-                };
-            }
-            return listaDeReportesMensuales;
-        }
-
         private List<ReporteMensual> ConvertirDataTableAListaDeReportesMensualesConSoloID(DataTable tablaDeReportesMensuales)
         {
             DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
@@ -116,7 +98,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         private ReporteMensual ConvertirDataTableAReporteMensual (DataTable tablaDeReportesMensuales)
 		{
             DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
+            ImagenDAO imagenDAO = new ImagenDAO();
             ReporteMensual reporteMensual = new ReporteMensual();
+
             foreach (DataRow fila in tablaDeReportesMensuales.Rows)
             {
                 reporteMensual.IDDocumento = (int)fila["IDDocumento"];
@@ -124,6 +108,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 reporteMensual.FechaDeEntrega = DateTime.Parse(fila["FechaDeEntrega"].ToString());
                 reporteMensual.NumeroDeReporte = (int)fila["NumeroDeReporte"];
                 reporteMensual.DocenteAcademico = docenteAcademicoDAO.CargarIDPorIDDocumento((int)fila["IDDocumento"]);
+                reporteMensual.Imagen = imagenDAO.CargarImagenPorIDDocumentoYTipoDeDocumentoEnImagen((int)fila["IDDocumento"], TipoDeDocumentoEnImagen.ReporteMensual);
                 reporteMensual.Mes = (Mes)fila["Mes"];
             }
             return reporteMensual;
