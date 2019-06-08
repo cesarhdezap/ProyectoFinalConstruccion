@@ -57,6 +57,30 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeOrganizaciones;
         }
 
+        public List<Organizacion> CargarIDYNombreDeOrganizaciones()
+        {
+            DataTable tablaDeOrganizaciones = new DataTable();
+            try
+            {
+                tablaDeOrganizaciones = AccesoADatos.EjecutarSelect("SELECT IDOrganizacion, Nombre FROM Organizaciones");
+            }
+            catch (SqlException e)
+            {
+                throw new AccesoADatosException("Error al cargar todas las Organizaciones", e);
+            }
+            List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
+            try
+            {
+                listaDeOrganizaciones = ConvertirDataTableAListaDeOrganizacionesConIDYNombre(tablaDeOrganizaciones);
+            }
+            catch (FormatException e)
+            {
+                throw new AccesoADatosException("Error al convertir datatable a lista de Organizaciones en cargar todas las Organizaciones", e);
+            }
+
+            return listaDeOrganizaciones;
+        }
+
         public Organizacion CargarOrganizacionPorID(int IDOrganizacion)
         {
             DataTable tablaDeOrganizacion = new DataTable();
@@ -169,6 +193,23 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             return organizacion;
         }
+
+        private List<Organizacion> ConvertirDataTableAListaDeOrganizacionesConIDYNombre(DataTable tablaDeOrganizaciones)
+        {
+            List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
+            foreach (DataRow fila in tablaDeOrganizaciones.Rows)
+            {
+                Organizacion organizacion = new Organizacion
+                {
+                    IDOrganizacion = (int)fila["IDOrganizacion"],
+                    Nombre = fila["Nombre"].ToString(),
+                };
+                listaDeOrganizaciones.Add(organizacion);
+            }
+
+            return listaDeOrganizaciones;
+        }
+
         public void GuardarOrganizacion(Organizacion organizacion)
         {
             SqlParameter[] parametrosDeOrganizacion = InicializarParametrosDeSql(organizacion);
@@ -186,6 +227,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 throw new AccesoADatosException("Organizacion: " + organizacion.ToString() + "no fue guardada.");
             }
         }
+
 
         private SqlParameter[] InicializarParametrosDeSql(Organizacion organizacion)
         {

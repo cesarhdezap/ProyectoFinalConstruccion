@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using LogicaDeNegocios.ObjetosAdministrador;
 using LogicaDeNegocios.Excepciones;
+using System.Linq;
 
 namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 {

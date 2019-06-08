@@ -39,7 +39,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
 
         private void TxtNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarNombre(TxtNombre.Text) == ResultadoDeValidacion.Valido)
+            if (ValidarNombre(TxtNombre.Text))
             {
                 TxtNombre.BorderBrush = Brushes.Green;
             }
@@ -51,7 +51,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
 
         private void TxtCorreoElectronico_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarCorreoElectronico(TxtCorreoElectronico.Text) == ResultadoDeValidacion.Valido)
+            if (ValidarCorreoElectronico(TxtCorreoElectronico.Text))
             {
                 TxtCorreoElectronico.BorderBrush = Brushes.Green;
             }
@@ -84,7 +84,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
 
         private void TxtTelefono_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarTelefono(TxtTelefono.Text) == ResultadoDeValidacion.Valido)
+            if (ValidarTelefono(TxtTelefono.Text))
             {
                 TxtTelefono.BorderBrush = Brushes.Green;
             }
@@ -96,7 +96,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
 
         private void TxtContraseña_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarContraseña(TxtContraseña.Text) == ResultadoDeValidacion.Valido)
+            if (ValidarContraseña(TxtContraseña.Text))
             {
                 TxtContraseña.BorderBrush = Brushes.Green;
             }
@@ -142,7 +142,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
             try
             {
                 coordinador.Cubiculo = Int32.Parse(TxtCubiculo.Text);
-                if (ValidarCoordinador(coordinador) == ResultadoDeValidacion.Valido && TxtCorreoElectronico.Text == TxtConfirmarCorreoElectronico.Text && TxtContraseña.Text == TxtConfirmarContraseña.Text && CbxCarrera.SelectedValue != null)
+                if (ValidarCoordinador(coordinador)  && TxtCorreoElectronico.Text == TxtConfirmarCorreoElectronico.Text && TxtContraseña.Text == TxtConfirmarContraseña.Text && CbxCarrera.SelectedValue != null)
                 {
                     DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
                     try

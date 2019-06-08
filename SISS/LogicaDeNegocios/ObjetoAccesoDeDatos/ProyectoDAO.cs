@@ -116,7 +116,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeProyectos = AccesoADatos.EjecutarSelect("SELECT * FROM Proyectos WHERE EstadoDeProyecto = @estadoDeProyectos", parametroEstadoDeProyecto);
+                tablaDeProyectos = AccesoADatos.EjecutarSelect("SELECT * FROM Proyectos WHERE Estado = @estadoDeProyecto", parametroEstadoDeProyecto);
             }
             catch (SqlException e)
             {
