@@ -23,13 +23,18 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Asignaciones SET EstadoAsignacion = @EstadoAsignacion, FechaDeFinal = @FechaDeFinalAsignacion, IDLiberacion = @IDLiberacionAsignacion WHERE IDAsignacion = @IDAsignacion ", parametrosDeAsignacion);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al actualizar Asignacion: " + asignacion.ToString(), e);
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+
+			{
+                throw new AccesoADatosException("Error al actualizar Asignacion: " + asignacion.ToString(), e, TipoDeError.ConexionABaseDeDatosFallida);
             }
-            if (filasAfectadas <= 0)
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al actualizar Asignacion: " + asignacion.ToString(), e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			if (filasAfectadas <= 0)
             {
-                throw new AccesoADatosException("La Asignacion con IDAsignacion: " + IDAsignacion + " no existe.");
+                throw new AccesoADatosException("La Asignacion con IDAsignacion: " + IDAsignacion + " no existe.", TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
         }
 
@@ -50,12 +55,16 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeAsignacion = AccesoADatos.EjecutarSelect("SELECT * FROM Asignaciones WHERE IDAsignacion = @IDAsignacion", parametroIDAsignacion);
             }
-            catch (SqlException e)
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
             {
-                throw new AccesoADatosException("Error al cargar Asignacion con IDAsigncion: " + IDAsignacion, e);
+                throw new AccesoADatosException("Error al cargar Asignacion con IDAsigncion: " + IDAsignacion, e, TipoDeError.ConexionABaseDeDatosFallida);
             }
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar Asignacion con IDAsigncion: " + IDAsignacion, e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
 
-            Asignacion asignacion = new Asignacion();
+			Asignacion asignacion = new Asignacion();
             try
             {
                 asignacion = ConvertirDataTableAAsignacion(tablaDeAsignacion);

@@ -110,13 +110,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             SqlParameter[] parametroEstadoDeProyecto = new SqlParameter[1];
             parametroEstadoDeProyecto[0] = new SqlParameter
             {
-                ParameterName = "@estadoDeProyecto",
+                ParameterName = "@EstadoDeProyecto",
                 Value = (int)estadoDeProyecto
             };
 
             try
             {
-                tablaDeProyectos = AccesoADatos.EjecutarSelect("SELECT * FROM Proyectos WHERE Estado = @estadoDeProyecto", parametroEstadoDeProyecto);
+                tablaDeProyectos = AccesoADatos.EjecutarSelect("SELECT * FROM Proyectos WHERE Estado = @EstadoDeProyecto", parametroEstadoDeProyecto);
             }
             catch (SqlException e)
             {
@@ -203,7 +203,8 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                     DescripcionGeneral = fila["DescripcionGeneral"].ToString(),
                     ObjetivoGeneral = fila["ObjetivoGeneral"].ToString(),
                     Cupo = (int)fila["Cupo"],
-                    Asignaciones = asignacionDAO.CargarIDsPorIDProyecto((int)fila["IDProyecto"])
+                    Asignaciones = asignacionDAO.CargarIDsPorIDProyecto((int)fila["IDProyecto"]),
+					Estado = (EstadoProyecto)fila["Estado"]
                 };
                 listaDeProyectos.Add(proyecto);
             }
@@ -236,7 +237,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 proyecto.ObjetivoGeneral = fila["ObjetivoGeneral"].ToString();
                 proyecto.Cupo = (int)fila["Cupo"];
                 proyecto.Asignaciones = asignacionDAO.CargarIDsPorIDProyecto((int)fila["IDProyecto"]);
-            }
+				proyecto.Estado = (EstadoProyecto)fila["Estado"];
+
+			}
             return proyecto;
 		}
         private Proyecto ConvertirDataTableAProyectoConSoloID(DataTable tablaDeProyecto)
