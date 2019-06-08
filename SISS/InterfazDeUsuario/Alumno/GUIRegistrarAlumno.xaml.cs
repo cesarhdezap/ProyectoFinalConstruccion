@@ -159,7 +159,6 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                 try
                 {
                     alumnoDAO.GuardarAlumno(alumno);
-                    Mouse.OverrideCursor = null;
                 } 
                 catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.InsercionFallidaPorLlavePrimariDuplicada)
                 {
@@ -185,6 +184,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                     MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
                     this.Close();
                 }
+                Mouse.OverrideCursor = Cursors.Wait;
                 MessageBoxResult messageBoxCerrada = MessageBox.Show("Ha sido registrado exitosamente.", "¡Registro Exitoso!", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
                 if (messageBoxCerrada == MessageBoxResult.OK)
                 {

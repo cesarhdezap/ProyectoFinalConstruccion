@@ -85,5 +85,17 @@ namespace LogicaDeNegocios.Servicios
 
             return resultadoDeValidacion;
         }
+
+        public static ResultadoDeValidacion ValidarCoordinador(DocenteAcademico docenteAcademico)
+        {
+            ResultadoDeValidacion resultadoDeValidacion = ResultadoDeValidacion.NoValido;
+
+            if (ValidarContraseña(docenteAcademico.Contraseña) == ResultadoDeValidacion.Valido && ValidarCorreoElectronico(docenteAcademico.CorreoElectronico) == ResultadoDeValidacion.Valido && ValidarNombre(docenteAcademico.Nombre) == ResultadoDeValidacion.Valido && ValidarTelefono(docenteAcademico.Telefono) == ResultadoDeValidacion.Valido && docenteAcademico.Cubiculo > 0 && docenteAcademico.Coordinador == null)
+            {
+                resultadoDeValidacion = ResultadoDeValidacion.Valido;
+            }
+
+            return resultadoDeValidacion;
+        }
 	}
 }
