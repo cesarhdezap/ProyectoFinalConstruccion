@@ -3,20 +3,50 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:l ="clr-namespace:InterfazDeUsuario"
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeTecnicoAcademico"
         mc:Ignorable="d"
         Title="GUIBuscarAlumnoPorTecnicoAcademico" Height="583" Width="1002">
+    <Window.Resources>
+        <l:ConvertidorMatriculaDeAlumnoADetallesDeAlumno x:Key="ConvertidorMatriculaDeAlumnoADetallesDeAlumno" />
+    </Window.Resources>
     <Grid>
         <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="994" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C"/>
         <Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="766,21,0,0" Width="119" FontFamily="Arial"/>
         <Label x:Name="LblCerrarSesión" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="890,21,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontFamily="Arial"/>
-        <Label x:Name="LblBuscarAlumno" Content="Buscar alumno" HorizontalAlignment="Left" Margin="286,80,0,0" VerticalAlignment="Top" Width="258" FontFamily="Arial" FontSize="36"/>
+        <Label x:Name="LblBuscarAlumno" Content="Buscar alumno" HorizontalAlignment="Left" Margin="286,80,0,0" VerticalAlignment="Top" Width="258" FontSize="36"/>
         <TextBox x:Name="TxtBuscarAlumnos_por_nombre" HorizontalAlignment="Left" Height="23" Margin="766,103,-93,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206"/>
-        <Label x:Name="LblBuscarAlumnosPorNombre" Content="Buscar alumno por nombre:" HorizontalAlignment="Left" Margin="578,103,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14"/>
-        <ComboBox x:Name="CbxEstadoDeAlumnos" HorizontalAlignment="Left" Margin="834,153,-93,0" VerticalAlignment="Top" Width="138"/>
-        <Label x:Name="LblEstadoDeAlumnos" Content="Estado de los alumnos:" HorizontalAlignment="Left" Margin="673,153,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14"/>
-        <DataGrid x:Name="DtgAlumnos" HorizontalAlignment="Left" Height="281" Margin="31,184,-77,-46" VerticalAlignment="Top" Width="925"/>
+        <Label x:Name="LblBuscarAlumnosPorNombre" Content="Buscar alumno por nombre:" HorizontalAlignment="Left" Margin="578,103,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <ComboBox x:Name="CbxEstadoDeAlumnos" HorizontalAlignment="Left" Margin="766,153,0,0" VerticalAlignment="Top" Width="206"/>
         <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="469,496,0,-97" VerticalAlignment="Top" Width="75" FontFamily="Arial" FontSize="14"/>
-
+        <Label x:Name="LblEstadoDeAlumnos" Content="Estado de los alumnos:" HorizontalAlignment="Left" Margin="607,146,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <DataGrid x:Name="DtgAlumnos" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="false" CanUserDeleteRows="False" SelectionUnit="FullRow" HorizontalAlignment="Left" Height="281" Margin="31,184,0,0" VerticalAlignment="Top" Width="941">
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.RowHeaderTemplate>
+                <DataTemplate>
+                    <Expander Expanded="Expander_Expanded" Collapsed="Expander_Collapsed">
+                    </Expander>
+                </DataTemplate>
+            </DataGrid.RowHeaderTemplate>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nombre de Alumno" IsReadOnly="True" Width="600" Binding="{Binding Nombre}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Ver Expediente" Click="BtnVerExpediente_Click"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding IDProyecto, Converter={StaticResource ResourceKey=ConvertidorMatriculaDeAlumnoADetallesDeAlumno}}"  Margin="10,5,10,10" />
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
     </Grid>
 </Window>

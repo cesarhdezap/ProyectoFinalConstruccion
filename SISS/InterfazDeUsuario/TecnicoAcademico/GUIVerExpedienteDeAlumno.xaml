@@ -1,0 +1,51 @@
+﻿<Window x:Class="InterfazDeUsuario.GUIsDeTecnicoAcademico.GUIVerExpedienteDeAlumno"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:l="clr-namespace:LogicaDeNegocios;assembly=LogicaDeNegocios"
+        xmlns:o="clr-namespace:InterfazDeUsuario"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeTecnicoAcademico"
+        mc:Ignorable="d"
+        Title="GUIVerExpedienteDeAlumno" Height="1502.901" Width="1211.464">
+    <Grid>
+        <Label Content="Horas cubiertas:" HorizontalAlignment="Left" Margin="124,80,0,0" VerticalAlignment="Top" FontSize="16"/>
+        <Button x:Name="BtnRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="25,82,0,0" VerticalAlignment="Top" Width="75" Click="BtnRegresar_Click"/>
+        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="491" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="305,0,0,0"/>
+        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="939,24,0,0" Width="119"/>
+        <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1063,24,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
+        <Button x:Name="BtnCapturarOtroDocumento" Content="Capturar otro documento" HorizontalAlignment="Left" Margin="1032,82,0,0" VerticalAlignment="Top" Width="159" FontFamily="Arial" Click="BtnCapturarOtroDocumento_Click"/>
+        <Button x:Name="BtnCapturarReporteMensual" Content="Capturar reporte mensual" HorizontalAlignment="Left" Margin="841,82,0,0" VerticalAlignment="Top" Width="168" FontFamily="Arial" Click="BtnCapturarReporteMensual_Click"/>
+        <ListBox x:Name ="GrdReportesMensuales" Margin="0,116,0,1042">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+        <ListBox x:Name ="GrdDocumentosDeEntregaUnica" Margin="0,435,0,723">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+        <Label x:Name="LblHorasCubiertas" Content="[Horas cubiertas]" HorizontalAlignment="Left" Margin="252,80,0,0" VerticalAlignment="Top" FontSize="16"/>
+    </Grid>
+    <Window.Resources>
+        <o:ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica x:Key="ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica"/>
+        <DataTemplate DataType="{x:Type l:DocumentoDeEntregaUnica}">
+            <StackPanel>
+                <Image Source="{Binding Path=Imagen}"/>
+                <TextBlock Text="{Binding Path=IDDocumento, Converter={StaticResource ResourceKey=ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica }}"/>
+            </StackPanel>
+        </DataTemplate>
+        <o:ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual x:Key="ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual"/>
+        <DataTemplate DataType="{x:Type l:ReporteMensual}">
+            <StackPanel>
+                <Image Source="{Binding Path=Imagen}"/>
+                <TextBlock Text="{Binding Path=IDDocumento,Converter={StaticResource ResourceKey=ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual}}"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+</Window>
