@@ -25,7 +25,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
     {
         private AdministradorDeReportesMensuales AdministradorDeReportesMensuales { get; set; }
         private AdministradorDeDocumentosDeEntregaUnica AdministradorDeDocumentosDeEntregaUnica { get; set; }
-        private Alumno Alumno = new Alumno();
+        private Alumno Alumno { get; set; }
         public GUIVerExpedientePorAlumno(Alumno alumno)
         {
             InitializeComponent();

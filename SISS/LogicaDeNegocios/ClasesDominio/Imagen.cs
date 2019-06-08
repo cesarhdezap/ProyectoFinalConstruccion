@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LogicaDeNegocios.ClasesDominio
 {
-    class Imagen
+    public class Imagen
     {
         public string DireccionDeImagen { get; set; }
         public int IDDocumento { get; set; }
