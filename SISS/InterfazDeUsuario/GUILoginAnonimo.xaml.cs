@@ -48,14 +48,17 @@ namespace InterfazDeUsuario
             else if (sesion.TipoDeUsuario == TipoDeSesion.Coordinador)
             {
                 GUICoordinador interfazCoordinador = new GUICoordinador(sesion);
+                interfazCoordinador.ShowDialog();
             }
             else if (sesion.TipoDeUsuario == TipoDeSesion.Director)
             {
                 GUIDirector interfazDirector = new GUIDirector(sesion);
+                interfazDirector.ShowDialog();
             }
             else if (sesion.TipoDeUsuario == TipoDeSesion.Tecnico)
             {
                 GUITecnicoAcademico interfazTecnico = new GUITecnicoAcademico(sesion);
+                interfazTecnico.ShowDialog();
             }
             else
             {

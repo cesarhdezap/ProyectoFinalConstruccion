@@ -6,7 +6,7 @@ using LogicaDeNegocios;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System.Data.SqlClient;
 
-namespace PruebasDeLogicaDeNegocios.PruebasDAO
+namespace Pruebas.PruebasDAO
 {
     /// <summary>
     /// Descripción resumida de PruebasDeAlumnoDAO
@@ -81,7 +81,7 @@ namespace PruebasDeLogicaDeNegocios.PruebasDAO
             alumnoDePrueba.Matricula = "z16012931";
             alumnoDePrueba.Carrera = "LIS";
             alumnoDePrueba.Contraseña = "Contraseña122333";
-            alumnoDePrueba.EstadoAlumno = EstadoAlumno.EnEspera;
+            alumnoDePrueba.EstadoAlumno = EstadoAlumno.EsperandoAceptacion;
             AlumnoDAO alumnoDAO = new AlumnoDAO();
             alumnoDAO.GuardarAlumno(alumnoDePrueba);
             Assert.IsTrue(true);

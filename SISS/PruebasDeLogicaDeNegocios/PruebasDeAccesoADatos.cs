@@ -6,7 +6,7 @@ using AccesoABaseDeDatos;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace PruebasDeLogicaDeNegocios
+namespace Pruebas
 {
     /// <summary>
     /// Descripción resumida de PruebasDeAccesoADatos
@@ -62,7 +62,7 @@ namespace PruebasDeLogicaDeNegocios
         #endregion
 
         [DataTestMethod]
-        [DataRow("INSERT INTO Alumnos VALUES ('s17012947', 'Cesar Hernandez','LIS', 'Activo', '2282437357', 'cesarhdez@gmail.com','passwordsegura')")]
+        [DataRow("INSERT INTO Alumnos VALUES ('s17012947', 'Cesar Hernandez', 'cesarhdez@gmail.com', '2282437357', 'LIS', '1', 'passwordsegura')")]
 
         public void ProbarEjecutarInsertInto_ConsultaCorrecta_RegresaNumeroDeFilasAfectadas(string input)
         {
