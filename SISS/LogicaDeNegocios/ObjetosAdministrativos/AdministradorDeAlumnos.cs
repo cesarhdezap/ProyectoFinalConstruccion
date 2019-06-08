@@ -1,9 +1,9 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System.Collections.Generic;
 
-namespace LogicaDeNegocios.ObjetosAdministrativos
+namespace LogicaDeNegocios.ObjetosAdministrador
 {
-	class AdministradorDeAlumnos
+	public class AdministradorDeAlumnos
 	{
 		public List<Alumno> Alumnos { get; set; }
 

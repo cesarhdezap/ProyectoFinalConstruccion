@@ -65,6 +65,8 @@
     <Compile Include="Alumno\GUIVerProyectoActual.xaml.cs">
       <DependentUpon>GUIVerProyectoActual.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica.cs" />
+    <Compile Include="ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual.cs" />
     <Compile Include="ConvertidorIDProyectoADetallesDeProyecto.cs" />
     <Compile Include="Coordinador\GUIActualizarExpediente.xaml.cs">
       <DependentUpon>GUIActualizarExpediente.xaml</DependentUpon>

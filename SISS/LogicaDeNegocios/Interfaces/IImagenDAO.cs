@@ -11,7 +11,7 @@ namespace LogicaDeNegocios.Interfaces
     interface IImagenDAO
     {
         void GuardarImagen(Imagen imagen);
-        BitmapImage CargarImagenPorIDDocumento(int IDDocumento);
+        BitmapImage CargarImagenPorIDDocumentoYTipoDeDocumentoEnImagen(int IDDocumento, TipoDeDocumentoEnImagen tipoDeDocumentoEnImagen);
         void ActualizarImagenPorIDDocumentno(Imagen imagen);
         int ObtenerUltimoIDInsertado();
     }

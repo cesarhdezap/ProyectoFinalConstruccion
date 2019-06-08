@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Media.Imaging;
 
 namespace LogicaDeNegocios
 {
@@ -9,6 +10,7 @@ namespace LogicaDeNegocios
 		public int IDDocumento { get; set; }
 		public int NumeroDeReporte { get; set; }
 		public DocenteAcademico DocenteAcademico { get; set; }
+        public BitmapImage Imagen { get; set; }
 		public Mes Mes { get; set; }
 	}
 
