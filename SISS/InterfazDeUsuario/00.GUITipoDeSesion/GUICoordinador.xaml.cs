@@ -39,6 +39,33 @@ namespace InterfazDeUsuario.GUITipoDeSesion
         private void ButtonValidarAlumno_Click(object sender, RoutedEventArgs e)
         {
             GUIValidarAlumno validarAlumno = new GUIValidarAlumno(Coordinador);
+            Hide();
+            validarAlumno.ShowDialog();
+            ShowDialog();
+        }
+
+        private void ButtonRegistrarEncargado_Click(object sender, RoutedEventArgs e)
+        {
+            Hide();
+            GUIRegistrarEncargado registrarEncargado = new GUIRegistrarEncargado(Coordinador);
+            registrarEncargado.ShowDialog();
+            ShowDialog();
+        }
+
+        private void ButtonRegistrarOrganizacion_Click(object sender, RoutedEventArgs e)
+        {
+            GUIRegistrarOrganizacion registrarOrganizacion = new GUIRegistrarOrganizacion();
+            Hide();
+            registrarOrganizacion.ShowDialog();
+            ShowDialog();
+        }
+
+        private void ButtonRegistrarProyecto_Click(object sender, RoutedEventArgs e)
+        {
+            GUIRegistrarProyecto registrarProyecto = new GUIRegistrarProyecto();
+            Hide();
+            registrarProyecto.ShowDialog();
+            ShowDialog();
         }
     }
 }

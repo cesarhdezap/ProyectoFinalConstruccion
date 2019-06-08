@@ -1,22 +1,11 @@
 ﻿using LogicaDeNegocios.ClasesDominio;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using LogicaDeNegocios;
-using LogicaDeNegocios.ObjetosAdministrador;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
-
+using InterfazDeUsuario.GUIsDeTecnicoAcademico;
 
 namespace InterfazDeUsuario.GUITipoDeSesion
 {
@@ -26,6 +15,7 @@ namespace InterfazDeUsuario.GUITipoDeSesion
     public partial class GUITecnicoAcademico : Window
     {
         private DocenteAcademico TecnicoAdministrativo { get; set; }
+
         public GUITecnicoAcademico(Sesion sesion)
         {
             InitializeComponent();
@@ -55,12 +45,12 @@ namespace InterfazDeUsuario.GUITipoDeSesion
                 MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
             }
-			LabelNombreDeUsuario.Content = this.TecnicoAdministrativo.Nombre;
+            LabelNombreDeUsuario.Content = this.TecnicoAdministrativo.Nombre;
         }
 
         private void ButtonBuscarAlumno_Click(object sender, RoutedEventArgs e)
         {
-            GUIsDeTecnicoAcademico.GUIBuscarAlumnoPorTecnicoAcademico buscarAlumnoPorTecnicoAcademico = new GUIsDeTecnicoAcademico.GUIBuscarAlumnoPorTecnicoAcademico(TecnicoAdministrativo);
+            GUIBuscarAlumnoPorTecnicoAcademico buscarAlumnoPorTecnicoAcademico = new GUIBuscarAlumnoPorTecnicoAcademico(TecnicoAdministrativo);
             buscarAlumnoPorTecnicoAcademico.ShowDialog();
         }
     }
