@@ -59,15 +59,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
         public string CargarIDPorCorreoYRol(string correoElectronico, Rol rol)
         {
-            string IDUsuario = string.Empty;
-            DataTable tablaDeMatricula = new DataTable();
-            SqlParameter[] parametroCorreo = new SqlParameter[2];
-            parametroCorreo[0] = new SqlParameter
+            DataTable tablaDeID = new DataTable();
+            SqlParameter[] parametros = new SqlParameter[2];
+            parametros[0] = new SqlParameter
             {
                 ParameterName = "@CorreoElectronico",
                 Value = correoElectronico
             };
-            parametroCorreo[1] = new SqlParameter
+            parametros[1] = new SqlParameter
             {
                 ParameterName = "@Rol",
                 Value = (int)rol
@@ -75,15 +74,30 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeMatricula = AccesoADatos.EjecutarSelect("SELECT IDPersonal FROM DocentesAcademicos WHERE CorreoElectronico = 'julio@correo.com' AND Rol = 1", parametroCorreo);
+                tablaDeID = AccesoADatos.EjecutarSelect("SELECT IDPersonal FROM DocentesAcademicos WHERE CorreoElectronico = @CorreoElectronico AND Rol = @Rol", parametros);
+            }
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+            {
+                throw new AccesoADatosException("Error al cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeError.ConexionABaseDeDatosFallida);
             }
             catch (SqlException e)
             {
-                Console.WriteLine("No se encontro la id del {0} con correo: {1}", rol.ToString(), correoElectronico);
+                throw new AccesoADatosException("Error al cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+            }
+
+            string IDUsuario = string.Empty;
+            try
+            {
+                IDUsuario = ConvertirDataTableADocenteAcademicoConSoloID(tablaDeID).IDPersonal.ToString();
+            }
+            catch (FormatException e)
+            {
+                throw new AccesoADatosException("Error al convertir datatable a DocenteAcademico en cargar ID por CorreoElectronico: " + correoElectronico, e);
             }
 
             return IDUsuario;
         }
+
 
         public DocenteAcademico CargarDocenteAcademicoPorIDPersonal(int IDPersonal)
         {
@@ -241,7 +255,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             foreach (DataRow fila in tablaDocenteAcademico.Rows)
             {
                 docenteAcademico.IDPersonal = (int)fila["IDPersonal"];
-
             }
             return docenteAcademico;
         }

@@ -13,6 +13,11 @@ namespace LogicaDeNegocios
 		public EstadoAlumno EstadoAlumno { get; set; }
 		public List<Asignacion> Asignaciones { get; set; }	
 
+        public Alumno ()
+        {
+            Matricula = string.Empty;
+        }
+
 		public void DarDeBaja()
 		{
 			EstadoAlumno = EstadoAlumno.DadoDeBaja;

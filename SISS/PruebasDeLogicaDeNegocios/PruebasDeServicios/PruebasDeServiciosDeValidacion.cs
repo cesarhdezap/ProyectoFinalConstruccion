@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using LogicaDeNegocios.Servicios;
 
-namespace PruebasDeLogicaDeNegocios
+namespace Pruebas.PruebasDeServicios
 {
 
     [TestClass]

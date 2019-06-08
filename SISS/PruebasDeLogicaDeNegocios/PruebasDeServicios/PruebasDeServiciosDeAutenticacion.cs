@@ -3,7 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace PruebasDeLogicaDeNegocios
+namespace Pruebas.PruebasDeServicios
 {
     /// <summary>
     /// Descripción resumida de PruebasDeServiciosDeAutenticacion
