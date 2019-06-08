@@ -44,7 +44,7 @@
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding IDProyecto, Converter={StaticResource ResourceKey=ConvertidorMatriculaDeAlumnoADetallesDeAlumno}}"  Margin="10,5,10,10" />
+                    <TextBlock Text="{Binding Matricula, Converter={StaticResource ResourceKey=ConvertidorMatriculaDeAlumnoADetallesDeAlumno}}"  Margin="10,5,10,10" />
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>

@@ -24,18 +24,18 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
     public partial class GUIBuscarAlumnoPorTecnicoAcademico : Window
     {
         private AdministradorDeAlumnos AdministradorDeAlumnos {get;set;}
-        private DocenteAcademico DocenteAcademico { get; set; }
+        private DocenteAcademico TecnicoAdministrativo { get; set; }
 
-        public GUIBuscarAlumnoPorTecnicoAcademico(DocenteAcademico docenteAcademico)
+        public GUIBuscarAlumnoPorTecnicoAcademico(DocenteAcademico tecnicoAdministrativo)
         {
             InitializeComponent();
-            DocenteAcademico = docenteAcademico;
-            LblNombreDeUsuario.Content = DocenteAcademico.Nombre;
+            TecnicoAdministrativo = tecnicoAdministrativo;
+            LblNombreDeUsuario.Content = TecnicoAdministrativo.Nombre;
             AdministradorDeAlumnos = new AdministradorDeAlumnos();
             Mouse.OverrideCursor = Cursors.Wait;
             try
             {
-                AdministradorDeAlumnos.CargarAlumnosPorCarrera(DocenteAcademico.Carrera);
+                AdministradorDeAlumnos.CargarAlumnosPorCarrera(TecnicoAdministrativo.Carrera);
             }
             catch (AccesoADatosException ex) when(ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
             {
@@ -60,7 +60,8 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 
         private void BtnVerExpediente_Click(object sender, RoutedEventArgs e)
         {
-
+            GUIVerExpedienteDeAlumno verExpedienteDeAlumno = new GUIVerExpedienteDeAlumno(TecnicoAdministrativo, AdministradorDeAlumnos.Alumnos.ElementAt(DtgAlumnos.SelectedIndex));
+            ShowDialog();
         }
 
         private void Expander_Expanded(object sender, RoutedEventArgs e)

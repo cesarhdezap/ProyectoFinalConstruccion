@@ -11,6 +11,6 @@
         <Label Content="Sistema Informático de Servicio Social" HorizontalAlignment="Left" Margin="250,87,0,0" VerticalAlignment="Top" Height="33" Width="392" FontFamily="Arial" FontSize="22" BorderBrush="#FF1B1414"/>
         <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="626,27,0,0" Width="119"/>
         <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="750,27,-40,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
-        <Button x:Name="BtnBuscarAlumno" Content="Buscar alumno" HorizontalAlignment="Left" Margin="327,194,0,0" VerticalAlignment="Top" Width="265" Height="126" FontFamily="Arial" FontSize="36" BorderBrush="#FF171414"/>
+        <Button x:Name="BtnBuscarAlumno" Content="Buscar alumno" HorizontalAlignment="Left" Margin="327,194,0,0" VerticalAlignment="Top" Width="265" Height="126" FontFamily="Arial" FontSize="36" BorderBrush="#FF171414" Click="BtnBuscarAlumno_Click"/>
     </Grid>
 </Window>
