@@ -193,7 +193,8 @@ namespace InterfazDeUsuario.GUIsDeAlumno
             }
             else
             {
-                MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
+				Mouse.OverrideCursor = null;
+				MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

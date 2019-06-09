@@ -30,5 +30,19 @@ namespace LogicaDeNegocios.ObjetosAdministrador
             AlumnoDAO alumnoDAO = new AlumnoDAO();
             this.Alumnos = alumnoDAO.CargarAlumnosPorCarrera(carrera);
         }
+		public void CargarAlumnosPorCarreraYEstado(string carrera, EstadoAlumno estadoAlumno)
+		{
+			AlumnoDAO alumnoDAO = new AlumnoDAO();
+			this.Alumnos = alumnoDAO.CargarAlumnosPorCarrera(carrera);
+			List<Alumno> alumnosFiltrados = new List<Alumno>();
+			foreach (Alumno alumno in this.Alumnos)
+			{
+				if (alumno.EstadoAlumno == estadoAlumno)
+				{
+					alumnosFiltrados.Add(alumno);
+				}
+			}
+			this.Alumnos = alumnosFiltrados;
+		}
 	}
 }

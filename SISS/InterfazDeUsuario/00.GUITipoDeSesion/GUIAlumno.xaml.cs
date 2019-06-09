@@ -1,4 +1,4 @@
-﻿using LogicaDeNegocios;
+using LogicaDeNegocios;
 using LogicaDeNegocios.ClasesDominio;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.Excepciones;
