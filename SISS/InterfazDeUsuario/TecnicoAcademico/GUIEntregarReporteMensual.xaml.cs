@@ -34,18 +34,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 		public GUIEntregarReporteMensual(DocenteAcademico tecnicoAdministrativo, Alumno alumno)
 		{
 			InitializeComponent();
-			CbxMes.Items.Add("Enero");
-			CbxMes.Items.Add("Febrero");
-			CbxMes.Items.Add("Marzo");
-			CbxMes.Items.Add("Abril");
-			CbxMes.Items.Add("Mayo");
-			CbxMes.Items.Add("Junio");
-			CbxMes.Items.Add("Julio");
-			CbxMes.Items.Add("Agosto");
-			CbxMes.Items.Add("Septiembre");
-			CbxMes.Items.Add("Octubre");
-			CbxMes.Items.Add("Noviembre");
-			CbxMes.Items.Add("Diciembre");
+			CbxMes.ItemsSource = Enum.GetValues(typeof(EstadoAlumno));
 			CbxMes.SelectedIndex = 0;
 			this.Alumno = alumno;
 			this.Asignacion = new Asignacion();

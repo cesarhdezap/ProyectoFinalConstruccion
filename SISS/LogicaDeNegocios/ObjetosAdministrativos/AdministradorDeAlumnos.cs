@@ -42,6 +42,7 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 					alumnosFiltrados.Add(alumno);
 				}
 			}
+			this.Alumnos = null;
 			this.Alumnos = alumnosFiltrados;
 		}
 	}

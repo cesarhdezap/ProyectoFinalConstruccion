@@ -39,6 +39,7 @@ namespace InterfazDeUsuario.GUITipoDeSesion
         private void ButtonValidarAlumno_Click(object sender, RoutedEventArgs e)
         {
             GUIValidarAlumno validarAlumno = new GUIValidarAlumno(Coordinador);
+			validarAlumno.ShowDialog();
         }
     }
 }
