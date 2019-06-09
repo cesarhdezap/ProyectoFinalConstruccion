@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using System;
 using System.Collections.Generic;
 
 namespace LogicaDeNegocios.ObjetosAdministrador
@@ -7,16 +8,23 @@ namespace LogicaDeNegocios.ObjetosAdministrador
     {
         private List<Organizacion> Organizaciones;
 
-        public void CrearOrganizacion(Organizacion organizacion)
+        public bool CrearOrganizacion(Organizacion organizacion)
         {
-			//TODO
-			throw new NotImplementedException();
-		}
+            CargarOrganizaciones();
+            bool resultadoDeCreacion = false;
+            if (!Organizaciones.Exists(e => e.CorreoElectronico == organizacion.CorreoElectronico))
+            {
+                OrganizacionDAO organizacionDAO = new OrganizacionDAO();
+                organizacionDAO.GuardarOrganizacion(organizacion);
+                resultadoDeCreacion = true;
+            }
+            return resultadoDeCreacion;
+        }
 
         public void CargarOrganizaciones()
         {
-			//TODO
-			throw new NotImplementedException();
+            OrganizacionDAO organizacionDAO = new OrganizacionDAO();
+            Organizaciones = organizacionDAO.CargarOrganizacionesTodas();
 		}
 
     }
