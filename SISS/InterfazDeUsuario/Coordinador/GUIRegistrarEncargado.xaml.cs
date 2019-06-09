@@ -35,16 +35,17 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             encargado.Telefono = TextBoxTelefono.Text;
 
             int indiceDeOrganizacion = ComboBoxOrganizacion.SelectedIndex;
-            if (indiceDeOrganizacion > -1)
+            if (indiceDeOrganizacion >= 0)
             {
                 encargado.Organizacion = Organizaciones[indiceDeOrganizacion];
-                if (ValidarEncargado(encargado))
+                if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text)
                 {
-                    bool resultadoDeCreacionDeEncargado = false;
                     AdministradorDeEncargados administradorDeEncargados = new AdministradorDeEncargados();
+                    bool resultadoDeCreacion = false;
                     try
                     {
-                        resultadoDeCreacionDeEncargado = administradorDeEncargados.CrearEncargado(encargado);
+                        resultadoDeCreacion = administradorDeEncargados.CrearEncargado(encargado);
+                        
                     }
                     catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
                     {
@@ -54,12 +55,8 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
                     {
                         MessageBox.Show("No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
-
-                    if (resultadoDeCreacionDeEncargado)
-                    {
+                    if (resultadoDeCreacion)
                         MessageBox.Show("Encargado registrado correctamente.");
-
-                    }
                 }
             }
             else
@@ -68,41 +65,70 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             }
         }
 
-        public bool ValidarEncargado(Encargado encargado)
+        private void TextBoxNombre_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            bool resultadoDeValidacion = false;
-            if (ValidarNombre(encargado.Nombre))
+            if (ValidarNombre(TextBoxNombre.Text))
             {
-                if (ValidarCorreoElectronico(encargado.CorreoElectronico))
-                {
-                    if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text)
-                    {
-                        if (ValidarTelefono(encargado.Telefono))
-                        {
-                            resultadoDeValidacion = true;
-                        }
-                        else
-                        {
-                            TextBoxTelefono.BorderBrush = Brushes.Red;
-                        }
-                    }
-                    else
-                    {
-                        TextBoxConfirmarCorreoElectronico.BorderBrush = Brushes.Red;
-                    }
-                }
-                else
-                {
-                    TextBoxCorreoElectronico.BorderBrush = Brushes.Red;
-                }
+                TextBoxNombre.BorderBrush = Brushes.Green;
             }
             else
             {
                 TextBoxNombre.BorderBrush = Brushes.Red;
             }
-
-            return resultadoDeValidacion;
         }
 
+        private void TextBoxPuesto_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (ValidarPuestoEncargado(TextBoxPuesto.Text))
+            {
+                TextBoxPuesto.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                TextBoxPuesto.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void TextBoxCorreoElectronico_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (ValidarCorreoElectronico(TextBoxCorreoElectronico.Text))
+            {
+                TextBoxCorreoElectronico.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                TextBoxCorreoElectronico.BorderBrush = Brushes.Red;
+            }
+            TextBoxConfirmarCorreoElectronico_TextChanged(sender,e);
+        }
+
+        private void TextBoxConfirmarCorreoElectronico_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (TextBoxCorreoElectronico.Text == TextBoxCorreoElectronico.Text)
+            {
+                TextBoxConfirmarCorreoElectronico.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                TextBoxConfirmarCorreoElectronico.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void TextBoxTelefono_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (ValidarTelefono(TextBoxTelefono.Text))
+            {
+                TextBoxTelefono.BorderBrush = Brushes.Green;
+            }
+            else
+            {
+                TextBoxTelefono.BorderBrush = Brushes.Red;
+            }
+        }
+
+        private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

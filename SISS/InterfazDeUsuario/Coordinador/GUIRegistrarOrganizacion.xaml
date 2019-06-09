@@ -12,12 +12,12 @@
         <Label x:Name="LabelConfirmarCorreoElectronicop" Content="Confirmar correo electrónico:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="197,343,0,0" FontSize="14"/>
         <Label x:Name="LabelCorreoElectronico" Content="Correo electrónico:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="260,294,0,0" FontSize="14"/>
         <Label x:Name="LabelDireccion" Content="Dirección:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="316,200,0,0" FontSize="14"/>
-        <TextBox x:Name="TextBoxNombre" HorizontalAlignment="Left" Height="24" Margin="413,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14"/>
-        <TextBox x:Name="TextBoxDireccion" HorizontalAlignment="Left" Height="23" Margin="413,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14"/>
-        <TextBox x:Name="TextBoxTelefono" HorizontalAlignment="Left" Height="24" Margin="413,247,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14"/>
-        <TextBox x:Name="TextBoxCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="413,294,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14"/>
-        <TextBox x:Name="TextBoxConfirmarCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="413,343,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14"/>
-        <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Margin="248,416,0,0" FontSize="14"/>
+        <TextBox x:Name="TextBoxNombre" HorizontalAlignment="Left" Height="24" Margin="413,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxNombre_TextChanged"/>
+        <TextBox x:Name="TextBoxDireccion" HorizontalAlignment="Left" Height="23" Margin="413,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxDireccion_TextChanged"/>
+        <TextBox x:Name="TextBoxTelefono" HorizontalAlignment="Left" Height="24" Margin="413,247,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxTelefono_TextChanged"/>
+        <TextBox x:Name="TextBoxCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="413,294,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxCorreoElectronico_TextChanged"/>
+        <TextBox x:Name="TextBoxConfirmarCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="413,343,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxConfirmarCorreoElectronico_TextChanged"/>
+        <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="89" Margin="248,416,0,0" FontSize="14" Click="ButtonCancelar_Click"/>
         <Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="87" Margin="574,416,0,0" FontSize="14" Click="ButtonAceptar_Click"/>
         <Label x:Name="LabelNombre" Content="Nombre:" HorizontalAlignment="Left" Margin="323,142,0,0" VerticalAlignment="Top" FontSize="14"/>
 
