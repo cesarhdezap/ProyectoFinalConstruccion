@@ -54,7 +54,7 @@ namespace InterfazDeUsuario.GUITipoDeSesion
 
         private void ButtonRegistrarOrganizacion_Click(object sender, RoutedEventArgs e)
         {
-            GUIRegistrarOrganizacion registrarOrganizacion = new GUIRegistrarOrganizacion();
+            GUIRegistrarOrganizacion registrarOrganizacion = new GUIRegistrarOrganizacion(Coordinador);
             Hide();
             registrarOrganizacion.ShowDialog();
             ShowDialog();

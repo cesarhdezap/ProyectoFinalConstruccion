@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -66,6 +66,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
         private void Expander_Expanded(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
+
 			for (Visual elementoVisual = sender as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
 			{
 				if (elementoVisual is DataGridRow fila)
@@ -136,13 +137,12 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                 catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
                 {
                     MessageBox.Show("No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Mouse.OverrideCursor = null;
                 }
                 catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos )
                 {
                     MessageBox.Show("No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Mouse.OverrideCursor = null;
                 }
+                Mouse.OverrideCursor = null;
             }
             else
             {

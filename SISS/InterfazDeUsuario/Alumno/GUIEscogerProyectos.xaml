@@ -24,7 +24,7 @@
             </DataGrid.CellStyle>
             <DataGrid.RowHeaderTemplate>
                 <DataTemplate>
-                    <Expander Expanded="Expander_Expanded" Collapsed="Expander_Collapsed">
+                    <Expander Expanded="Expander_Expanded" Collapsed="Expander_Collapsed" ClipToBounds="True">
                     </Expander>
                 </DataTemplate>
             </DataGrid.RowHeaderTemplate>

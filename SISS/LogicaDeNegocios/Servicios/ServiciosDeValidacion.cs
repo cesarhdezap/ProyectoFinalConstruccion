@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using System;
 
 namespace LogicaDeNegocios.Servicios
 {
@@ -97,6 +98,19 @@ namespace LogicaDeNegocios.Servicios
             return resultadoDeValidacion;
         }
 
+        public static bool ValidarDireccion(string direccion)
+        {
+            throw new NotImplementedException();
+        }
         
+        public static bool ValidarNombreDeOrganizacion(string nombre)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static bool ValidarPuestoEncargado(string puesto)
+        {
+            throw new NotImplementedException();
+        }
 	}
 }
