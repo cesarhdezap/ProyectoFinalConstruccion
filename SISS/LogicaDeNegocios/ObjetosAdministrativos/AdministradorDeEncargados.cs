@@ -1,12 +1,10 @@
-﻿using LogicaDeNegocios.Excepciones;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
-using System;
+﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System.Collections.Generic;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace LogicaDeNegocios.ObjetosAdministrador
 {
-	public class AdministradorDeEncargados
+    public class AdministradorDeEncargados
     {
         private List<Encargado> Encargados;
 
@@ -18,15 +16,29 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 
         public bool CrearEncargado(Encargado encargado)
         {
-            CargarEncargadosTodos();
             bool resultadoDeCreacion = false;
-            if (!Encargados.Exists(e => e.CorreoElectronico == encargado.CorreoElectronico))
+            CargarEncargadosTodos();
+            resultadoDeCreacion = !Encargados.Exists(e => e.CorreoElectronico == encargado.CorreoElectronico) && ValidarEncargado(encargado);
+            if (resultadoDeCreacion)
             {
                 EncargadoDAO encargadoDAO = new EncargadoDAO();
                 encargadoDAO.GuardarEncargado(encargado);
-                resultadoDeCreacion = true;
             }
             return resultadoDeCreacion;
 		}
+
+        private bool ValidarEncargado(Encargado encargado)
+        {
+            bool resultadoDeValidacion = false;
+            if (ValidarNombre(encargado.Nombre)
+                && ValidarCorreoElectronico(encargado.CorreoElectronico)
+                && ValidarTelefono(encargado.Telefono)
+                && ValidarPuestoEncargado(encargado.Puesto))
+            {
+                resultadoDeValidacion = true;
+            }
+
+            return resultadoDeValidacion;
+        }
     }
 }

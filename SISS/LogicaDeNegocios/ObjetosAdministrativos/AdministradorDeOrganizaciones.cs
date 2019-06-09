@@ -1,6 +1,6 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
-using System;
 using System.Collections.Generic;
+using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace LogicaDeNegocios.ObjetosAdministrador
 {
@@ -12,7 +12,8 @@ namespace LogicaDeNegocios.ObjetosAdministrador
         {
             CargarOrganizaciones();
             bool resultadoDeCreacion = false;
-            if (!Organizaciones.Exists(e => e.CorreoElectronico == organizacion.CorreoElectronico))
+            resultadoDeCreacion = !Organizaciones.Exists(e => e.CorreoElectronico == organizacion.CorreoElectronico) && ValidarOrganizacion(organizacion);
+            if (resultadoDeCreacion)
             {
                 OrganizacionDAO organizacionDAO = new OrganizacionDAO();
                 organizacionDAO.GuardarOrganizacion(organizacion);
@@ -26,6 +27,19 @@ namespace LogicaDeNegocios.ObjetosAdministrador
             OrganizacionDAO organizacionDAO = new OrganizacionDAO();
             Organizaciones = organizacionDAO.CargarOrganizacionesTodas();
 		}
+
+        private bool ValidarOrganizacion(Organizacion organizacion)
+        {
+            bool resultadoDeValidacion = false;
+            if (ValidarNombreDeOrganizacion(organizacion.Nombre)
+                && ValidarDireccion(organizacion.Direccion)
+                && ValidarTelefono(organizacion.Telefono)
+                && ValidarCorreoElectronico(organizacion.CorreoElectronico))
+            {
+                resultadoDeValidacion = true;
+            }
+            return resultadoDeValidacion;
+        }
 
     }
 }

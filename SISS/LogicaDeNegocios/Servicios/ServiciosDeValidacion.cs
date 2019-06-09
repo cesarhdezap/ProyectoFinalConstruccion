@@ -107,5 +107,10 @@ namespace LogicaDeNegocios.Servicios
         {
             throw new NotImplementedException();
         }
+
+        public static bool ValidarPuestoEncargado(string puesto)
+        {
+            throw new NotImplementedException();
+        }
 	}
 }
