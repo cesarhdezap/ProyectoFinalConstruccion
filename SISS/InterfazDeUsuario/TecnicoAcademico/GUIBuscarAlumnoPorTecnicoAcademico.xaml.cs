@@ -6,6 +6,7 @@ using System.Windows.Media;
 using System.Linq;
 using LogicaDeNegocios.ObjetosAdministrador;
 using LogicaDeNegocios.Excepciones;
+using System.Linq;
 
 namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 {

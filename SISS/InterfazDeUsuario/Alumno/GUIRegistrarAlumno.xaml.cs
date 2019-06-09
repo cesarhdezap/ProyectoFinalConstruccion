@@ -36,7 +36,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
         private void TxtMatricula_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarMatricula (TxtMatricula.Text) == ResultadoDeValidacion.Valido)
+            if (ValidarMatricula (TxtMatricula.Text))
             {
                 TxtMatricula.BorderBrush = Brushes.Green;
             } else
@@ -48,7 +48,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
         private void TxtNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarNombre(TxtNombre.Text) == ResultadoDeValidacion.Valido)
+            if (ValidarNombre(TxtNombre.Text))
             {
                 TxtNombre.BorderBrush = Brushes.Green;
             }
@@ -60,7 +60,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
         private void TxtCorreoElectronico_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarCorreoElectronico(TxtCorreoElectronico.Text) == ResultadoDeValidacion.Valido)
+            if (ValidarCorreoElectronico(TxtCorreoElectronico.Text))
             {
                 TxtCorreoElectronico.BorderBrush = Brushes.Green;
             }
@@ -93,7 +93,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
         private void TxtTelefono_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarTelefono(TxtTelefono.Text) == ResultadoDeValidacion.Valido)
+            if (ValidarTelefono(TxtTelefono.Text))
             {
                 TxtTelefono.BorderBrush = Brushes.Green;
             }
@@ -105,7 +105,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
         private void TxtContraseña_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarContraseña(TxtContraseña.Text) == ResultadoDeValidacion.Valido)
+            if (ValidarContraseña(TxtContraseña.Text))
             {
                 TxtContraseña.BorderBrush = Brushes.Green;
             }
@@ -153,7 +153,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                 EstadoAlumno = EstadoAlumno.EsperandoAceptacion,
                 Contraseña = ServiciosDeAutenticacion.EncriptarContraseña(TxtContraseña.Text)
             };
-            if (ValidarAlumno(alumno) == ResultadoDeValidacion.Valido && TxtCorreoElectronico.Text == TxtConfirmarCorreoElectronico.Text && TxtContraseña.Text == TxtConfirmarContraseña.Text && CbxCarrera.SelectedValue != null)
+            if (ValidarAlumno(alumno) && TxtCorreoElectronico.Text == TxtConfirmarCorreoElectronico.Text && TxtContraseña.Text == TxtConfirmarContraseña.Text && CbxCarrera.SelectedValue != null)
             {   
                 AlumnoDAO alumnoDAO = new AlumnoDAO();
                 try

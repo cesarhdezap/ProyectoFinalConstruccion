@@ -244,6 +244,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 docenteAcademico.Cubiculo = (int)fila["Cubiculo"];
                 docenteAcademico.EsActivo = (bool)fila["EsActivo"];
                 docenteAcademico.Rol = (Rol)fila["Rol"];
+
 				if (docenteAcademico.Rol == Rol.TecnicoAcademico)
 				{
 					docenteAcademico.Coordinador = new DocenteAcademico() { IDPersonal = (int)fila["IDCoordinador"] };
@@ -253,7 +254,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 					docenteAcademico.Coordinador = null;
 				}
 			}
-
             return docenteAcademico;
         }
 

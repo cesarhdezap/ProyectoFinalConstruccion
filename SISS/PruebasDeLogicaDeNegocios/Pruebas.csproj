@@ -59,6 +59,7 @@
     <Compile Include="PruebasDeServicios\PruebasDeServiciosDeAutenticacion.cs" />
     <Compile Include="PruebasDeServicios\PruebasDeServiciosDeValidacion.cs" />
     <Compile Include="PruebasDeServicios\PruebasDeServiciosDeSesion.cs" />
+    <Compile Include="PruebasObjetosAdministrativos\PruebasAdministradorDeEncargados.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
