@@ -25,7 +25,6 @@ namespace LogicaDeNegocios.ObjetosAdministrador
                 EncargadoDAO encargadoDAO = new EncargadoDAO();
                 encargadoDAO.GuardarEncargado(encargado);
                 resultadoDeCreacion = true;
-
             }
             return resultadoDeCreacion;
 		}

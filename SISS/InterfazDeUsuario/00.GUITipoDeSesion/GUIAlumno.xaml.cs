@@ -1,4 +1,4 @@
-﻿using LogicaDeNegocios;
+using LogicaDeNegocios;
 using LogicaDeNegocios.ClasesDominio;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.Excepciones;
@@ -21,13 +21,12 @@ namespace InterfazDeUsuario.GUITipoDeSesion
             catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
             {
                 MessageBox.Show("No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-                Mouse.OverrideCursor = null;
             }
             catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos)
             {
                 MessageBox.Show("No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                Mouse.OverrideCursor = null;
             }
+            Mouse.OverrideCursor = null;
 
             if (Alumno.EstadoAlumno == EstadoAlumno.EsperandoAsignacion)
             {
@@ -73,8 +72,9 @@ namespace InterfazDeUsuario.GUITipoDeSesion
             Hide();
             GUIsDeAlumno.GUIEscogerProyectos escogerProyectos = new GUIsDeAlumno.GUIEscogerProyectos(Alumno);
             escogerProyectos.ShowDialog();
-            AlumnoDAO alumnoDAO = new AlumnoDAO();
+
             Mouse.OverrideCursor = Cursors.Wait;
+            AlumnoDAO alumnoDAO = new AlumnoDAO();
             try
             {
                 Alumno = alumnoDAO.CargarAlumnoPorMatricula(Alumno.Matricula);
@@ -82,24 +82,28 @@ namespace InterfazDeUsuario.GUITipoDeSesion
             catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
             {
                 MessageBox.Show("No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-                Mouse.OverrideCursor = null;
             }
             catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos)
             {
                 MessageBox.Show("No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                Mouse.OverrideCursor = null;
             }
+            Mouse.OverrideCursor = null;
+
             if (Alumno.EstadoAlumno == EstadoAlumno.EsperandoAsignacion)
             {
                 LblEsperandoAsignacion.Visibility = Visibility.Visible;
-				BtnEscogerProyecto.Visibility = Visibility.Hidden;
+                BtnEscogerProyecto.Visibility = Visibility.Hidden;
             }
+
+            ShowDialog();
         }
 
         private void BtnVerExpediente_Click(object sender, RoutedEventArgs e)
         {
+            Hide();
             GUIsDeAlumno.GUIVerExpedientePorAlumno verExpediente = new GUIsDeAlumno.GUIVerExpedientePorAlumno(Alumno);
             verExpediente.ShowDialog();
+            ShowDialog();
         }
     }
 }

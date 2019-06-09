@@ -216,7 +216,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Organizaciones(CorreoElectronico, Direccion, Telefono, Nombre) VALUES(@CorreoElectronicoOrganizacion, @DireccionOrganizacion, @TelefonoOrganizacion, @NombreOrganizacion)", parametrosDeOrganizacion);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Organizaciones(Nombre, CorreoElectronico, Telefono, Direccion) VALUES(@NombreOrganizacion, @CorreoElectronicoOrganizacion, @TelefonoOrganizacion, @DireccionOrganizacion)", parametrosDeOrganizacion);
             }
             catch (SqlException e)
             {
@@ -224,14 +224,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             if (filasAfectadas <= 0)
             {
-                throw new AccesoADatosException("Organizacion: " + organizacion.ToString() + "no fue guardada.");
+                throw new AccesoADatosException("Organizacion: " + organizacion.ToString() + "no fue guardada.",TipoDeError.ObjetoNoGuardado);
             }
         }
 
 
         private SqlParameter[] InicializarParametrosDeSql(Organizacion organizacion)
         {
-            SqlParameter[] parametrosDeOrganizacion = new SqlParameter[5];
+            SqlParameter[] parametrosDeOrganizacion = new SqlParameter[4];
 
             for (int i = 0; i < parametrosDeOrganizacion.Length; i++)
             {
@@ -245,8 +245,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeOrganizacion[2].Value = organizacion.Direccion;
             parametrosDeOrganizacion[3].ParameterName = "@TelefonoOrganizacion";
             parametrosDeOrganizacion[3].Value = organizacion.Telefono;
-            parametrosDeOrganizacion[4].ParameterName = "@IDOrganizacion";
-            parametrosDeOrganizacion[4].Value = organizacion.IDOrganizacion;
 
             return parametrosDeOrganizacion;
         }
