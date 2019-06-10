@@ -142,7 +142,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                 bool resultadoDeCreacion = false;
                 try
                 {
-                    resultadoDeCreacion = alumno.GuardarAlumno();
+                    resultadoDeCreacion = alumno.Guardar();
                 } 
                 catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.InsercionFallidaPorLlavePrimariDuplicada)
                 {
