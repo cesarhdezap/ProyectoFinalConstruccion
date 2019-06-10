@@ -6,16 +6,17 @@ using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ClasesDominio;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using AccesoABaseDeDatos;
+using LogicaDeNegocios.Interfaces;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	public class DocumentoDeEntregaUnicaDAO : Interfaces.IDocumentoDeEntregaUnicaDAO
+	public class DocumentoDeEntregaUnicaDAO : IDocumentoDeEntregaUnicaDAO
 	{
         public DocumentoDeEntregaUnica CargarDocumentoDeEntregaUnicaPorID(int IDDocumento)
         {
             if (IDDocumento <= 0)
             {
-                throw new AccesoADatosException("Error al cargar DocumentoDeEntregaUnica Por IDDocumento: " + IDDocumento + ". IDDocumento no es valido.");
+                throw new AccesoADatosException("Error al cargar DocumentoDeEntregaUnica Por IDDocumento: " + IDDocumento + ". IDDocumento no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
             DataTable tablaDeDocumentoDeEntregaUnica = new DataTable();
             SqlParameter[] parametroIDDocumentoDeEntregaUnica = new SqlParameter[1];
@@ -29,18 +30,22 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeDocumentoDeEntregaUnica = AccesoADatos.EjecutarSelect("SELECT * FROM DocumentosDeEntregaUnica WHERE IDDocumento = @IDDocumento",parametroIDDocumentoDeEntregaUnica);
             }
-            catch(SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar DocumentoDeEntregaUnica con IDDocumento: " + IDDocumento, e);
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+                throw new AccesoADatosException("Error al cargar DocumentoDeEntregaUnica con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
-            DocumentoDeEntregaUnica documentoDeEntregaUnica = new DocumentoDeEntregaUnica();
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar DocumentoDeEntregaUnica con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			DocumentoDeEntregaUnica documentoDeEntregaUnica = new DocumentoDeEntregaUnica();
             try
             {
                 documentoDeEntregaUnica = ConvertirDataTableADocumentoDeEntregaUnica(tablaDeDocumentoDeEntregaUnica);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir DocumentoDeEntregaUnica al en cargar DocumentoDeEntregaUnica con IDDocumento: " + IDDocumento, e);
+                throw new AccesoADatosException("Error al convertir DocumentoDeEntregaUnica al en cargar DocumentoDeEntregaUnica con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return documentoDeEntregaUnica;
         }
@@ -49,7 +54,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             if (IDAsignacion <= 0)
             {
-                throw new AccesoADatosException("Error al cargar IDs de DocumentoDeEntregaUnica Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.");
+                throw new AccesoADatosException("Error al cargar IDs de DocumentoDeEntregaUnica Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
             DataTable tablaDeDocumentosDeEntregaUnica = new DataTable();
             SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
@@ -63,18 +68,22 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeDocumentosDeEntregaUnica = AccesoADatos.EjecutarSelect("SELECT IDDocumento FROM DocumentosDeEntregaUnica WHERE IDAsignacion = @IDasignacion", parametroIDAsignacion);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar IDs de DocumentoDeEntregaUnica por IDAsignacion: " + IDAsignacion, e);
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+                throw new AccesoADatosException("Error al cargar IDs de DocumentoDeEntregaUnica por IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
-            List<DocumentoDeEntregaUnica> listaDeDocumentosDeEntregaUnica = new List<DocumentoDeEntregaUnica>();
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar IDs de DocumentoDeEntregaUnica por IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			List<DocumentoDeEntregaUnica> listaDeDocumentosDeEntregaUnica = new List<DocumentoDeEntregaUnica>();
             try
             {
                 listaDeDocumentosDeEntregaUnica = ConvertirDataTableAListaDeDocumentosDeEntregaUnicaConSoloIDDocumento(tablaDeDocumentosDeEntregaUnica);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a DocumentoDeEntregaUnica en cargas IDs con IDAsignacion: " + IDAsignacion, e);
+                throw new AccesoADatosException("Error al convertir datatable a DocumentoDeEntregaUnica en cargas IDs con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return listaDeDocumentosDeEntregaUnica;
         }
@@ -92,13 +101,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO DocumentosDeEntregaUnica(FechaDeEntrega, TipoDeDocumento, Nombre, DocenteAdministrativo, IDAsignacion) VALUES(@IDDocumento, @FechaDeEntrega, @TipoDeDocumento, @Nombre, @DocenteAdministrativo, @IDAsignacion)", parametrosDocumentoDeEntregaUnica);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al guardar DocumentoDeEntregaUnica: " + documentoDeEntregaUnica.ToString(), e);
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+                throw new AccesoADatosException("Error al guardar DocumentoDeEntregaUnica: " + documentoDeEntregaUnica.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
-            if (filasAfectadas <= 0)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al guardar DocumentoDeEntregaUnica: " + documentoDeEntregaUnica.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			if (filasAfectadas <= 0)
             {
-                throw new AccesoADatosException("El DocumentoDeEntregaUnica: " + documentoDeEntregaUnica.ToString() + " no fue guardado.");
+                throw new AccesoADatosException("El DocumentoDeEntregaUnica: " + documentoDeEntregaUnica.ToString() + " no fue guardado.", TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
         }
 
@@ -159,12 +172,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             return parametrosDeDocumentoDeEntregaUnica;
         }
-
-        public int ObtenerUltimoIDInsertado()
-        {
-            throw new NotImplementedException();
-        }
-
         public void GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica)
         {
             throw new NotImplementedException();

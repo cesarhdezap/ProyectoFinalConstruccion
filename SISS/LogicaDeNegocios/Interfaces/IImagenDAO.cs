@@ -13,6 +13,5 @@ namespace LogicaDeNegocios.Interfaces
         void GuardarImagen(Imagen imagen);
         BitmapImage CargarImagenPorIDDocumentoYTipoDeDocumentoEnImagen(int IDDocumento, TipoDeDocumentoEnImagen tipoDeDocumentoEnImagen);
         void ActualizarImagenPorIDDocumentno(Imagen imagen);
-        int ObtenerUltimoIDInsertado();
     }
 }

@@ -21,15 +21,15 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             } 
             catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
             {
-                throw new AccesoADatosException("Error al actualizar Alumno: " + alumno.ToString() + "Con matricula: " + matricula, e, TipoDeError.ConexionABaseDeDatosFallida);
+                throw new AccesoADatosException("Error al actualizar Alumno: " + alumno.ToString() + "Con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al actualizar Alumno: " + alumno.ToString() + "Con matricula: " + matricula, e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+                throw new AccesoADatosException("Error al actualizar Alumno: " + alumno.ToString() + "Con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
             if (filasAfectadas <= 0)
             {
-                throw new AccesoADatosException("El alumno con matricula: " + matricula + " no existe.", TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+                throw new AccesoADatosException("El alumno con matricula: " + matricula + " no existe.", TipoDeErrorDeAccesoADatos.ObjetoNoExiste);
             }
         }
 
@@ -50,11 +50,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
             {
-                throw new AccesoADatosException("Error al cargar Matricula por CorreoElectronico: " + correoElectronico, e, TipoDeError.ConexionABaseDeDatosFallida);
+                throw new AccesoADatosException("Error al cargar Matricula por CorreoElectronico: " + correoElectronico, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al cargar Matricula por CorreoElectronico: " + correoElectronico, e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+                throw new AccesoADatosException("Error al cargar Matricula por CorreoElectronico: " + correoElectronico, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
 
             string matricula;
@@ -64,7 +64,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a Alumno en cargar Matricula por CorreoElectronico: " + correoElectronico, e);
+                throw new AccesoADatosException("Error al convertir datatable a Alumno en cargar Matricula por CorreoElectronico: " + correoElectronico, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return matricula;
         }
@@ -86,11 +86,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
             {
-                throw new AccesoADatosException("Error al cargar alumnos con estado: " + estadoDeAlumno.ToString(), e, TipoDeError.ConexionABaseDeDatosFallida);
+                throw new AccesoADatosException("Error al cargar alumnos con estado: " + estadoDeAlumno.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al cargar alumnos con estado: " + estadoDeAlumno.ToString(), e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+                throw new AccesoADatosException("Error al cargar alumnos con estado: " + estadoDeAlumno.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
             List<Alumno> alumnos = new List<Alumno>();
             try
@@ -99,7 +99,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a alumno en cargar alumnos con estado: " + estadoDeAlumno.ToString(), e);
+                throw new AccesoADatosException("Error al convertir datatable a alumno en cargar alumnos con estado: " + estadoDeAlumno.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return alumnos;
         }
@@ -121,11 +121,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
             {
-                throw new AccesoADatosException("Error al cargar alumnos con Carrera: " + carrera, e, TipoDeError.ConexionABaseDeDatosFallida);
+                throw new AccesoADatosException("Error al cargar alumnos con Carrera: " + carrera, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al cargar alumnos con estado: " + carrera, e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+                throw new AccesoADatosException("Error al cargar alumnos con Carrera: " + carrera, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
             List<Alumno> listaDeAlumnos = new List<Alumno>();
             try
@@ -134,7 +134,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a alumno en cargar alumnos con estado: " + carrera, e);
+                throw new AccesoADatosException("Error al convertir datatable a alumno en cargar alumnos con estado: " + carrera, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return listaDeAlumnos;
         }
@@ -155,11 +155,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
 			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
             {
-                throw new AccesoADatosException("Error al cargar Alumno con matricula: " + matricula, e, TipoDeError.ConexionABaseDeDatosFallida);
+                throw new AccesoADatosException("Error al cargar Alumno con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al cargar Alumno con matricula: " + matricula, e, TipoDeError.ConexionABaseDeDatosFallida);
+                throw new AccesoADatosException("Error al cargar Alumno con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
             Alumno alumno = new Alumno();
             try
@@ -168,7 +168,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a Alumno en cargar alumno con matricula: " + matricula, e);
+                throw new AccesoADatosException("Error al convertir datatable a Alumno en cargar alumno con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
 
             return alumno;
@@ -183,7 +183,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
             {
-                throw new AccesoADatosException("Error al cargar todos los Alumnos", e, TipoDeError.ConexionABaseDeDatosFallida);
+                throw new AccesoADatosException("Error al cargar todos los Alumnos", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
             catch (SqlException e)
             {
@@ -196,7 +196,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a lista de Alumnos en cargar todos los Alumnos", e);
+                throw new AccesoADatosException("Error al convertir datatable a lista de Alumnos en cargar todos los Alumnos", e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return listaDeAlumnos;
 		}
@@ -205,7 +205,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             if (IDAsignacion <= 0)
             {
-                throw new AccesoADatosException("Error al cargar matricula Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.");
+                throw new AccesoADatosException("Error al cargar matricula Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
             DataTable tablaDeAlumno = new DataTable();
             SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
@@ -221,11 +221,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
             {
-                throw new AccesoADatosException("Error al cargar matricula con IDAsignacion: " + IDAsignacion, e, TipoDeError.ConexionABaseDeDatosFallida);
+                throw new AccesoADatosException("Error al cargar matricula con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al cargar matricula con IDAsignacion: " + IDAsignacion, e);
+                throw new AccesoADatosException("Error al cargar matricula con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
             Alumno alumno = new Alumno();
             try
@@ -234,7 +234,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a Alumno en cargar alumno con IDAsignacion: " + IDAsignacion, e);
+                throw new AccesoADatosException("Error al convertir datatable a Alumno en cargar alumno con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return alumno;
         }
@@ -300,19 +300,19 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.InsercionFallidaPorLlavePrimariaDuplicada)
             {
-                throw new AccesoADatosException("No se puede guardar el alumno: " + alumno.ToString() + " porque la matricula: " + alumno.Matricula + " ya existe." , e, TipoDeError.InsercionFallidaPorLlavePrimariDuplicada);
+                throw new AccesoADatosException("No se puede guardar el alumno: " + alumno.ToString() + " porque la matricula: " + alumno.Matricula + " ya existe." , e, TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada);
             }
             catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
             {
-                throw new AccesoADatosException("No se puede guardar el alumno: " + alumno.ToString() + " porque no se pudo establecer conexion al servidor.", e, TipoDeError.ConexionABaseDeDatosFallida);
+                throw new AccesoADatosException("No se puede guardar el alumno: " + alumno.ToString() + " porque no se pudo establecer conexion al servidor.", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
             catch (SqlException e)
             { 
-                throw new AccesoADatosException(e.Number.ToString() + "Error al guardar Alumno:" + alumno.ToString(), e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+                throw new AccesoADatosException(e.Number.ToString() + "Error al guardar Alumno:" + alumno.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
             if (filasAfectadas <= 0)
             {
-                throw new AccesoADatosException("Alumno: " + alumno.ToString() + "no fue guardado.", TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+                throw new AccesoADatosException("Alumno: " + alumno.ToString() + "no fue guardado.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
             }
         }
          
@@ -341,11 +341,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeAlumno[6].Value = (int)alumno.EstadoAlumno;
 
             return parametrosDeAlumno;
-        }
-
-        public int ObtenerUltimoIDInsertado()
-        {
-            throw new NotImplementedException();
         }
     }
 }

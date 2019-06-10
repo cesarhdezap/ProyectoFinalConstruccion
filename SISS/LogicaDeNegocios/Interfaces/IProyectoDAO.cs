@@ -12,6 +12,5 @@ namespace LogicaDeNegocios.Interfaces
         List<Proyecto> CargarProyectosPorEstado(EstadoProyecto estado);
         List<Proyecto> CargarProyectosTodos();
         void GuardarProyecto(Proyecto proyecto);
-        int ObtenerUltimoIDInsertado();
     }
 }
