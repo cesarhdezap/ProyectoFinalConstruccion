@@ -16,25 +16,34 @@ using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.ObjetosAdministrador;
 
-namespace InterfazDeUsuario.GUIsDeAlumno
+namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 {
     /// <summary>
-    /// Interaction logic for GUIVerExpedientePorAlumno.xaml
+    /// Interaction logic for GUICapturarDocumento.xaml
     /// </summary>
-    public partial class GUIVerExpedientePorAlumno : Window
+    public partial class GUIVerExpedienteDeAlumno : Window
     {
-        private Asignacion Asignacion {get; set;}
+        private AdministradorDeReportesMensuales AdministradorDeReportesMensuales { get; set; }
+        private AdministradorDeDocumentosDeEntregaUnica AdministradorDeDocumentosDeEntregaUnica { get; set; }
         private Alumno Alumno { get; set; }
-        public GUIVerExpedientePorAlumno(Alumno alumno)
+        private DocenteAcademico DocenteAcademico { get; set; }
+        public GUIVerExpedienteDeAlumno(DocenteAcademico docenteAcademico, Alumno alumno)
         {
             InitializeComponent();
             this.Alumno = alumno;
+            this.DocenteAcademico = docenteAcademico;
             AsignacionDAO asignacionDAO = new AsignacionDAO();
+            Asignacion asignacion = new Asignacion();
+            AdministradorDeDocumentosDeEntregaUnica = new AdministradorDeDocumentosDeEntregaUnica();
+            AdministradorDeReportesMensuales = new AdministradorDeReportesMensuales();
+            ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
+            Mouse.OverrideCursor = Cursors.Wait;
             try
             {
-                this.Asignacion = asignacionDAO.CargarIDsPorMatriculaDeAlumno(Alumno.Matricula).ElementAt(0);
-                this.Asignacion = asignacionDAO.CargarAsignacionPorID(this.Asignacion.IDAsignacion);
-                this.Asignacion.CargarDocumentos();
+                asignacion = asignacionDAO.CargarIDsPorMatriculaDeAlumno(Alumno.Matricula).ElementAt(0);
+                asignacion = asignacionDAO.CargarAsignacionPorID(asignacion.IDAsignacion);
+                AdministradorDeDocumentosDeEntregaUnica.CargarDocumentosDeEntregaUnicaPorMatricula(Alumno.Matricula);
+                AdministradorDeReportesMensuales.CargarReportesMensualesPorMatricula(Alumno.Matricula);
             }
             catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
             {
@@ -54,16 +63,20 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                 MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
             }
-            LblHorasCubiertas.Content = this.Asignacion.ObtenerHorasCubiertas();
-            LblNombreDeUsuario.Content = this.Alumno.Nombre;
-            GrdDocumentosDeEntregaUnica.ItemsSource = this.Asignacion.DocumentosDeEntregaUnica;
-            GrdReportesMensuales.ItemsSource = this.Asignacion.ReportesMensuales;
+            LblHorasCubiertas.Content = asignacion.ObtenerHorasCubiertas();
+            LblNombreDeUsuario.Content = DocenteAcademico.Nombre;
+            GrdDocumentosDeEntregaUnica.ItemsSource = AdministradorDeDocumentosDeEntregaUnica.DocumentosDeEntregaUnica;
+            GrdReportesMensuales.ItemsSource = AdministradorDeReportesMensuales.ReportesMensuales;
         }
 
-        private void BtnVerProyectoActual_Click(object sender, RoutedEventArgs e)
+        private void BtnCapturarOtroDocumento_Click(object sender, RoutedEventArgs e)
         {
-            GUIVerProyectoActual verProyectoActual = new GUIVerProyectoActual(Alumno);
-            verProyectoActual.ShowDialog();
+
+        }
+
+        private void BtnCapturarReporteMensual_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void BtnRegresar_Click(object sender, RoutedEventArgs e)

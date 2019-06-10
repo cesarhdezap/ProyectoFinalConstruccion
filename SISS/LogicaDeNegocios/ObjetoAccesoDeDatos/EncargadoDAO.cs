@@ -226,7 +226,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Encargados(Nombre, CorreoElectronico, Telefono, Puesto, IDOrganizacion) VALUES(@NombreEncargado, @CorreoElectronicoEncargado, @TelefonoEncargado, @PuestoEncargado, @IDOrganizacion)", parametrosDeEncargado);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Encargados(IDOrganizacion, Nombre, CorreoElectronico, Telefono, Puesto ) VALUES(@IDOrganizacion, @NombreEncargado, @CorreoElectronicoEncargado, @TelefonoEncargado, @PuestoEncargado)", parametrosDeEncargado);
             }
             catch (SqlException e)
             {
@@ -240,7 +240,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
         private SqlParameter[] InicializarParametrosDeSql(Encargado encargado)
         {
-            SqlParameter[] parametrosDeEncargado = new SqlParameter[6];
+            SqlParameter[] parametrosDeEncargado = new SqlParameter[5];
 
             for (int i = 0; i < parametrosDeEncargado.Length; i++)
             {
@@ -255,10 +255,8 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeEncargado[2].Value = encargado.Telefono;
             parametrosDeEncargado[3].ParameterName = "@PuestoEncargado";
             parametrosDeEncargado[3].Value = encargado.Puesto;
-            parametrosDeEncargado[4].ParameterName = "@IDEncargado";
-            parametrosDeEncargado[4].Value = encargado.IDEncargado;
-            parametrosDeEncargado[5].ParameterName = "@IDOrganizacion";
-            parametrosDeEncargado[5].Value = encargado.Organizacion.IDOrganizacion;
+            parametrosDeEncargado[4].ParameterName = "@IDOrganizacion";
+            parametrosDeEncargado[4].Value = encargado.Organizacion.IDOrganizacion;
 
             return parametrosDeEncargado;
         }

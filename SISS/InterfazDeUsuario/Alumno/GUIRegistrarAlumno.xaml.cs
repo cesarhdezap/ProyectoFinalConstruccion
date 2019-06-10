@@ -36,7 +36,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
         private void TxtMatricula_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarMatricula (TxtMatricula.Text) == ResultadoDeValidacion.Valido)
+            if (ValidarMatricula (TxtMatricula.Text))
             {
                 TxtMatricula.BorderBrush = Brushes.Green;
             } else
@@ -48,7 +48,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
         private void TxtNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarNombre(TxtNombre.Text) == ResultadoDeValidacion.Valido)
+            if (ValidarNombre(TxtNombre.Text))
             {
                 TxtNombre.BorderBrush = Brushes.Green;
             }
@@ -60,7 +60,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
         private void TxtCorreoElectronico_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarCorreoElectronico(TxtCorreoElectronico.Text) == ResultadoDeValidacion.Valido)
+            if (ValidarCorreoElectronico(TxtCorreoElectronico.Text))
             {
                 TxtCorreoElectronico.BorderBrush = Brushes.Green;
             }
@@ -93,7 +93,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
         private void TxtTelefono_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarTelefono(TxtTelefono.Text) == ResultadoDeValidacion.Valido)
+            if (ValidarTelefono(TxtTelefono.Text))
             {
                 TxtTelefono.BorderBrush = Brushes.Green;
             }
@@ -105,7 +105,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
         private void TxtContraseña_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarContraseña(TxtContraseña.Text) == ResultadoDeValidacion.Valido)
+            if (ValidarContraseña(TxtContraseña.Text))
             {
                 TxtContraseña.BorderBrush = Brushes.Green;
             }
@@ -153,39 +153,48 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                 EstadoAlumno = EstadoAlumno.EsperandoAceptacion,
                 Contraseña = ServiciosDeAutenticacion.EncriptarContraseña(TxtContraseña.Text)
             };
-            if (ValidarAlumno(alumno) == ResultadoDeValidacion.Valido && TxtCorreoElectronico.Text == TxtConfirmarCorreoElectronico.Text && TxtContraseña.Text == TxtConfirmarContraseña.Text && CbxCarrera.SelectedValue != null)
+            if (ValidarAlumno(alumno) && TxtCorreoElectronico.Text == TxtConfirmarCorreoElectronico.Text && TxtContraseña.Text == TxtConfirmarContraseña.Text && CbxCarrera.SelectedValue != null)
             {   
                 AlumnoDAO alumnoDAO = new AlumnoDAO();
                 try
                 {
                     alumnoDAO.GuardarAlumno(alumno);
-                    Mouse.OverrideCursor = null;
-                    MessageBoxResult messageBoxCerrada = MessageBox.Show("Ha sido registrado exitosamente.", "¡Registro Exitoso!", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
-                    if (messageBoxCerrada == MessageBoxResult.OK)
-                    {
-                        this.Close();
-                    }
                 } 
                 catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.InsercionFallidaPorLlavePrimariDuplicada)
                 {
-                    MessageBox.Show("Hubo un error al completar el registro. La matricula ingresada ya existe.", "Matricula duplicada", MessageBoxButton.OK, MessageBoxImage.Error);
                     Mouse.OverrideCursor = null;
-
+                    MessageBox.Show("Hubo un error al completar el registro. La matricula ingresada ya existe.", "Matricula duplicada", MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.Close();
                 }
                 catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
                 {
-                    MessageBox.Show("No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
                     Mouse.OverrideCursor = null;
+                    MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.Close();
+                }
+                catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ObjetoNoExiste)
+                {
+                    Mouse.OverrideCursor = null;
+                    MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.Close();
                 }
                 catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos)
                 {
-                    MessageBox.Show("No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
                     Mouse.OverrideCursor = null;
+                    MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
+                    this.Close();
+                }
+                Mouse.OverrideCursor = Cursors.Wait;
+                MessageBoxResult messageBoxCerrada = MessageBox.Show("Ha sido registrado exitosamente.", "¡Registro Exitoso!", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
+                if (messageBoxCerrada == MessageBoxResult.OK)
+                {
+                    this.Close();
                 }
             }
             else
             {
-                MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
+				Mouse.OverrideCursor = null;
+				MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

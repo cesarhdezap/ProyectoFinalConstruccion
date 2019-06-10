@@ -56,7 +56,8 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar Matricula por CorreoElectronico: " + correoElectronico, e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
-            string matricula = string.Empty;
+
+            string matricula;
             try
             {
                 matricula = ConvertirDataTableAAlumnoConSoloMatricula(tablaDeMatricula).Matricula;
@@ -101,6 +102,41 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 throw new AccesoADatosException("Error al convertir datatable a alumno en cargar alumnos con estado: " + estadoDeAlumno.ToString(), e);
             }
             return alumnos;
+        }
+
+        public List<Alumno> CargarAlumnosPorCarrera(string carrera)
+
+        {
+            DataTable tablaDeAlumnos = new DataTable();
+            SqlParameter[] parametroCarreraAlumno = new SqlParameter[1];
+            parametroCarreraAlumno[0] = new SqlParameter
+            {
+                ParameterName = "@Carrera",
+                Value = carrera
+            };
+
+            try
+            {
+                tablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE Carrera = @Carrera", parametroCarreraAlumno);
+            }
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+            {
+                throw new AccesoADatosException("Error al cargar alumnos con Carrera: " + carrera, e, TipoDeError.ConexionABaseDeDatosFallida);
+            }
+            catch (SqlException e)
+            {
+                throw new AccesoADatosException("Error al cargar alumnos con estado: " + carrera, e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+            }
+            List<Alumno> listaDeAlumnos = new List<Alumno>();
+            try
+            {
+                listaDeAlumnos = ConvertirDataTableAListaDeAlumnos(tablaDeAlumnos);
+            }
+            catch (FormatException e)
+            {
+                throw new AccesoADatosException("Error al convertir datatable a alumno en cargar alumnos con estado: " + carrera, e);
+            }
+            return listaDeAlumnos;
         }
 
         public Alumno CargarAlumnoPorMatricula(string matricula)

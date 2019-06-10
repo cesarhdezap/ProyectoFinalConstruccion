@@ -1,9 +1,9 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System.Collections.Generic;
 
-namespace LogicaDeNegocios.ObjetosAdministrativos
+namespace LogicaDeNegocios.ObjetosAdministrador
 {
-	class AdministradorDeAlumnos
+	public class AdministradorDeAlumnos
 	{
 		public List<Alumno> Alumnos { get; set; }
 
@@ -24,6 +24,26 @@ namespace LogicaDeNegocios.ObjetosAdministrativos
 		{
 			AlumnoDAO alumnoDAO = new AlumnoDAO();
 			this.Alumnos = alumnoDAO.CargarAlumnosPorEstado(estadoAlumno);
+		}
+        public void CargarAlumnosPorCarrera(string carrera)
+        {
+            AlumnoDAO alumnoDAO = new AlumnoDAO();
+            this.Alumnos = alumnoDAO.CargarAlumnosPorCarrera(carrera);
+        }
+		public void CargarAlumnosPorCarreraYEstado(string carrera, EstadoAlumno estadoAlumno)
+		{
+			AlumnoDAO alumnoDAO = new AlumnoDAO();
+			this.Alumnos = alumnoDAO.CargarAlumnosPorCarrera(carrera);
+			List<Alumno> alumnosFiltrados = new List<Alumno>();
+			foreach (Alumno alumno in this.Alumnos)
+			{
+				if (alumno.EstadoAlumno == estadoAlumno)
+				{
+					alumnosFiltrados.Add(alumno);
+				}
+			}
+			this.Alumnos = null;
+			this.Alumnos = alumnosFiltrados;
 		}
 	}
 }

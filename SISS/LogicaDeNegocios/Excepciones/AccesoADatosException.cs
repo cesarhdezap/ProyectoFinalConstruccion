@@ -42,6 +42,8 @@ namespace LogicaDeNegocios.Excepciones
     {
         ErrorDesconocidoDeAccesoABaseDeDatos,
         ConexionABaseDeDatosFallida,
-        InsercionFallidaPorLlavePrimariDuplicada
+        ObjetoNoExiste,
+        InsercionFallidaPorLlavePrimariDuplicada,
+        ObjetoNoGuardado
     }
 }

@@ -65,15 +65,18 @@
     <Compile Include="Alumno\GUIVerProyectoActual.xaml.cs">
       <DependentUpon>GUIVerProyectoActual.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica.cs" />
+    <Compile Include="ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual.cs" />
     <Compile Include="ConvertidorIDProyectoADetallesDeProyecto.cs" />
+    <Compile Include="ConvertidorMatriculaDeAlumnoADetallesDeAlumno.cs" />
     <Compile Include="Coordinador\GUIActualizarExpediente.xaml.cs">
       <DependentUpon>GUIActualizarExpediente.xaml</DependentUpon>
     </Compile>
     <Compile Include="TecnicoAcademico\GUIBuscarAlumnoPorTecnicoAcademico.xaml.cs">
       <DependentUpon>GUIBuscarAlumnoPorTecnicoAcademico.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TecnicoAcademico\GUICapturarDocumento.xaml.cs">
-      <DependentUpon>GUICapturarDocumento.xaml</DependentUpon>
+    <Compile Include="TecnicoAcademico\GUIVerExpedienteDeAlumno.xaml.cs">
+      <DependentUpon>GUIVerExpedienteDeAlumno.xaml</DependentUpon>
     </Compile>
     <Compile Include="TecnicoAcademico\GUICapturarOtroDocumento.xaml.cs">
       <DependentUpon>GUICapturarOtroDocumento.xaml</DependentUpon>
@@ -223,7 +226,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TecnicoAcademico\GUICapturarDocumento.xaml">
+    <Page Include="TecnicoAcademico\GUIVerExpedienteDeAlumno.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

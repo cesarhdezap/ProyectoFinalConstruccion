@@ -1,7 +1,7 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System.Collections.Generic;
 
-namespace LogicaDeNegocios.ObjetosAdministrativos
+namespace LogicaDeNegocios.ObjetosAdministrador
 {
 	class AdministradorDeDocentesAcademicos
 	{

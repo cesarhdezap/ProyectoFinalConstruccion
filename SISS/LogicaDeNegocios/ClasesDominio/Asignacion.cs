@@ -30,27 +30,51 @@ namespace LogicaDeNegocios
             return asignacion;
         }
 
+        public void CargarDocumentos()
+        {
+            ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
+            DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
+            for (int i = 0; i<this.DocumentosDeEntregaUnica.Count; i++)
+            {
+                this.DocumentosDeEntregaUnica[i] = documentoDeEntregaUnicaDAO.CargarDocumentoDeEntregaUnicaPorID(this.DocumentosDeEntregaUnica[i].IDDocumento);
+            }
+            for (int i = 0; i < this.ReportesMensuales.Count; i++)
+            {
+                this.ReportesMensuales[i] = reporteMensualDAO.CargarReporteMensualPorID(this.ReportesMensuales[i].IDDocumento);
+            }
+        }
+
+        public int ObtenerHorasCubiertas()
+        {
+            ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
+            for (int i = 0; i < ReportesMensuales.Count; i++)
+            {
+                ReportesMensuales[i] = reporteMensualDAO.CargarReporteMensualPorID(ReportesMensuales[i].IDDocumento);
+            }
+
+            this.ActualizarHorasCubiertas();
+            return this.HorasCubiertas;
+        }
+
         public void RegistrarReporteMensual(ReporteMensual reporteMensual, DocenteAcademico docenteAcademico)
         {
             reporteMensual.DocenteAcademico = docenteAcademico;
-            this.ReportesMensuales.Add(reporteMensual);
             ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
             reporteMensualDAO.GuardarReporteMensual(reporteMensual, this.IDAsignacion);
-            //TODO
-            throw new NotImplementedException();
+            reporteMensual.IDDocumento = reporteMensualDAO.ObtenerUltimoIDInsertado();
+            this.ReportesMensuales.Add(reporteMensual);
         }
 
         public void RegistrarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica, DocenteAcademico docenteAcademico)
         {
             documentoDeEntregaUnica.DocenteAcademico = docenteAcademico;
-            this.DocumentosDeEntregaUnica.Add(documentoDeEntregaUnica);
             DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
             documentoDeEntregaUnicaDAO.GuardarDocumentoDeEntregaUnica(documentoDeEntregaUnica, this.IDAsignacion);
-            //TODO
-            throw new NotImplementedException();
+            documentoDeEntregaUnica.IDDocumento = documentoDeEntregaUnicaDAO.ObtenerUltimoIDInsertado();
+            this.DocumentosDeEntregaUnica.Add(documentoDeEntregaUnica);
         }
 
-        private void ActualizarHorasCubiertas()
+        public void ActualizarHorasCubiertas()
         {
             int horasCubiertas = 0;
 
@@ -78,8 +102,6 @@ namespace LogicaDeNegocios
                 fueLiberado = true;
             }
             return fueLiberado;
-            //TODO
-            throw new NotImplementedException();
         }
 
         public bool EsLiberable()

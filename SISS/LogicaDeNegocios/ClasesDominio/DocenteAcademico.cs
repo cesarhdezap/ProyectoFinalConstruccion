@@ -12,7 +12,6 @@ namespace LogicaDeNegocios
 		public DocenteAcademico Coordinador { get; set; }
 		public Rol Rol { get; set; }
 
-
         public override string ToString()
         {
             string docenteAcademico = System.Environment.NewLine +
@@ -39,7 +38,7 @@ namespace LogicaDeNegocios
 	
 	public enum Rol
 	{
-        Coordinador = 1,
-        TecnicoAcademico = 2
+        Coordinador,
+        TecnicoAcademico
 	}
 }
