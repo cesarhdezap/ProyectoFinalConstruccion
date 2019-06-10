@@ -11,7 +11,7 @@ namespace LogicaDeNegocios.ObjetosAdministrador
         public void CargarEncargadosTodos()
         {
             EncargadoDAO encargadoDAO = new EncargadoDAO();
-            Encargados = encargadoDAO.CargarEncargadosTodos();
+            Encargados = encargadoDAO.CargarEncargadosConIDNombreYOrganizacion();
         }
 
         public bool ValidarExistencia(Encargado encargado)

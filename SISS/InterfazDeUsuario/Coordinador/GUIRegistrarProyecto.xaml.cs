@@ -25,6 +25,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
             AdministradorDeEncargados = new AdministradorDeEncargados();
             AdministradorDeEncargados.CargarEncargadosTodos();
+
         }
 
         private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
