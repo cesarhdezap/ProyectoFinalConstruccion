@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using LogicaDeNegocios;
 using LogicaDeNegocios.ObjetosAdministrador;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,27 +10,40 @@ namespace Pruebas.PruebasObjetosAdministrativos
     public class PruebasAdministradorDeEncargados
     {
         [TestMethod]
-        public void ProbarCrearEncargado_Correcto_RegresaBool()
+        public void ProbarSeleccionarEncargadosPorIDOrganizacion_Correcto_RegresaListaDeEncargados()
         {
-            Encargado encargado = new Encargado();
-            encargado.Nombre = "EncargadoDePrueba";
-            encargado.Organizacion = new Organizacion()
+            AdministradorDeEncargados administradorDeEncargados = new AdministradorDeEncargados();
+            administradorDeEncargados.Encargados = new List<Encargado>();
+            administradorDeEncargados.Encargados.Add(new Encargado()
             {
-                IDOrganizacion = 4
-            };
-            encargado.Puesto = "PuestoDePrueba";
-            encargado.Telefono = "12345678";
-            encargado.CorreoElectronico = "encargado@prueba.com";
+                Nombre = "Rosa",
+                IDEncargado = 23,
+                Organizacion = new Organizacion
+                {
+                    IDOrganizacion = 9
+                }
+            });
+            administradorDeEncargados.Encargados.Add(new Encargado()
+            {
+                Nombre = "Roberto",
+                IDEncargado = 24,
+                Organizacion = new Organizacion
+                {
+                    IDOrganizacion = 9
+                }
+            });
+            administradorDeEncargados.Encargados.Add(new Encargado()
+            {
+                Nombre = "Marisol",
+                IDEncargado = 25,
+                Organizacion = new Organizacion
+                {
+                    IDOrganizacion = 10
+                }
+            });
+            int numeroDeCoincidencias = administradorDeEncargados.SeleccionarEncargadosPorIDOrganizacion(9).Count;
 
-            AdministradorDeEncargados admininistradorDeEncargados = new AdministradorDeEncargados();
-            if (admininistradorDeEncargados.CrearEncargado(encargado))
-            {
-                Assert.IsTrue(true);
-            }
-            else
-            {
-                Assert.Fail("No se guardo el encargado.");
-            }
+            Assert.AreEqual(2, numeroDeCoincidencias);
         }
     }
 }

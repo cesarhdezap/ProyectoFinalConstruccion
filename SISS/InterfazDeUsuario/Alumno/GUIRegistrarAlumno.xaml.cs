@@ -1,25 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios;
-using LogicaDeNegocios.ClasesDominio;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.Servicios;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace InterfazDeUsuario.GUIsDeAlumno
-{ 
+{
     /// <summary>
     /// Interaction logic for GUIRegistrarAlumno.xaml
     /// </summary>
@@ -32,6 +21,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
             CbxCarrera.Items.Add("RYSC");
             CbxCarrera.Items.Add("TC");
             CbxCarrera.SelectedIndex = 0;
+            CbxCarrera.SelectedItem = 0;
         }
 
         private void TxtMatricula_TextChanged(object sender, TextChangedEventArgs e)
@@ -113,14 +103,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
             {
                 TxtContraseña.BorderBrush = Brushes.Red;
             }
-            if (TxtContraseña.Text == TxtConfirmarContraseña.Text)
-            {
-                TxtConfirmarContraseña.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TxtConfirmarContraseña.BorderBrush = Brushes.Red;
-            }
+            TxtConfirmarContraseña_TextChanged(sender, e);
         }
 
         private void TxtConfirmarContraseña_TextChanged(object sender, TextChangedEventArgs e)
@@ -137,7 +120,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void BtnAceptar_Click(object sender, RoutedEventArgs e)
@@ -153,41 +136,44 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                 EstadoAlumno = EstadoAlumno.EsperandoAceptacion,
                 Contraseña = ServiciosDeAutenticacion.EncriptarContraseña(TxtContraseña.Text)
             };
-            if (ValidarAlumno(alumno) && TxtCorreoElectronico.Text == TxtConfirmarCorreoElectronico.Text && TxtContraseña.Text == TxtConfirmarContraseña.Text && CbxCarrera.SelectedValue != null)
-            {   
+
+            if (TxtCorreoElectronico.Text == TxtConfirmarCorreoElectronico.Text && TxtContraseña.Text == TxtConfirmarContraseña.Text)
+            {
+                bool resultadoDeCreacion = false;
                 try
                 {
-					alumno.Guardar();
+                    resultadoDeCreacion = alumno.GuardarAlumno();
                 } 
                 catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.InsercionFallidaPorLlavePrimariDuplicada)
                 {
                     Mouse.OverrideCursor = null;
                     MessageBox.Show("Hubo un error al completar el registro. La matricula ingresada ya existe.", "Matricula duplicada", MessageBoxButton.OK, MessageBoxImage.Error);
-                    this.Close();
+                    Close();
                 }
                 catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
                 {
                     Mouse.OverrideCursor = null;
                     MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-                    this.Close();
+                    Close();
                 }
                 catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ObjetoNoExiste)
                 {
                     Mouse.OverrideCursor = null;
                     MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
-                    this.Close();
+                    Close();
                 }
                 catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos)
                 {
                     Mouse.OverrideCursor = null;
                     MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                    this.Close();
+                    Close();
                 }
-                Mouse.OverrideCursor = Cursors.Wait;
-                MessageBoxResult messageBoxCerrada = MessageBox.Show("Ha sido registrado exitosamente.", "¡Registro Exitoso!", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
-                if (messageBoxCerrada == MessageBoxResult.OK)
+
+                if (resultadoDeCreacion)
                 {
-                    this.Close();
+                    MessageBox.Show("Ha sido registrado exitosamente.", "¡Registro Exitoso!");
+                    Mouse.OverrideCursor = null;
+                    Close();
                 }
             }
             else

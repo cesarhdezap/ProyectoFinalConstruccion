@@ -11,18 +11,18 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 {
     public partial class GUIRegistrarEncargado : Window
     {
-        private List<Organizacion> Organizaciones;
+        private AdministradorDeOrganizaciones administradorDeOrganizaciones;
 
         public GUIRegistrarEncargado(DocenteAcademico coordinador)
         {
             InitializeComponent();
             LabelNombreDeUsuario.Content = coordinador.Nombre;
+            administradorDeOrganizaciones = new AdministradorDeOrganizaciones();
+            administradorDeOrganizaciones.CargarOrganizacionesConNombre();
 
-            OrganizacionDAO organizacionDAO = new OrganizacionDAO();
-            Organizaciones = organizacionDAO.CargarIDYNombreDeOrganizaciones();
 
             ComboBoxOrganizacion.DisplayMemberPath = "Nombre";
-            ComboBoxOrganizacion.ItemsSource = Organizaciones;
+            ComboBoxOrganizacion.ItemsSource = administradorDeOrganizaciones.Organizaciones;
 
         }
 
@@ -39,15 +39,14 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			int indiceDeOrganizacion = ComboBoxOrganizacion.SelectedIndex;
             if (indiceDeOrganizacion >= 0)
             {
-                encargado.Organizacion = Organizaciones[indiceDeOrganizacion];
+                encargado.Organizacion = administradorDeOrganizaciones.Organizaciones[indiceDeOrganizacion];
                 if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text)
                 {
                     AdministradorDeEncargados administradorDeEncargados = new AdministradorDeEncargados();
                     bool resultadoDeCreacion = false;
                     try
                     {
-                        resultadoDeCreacion = administradorDeEncargados.CrearEncargado(encargado);
-                        
+                        resultadoDeCreacion = encargado.Guardar();
                     }
                     catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
                     {
@@ -58,7 +57,10 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
                         MessageBox.Show("No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     if (resultadoDeCreacion)
+                    {
                         MessageBox.Show("Encargado registrado correctamente.");
+                        Close();
+                    }
                 }
             }
             else
@@ -81,7 +83,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
         private void TextBoxPuesto_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            if (ValidarPuestoEncargado(TextBoxPuesto.Text))
+            if (ValidarCadena(TextBoxPuesto.Text))
             {
                 TextBoxPuesto.BorderBrush = Brushes.Green;
             }
