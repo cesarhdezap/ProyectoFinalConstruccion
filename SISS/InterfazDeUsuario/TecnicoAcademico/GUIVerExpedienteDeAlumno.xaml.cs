@@ -42,8 +42,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
             {
                 asignacion = asignacionDAO.CargarIDsPorMatriculaDeAlumno(Alumno.Matricula).ElementAt(0);
                 asignacion = asignacionDAO.CargarAsignacionPorID(asignacion.IDAsignacion);
-                AdministradorDeDocumentosDeEntregaUnica.CargarDocumentosDeEntregaUnicaPorMatricula(Alumno.Matricula);
-                AdministradorDeReportesMensuales.CargarReportesMensualesPorMatricula(Alumno.Matricula);
+				asignacion.CargarDocumentos();
             }
             catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
             {
@@ -63,10 +62,11 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
                 MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
             }
+
             LblHorasCubiertas.Content = asignacion.ObtenerHorasCubiertas();
             LblNombreDeUsuario.Content = DocenteAcademico.Nombre;
-            GrdDocumentosDeEntregaUnica.ItemsSource = AdministradorDeDocumentosDeEntregaUnica.DocumentosDeEntregaUnica;
-            GrdReportesMensuales.ItemsSource = AdministradorDeReportesMensuales.ReportesMensuales;
+            ItemsControlReportesMensuales.ItemsSource = asignacion.ReportesMensuales;
+            //GrdReportesMensuales.ItemsSource = AdministradorDeReportesMensuales.ReportesMensuales;
         }
 
         private void BtnCapturarOtroDocumento_Click(object sender, RoutedEventArgs e)
@@ -76,7 +76,8 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 
         private void BtnCapturarReporteMensual_Click(object sender, RoutedEventArgs e)
         {
-
+			GUIEntregarReporteMensual entregarReporteMensual = new GUIEntregarReporteMensual(DocenteAcademico, Alumno);
+			entregarReporteMensual.ShowDialog();
         }
 
         private void BtnRegresar_Click(object sender, RoutedEventArgs e)

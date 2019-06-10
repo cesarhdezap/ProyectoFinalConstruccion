@@ -86,7 +86,8 @@ namespace AccesoABaseDeDatos
                 return numeroDeFilasAfectadas;
             }
 		}
-        public static int ObtenerUltimoIDInsertado(string consulta, SqlParameter[] parametros = null)
+
+        public static int EjecutarOperacionEscalar(string consulta, SqlParameter[] parametros = null)
         {
             using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
             {
@@ -95,17 +96,17 @@ namespace AccesoABaseDeDatos
                 {
                     comando.Parameters.AddRange(parametros);
                 }
-                int ultimoIDInsertado = 0;
+                int resultadoEscalar = 0;
                 try
                 {
                     conexion.Open();
-                    ultimoIDInsertado = Convert.ToInt32(comando.ExecuteScalar());
+                    resultadoEscalar = Convert.ToInt32(comando.ExecuteScalar());
                 }
                 finally
                 {
                     CerrarConexion(conexion);
                 }
-                return ultimoIDInsertado;
+                return resultadoEscalar;
             }
         }
     }

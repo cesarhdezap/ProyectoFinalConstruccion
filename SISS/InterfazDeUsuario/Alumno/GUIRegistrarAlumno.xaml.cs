@@ -155,10 +155,9 @@ namespace InterfazDeUsuario.GUIsDeAlumno
             };
             if (ValidarAlumno(alumno) && TxtCorreoElectronico.Text == TxtConfirmarCorreoElectronico.Text && TxtContraseña.Text == TxtConfirmarContraseña.Text && CbxCarrera.SelectedValue != null)
             {   
-                AlumnoDAO alumnoDAO = new AlumnoDAO();
                 try
                 {
-                    alumnoDAO.GuardarAlumno(alumno);
+					alumno.Guardar();
                 } 
                 catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.InsercionFallidaPorLlavePrimariDuplicada)
                 {

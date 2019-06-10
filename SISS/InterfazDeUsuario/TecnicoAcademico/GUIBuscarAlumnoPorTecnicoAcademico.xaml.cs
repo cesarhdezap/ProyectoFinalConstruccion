@@ -56,7 +56,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
         {
 			Alumno alumnoSeleccionado = ((FrameworkElement)sender).DataContext as Alumno;
             GUIVerExpedienteDeAlumno verExpedienteDeAlumno = new GUIVerExpedienteDeAlumno(TecnicoAdministrativo, alumnoSeleccionado);
-            ShowDialog();
+            verExpedienteDeAlumno.ShowDialog();
         }
 
         private void Expander_Expanded(object sender, RoutedEventArgs e)
@@ -98,7 +98,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 
 		private void TxtBuscarAlumnos_por_nombre_TextChanged(object sender, TextChangedEventArgs e)
 		{
-
+	
 		}
 	}
 }

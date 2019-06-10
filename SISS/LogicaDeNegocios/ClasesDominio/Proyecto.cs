@@ -18,7 +18,8 @@ namespace LogicaDeNegocios
 
 		public int ObtenerDisponibilidad()
 		{
-            return Cupo;
+			ProyectoDAO proyectoDAO = new ProyectoDAO();
+			return Cupo - proyectoDAO.ContarOcupanciaDeProyecto(this.IDProyecto);
 		}
 
         public void AsignarAlumno(Alumno alumno, Solicitud solicitud = null)

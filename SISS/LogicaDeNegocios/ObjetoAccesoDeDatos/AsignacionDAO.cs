@@ -87,7 +87,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             };
             try
             {
-                tablaDeAsignaciones = AccesoADatos.EjecutarSelect("SELECT IDAsignacion FROM Asignaciones WHERE MatriculaAlumno = @Matricula", parametroMatricula);
+                tablaDeAsignaciones = AccesoADatos.EjecutarSelect("SELECT IDAsignacion FROM Asignaciones WHERE Matricula = @Matricula", parametroMatricula);
             }
             catch (SqlException e)
             {
@@ -107,27 +107,39 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 
-        private Asignacion ConvertirDataTableAAsignacion(DataTable tablaDeAsignaciones)
-        {
-            AlumnoDAO alumnoDAO = new AlumnoDAO();
-            ProyectoDAO proyectoDAO = new ProyectoDAO();
-            ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
-            DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
-            Asignacion asignacion = new Asignacion();
-            foreach (DataRow fila in tablaDeAsignaciones.Rows) {
-                asignacion.IDAsignacion = (int)fila["IDAsignacion"];
-                asignacion.EstadoAsignacion = (EstadoAsignacion)fila["estadoAsignacion"];
-                asignacion.FechaDeInicio = DateTime.Parse(fila["fechaDeInicio"].ToString());
-                asignacion.FechaDeFinal = DateTime.Parse(fila["fechaDeFinal"].ToString());
-                asignacion.Alumno = alumnoDAO.CargarMatriculaPorIDAsignacion((int)fila["IDAsignacion"]);
-                asignacion.Proyecto = proyectoDAO.CargarIDProyectoPorIDAsignacion((int)fila["IDAsignacion"]);
-                asignacion.DocumentosDeEntregaUnica = documentoDeEntregaUnicaDAO.CargarIDsPorIDAsignacion((int)fila["IDAsignacion"]);
-                asignacion.ReportesMensuales = reporteMensualDAO.CargarIDsPorIDAsignacion((int)fila["IDAsignacion"]);
-                asignacion.Liberacion = new Liberacion { IDLiberacion = (int)fila["IDLiberacion"] };
-                asignacion.Solicitud = new Solicitud { IDSolicitud =(int)fila["IDLiberacion"]};
-            }
+		private Asignacion ConvertirDataTableAAsignacion(DataTable tablaDeAsignaciones)
+		{
+			AlumnoDAO alumnoDAO = new AlumnoDAO();
+			ProyectoDAO proyectoDAO = new ProyectoDAO();
+			ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
+			DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
+			Asignacion asignacion = new Asignacion();
+			foreach (DataRow fila in tablaDeAsignaciones.Rows) {
+				asignacion.IDAsignacion = (int)fila["IDAsignacion"];
+				asignacion.EstadoAsignacion = (EstadoAsignacion)fila["Estado"];
+				asignacion.FechaDeInicio = DateTime.Parse(fila["FechaDeInicio"].ToString());
+				asignacion.Alumno = alumnoDAO.CargarMatriculaPorIDAsignacion((int)fila["IDAsignacion"]);
+				asignacion.Proyecto = proyectoDAO.CargarIDProyectoPorIDAsignacion((int)fila["IDAsignacion"]);
+				asignacion.DocumentosDeEntregaUnica = documentoDeEntregaUnicaDAO.CargarIDsPorIDAsignacion((int)fila["IDAsignacion"]);
+				asignacion.ReportesMensuales = reporteMensualDAO.CargarIDsPorIDAsignacion((int)fila["IDAsignacion"]);
 
-            return asignacion;
+
+
+				if (fila["FechaDeFinal"].ToString() != string.Empty)
+				{
+					asignacion.FechaDeFinal = DateTime.Parse(fila["FechaDeFinal"].ToString());
+				}
+				if (fila["IDLiberacion"].ToString() != string.Empty)
+				{
+					asignacion.Liberacion = new Liberacion { IDLiberacion = (int)fila["IDLiberacion"] };
+				}
+
+				if ((int)fila["IDSolicitud"] > 0)
+				{
+					asignacion.Solicitud = new Solicitud { IDSolicitud = (int)fila["IDSolicitud"] };
+				}
+			}
+			return asignacion;
         }
 
         private List<Asignacion> ConvertirDataTableAListaDeAsignacionesConSoloID(DataTable dataTableAsignaciones)
@@ -183,7 +195,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Asignaciones(EstadoAsignacion, FechaDeInicion, HorasCubiertas, MatriculaDeAlumno, IDProyecto, IDSolicitud) VALUES(@EstadoAsignacion, @FechaDeInicio, @HorasCubiertas, @MatriculaDeAlumnoAsignacion, @IDProyectoAsignacion, @IDSolicitudAsignacion)", parametrosDeAsignacion);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Asignaciones(Estado, FechaDeInicio, Matricula, IDProyecto, IDSolicitud) VALUES(@EstadoAsignacion, @FechaDeInicioAsignacion, @MatriculaDeAlumnoAsignacion, @IDProyectoAsignacion, @IDSolicitudAsignacion)", parametrosDeAsignacion);
             }
             catch (SqlException e)
             {
@@ -197,7 +209,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         
         private SqlParameter[] InicializarParametrosDeSql(Asignacion asignacion)
         {
-            SqlParameter[] parametrosDeAsignacion = new SqlParameter[9];
+            SqlParameter[] parametrosDeAsignacion = new SqlParameter[8];
 
             for (int i = 0; i < parametrosDeAsignacion.Length; i++)
             {
@@ -220,8 +232,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeAsignacion[6].Value = asignacion.Solicitud.IDSolicitud; 
             parametrosDeAsignacion[7].ParameterName = "@IDLiberacionAsignacion";
             parametrosDeAsignacion[7].Value = asignacion.Liberacion.IDLiberacion;
-            parametrosDeAsignacion[8].ParameterName = "@HorasCubiertas";
-            parametrosDeAsignacion[8].Value = asignacion.HorasCubiertas;
 
             return parametrosDeAsignacion;
         }

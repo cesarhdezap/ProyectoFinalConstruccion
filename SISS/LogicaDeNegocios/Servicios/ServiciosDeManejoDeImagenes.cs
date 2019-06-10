@@ -24,7 +24,7 @@ namespace LogicaDeNegocios.Servicios
             }
         }
 
-        public static Byte[] ConvertirImagenAArregloDeBytes(BitmapImage imagen)
+        public static byte[] ConvertirImagenAArregloDeBytes(BitmapImage imagen)
         {
             byte[] datosDeimagen;
             JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
@@ -42,7 +42,9 @@ namespace LogicaDeNegocios.Servicios
             BitmapImage imagen = new BitmapImage();
             try
             {
+				imagen.BeginInit();
                 imagen.UriSource = new Uri(direccion);
+				imagen.EndInit();
             }
             catch (UriFormatException e)
             {

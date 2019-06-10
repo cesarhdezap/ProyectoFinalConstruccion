@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using LogicaDeNegocios.ObjetoAccesoDeDatos;
 namespace LogicaDeNegocios
 {
 	public class Solicitud
@@ -8,7 +8,17 @@ namespace LogicaDeNegocios
         public int IDSolicitud { get; set; }
 		public DateTime Fecha { get; set; }
 		public List<Proyecto> Proyectos { get; set; }
+		public Alumno Alumno { get; set; }
         public DocumentoDeEntregaUnica CartaDeSolicitud { get; set; }
+		public Solicitud()
+		{
+
+		}
+
+		public Solicitud(Alumno alumno)
+		{
+			this.Alumno = alumno;
+		}
 
         public override string ToString()
         {
@@ -17,5 +27,11 @@ namespace LogicaDeNegocios
 
             return solicitud;
         }
+
+		public void Guardar()
+		{
+			SolicitudDAO solicitudDAO = new SolicitudDAO();
+			solicitudDAO.GuardarSolicitud(this);
+		}
     }
 }
