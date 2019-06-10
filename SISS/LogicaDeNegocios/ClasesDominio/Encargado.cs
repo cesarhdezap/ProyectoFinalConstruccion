@@ -1,6 +1,8 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using LogicaDeNegocios.ObjetosAdministrador;
 using System;
 using System.Collections.Generic;
+using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace LogicaDeNegocios
 {
@@ -18,5 +20,32 @@ namespace LogicaDeNegocios
             ProyectoDAO proyectoDAO = new ProyectoDAO();
             proyectoDAO.GuardarProyecto(proyecto);
         }
-	}
+
+        public bool Guardar()
+        {
+            bool resultadoDeCreacion = false;
+            AdministradorDeEncargados administradorDeEncargados = new AdministradorDeEncargados();
+            if (ValidarEncargado() && administradorDeEncargados.ValidarExistencia(this))
+            {
+                EncargadoDAO encargadoDAO = new EncargadoDAO();
+                encargadoDAO.GuardarEncargado(this);
+                resultadoDeCreacion = true;
+            }
+            return resultadoDeCreacion;
+        }
+
+        private bool ValidarEncargado()
+        {
+            bool resultadoDeValidacion = false;
+            if (ValidarNombre(Nombre)
+                && ValidarCorreoElectronico(CorreoElectronico)
+                && ValidarTelefono(Telefono)
+                && ValidarCadena(Puesto))
+            {
+                resultadoDeValidacion = true;
+            }
+
+            return resultadoDeValidacion;
+        }
+    }
 }

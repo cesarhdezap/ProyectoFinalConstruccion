@@ -6,39 +6,31 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 {
     public class AdministradorDeEncargados
     {
-        private List<Encargado> Encargados;
+        public List<Encargado> Encargados;
 
         public void CargarEncargadosTodos()
         {
             EncargadoDAO encargadoDAO = new EncargadoDAO();
-            Encargados = encargadoDAO.CargarEncargadosTodos();
+            Encargados = encargadoDAO.CargarEncargadosConIDNombreYOrganizacion();
         }
 
-        public bool CrearEncargado(Encargado encargado)
+        public bool ValidarExistencia(Encargado encargado)
         {
             bool resultadoDeCreacion = false;
             CargarEncargadosTodos();
-            resultadoDeCreacion = !Encargados.Exists(e => e.CorreoElectronico == encargado.CorreoElectronico) && ValidarEncargado(encargado);
-            if (resultadoDeCreacion)
-            {
-                EncargadoDAO encargadoDAO = new EncargadoDAO();
-                encargadoDAO.GuardarEncargado(encargado);
-            }
+            resultadoDeCreacion = !Encargados.Exists(e => e.CorreoElectronico == encargado.CorreoElectronico);
             return resultadoDeCreacion;
 		}
 
-        private bool ValidarEncargado(Encargado encargado)
-        {
-            bool resultadoDeValidacion = false;
-            if (ValidarNombre(encargado.Nombre)
-                && ValidarCorreoElectronico(encargado.CorreoElectronico)
-                && ValidarTelefono(encargado.Telefono)
-                && ValidarPuestoEncargado(encargado.Puesto))
-            {
-                resultadoDeValidacion = true;
-            }
 
-            return resultadoDeValidacion;
+        public List<Encargado> SeleccionarEncargadosPorIDOrganizacion(int IDOrganizacion)
+        {
+            List<Encargado> encargados = new List<Encargado>();
+            if (Encargados.Count > 0)
+            {
+                encargados = Encargados.FindAll(e => e.Organizacion.IDOrganizacion == IDOrganizacion);
+            }
+            return encargados;
         }
     }
 }

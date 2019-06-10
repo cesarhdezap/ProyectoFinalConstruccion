@@ -8,8 +8,9 @@ namespace LogicaDeNegocios.Servicios
 		private static readonly Regex regexTelefono = new Regex(@"^(1\s*[-\/\.]?)?(\((\d{3})\)|(\d{3}))\s*[-\/\.]?\s*(\d{3})\s*[-\/\.]?\s*(\d{4})\s*(([xX]|[eE][xX][tT])\.?\s*(\d+))*$");
 		private static readonly Regex regexCorreoElectronico = new Regex(@"^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$");
 		private static readonly Regex regexNombre = new Regex(@"^[a-zA-Z àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð,.'-]+$");
-		private static readonly Regex regexMatricula = new Regex(@"^z[0-9]{8}$");
+		private static readonly Regex regexMatricula = new Regex(@"^s[0-9]{8}$");
         private static readonly Regex regexContraseña = new Regex(@"^\S{6,255}$");
+        private const int TAMAÑO_MAXIMO_VARCHAR = 255;
         
 
 		public static bool ValidarCorreoElectronico(string correoElectronico)
@@ -98,19 +99,14 @@ namespace LogicaDeNegocios.Servicios
             return resultadoDeValidacion;
         }
 
-        public static bool ValidarDireccion(string direccion)
+        public static bool ValidarCadena(string cadena)
         {
-            throw new NotImplementedException();
-        }
-        
-        public static bool ValidarNombreDeOrganizacion(string nombre)
-        {
-            throw new NotImplementedException();
-        }
-
-        public static bool ValidarPuestoEncargado(string puesto)
-        {
-            throw new NotImplementedException();
+            bool resultadoDeValidacion = false;
+            if (!string.IsNullOrEmpty(cadena) && cadena.Length < TAMAÑO_MAXIMO_VARCHAR)
+            {
+                resultadoDeValidacion = true;
+            }
+            return resultadoDeValidacion;
         }
 	}
 }

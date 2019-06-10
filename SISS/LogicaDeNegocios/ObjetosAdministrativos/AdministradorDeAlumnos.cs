@@ -7,11 +7,12 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 	{
 		public List<Alumno> Alumnos { get; set; }
 
-		public void CrearAlumno(Alumno alumno)
+		public bool ValidarExistencia(Alumno alumno)
 		{
-			AlumnoDAO alumnoDAO = new AlumnoDAO();
-			alumnoDAO.GuardarAlumno(alumno);
-			this.Alumnos.Add(alumno);
+            CargarAlumnosTodos();
+            bool resultadoDeCreacion = false;
+            resultadoDeCreacion = !Alumnos.Exists(e => e.CorreoElectronico == alumno.CorreoElectronico);
+            return resultadoDeCreacion;
 		}
 
 		public void CargarAlumnosTodos()
