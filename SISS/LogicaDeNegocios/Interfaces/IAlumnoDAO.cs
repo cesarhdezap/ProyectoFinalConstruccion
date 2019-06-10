@@ -10,7 +10,5 @@ namespace LogicaDeNegocios.Interfaces
         Alumno CargarAlumnoPorMatricula(string matricula);
         List<Alumno> CargarAlumnosTodos();
         void GuardarAlumno(Alumno alumno);
-        int ObtenerUltimoIDInsertado();
-
     }
 }

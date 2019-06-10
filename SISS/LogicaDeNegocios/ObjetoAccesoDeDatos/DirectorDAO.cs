@@ -31,11 +31,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
             {
-                throw new AccesoADatosException("Error al cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeError.ConexionABaseDeDatosFallida);
+                throw new AccesoADatosException("Error al cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+                throw new AccesoADatosException("Error al cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
 
             string IDDirector = string.Empty;
@@ -46,7 +46,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             catch (FormatException e)
             {
                 IDDirector = string.Empty;
-                throw new AccesoADatosException("Error al convertir datatable a Director en cargar ID por CorreoElectronico: " + correoElectronico, e);
+                throw new AccesoADatosException("Error al convertir datatable a Director en cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
 
 
@@ -76,22 +76,26 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@IDpersonal",
                 Value = IDPersonal
             };
-            try
-            {
-                tablaDeDirector = AccesoADatos.EjecutarSelect("SELECT * FROM Directores WHERE IDPersonal = @IDPersonal", parametroIDPersonal);
-            }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar Director por IDPersonal: " + IDPersonal, e);
-            }
-            Director director = new Director();
+			try
+			{
+				tablaDeDirector = AccesoADatos.EjecutarSelect("SELECT * FROM Directores WHERE IDPersonal = @IDPersonal", parametroIDPersonal);
+			}
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al cargar Director por IDPersonal: " + IDPersonal, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar Director por IDPersonal: " + IDPersonal, e);
+			}
+			Director director = new Director();
             try
             {
                 director = ConvertirDataTableADirector(tablaDeDirector);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a Director en cargar Director por IDPersonal: " + IDPersonal, e);
+                throw new AccesoADatosException("Error al convertir datatable a Director en cargar Director por IDPersonal: " + IDPersonal, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return director;
         }

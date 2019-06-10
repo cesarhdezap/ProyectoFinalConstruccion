@@ -16,7 +16,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		{
             if (IDProyecto <= 0)
             {
-                throw new AccesoADatosException("Error al Actualizar Proyecto Por IDProyecto: " + IDProyecto + ". IDProyecto no es valido.");
+                throw new AccesoADatosException("Error al Actualizar Proyecto Por IDProyecto: " + IDProyecto + ". IDProyecto no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
             SqlParameter[] parametrosDrProyecto = InicializarParametrosDeSql(proyecto);
             int filasAfectadas = 0;
@@ -24,14 +24,18 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Proyectos SET Estado = @EstadoProyecto WHERE IDProyecto = @IDProyecto", parametrosDrProyecto);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al actualizar Proyecto: " + proyecto.ToString() + "Con IDProyecto: " + IDProyecto, e);
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+                throw new AccesoADatosException("Error al actualizar Proyecto: " + proyecto.ToString() + "Con IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+            }
+			catch (SqlException e)
+			{
+                throw new AccesoADatosException("Error al actualizar Proyecto: " + proyecto.ToString() + "Con IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
 
             if (filasAfectadas <= 0)
             {
-                throw new AccesoADatosException("El Proyecto con IDProyecto: " + IDProyecto + " no existe.");
+                throw new AccesoADatosException("El Proyecto con IDProyecto: " + IDProyecto + " no existe.", TipoDeErrorDeAccesoADatos.ObjetoNoExiste);
             }
         }
 
@@ -39,7 +43,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		{
             if (IDEncargado <= 0)
             {
-                throw new AccesoADatosException("Error al cargar IDsProyecto Por IDEncargado: " + IDEncargado + ". IDEncargado no es valido.");
+                throw new AccesoADatosException("Error al cargar IDsProyecto Por IDEncargado: " + IDEncargado + ". IDEncargado no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
             DataTable tablaDeProyectos = new DataTable();
             SqlParameter[] parametroIDEncargado = new SqlParameter[1];
@@ -52,27 +56,31 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeProyectos = AccesoADatos.EjecutarSelect("SELECT IDProyecto FROM Proyectos WHERE IDEncargado = @IDEncargado",parametroIDEncargado);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar IDsProyecto con IDEncargado: " + IDEncargado, e);
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+                throw new AccesoADatosException("Error al cargar IDsProyecto con IDEncargado: " + IDEncargado, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
-            List<Proyecto> listaDeProyectos = new List<Proyecto>();
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar IDsProyecto con IDEncargado: " + IDEncargado, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			List<Proyecto> listaDeProyectos = new List<Proyecto>();
             try
             {
                 listaDeProyectos = ConvertirDataTableAListaDeProyectosConSoloID(tablaDeProyectos);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a Proyecto en cargar IDsProyecto con IDEncargado: " + IDEncargado, e);
+                throw new AccesoADatosException("Error al convertir datatable a Proyecto en cargar IDsProyecto con IDEncargado: " + IDEncargado, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return listaDeProyectos;
         }
 
-		public int ContarOcupanciaDeProyecto(int IDProyecto)
+		public int ContarAlumnosAsignadosAProyecto(int IDProyecto)
 		{
 			if (IDProyecto <= 0)
 			{
-				throw new AccesoADatosException("Error al obtener cupo de Proyecto Por IDProyecto: " + IDProyecto + ". IDProyecto no es valido.");
+				throw new AccesoADatosException("Error al contar Alumnos asignados a Proyecto Por IDProyecto: " + IDProyecto + ". IDProyecto no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
 			}
 			SqlParameter[] parametroIDProyecto = new SqlParameter[1];
 			parametroIDProyecto[0] = new SqlParameter
@@ -87,11 +95,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
 			{
-				throw new AccesoADatosException("Error al contar ", e, TipoDeError.ConexionABaseDeDatosFallida);
+				throw new AccesoADatosException("Error al contar Alumnos asignados a Proyecto Por IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
 			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en SolicitudDAO", e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+				throw new AccesoADatosException("Error al contar Alumnos asignados a Proyecto Por IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
 			return cuenta;
 		}
@@ -100,7 +108,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		{
             if (IDProyecto <= 0)
             {
-                throw new AccesoADatosException("Error al cargar Proyecto Por IDProyecto: " + IDProyecto + ". IDProyecto no es valido.");
+                throw new AccesoADatosException("Error al cargar Proyecto Por IDProyecto: " + IDProyecto + ". IDProyecto no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
             DataTable tablaDeProyecto = new DataTable();
             SqlParameter[] parametroIDProyecto = new SqlParameter[1];
@@ -114,18 +122,22 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeProyecto = AccesoADatos.EjecutarSelect("SELECT * FROM Proyectos WHERE IDProyecto = @IDProyecto", parametroIDProyecto);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar Proyecto con IDProyecto: " + IDProyecto, e);
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+                throw new AccesoADatosException("Error al cargar Proyecto con IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
-            Proyecto proyecto = new Proyecto();
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar Proyecto con IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			Proyecto proyecto = new Proyecto();
             try
             {
                 proyecto = ConvertirDataTableAProyecto(tablaDeProyecto);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a Proyecto en cargar Proyecto con IDProyecto: " + IDProyecto, e);
+                throw new AccesoADatosException("Error al convertir datatable a Proyecto en cargar Proyecto con IDProyecto: " + IDProyecto, e,TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return proyecto;
         }
@@ -134,7 +146,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
 			if (IDSolicitud <= 0)
 			{
-				throw new AccesoADatosException("Error al cargar IDsProyecto Por IDSolicitud: " + IDSolicitud + ". IDSolicitud no es valido.");
+				throw new AccesoADatosException("Error al cargar IDsProyecto Por IDSolicitud: " + IDSolicitud + ". IDSolicitud no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
 			}
 			DataTable tablaDeProyectos = new DataTable();
 			SqlParameter[] parametroIDSolicitud = new SqlParameter[1];
@@ -143,16 +155,18 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 				ParameterName = "@IDSolicitud",
 				Value = IDSolicitud
 			};
-
 			try
 			{
 				tablaDeProyectos = AccesoADatos.EjecutarSelect("SELECT IDProyecto FROM SolicitudesProyectos WHERE IDSolicitud = @IDSolicitud", parametroIDSolicitud);
 			}
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al cargar IDsProyectos con IDSoliciutd: " + IDSolicitud, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar IDsProyectos con IDSoliciutd: " + IDSolicitud, e);
+				throw new AccesoADatosException("Error al cargar IDsProyectos con IDSoliciutd: " + IDSolicitud, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
-
 			List<Proyecto> proyectos = new List<Proyecto>();
 			try
 			{
@@ -160,7 +174,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 			catch (FormatException e)
 			{
-				throw new AccesoADatosException("Error al convertir datatable a Proyectos en cargar IDsProyectos con IDSoliciutd: " + IDSolicitud, e);
+				throw new AccesoADatosException("Error al convertir datatable a Proyectos en cargar IDsProyectos con IDSoliciutd: " + IDSolicitud, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
 			}
 			return proyectos;
 		}
@@ -174,24 +188,27 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@EstadoDeProyecto",
                 Value = (int)estadoDeProyecto
             };
-
             try
             {
                 tablaDeProyectos = AccesoADatos.EjecutarSelect("SELECT * FROM Proyectos WHERE Estado = @EstadoDeProyecto", parametroEstadoDeProyecto);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar Proyectos con estado: " + estadoDeProyecto.ToString(), e);
-            }   
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+                throw new AccesoADatosException("Error al cargar Proyectos con estado: " + estadoDeProyecto.ToString(), e,TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+            }
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar Proyectos con estado: " + estadoDeProyecto.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
 
-            List<Proyecto> proyectos = new List<Proyecto>();
+			List<Proyecto> proyectos = new List<Proyecto>();
             try
             {
                 proyectos = ConvertirDataTableAListaDeProyectos(tablaDeProyectos);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a Proyecto en cargar Proyectos con estado: " + estadoDeProyecto.ToString(), e);
+                throw new AccesoADatosException("Error al convertir datatable a Proyecto en cargar Proyectos con estado: " + estadoDeProyecto.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return proyectos;
         }
@@ -203,18 +220,22 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeProyectos = AccesoADatos.EjecutarSelect("SELECT * FROM Proyectos");
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar todos los Proyectos", e);
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+                throw new AccesoADatosException("Error al cargar todos los Proyectos", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
-            List<Proyecto> proyectos = new List<Proyecto>();
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar todos los Proyectos", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			List<Proyecto> proyectos = new List<Proyecto>();
             try
             {
                 proyectos = ConvertirDataTableAListaDeProyectos(tablaDeProyectos);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a lista de Proyectos en cargar todos los Proyectos", e);
+                throw new AccesoADatosException("Error al convertir datatable a lista de Proyectos en cargar todos los Proyectos", e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return proyectos;
         }
@@ -223,7 +244,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             if (IDAsignacion <= 0)
             {
-                throw new AccesoADatosException("Error al cargar Proyecto Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.");
+                throw new AccesoADatosException("Error al cargar Proyecto Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
             DataTable tablaDeProyecto = new DataTable();
             SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
@@ -235,19 +256,23 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             try
             {
                 tablaDeProyecto = AccesoADatos.EjecutarSelect("SELECT IDProyecto FROM Asignaciones WHERE IDAsignacion = IDAsignacion", parametroIDAsignacion);
-            } 
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar ID de Proyecto con IDAsignacion: " + IDAsignacion, e);
             }
-            Proyecto proyecto = new Proyecto();
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al cargar ID de Proyecto con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar ID de Proyecto con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			Proyecto proyecto = new Proyecto();
             try
             {
                 proyecto = ConvertirDataTableAProyectoConSoloID(tablaDeProyecto);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a Proyecto cargar Proyecto con IDAsignacion: " + IDAsignacion, e);
+                throw new AccesoADatosException("Error al convertir datatable a Proyecto cargar Proyecto con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
 
             return proyecto;
@@ -324,13 +349,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Proyectos(Nombre, Estado, DescripcionGeneral, ObjetivoGeneral, Cupo, IDEncargado) VALUES(@NombreProyecto, @EstadoProyecto, @DescripcionGeneralProyecto, @ObjetivoGeneralProyecto, @CupoProyecto, @IDEncargado)", parametrosDeProyecto);
             }
-            catch (SqlException e)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al guardar Proyecto:" + proyecto.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al guardar Proyecto:" + proyecto.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			if (filasAfectadas <= 0)
             {
-                throw new AccesoADatosException("Error al guardar Proyecto:" + proyecto.ToString(), e);
-            }
-            if (filasAfectadas <= 0)
-            {
-                throw new AccesoADatosException("Asignacion: " + proyecto.ToString() + " no fue guardado.");
+                throw new AccesoADatosException("Asignacion: " + proyecto.ToString() + " no fue guardado.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
             }
         }
 
@@ -358,11 +387,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeProyecto[6].Value = proyecto.Encargado.IDEncargado;
 
             return parametrosDeProyecto;
-        }
-
-        public int ObtenerUltimoIDInsertado()
-        {
-            throw new NotImplementedException();
         }
     }
 }

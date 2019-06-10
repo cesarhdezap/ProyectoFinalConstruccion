@@ -13,14 +13,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 	{
         public void ActualizarSolicitudPorID(int IDSolicitud, Solicitud solicitud)
         {
-
+			throw new NotImplementedException();
         }
 
 		public Solicitud CargarSolicitudPorID(int IDSolicitud)
 		{
             if (IDSolicitud <= 0)
             {
-                throw new AccesoADatosException("Error al Cargar Solicitud Por IDSolicitud: " + IDSolicitud + ". IDSolicitud no es valido.");
+                throw new AccesoADatosException("Error al Cargar Solicitud Por IDSolicitud: " + IDSolicitud + ". IDSolicitud no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
             DataTable tablaDeMatricula = new DataTable();
             SqlParameter[] parametroIDSolicitud = new SqlParameter[1];
@@ -34,22 +34,25 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeMatricula = AccesoADatos.EjecutarSelect("SELECT * FROM Solicitudes WHERE IDSolicitud = @IDSolicitud", parametroIDSolicitud);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar Solicitud con IDSolicitud: " + IDSolicitud, e);
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+                throw new AccesoADatosException("Error al cargar Solicitud con IDSolicitud: " + IDSolicitud, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
-            Solicitud solicitud = new Solicitud();
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar Solicitud con IDSolicitud: " + IDSolicitud, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			Solicitud solicitud = new Solicitud();
             try
             {
                 solicitud = ConvertirDataTableASolicutud(tablaDeMatricula);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a Solicitud en cargar Solicitud con IDSolicitud: " + IDSolicitud, e);
+                throw new AccesoADatosException("Error al convertir datatable a Solicitud en cargar Solicitud con IDSolicitud: " + IDSolicitud, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
 
             }
             return solicitud;
-
         }
 
         
@@ -85,13 +88,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Solicitudes(Fecha, Matricula) VALUES(@Fecha, @Matricula)", parametrosDeSolicitud);
             }
-            catch (SqlException e)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al guardar solicitud: " + solicitud.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al guardar solicitud: " + solicitud.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			if (filasAfectadas <= 0)
             {
-                throw new AccesoADatosException("Error al guardar solicitud: " + solicitud.ToString(), e);
-            }
-            if (filasAfectadas <= 0)
-            {
-                throw new AccesoADatosException("Solicitud: " + solicitud.ToString() + " no fue guardada.");
+                throw new AccesoADatosException("Solicitud: " + solicitud.ToString() + " no fue guardada.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
             }
             foreach (Proyecto proyecto in solicitud.Proyectos)
             {
@@ -102,13 +109,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 {
                    filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO SolicitudesProyectos(IDSolicitud, IDProyecto) VALUES(@IDSolicitud, @IDProyecto)", parametrosDeSolicitud);
                 }
-                catch (SqlException e)
+				catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+				{
+					throw new AccesoADatosException("Error al guardar relacion Proyectos-Solicitud: " + solicitud.ToString() + proyecto.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+				}
+				catch (SqlException e)
+				{
+					throw new AccesoADatosException("Error al guardar relacion Proyectos-Solicitud: " + solicitud.ToString() + proyecto.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				}
+				if (filasAfectadas <= 0)
                 {
-                    throw new AccesoADatosException("Error al guardar relacion Proyectos-Solicitud: " + solicitud.ToString() + proyecto.ToString(), e);
-                }
-                if (filasAfectadas <= 0)
-                {
-                    throw new AccesoADatosException("Relacion Solicitud - Proyecto: " + solicitud.ToString() + proyecto.ToString() + " no fue guardada.");
+                    throw new AccesoADatosException("Relacion Solicitud - Proyecto: " + solicitud.ToString() + proyecto.ToString() + " no fue guardada.",TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
                 }
             }
         }
@@ -137,7 +148,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             if (IDAsignacion <= 0)
             {
-                throw new AccesoADatosException("Error al cargar IDSolicitud Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.");
+                throw new AccesoADatosException("Error al cargar IDSolicitud Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
             DataTable tablaDeSolicitud = new DataTable();
             SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
@@ -146,23 +157,26 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@IDAsignacion",
                 Value = IDAsignacion
             };
-
             try
             {
                 tablaDeSolicitud = AccesoADatos.EjecutarSelect("Query", parametroIDAsignacion);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar IDSolicitud con IDAsignacion: " + IDAsignacion, e);
-            }
-            Solicitud solicitud = new Solicitud();
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al cargar IDSolicitud con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar IDSolicitud con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			Solicitud solicitud = new Solicitud();
             try
             {
                 solicitud = ConvertirDataTableASolicutudConSoloID(tablaDeSolicitud);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a Solicitud en cargar IDSolicitud con IDAsignacion: " + IDAsignacion, e);
+                throw new AccesoADatosException("Error al convertir datatable a Solicitud en cargar IDSolicitud con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return solicitud;
         }
@@ -181,9 +195,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				tablaDeSolicitud = AccesoADatos.EjecutarSelect("SELECT IDSolicitud FROM Solicitudes WHERE Matricula = @MatriculaAlumno", parametroMatricula);
 			}
-			catch (SqlException e)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
 			{
-				throw new AccesoADatosException("Error al cargar IDSolicitud con Matricula: " + matriculaAlumno, e);
+				throw new AccesoADatosException("Error al cargar IDSolicitud con Matricula: " + matriculaAlumno, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{ 
+				throw new AccesoADatosException("Error al cargar IDSolicitud con Matricula: " + matriculaAlumno, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
 			Solicitud solicitud = new Solicitud();
 			if (tablaDeSolicitud.Rows.Count > 0)
@@ -194,7 +212,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 				}
 				catch (FormatException e)
 				{
-					throw new AccesoADatosException("Error al convertir datatable a Solicitud en cargar IDSolicitud con Matricula: " + matriculaAlumno, e);
+					throw new AccesoADatosException("Error al convertir datatable a Solicitud en cargar IDSolicitud con Matricula: " + matriculaAlumno, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
 				}
 			}
 			else
@@ -213,11 +231,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
             {
-                throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en SolicitudDAO", e, TipoDeError.ConexionABaseDeDatosFallida);
+                throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en SolicitudDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en SolicitudDAO", e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en SolicitudDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
 			return ultimoIDInsertado;
         }

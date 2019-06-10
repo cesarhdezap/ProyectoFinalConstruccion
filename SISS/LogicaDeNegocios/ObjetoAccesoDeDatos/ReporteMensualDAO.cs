@@ -17,7 +17,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		{
             if (IDAsignacion <= 0)
             {
-                throw new AccesoADatosException("Error al cargar IDsReporteMensual Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.");
+                throw new AccesoADatosException("Error al cargar IDsReporteMensual Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
             DataTable tablaDeReportesMensuales = new DataTable();
             SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
@@ -26,23 +26,26 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@IDAsignacion",
                 Value = IDAsignacion
             };
-
             try
             {
                 tablaDeReportesMensuales = AccesoADatos.EjecutarSelect("SELECT IDDocumento FROM ReportesMensuales WHERE IDAsignacion = @IDAsignacion", parametroIDAsignacion);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar IDsReporteMensual por IDAsignacion: " + IDAsignacion, e);
-            }
-            List<ReporteMensual> listaDeReportesMensuales = new List<ReporteMensual>();
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al cargar IDsReporteMensual por IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar IDsReporteMensual por IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			List<ReporteMensual> listaDeReportesMensuales = new List<ReporteMensual>();
             try
             {
                 listaDeReportesMensuales = ConvertirDataTableAListaDeReportesMensualesConSoloID(tablaDeReportesMensuales);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a ListaDeReportesMensuales en cargar IDs con IDAsignacion: " + IDAsignacion, e);
+                throw new AccesoADatosException("Error al convertir datatable a ListaDeReportesMensuales en cargar IDs con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return listaDeReportesMensuales;
         }
@@ -51,7 +54,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		{
             if (IDDocumento <= 0)
             {
-                throw new AccesoADatosException("Error al cargar ReporteMensual Por IDDocumento: " + IDDocumento + ". IDDocumento no es valido.");
+                throw new AccesoADatosException("Error al cargar ReporteMensual Por IDDocumento: " + IDDocumento + ". IDDocumento no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
             DataTable tablaDeReporteMensual = new DataTable();
             SqlParameter[] parametroIDDocumento = new SqlParameter[1];
@@ -60,23 +63,26 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@IDDocumento",
                 Value = IDDocumento
             };
-
             try
             {
                 tablaDeReporteMensual = AccesoADatos.EjecutarSelect("SELECT * FROM ReportesMensuales WHERE IDDocumento = @IDDocumento", parametroIDDocumento);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar ReporteMensual con IDDocumento: " + IDDocumento, e);
-            }
-            ReporteMensual reporteMensual = new ReporteMensual();
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al cargar ReporteMensual con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar ReporteMensual con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			ReporteMensual reporteMensual = new ReporteMensual();
             try
             {
                 reporteMensual = ConvertirDataTableAReporteMensual(tablaDeReporteMensual);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir DocumentoDeEntregaUnica al en cargar DocumentoDeEntregaUnica con IDDocumento: " + IDDocumento, e);
+                throw new AccesoADatosException("Error al convertir DocumentoDeEntregaUnica al en cargar DocumentoDeEntregaUnica con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return reporteMensual;
         }
@@ -110,7 +116,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 reporteMensual.Imagen = imagenDAO.CargarImagenPorIDDocumentoYTipoDeDocumentoEnImagen((int)fila["IDDocumento"], TipoDeDocumentoEnImagen.ReporteMensual);
                 reporteMensual.Mes = (Mes)fila["Mes"];
 				reporteMensual.FechaDeEntrega = DateTime.Parse(fila["FechaDeEntrega"].ToString());
-				
 			}
             return reporteMensual;
 		}
@@ -119,7 +124,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             if (IDAsignacion <= 0)
             {
-                throw new AccesoADatosException("Error al guardar ReporteMensual Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.");
+                throw new AccesoADatosException("Error al guardar ReporteMensual Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
             SqlParameter[] parametrosDocumentoDeEntregaUnica = InicializarParametrosDeSql(reporteMensual, IDAsignacion);
 
@@ -128,13 +133,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO ReportesMensuales(HorasReportadas, FechaDeEntrega, NumeroDeReporte, IDDocenteAcademico, Mes, IDAsignacion) VALUES(@HorasReportadas, @FechaDeEntrega, @NumeroDeReporte, @IDDocenteAcademico, @Mes, @IDAsignacion)", parametrosDocumentoDeEntregaUnica);
             }
-            catch (SqlException e)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al guardar ReporteMensual: " + reporteMensual.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al guardar ReporteMensual: " + reporteMensual.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			if (filasAfectadas <= 0)
             {
-                throw new AccesoADatosException("Error al guardar ReporteMensual: " + reporteMensual.ToString(), e);
-            }
-            if (filasAfectadas <= 0)
-            {
-                throw new AccesoADatosException("El ReporteMensual: " + reporteMensual.ToString() + " no fue guardado.");
+                throw new AccesoADatosException("El ReporteMensual: " + reporteMensual.ToString() + " no fue guardado.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
             }
         }
 
@@ -179,11 +188,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
 			{
-				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeError.ConexionABaseDeDatosFallida);
+				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
 			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
 			return ultimoIDInsertado;
 		}

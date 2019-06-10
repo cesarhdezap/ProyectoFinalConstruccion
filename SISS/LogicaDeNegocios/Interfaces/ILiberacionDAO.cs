@@ -7,7 +7,5 @@ namespace LogicaDeNegocios.Interfaces
 	{
         Liberacion CargarLiberacionPorID(int IDLiberacion);
         void GuardarLiberacion(Liberacion liberacion);
-        int ObtenerUltimoIDInsertado();
-
 	}
 }

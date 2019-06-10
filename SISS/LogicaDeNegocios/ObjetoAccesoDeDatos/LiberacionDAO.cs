@@ -30,13 +30,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Liberaciones(Fecha, IDDocumento) VALUES(@Fecha, @IDDocumento)", parametrosDeLiberacion);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al guardar Liberacion: " + liberacion.ToString(), e);
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+                throw new AccesoADatosException("Error al guardar Liberacion: " + liberacion.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
-            if (filasAfectadas <= 0)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al guardar Liberacion: " + liberacion.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			if (filasAfectadas <= 0)
             {
-                throw new AccesoADatosException("Liberacion: " + liberacion.ToString() + "no fue guardada.");
+                throw new AccesoADatosException("Liberacion: " + liberacion.ToString() + "no fue guardada.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
             }
         }
 
@@ -54,18 +58,22 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeLiberacion = AccesoADatos.EjecutarSelect("SELECT * FROM Liberaciones WHERE IDLiberacion = @Liberacion", parametroIDLiberacion);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar Liberacion con IDLiberacion: " + IDLiberacion, e);
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+                throw new AccesoADatosException("Error al cargar Liberacion con IDLiberacion: " + IDLiberacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
-            Liberacion liberacion = new Liberacion();
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar Liberacion con IDLiberacion: " + IDLiberacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			Liberacion liberacion = new Liberacion();
             try
             {
                 liberacion = ConvertirDataTableALiberacion(tablaDeLiberacion);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a Liberacion en cargar Liberacion con IDLiberacion: " + IDLiberacion, e);
+                throw new AccesoADatosException("Error al convertir datatable a Liberacion en cargar Liberacion con IDLiberacion: " + IDLiberacion, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
 
             return liberacion;
@@ -88,11 +96,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeLiberacion[2].Value = liberacion.CartaDeLiberacion.IDDocumento;
 
             return parametrosDeLiberacion;
-        }
-
-        public int ObtenerUltimoIDInsertado()
-        {
-            throw new NotImplementedException();
         }
     }
 }

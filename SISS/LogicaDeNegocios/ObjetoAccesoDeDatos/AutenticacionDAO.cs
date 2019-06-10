@@ -25,11 +25,15 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeContraseña= AccesoADatos.EjecutarSelect("SELECT Contraseña FROM (SELECT CorreoElectronico,Contraseña FROM Alumnos UNION SELECT CorreoElectronico, Contraseña FROM DocentesAcademicos UNION SELECT CorreoElectronico, Contraseña From Directores) AS U WHERE CorreoElectronico = @CorreoElectronico", parametroCorreoElectronico);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException(e.Message,e);
-            }
-            string contraseña = ConvertirDataTableACadena(tablaDeContraseña);
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al Cargar contraseña por Correo:" + correoElectronico, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al Cargar contraseña por Correo:" + correoElectronico, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			string contraseña = ConvertirDataTableACadena(tablaDeContraseña);
 
             return contraseña;
         }
@@ -42,12 +46,16 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeCorreos = AccesoADatos.EjecutarSelect("SELECT CorreoElectronico FROM Alumnos UNION SELECT CorreoElectronico FROM DocentesAcademicos UNION SELECT CorreoElectronico FROM Directores");
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException(e.Message, e);
-            }
-            
-            List<string> listaDeCorreos = ConvertirDataTableAListaDeCadenas(tablaDeCorreos);
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al Cargar correos de todos los usuarios", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al Cargar correos de todos los usuarios", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+
+			List<string> listaDeCorreos = ConvertirDataTableAListaDeCadenas(tablaDeCorreos);
 
             return listaDeCorreos;
         }
