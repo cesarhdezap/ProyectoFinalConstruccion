@@ -52,7 +52,8 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
             if (resultadoDeCreacionDeOrganizacion)
             {
-                MessageBox.Show("Encargado registrado correctamente.");
+                MessageBox.Show("Organizacion registrada correctamente.");
+                Close();
             }
         }
 

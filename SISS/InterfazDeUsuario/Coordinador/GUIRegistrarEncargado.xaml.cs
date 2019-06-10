@@ -55,7 +55,10 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
                         MessageBox.Show("No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     if (resultadoDeCreacion)
+                    {
                         MessageBox.Show("Encargado registrado correctamente.");
+                        Close();
+                    }
                 }
             }
             else

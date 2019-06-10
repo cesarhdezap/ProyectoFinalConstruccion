@@ -1,25 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios;
-using LogicaDeNegocios.ClasesDominio;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.Servicios;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace InterfazDeUsuario.GUIsDeAlumno
-{ 
+{
     /// <summary>
     /// Interaction logic for GUIRegistrarAlumno.xaml
     /// </summary>
@@ -179,11 +168,11 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                     MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
                     Close();
                 }
-                Mouse.OverrideCursor = Cursors.Wait;
 
                 if (resultadoDeCreacion)
                 {
                     MessageBox.Show("Ha sido registrado exitosamente.", "¡Registro Exitoso!");
+                    Mouse.OverrideCursor = null;
                     Close();
                 }
             }
