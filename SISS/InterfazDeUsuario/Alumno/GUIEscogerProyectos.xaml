@@ -16,7 +16,7 @@
         <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="750,27,-40,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
         <Label x:Name="LblEscogerProyectoDeServicioSocial" Content="Escoger proyecto de servicio social" HorizontalAlignment="Left" Margin="251,85,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="24"/>
 
-        <DataGrid x:Name="DtgProyectos" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="false" CanUserDeleteRows="False" SelectionUnit="FullRow" HorizontalAlignment="Left" Height="312" Margin="38,148,0,0" VerticalAlignment="Top" Width="794" SelectionChanged="DtgProyectos_SelectionChanged">
+        <DataGrid x:Name="DataGridProyectos" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="false" CanUserDeleteRows="False" SelectionUnit="FullRow" HorizontalAlignment="Left" Height="312" Margin="38,148,0,0" VerticalAlignment="Top" Width="794" SelectionChanged="DtgProyectos_SelectionChanged">
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell">
                     <Setter Property="BorderThickness" Value="0"/>

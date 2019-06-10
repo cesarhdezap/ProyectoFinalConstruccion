@@ -15,7 +15,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             if (IDOrganizacion <= 0)
             {
-                throw new AccesoADatosException("Error al Actualizar Organizacion Por IDOrganizacion: " + IDOrganizacion + ". IDOrganizacion no es valido.");
+                throw new AccesoADatosException("Error al Actualizar Organizacion Por IDOrganizacion: " + IDOrganizacion + ". IDOrganizacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
             SqlParameter[] parametrosDeOrganizacion = InicializarParametrosDeSql(organizacion);
             int filasAfectadas = 0;
@@ -23,13 +23,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Organizaciones SET CorreoElectronico = @CorreoElectronicoOrganizacion, Direccion = @DireccionOrganizacion, Telefono = @TelefonoOrganizacion, Nombre = @NombreOrganizacion WHERE IDOrganizacion = @IDOrganizacion", parametrosDeOrganizacion);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al actualizar Organizacion: " + organizacion.ToString(), e);
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+                throw new AccesoADatosException("Error al actualizar Organizacion: " + organizacion.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
-            if (filasAfectadas <= 0)
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al actualizar Organizacion: " + organizacion.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			if (filasAfectadas <= 0)
             {
-                throw new AccesoADatosException("La Organizacion con IDOrganizacion: " + IDOrganizacion + " no existe.");
+                throw new AccesoADatosException("La Organizacion con IDOrganizacion: " + IDOrganizacion + " no existe.", TipoDeErrorDeAccesoADatos.ObjetoNoExiste);
             }
         }
 
@@ -40,18 +44,22 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeOrganizaciones = AccesoADatos.EjecutarSelect("SELECT * FROM Organizaciones");
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar todas las Organizaciones", e);
-            }
-            List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al cargar todas las Organizaciones", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar todas las Organizaciones", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
             try
             {
                 listaDeOrganizaciones = ConvertirDataTableAListaDeOrganizaciones(tablaDeOrganizaciones);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a lista de Organizaciones en cargar todas las Organizaciones", e);
+                throw new AccesoADatosException("Error al convertir datatable a lista de Organizaciones en cargar todas las Organizaciones", e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
 
             return listaDeOrganizaciones;
@@ -64,18 +72,22 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeOrganizaciones = AccesoADatos.EjecutarSelect("SELECT IDOrganizacion, Nombre FROM Organizaciones");
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar todas las Organizaciones", e);
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+                throw new AccesoADatosException("Error al cargar todas las Organizaciones", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
-            List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar todas las Organizaciones", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
             try
             {
                 listaDeOrganizaciones = ConvertirDataTableAListaDeOrganizacionesConIDYNombre(tablaDeOrganizaciones);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a lista de Organizaciones en cargar todas las Organizaciones", e);
+                throw new AccesoADatosException("Error al convertir datatable a lista de Organizaciones en cargar todas las Organizaciones", e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
 
             return listaDeOrganizaciones;
@@ -95,19 +107,23 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeOrganizacion = AccesoADatos.EjecutarSelect("SELECT * FROM Organizaciones WHERE IDOrganizacion = @IDOrganizacion", parametroIDOrganizacion);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar Organizacion con IDOrganizacion: " + IDOrganizacion, e);
-            }
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al cargar Organizacion con IDOrganizacion: " + IDOrganizacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al cargar Organizacion con IDOrganizacion: " + IDOrganizacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
 
-            Organizacion organizacion = new Organizacion();
+			Organizacion organizacion = new Organizacion();
             try
             {
                 organizacion = ConvertirDataTableAOrganizacion(tablaDeOrganizacion);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a Organizacion en cargar Organizacion con IDOrganizacion: " + IDOrganizacion, e);
+                throw new AccesoADatosException("Error al convertir datatable a Organizacion en cargar Organizacion con IDOrganizacion: " + IDOrganizacion, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return organizacion;
         }
@@ -116,7 +132,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             if (IDEncargado <= 0)
             {
-                throw new AccesoADatosException("Error al  Cargar IDOrganizacion Por IDEncargado: " + IDEncargado + ". IDEncargado no es valido.");
+                throw new AccesoADatosException("Error al  Cargar IDOrganizacion Por IDEncargado: " + IDEncargado + ". IDEncargado no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
             DataTable tablaDeOrganizacion = new DataTable();
             SqlParameter[] parametroIDEncargado = new SqlParameter[1];
@@ -129,18 +145,22 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeOrganizacion = AccesoADatos.EjecutarSelect("SELECT IDOrganizacion FROM Encargados WHERE IDEncargado = @IDEncargado", parametroIDEncargado);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al Cargar IDOrganizacion Por IDEncargado: " + IDEncargado, e);
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+                throw new AccesoADatosException("Error al Cargar IDOrganizacion Por IDEncargado: " + IDEncargado, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
-            Organizacion organizacion = new Organizacion();
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al Cargar IDOrganizacion Por IDEncargado: " + IDEncargado, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			Organizacion organizacion = new Organizacion();
             try
             {
                 organizacion = ConvertirDataTableAOrganizacionConSoloID(tablaDeOrganizacion);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a Organizacion en Cargar IDOrganizacion Por IDEncargado: " + IDEncargado, e);
+                throw new AccesoADatosException("Error al convertir datatable a Organizacion en Cargar IDOrganizacion Por IDEncargado: " + IDEncargado, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return organizacion;
         }
@@ -218,13 +238,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Organizaciones(Nombre, CorreoElectronico, Telefono, Direccion) VALUES(@NombreOrganizacion, @CorreoElectronicoOrganizacion, @TelefonoOrganizacion, @DireccionOrganizacion)", parametrosDeOrganizacion);
             }
-            catch (SqlException e)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al guardar Organizacion:" + organizacion.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al guardar Organizacion:" + organizacion.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			if (filasAfectadas <= 0)
             {
-                throw new AccesoADatosException("Error al guardar Organizacion:" + organizacion.ToString(), e);
-            }
-            if (filasAfectadas <= 0)
-            {
-                throw new AccesoADatosException("Organizacion: " + organizacion.ToString() + "no fue guardada.",TipoDeError.ObjetoNoGuardado);
+                throw new AccesoADatosException("Organizacion: " + organizacion.ToString() + "no fue guardada.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
             }
         }
 
@@ -247,11 +271,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeOrganizacion[3].Value = organizacion.Telefono;
 
             return parametrosDeOrganizacion;
-        }
-
-        public int ObtenerUltimoIDInsertado()
-        {
-            throw new NotImplementedException();
         }
     }
 }
