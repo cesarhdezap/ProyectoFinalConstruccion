@@ -23,7 +23,7 @@ namespace LogicaDeNegocios
             encargadoDAO.GuardarEncargado(encargado);
         }
 
-        public bool GuardarOrganizacion()
+        public bool Guardar()
         {
             bool resultadoDeCreacion = false;
             AdministradorDeOrganizaciones administradorDeOrganizacion = new AdministradorDeOrganizaciones();

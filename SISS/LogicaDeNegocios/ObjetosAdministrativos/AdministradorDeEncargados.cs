@@ -6,7 +6,7 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 {
     public class AdministradorDeEncargados
     {
-        private List<Encargado> Encargados;
+        public List<Encargado> Encargados;
 
         public void CargarEncargadosTodos()
         {
@@ -22,5 +22,15 @@ namespace LogicaDeNegocios.ObjetosAdministrador
             return resultadoDeCreacion;
 		}
 
+
+        public List<Encargado> SeleccionarEncargadosPorIDOrganizacion(int IDOrganizacion)
+        {
+            List<Encargado> encargados = new List<Encargado>();
+            if (Encargados.Count > 0)
+            {
+                encargados = Encargados.FindAll(e => e.Organizacion.IDOrganizacion == IDOrganizacion);
+            }
+            return encargados;
+        }
     }
 }

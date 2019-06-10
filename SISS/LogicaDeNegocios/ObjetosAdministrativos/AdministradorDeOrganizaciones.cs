@@ -6,7 +6,7 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 {
 	public class AdministradorDeOrganizaciones
     {
-        private List<Organizacion> Organizaciones;
+        public List<Organizacion> Organizaciones { get; set; }
 
         public bool ValidarExistencia(Organizacion organizacion)
         {
@@ -22,6 +22,10 @@ namespace LogicaDeNegocios.ObjetosAdministrador
             Organizaciones = organizacionDAO.CargarOrganizacionesTodas();
 		}
 
-        
+        public void CargarOrganizacionesConNombre()
+        {
+            OrganizacionDAO organizacionDAO = new OrganizacionDAO();
+            Organizaciones = organizacionDAO.CargarIDYNombreDeOrganizaciones();
+        }
     }
 }

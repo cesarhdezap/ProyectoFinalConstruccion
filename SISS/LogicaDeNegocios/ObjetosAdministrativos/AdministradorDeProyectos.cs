@@ -20,10 +20,5 @@ namespace LogicaDeNegocios.ObjetosAdministrador
             this.Proyectos = proyectoDAO.CargarProyectosPorEstado(estadoProyecto);
         }
 
-        public void CrearProyecto (Proyecto proyecto)
-        {
-			//TODO
-			throw new NotImplementedException();
-		}
     }
 }

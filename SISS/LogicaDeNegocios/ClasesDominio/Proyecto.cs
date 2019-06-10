@@ -1,6 +1,8 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System;
 using System.Collections.Generic;
+using LogicaDeNegocios.ObjetosAdministrador;
+using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace LogicaDeNegocios
 {
@@ -37,9 +39,33 @@ namespace LogicaDeNegocios
             asignacionDAO.GuardarAsignacion(asignacion);
         }
 
-        
-		
+        public bool Guardar()
+        {
+            bool resultadoDeCreacion = false;
+            if (ValidarProyecto())
+            {
+                ProyectoDAO proyectoDAO = new ProyectoDAO();
+                proyectoDAO.GuardarProyecto(this);
+                resultadoDeCreacion = true;
+            }
+            return resultadoDeCreacion;
+        }
+
+        private bool ValidarProyecto ()
+        {
+            bool resultadoDeValidacion = false;
+            if (ValidarCadena(Nombre)
+                && Encargado.IDEncargado > 0
+                && ValidarCadena(DescripcionGeneral)
+                && ValidarCadena(ObjetivoGeneral)
+                && Cupo > 0)
+            {
+                resultadoDeValidacion = true;
+            }
+            return resultadoDeValidacion;
+        }
 	}
+
     public enum EstadoProyecto
     {
         Activo,

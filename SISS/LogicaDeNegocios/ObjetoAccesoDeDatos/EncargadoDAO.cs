@@ -206,6 +206,25 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return encargados;
         }
 
+        private List<Encargado> ConvertirDataTableAListaDeEncargadosConIDNombreYOrganizacion (DataTable tablaDeEncargados)
+        {
+            List<Encargado> encargados = new List<Encargado>();
+            OrganizacionDAO organizacionDAO = new OrganizacionDAO();
+
+            foreach (DataRow fila in tablaDeEncargados.Rows)
+            {
+                Organizacion organizacion;
+                Encargado encargado = new Encargado
+                {
+                    IDEncargado = (int)fila["IDEncargado"],
+                    Nombre = fila["Nombre"].ToString(),
+                };
+                encargado.Organizacion = organizacionDAO.CargarIDPorIDEncargado(encargado.IDEncargado);
+                encargados.Add(encargado);
+            }
+            return encargados;
+        }
+
         private List<Encargado> ConvertirDataTableAListaDeEncargadosConSoloID(DataTable tablaDeEncargados)
         {
             ProyectoDAO proyectoDAO = new ProyectoDAO();
@@ -236,6 +255,31 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Encargado: " + encargado.ToString() + "no fue guardado.");
             }
+        }
+
+        public List<Encargado> CargarEncargadosConIDNombreYOrganizacion()
+        {
+            DataTable tablaDeEncargados = new DataTable();
+
+            try
+            {
+                tablaDeEncargados = AccesoADatos.EjecutarSelect("SELECT IDEncargado,Nombre,IDOrganizacion FROM Encargados");
+            }
+            catch (SqlException e)
+            {
+                throw new AccesoADatosException("Error al CargarEncargadosConIDYNombre", e);
+            }
+
+            List<Encargado> ListaEncargados = new List<Encargado>();
+            try
+            {
+                ListaEncargados = ConvertirDataTableAListaDeEncargadosConIDNombreYOrganizacion(tablaDeEncargados);
+            }
+            catch (FormatException e)
+            {
+                throw new AccesoADatosException("Error al convertir datatable a lista de Encargados en cargar encargados con id y nombre", e);
+            }
+            return ListaEncargados;
         }
 
         private SqlParameter[] InicializarParametrosDeSql(Encargado encargado)

@@ -33,7 +33,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
                 AdministradorDeOrganizaciones administradorDeOrganizaciones = new AdministradorDeOrganizaciones();
                 try
                 {
-                    resultadoDeCreacionDeOrganizacion = organizacion.GuardarOrganizacion();
+                    resultadoDeCreacionDeOrganizacion = organizacion.Guardar();
                 }
                 catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
                 {

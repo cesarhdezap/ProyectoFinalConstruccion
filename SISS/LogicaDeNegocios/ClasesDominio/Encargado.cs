@@ -21,7 +21,7 @@ namespace LogicaDeNegocios
             proyectoDAO.GuardarProyecto(proyecto);
         }
 
-        public bool GuardarEncargado()
+        public bool Guardar()
         {
             bool resultadoDeCreacion = false;
             AdministradorDeEncargados administradorDeEncargados = new AdministradorDeEncargados();

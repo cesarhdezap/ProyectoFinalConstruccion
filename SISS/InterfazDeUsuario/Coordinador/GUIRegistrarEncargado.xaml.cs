@@ -11,18 +11,18 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 {
     public partial class GUIRegistrarEncargado : Window
     {
-        private List<Organizacion> Organizaciones;
+        private AdministradorDeOrganizaciones administradorDeOrganizaciones;
 
         public GUIRegistrarEncargado(DocenteAcademico coordinador)
         {
             InitializeComponent();
             LabelNombreDeUsuario.Content = coordinador.Nombre;
+            administradorDeOrganizaciones = new AdministradorDeOrganizaciones();
+            administradorDeOrganizaciones.CargarOrganizacionesConNombre();
 
-            OrganizacionDAO organizacionDAO = new OrganizacionDAO();
-            Organizaciones = organizacionDAO.CargarIDYNombreDeOrganizaciones();
 
             ComboBoxOrganizacion.DisplayMemberPath = "Nombre";
-            ComboBoxOrganizacion.ItemsSource = Organizaciones;
+            ComboBoxOrganizacion.ItemsSource = administradorDeOrganizaciones.Organizaciones;
 
         }
 
@@ -37,14 +37,14 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             int indiceDeOrganizacion = ComboBoxOrganizacion.SelectedIndex;
             if (indiceDeOrganizacion >= 0)
             {
-                encargado.Organizacion = Organizaciones[indiceDeOrganizacion];
+                encargado.Organizacion = administradorDeOrganizaciones.Organizaciones[indiceDeOrganizacion];
                 if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text)
                 {
                     AdministradorDeEncargados administradorDeEncargados = new AdministradorDeEncargados();
                     bool resultadoDeCreacion = false;
                     try
                     {
-                        resultadoDeCreacion = encargado.GuardarEncargado();
+                        resultadoDeCreacion = encargado.Guardar();
                     }
                     catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
                     {

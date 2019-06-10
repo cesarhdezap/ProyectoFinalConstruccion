@@ -62,7 +62,7 @@ namespace InterfazDeUsuario.GUITipoDeSesion
 
         private void ButtonRegistrarProyecto_Click(object sender, RoutedEventArgs e)
         {
-            GUIRegistrarProyecto registrarProyecto = new GUIRegistrarProyecto();
+            GUIRegistrarProyecto registrarProyecto = new GUIRegistrarProyecto(Coordinador);
             Hide();
             registrarProyecto.ShowDialog();
             ShowDialog();
