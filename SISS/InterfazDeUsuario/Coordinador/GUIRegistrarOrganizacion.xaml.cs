@@ -28,13 +28,12 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
             bool resultadoDeCreacionDeOrganizacion = false;
             
-
             if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text)
             {
                 AdministradorDeOrganizaciones administradorDeOrganizaciones = new AdministradorDeOrganizaciones();
                 try
                 {
-                    resultadoDeCreacionDeOrganizacion = administradorDeOrganizaciones.CrearOrganizacion(organizacion);
+                    resultadoDeCreacionDeOrganizacion = organizacion.GuardarOrganizacion();
                 }
                 catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
                 {
@@ -60,7 +59,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
         private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarNombreDeOrganizacion(TextBoxNombre.Text))
+            if (ValidarCadena(TextBoxNombre.Text))
             {
                 TextBoxNombre.BorderBrush = Brushes.Green;
             }
@@ -72,7 +71,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
         private void TextBoxDireccion_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarDireccion(TextBoxDireccion.Text))
+            if (ValidarCadena(TextBoxDireccion.Text))
             {
                 TextBoxDireccion.BorderBrush = Brushes.Green;
             }

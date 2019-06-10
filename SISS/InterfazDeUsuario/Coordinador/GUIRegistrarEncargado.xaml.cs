@@ -44,8 +44,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
                     bool resultadoDeCreacion = false;
                     try
                     {
-                        resultadoDeCreacion = administradorDeEncargados.CrearEncargado(encargado);
-                        
+                        resultadoDeCreacion = encargado.GuardarEncargado();
                     }
                     catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
                     {
@@ -79,7 +78,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
         private void TextBoxPuesto_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            if (ValidarPuestoEncargado(TextBoxPuesto.Text))
+            if (ValidarCadena(TextBoxPuesto.Text))
             {
                 TextBoxPuesto.BorderBrush = Brushes.Green;
             }

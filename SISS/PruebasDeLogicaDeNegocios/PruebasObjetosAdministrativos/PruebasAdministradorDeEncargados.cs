@@ -22,7 +22,7 @@ namespace Pruebas.PruebasObjetosAdministrativos
             encargado.CorreoElectronico = "encargado@prueba.com";
 
             AdministradorDeEncargados admininistradorDeEncargados = new AdministradorDeEncargados();
-            if (admininistradorDeEncargados.CrearEncargado(encargado))
+            if (admininistradorDeEncargados.ValidarExistencia(encargado))
             {
                 Assert.IsTrue(true);
             }

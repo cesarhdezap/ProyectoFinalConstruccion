@@ -1,6 +1,7 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using LogicaDeNegocios.ObjetosAdministrador;
 using System.Collections.Generic;
-
+using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace LogicaDeNegocios
 {
@@ -16,6 +17,35 @@ namespace LogicaDeNegocios
         public Alumno ()
         {
             Matricula = string.Empty;
+        }
+
+        public bool GuardarAlumno()
+        {
+            bool resultadoDeCreacion = false;
+            AdministradorDeAlumnos administradorDeAlumnos = new AdministradorDeAlumnos();
+            if (ValidarAlumno() && administradorDeAlumnos.ValidarExistencia(this))
+            {
+                AlumnoDAO alumnoDAO = new AlumnoDAO();
+                alumnoDAO.GuardarAlumno(this);
+                resultadoDeCreacion = true;
+            }
+            return resultadoDeCreacion;
+        }
+
+        private bool ValidarAlumno()
+        {
+            bool resultadoDeValidacion = false;
+
+            if (ValidarContraseña(Contraseña) 
+                && ValidarCorreoElectronico(CorreoElectronico) 
+                && ValidarMatricula(Matricula) 
+                && ValidarNombre(Nombre) 
+                && ValidarTelefono(Telefono))
+            {
+                resultadoDeValidacion = true;
+            }
+
+            return resultadoDeValidacion;
         }
 
 		public void DarDeBaja()
