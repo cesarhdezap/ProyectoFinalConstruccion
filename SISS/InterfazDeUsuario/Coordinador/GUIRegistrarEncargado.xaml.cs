@@ -28,13 +28,15 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
         private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
         {
-            Encargado encargado = new Encargado();
-            encargado.Nombre = TextBoxNombre.Text;
-            encargado.Puesto = TextBoxPuesto.Text;
-            encargado.CorreoElectronico = TextBoxCorreoElectronico.Text;
-            encargado.Telefono = TextBoxTelefono.Text;
+			Encargado encargado = new Encargado
+			{
+				Nombre = TextBoxNombre.Text,
+				Puesto = TextBoxPuesto.Text,
+				CorreoElectronico = TextBoxCorreoElectronico.Text,
+				Telefono = TextBoxTelefono.Text
+			};
 
-            int indiceDeOrganizacion = ComboBoxOrganizacion.SelectedIndex;
+			int indiceDeOrganizacion = ComboBoxOrganizacion.SelectedIndex;
             if (indiceDeOrganizacion >= 0)
             {
                 encargado.Organizacion = administradorDeOrganizaciones.Organizaciones[indiceDeOrganizacion];

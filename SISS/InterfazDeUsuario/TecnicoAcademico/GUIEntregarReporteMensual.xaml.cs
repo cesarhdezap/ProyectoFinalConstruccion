@@ -34,9 +34,10 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 		public GUIEntregarReporteMensual(DocenteAcademico tecnicoAdministrativo, Alumno alumno)
 		{
 			InitializeComponent();
-			CbxMes.ItemsSource = Enum.GetValues(typeof(EstadoAlumno));
+			CbxMes.ItemsSource = Enum.GetValues(typeof(Mes));
 			CbxMes.SelectedIndex = 0;
 			this.Alumno = alumno;
+			this.TecnicoAdministrativo = tecnicoAdministrativo;
 			this.Asignacion = new Asignacion();
 			AsignacionDAO asignacionDAO = new AsignacionDAO();
 			Mouse.OverrideCursor = Cursors.Wait;
@@ -81,7 +82,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 		{
 			OpenFileDialog ventanaDeSeleccionDeArchivo = new OpenFileDialog
 			{
-				Filter = "Imagenes (*.jpeg)|*.jpeg",
+				Filter = "Imagenes (*.jpg)|*.jpg",
 				InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
 			};
 			if (ventanaDeSeleccionDeArchivo.ShowDialog() == true)
@@ -117,7 +118,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 			Mouse.OverrideCursor = Cursors.Wait;
 			try
 			{
-				reporteMensualDAO.GuardarReporteMensual(reporteMensual, Asignacion.IDAsignacion);
+				Asignacion.RegistrarReporteMensual(reporteMensual);
 				Imagen.IDDocumento = reporteMensualDAO.ObtenerUltimoIDInsertado();
 				imagenDAO.GuardarImagen(Imagen);
 			}

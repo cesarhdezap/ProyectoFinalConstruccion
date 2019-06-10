@@ -68,6 +68,7 @@
     <Compile Include="ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica.cs" />
     <Compile Include="ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual.cs" />
     <Compile Include="ConvertidorIDProyectoADetallesDeProyecto.cs" />
+    <Compile Include="ConvertidorMatriculaADetallesDeSolicitud.cs" />
     <Compile Include="ConvertidorMatriculaDeAlumnoADetallesDeAlumno.cs" />
     <Compile Include="Coordinador\GUIActualizarExpediente.xaml.cs">
       <DependentUpon>GUIActualizarExpediente.xaml</DependentUpon>
@@ -108,7 +109,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Coordinador\GUIAsignarProyectoAAlumnoxaml.xaml">
+    <Page Include="Coordinador\GUIAsignarProyectoAAlumno.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -169,8 +170,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Coordinador\GUIAsignarProyectoAAlumnoxaml.xaml.cs">
-      <DependentUpon>GUIAsignarProyectoAAlumnoxaml.xaml</DependentUpon>
+    <Compile Include="Coordinador\GUIAsignarProyectoAAlumno.xaml.cs">
+      <DependentUpon>GUIAsignarProyectoAAlumno.xaml</DependentUpon>
     </Compile>
     <Compile Include="Coordinador\GUIBuscarAlumnoPorCoordinador.xaml.cs">
       <DependentUpon>GUIBuscarAlumnoPorCoordinador.xaml</DependentUpon>

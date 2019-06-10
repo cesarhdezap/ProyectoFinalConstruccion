@@ -1,4 +1,4 @@
-﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.ObjetosAdministrador;
 using System.Collections.Generic;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
@@ -19,7 +19,7 @@ namespace LogicaDeNegocios
             Matricula = string.Empty;
         }
 
-        public bool GuardarAlumno()
+        public bool Guardar()
         {
             bool resultadoDeCreacion = false;
             AdministradorDeAlumnos administradorDeAlumnos = new AdministradorDeAlumnos();
@@ -91,7 +91,13 @@ namespace LogicaDeNegocios
             AlumnoDAO alumnoDAO = new AlumnoDAO();
             alumnoDAO.ActualizarAlumnoPorMatricula(this.Matricula, this);
         }
-    }
+
+		internal void Asignar()
+		{
+			EstadoAlumno = EstadoAlumno.Asignado;
+			ActualizarRegistroDeAlumno();
+		}
+	}
 
 	public enum EstadoAlumno
 	{

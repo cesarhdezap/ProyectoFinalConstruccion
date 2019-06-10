@@ -67,5 +67,21 @@ namespace InterfazDeUsuario.GUITipoDeSesion
             registrarProyecto.ShowDialog();
             ShowDialog();
         }
-    }
+
+		private void ButtonAsignarProyectosAAlumnos_Click(object sender, RoutedEventArgs e)
+		{
+			GUIAsignarProyectoAAlumno asignarProyectoAAlumno = new GUIAsignarProyectoAAlumno(Coordinador);
+			Hide();
+			asignarProyectoAAlumno.ShowDialog();
+			ShowDialog();
+		}
+
+		private void ButtonBuscarProyecto_Click(object sender, RoutedEventArgs e)
+		{
+			GUIBuscarProyecto buscarProyecto = new GUIBuscarProyecto(Coordinador);
+			Hide();
+			buscarProyecto.ShowDialog();
+			ShowDialog();
+		}
+	}
 }

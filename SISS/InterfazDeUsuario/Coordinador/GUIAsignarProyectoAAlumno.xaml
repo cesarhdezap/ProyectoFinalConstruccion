@@ -1,0 +1,62 @@
+﻿<Window x:Class="InterfazDeUsuario.GUIsDeCoordinador.GUIAsignarProyectoAAlumno"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:l ="clr-namespace:InterfazDeUsuario"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeCoordinador"
+        mc:Ignorable="d"
+        Title="GUIAsignarProyectoAAlumnoxaml" Height="534.575" Width="925.552">
+	<Window.Resources>
+		<l:ConvertidorMatriculaADetallesDeSolicitud x:Key="ConvertidorMatriculaDeAlumnoAProyectosSolicitados" />
+		<CollectionViewSource x:Key="Proyectos" Source="{Binding AdmnistradorDeProyectos.Proyectos}" />
+	</Window.Resources>
+	<Grid>
+		<TextBlock HorizontalAlignment="Left" Margin="302,187,0,0" TextWrapping="Wrap" VerticalAlignment="Top"><Run Text="No se encuentra aun esta pantalla en los prototipos"/><LineBreak/><Run/></TextBlock>
+		<Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="491" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="182,0,0,0"/>
+		<Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="678,24,0,0" Width="119"/>
+		<Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="808,24,0,0" Width="85" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
+
+		<DataGrid x:Name="DataGridAlumnos" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="false" CanUserDeleteRows="False" SelectionUnit="FullRow" HorizontalAlignment="Left" Height="403" Margin="52,69,0,0" VerticalAlignment="Top" Width="805" FontSize="14">
+			<DataGrid.CellStyle>
+				<Style TargetType="DataGridCell">
+					<Setter Property="BorderThickness" Value="0"/>
+				</Style>
+			</DataGrid.CellStyle>
+			<DataGrid.RowHeaderTemplate>
+				<DataTemplate>
+					<Expander Expanded="Expander_Expanded" Collapsed="Expander_Collapsed">
+					</Expander>
+				</DataTemplate>
+			</DataGrid.RowHeaderTemplate>
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Nombre de Alumno" IsReadOnly="True" Width="600" Binding="{Binding Nombre}"/>
+				<DataGridTemplateColumn Header="Proyecto a asignar ">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<ComboBox ItemsSource="{Binding DataContext.NombresDeProyectos, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+					<DataGridTemplateColumn.CellEditingTemplate>
+						<DataTemplate>
+							<ComboBox ItemsSource="{Binding DataContext.NombresDeProyectos, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged"/>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellEditingTemplate>
+				</DataGridTemplateColumn>
+				<DataGridTemplateColumn>
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<Button Content="Asignar" Click="ButtonAsignar_Click"></Button>
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+			</DataGrid.Columns>
+			<DataGrid.RowDetailsTemplate>
+				<DataTemplate>
+					<TextBlock Text="{Binding Matricula, Converter={StaticResource ResourceKey=ConvertidorMatriculaDeAlumnoAProyectosSolicitados}}"  Margin="10,5,10,10" />
+				</DataTemplate>
+			</DataGrid.RowDetailsTemplate>
+		</DataGrid>
+
+	</Grid>
+</Window>

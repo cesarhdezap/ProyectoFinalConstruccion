@@ -11,6 +11,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using LogicaDeNegocios;
+using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using LogicaDeNegocios.ObjetosAdministrador;
+using LogicaDeNegocios.Excepciones;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
 {
@@ -19,9 +23,54 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
     /// </summary>
     public partial class GUIBuscarProyecto : Window
     {
-        public GUIBuscarProyecto()
+		private AdministradorDeProyectos AdministradorDeProyectos { get; set; }
+        public GUIBuscarProyecto(DocenteAcademico coordinador)
         {
             InitializeComponent();
+			AdministradorDeProyectos = new AdministradorDeProyectos();
+			AdministradorDeProyectos.CargarProyectosTodos();
+			this.DataGridProyectos.ItemsSource = AdministradorDeProyectos.Proyectos;
         }
-    }
+
+		private void Expander_Expanded(object sender, RoutedEventArgs e)
+		{
+			Mouse.OverrideCursor = Cursors.Wait;
+
+			for (Visual elementoVisual = sender as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
+			{
+				if (elementoVisual is DataGridRow fila)
+				{
+					if (fila.DetailsVisibility == Visibility.Visible)
+					{
+						fila.DetailsVisibility = Visibility.Collapsed;
+					}
+					else
+					{
+						fila.DetailsVisibility = Visibility.Visible;
+					}
+					break;
+				}
+			}
+			Mouse.OverrideCursor = null;
+		}
+
+		private void Expander_Collapsed(object sender, RoutedEventArgs e)
+		{
+			for (var elementoVisual = sender as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
+			{
+				if (elementoVisual is DataGridRow fila)
+				{
+					if (fila.DetailsVisibility == Visibility.Visible)
+					{
+						fila.DetailsVisibility = Visibility.Collapsed;
+					}
+					else
+					{
+						fila.DetailsVisibility = Visibility.Visible;
+					}
+					break;
+				}
+			}
+		}
+	}
 }

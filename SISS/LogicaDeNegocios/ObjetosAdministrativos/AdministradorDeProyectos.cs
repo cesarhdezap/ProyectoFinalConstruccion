@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using LogicaDeNegocios;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
@@ -14,11 +14,27 @@ namespace LogicaDeNegocios.ObjetosAdministrador
             ProyectoDAO proyectoDAO = new ProyectoDAO();
             this.Proyectos = proyectoDAO.CargarProyectosTodos();
 		}
+
         public void CargarProyectosPorEstado(EstadoProyecto estadoProyecto)
         {
             ProyectoDAO proyectoDAO = new ProyectoDAO();
             this.Proyectos = proyectoDAO.CargarProyectosPorEstado(estadoProyecto);
         }
 
+		public List<string> ObtenerNombresDeProyectos()
+		{
+			List<string> listaDeNombres = new List<string>();
+			foreach (Proyecto proyecto in Proyectos)
+			{
+				listaDeNombres.Add(proyecto.Nombre);
+			}
+			return listaDeNombres;
+		}
+
+        public void CrearProyecto (Proyecto proyecto)
+        {
+			//TODO
+			throw new NotImplementedException();
+		}
     }
 }

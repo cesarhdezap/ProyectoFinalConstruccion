@@ -8,7 +8,7 @@ namespace LogicaDeNegocios.Interfaces
 	{
         void ActualizarSolicitudPorID(int IDSolicitud, Solicitud solicitud);
         Solicitud CargarSolicitudPorID(int IDSolicitud);
-        void GuardarSolicitud(Solicitud solicitud, Alumno alumno);
+        void GuardarSolicitud(Solicitud solicitud);
         Solicitud CargarIDPorIDAsignacion(int IDAsignacion);
         int ObtenerUltimoIDInsertado();
     }

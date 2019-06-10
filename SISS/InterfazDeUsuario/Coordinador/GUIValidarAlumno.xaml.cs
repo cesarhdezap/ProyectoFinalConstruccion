@@ -111,73 +111,68 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
 		private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
 		{
-			if (AlumnosSeleccionados.Count == 0)
+			MessageBoxResult confirmacion = MessageBox.Show("Los alumnos seleccionados seran aceptados, mientras que los demas seran rechazados. ¿Seguro que desea continuar?", "Advertencia", MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel);
+			if (confirmacion == MessageBoxResult.OK)
 			{
-				MessageBoxResult confirmacion = MessageBox.Show("Los alumnos seleccionados seran aceptados, mientras que los demas seran rechazados. ¿Seguro que desea continuar?", "Advertencia", MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel);
-				if (confirmacion == MessageBoxResult.OK)
+				Mouse.OverrideCursor = Cursors.Wait;
+				List<Alumno> alumnosRechazados = AdministradorDeAlumnos.Alumnos;
+				foreach (Alumno alumno in AlumnosSeleccionados)
 				{
-					Mouse.OverrideCursor = Cursors.Wait;
-					List<Alumno> alumnosRechazados = AdministradorDeAlumnos.Alumnos;
-					foreach (Alumno alumno in AlumnosSeleccionados)
+					try
 					{
-						try
-						{
-							alumno.Aceptar();
-						}
-						catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
-						{
-							Mouse.OverrideCursor = null;
-							MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-							this.Close();
-						}
-						catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ObjetoNoExiste)
-						{
-							Mouse.OverrideCursor = null;
-							MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
-							this.Close();
-						}
-						catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos)
-						{
-							Mouse.OverrideCursor = null;
-							MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-							this.Close();
-						}
-						alumnosRechazados.Remove(alumno);
+						alumno.Aceptar();
 					}
-
-					foreach (Alumno alumno in alumnosRechazados)
+					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
 					{
-						try
-						{
-							alumno.Rechazar();
-						}
-						catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
-						{
-							Mouse.OverrideCursor = null;
-							MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-							this.Close();
-						}
-						catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ObjetoNoExiste)
-						{
-							Mouse.OverrideCursor = null;
-							MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
-							this.Close();
-						}
-						catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos)
-						{
-							Mouse.OverrideCursor = null;
-							MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-							this.Close();
-						}
-
+						Mouse.OverrideCursor = null;
+						MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
+						this.Close();
 					}
-					Mouse.OverrideCursor = null;
-					MessageBox.Show("Los alumnos fueron aceptados exitosamente.", "Aceptación exitosa", MessageBoxButton.OK, MessageBoxImage.Information);
-					this.Close();
+					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ObjetoNoExiste)
+					{
+						Mouse.OverrideCursor = null;
+						MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
+						this.Close();
+					}
+					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos)
+					{
+						Mouse.OverrideCursor = null;
+						MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
+						this.Close();
+					}
+					alumnosRechazados.Remove(alumno);
 				}
+
+				foreach (Alumno alumno in alumnosRechazados)
+				{
+					try
+					{
+						alumno.Rechazar();
+					}
+					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
+					{
+						Mouse.OverrideCursor = null;
+						MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
+						this.Close();
+					}
+					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ObjetoNoExiste)
+					{
+						Mouse.OverrideCursor = null;
+						MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
+						this.Close();
+					}
+					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos)
+					{
+						Mouse.OverrideCursor = null;
+						MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
+						this.Close();
+					}
+
+				}
+				Mouse.OverrideCursor = null;
+				MessageBox.Show("Los alumnos fueron aceptados exitosamente.", "Aceptación exitosa", MessageBoxButton.OK, MessageBoxImage.Information);
+				this.Close();
 			}
-			Mouse.OverrideCursor = null;
-			MessageBox.Show("Debe seleccionar por lo menos un alumno.", "Selección vacia", MessageBoxButton.OK, MessageBoxImage.Information);
 		}
 
 		private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
