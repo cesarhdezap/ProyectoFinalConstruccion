@@ -29,7 +29,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeReportesMensuales = AccesoADatos.EjecutarSelect("SELECT IDDocumento FROM ReportesMensuales WHERE IDAsignacion = @IDasignacion", parametroIDAsignacion);
+                tablaDeReportesMensuales = AccesoADatos.EjecutarSelect("SELECT IDDocumento FROM ReportesMensuales WHERE IDAsignacion = @IDAsignacion", parametroIDAsignacion);
             }
             catch (SqlException e)
             {
@@ -105,12 +105,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 reporteMensual.IDDocumento = (int)fila["IDDocumento"];
                 reporteMensual.HorasReportadas = (int)fila["HorasReportadas"];
-                reporteMensual.FechaDeEntrega = DateTime.Parse(fila["FechaDeEntrega"].ToString());
                 reporteMensual.NumeroDeReporte = (int)fila["NumeroDeReporte"];
                 reporteMensual.DocenteAcademico = docenteAcademicoDAO.CargarIDPorIDDocumento((int)fila["IDDocumento"]);
                 reporteMensual.Imagen = imagenDAO.CargarImagenPorIDDocumentoYTipoDeDocumentoEnImagen((int)fila["IDDocumento"], TipoDeDocumentoEnImagen.ReporteMensual);
                 reporteMensual.Mes = (Mes)fila["Mes"];
-            }
+				reporteMensual.FechaDeEntrega = DateTime.Parse(fila["FechaDeEntrega"].ToString());
+				
+			}
             return reporteMensual;
 		}
 
@@ -125,7 +126,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO ReportesMensuales(FechaDeEntrega, HorasReportadas, FechaDeEntrega, NumeroDeReporte, DocenteAcademico, Mes, IDAsignacion) VALUES(@IDDocumento, @HorasReportadas, @FechaDeEntrega, @NumeroDeReporte, @DocenteAcademico, @Mes, @IDAsignacion)", parametrosDocumentoDeEntregaUnica);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO ReportesMensuales(HorasReportadas, FechaDeEntrega, NumeroDeReporte, IDDocenteAcademico, Mes, IDAsignacion) VALUES(@HorasReportadas, @FechaDeEntrega, @NumeroDeReporte, @IDDocenteAcademico, @Mes, @IDAsignacion)", parametrosDocumentoDeEntregaUnica);
             }
             catch (SqlException e)
             {
@@ -154,7 +155,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeReporteMensual[2].Value = reporteMensual.FechaDeEntrega.ToString();
             parametrosDeReporteMensual[3].ParameterName = "@NumeroDeReporte";
             parametrosDeReporteMensual[3].Value = reporteMensual.NumeroDeReporte;
-            parametrosDeReporteMensual[4].ParameterName = "@DocenteAcademico";
+            parametrosDeReporteMensual[4].ParameterName = "@IDDocenteAcademico";
             parametrosDeReporteMensual[4].Value = reporteMensual.DocenteAcademico.IDPersonal;
             parametrosDeReporteMensual[5].ParameterName = "@Mes";
             parametrosDeReporteMensual[5].Value = (int)reporteMensual.Mes;
@@ -171,7 +172,20 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
         public int ObtenerUltimoIDInsertado()
         {
-            throw new NotImplementedException();
-        }
+			int ultimoIDInsertado = 0;
+			try
+			{
+				ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar("SELECT IDENT_CURRENT('ReportesMensuales')");
+			}
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeError.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			return ultimoIDInsertado;
+		}
     }
 }

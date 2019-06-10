@@ -19,6 +19,17 @@ namespace LogicaDeNegocios
 		public Liberacion Liberacion { get; set; }
 		public Solicitud Solicitud { get; set; }
 
+
+		public Asignacion()
+		{
+			DocumentosDeEntregaUnica = new List<DocumentoDeEntregaUnica>();
+			ReportesMensuales = new List<ReporteMensual>();
+			this.Solicitud = new Solicitud();
+			this.Liberacion = new Liberacion();
+			this.FechaDeFinal = DateTime.MinValue;
+			this.FechaDeInicio = DateTime.MinValue;
+		}
+
         public override string ToString()
         {
             string asignacion = System.Environment.NewLine +
@@ -34,6 +45,8 @@ namespace LogicaDeNegocios
         {
             ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
             DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
+			this.ReportesMensuales = reporteMensualDAO.CargarIDsPorIDAsignacion(this.IDAsignacion);
+			this.DocumentosDeEntregaUnica = documentoDeEntregaUnicaDAO.CargarIDsPorIDAsignacion(this.IDAsignacion);
             for (int i = 0; i<this.DocumentosDeEntregaUnica.Count; i++)
             {
                 this.DocumentosDeEntregaUnica[i] = documentoDeEntregaUnicaDAO.CargarDocumentoDeEntregaUnicaPorID(this.DocumentosDeEntregaUnica[i].IDDocumento);
@@ -46,6 +59,7 @@ namespace LogicaDeNegocios
 
         public int ObtenerHorasCubiertas()
         {
+			
             ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
             for (int i = 0; i < ReportesMensuales.Count; i++)
             {
@@ -56,25 +70,30 @@ namespace LogicaDeNegocios
             return this.HorasCubiertas;
         }
 
-        public void RegistrarReporteMensual(ReporteMensual reporteMensual, DocenteAcademico docenteAcademico)
+        public void RegistrarReporteMensual(ReporteMensual reporteMensual)
         {
-            reporteMensual.DocenteAcademico = docenteAcademico;
             ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
             reporteMensualDAO.GuardarReporteMensual(reporteMensual, this.IDAsignacion);
             reporteMensual.IDDocumento = reporteMensualDAO.ObtenerUltimoIDInsertado();
             this.ReportesMensuales.Add(reporteMensual);
         }
 
-        public void RegistrarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica, DocenteAcademico docenteAcademico)
+        public void RegistrarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica)
         {
-            documentoDeEntregaUnica.DocenteAcademico = docenteAcademico;
             DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
             documentoDeEntregaUnicaDAO.GuardarDocumentoDeEntregaUnica(documentoDeEntregaUnica, this.IDAsignacion);
             documentoDeEntregaUnica.IDDocumento = documentoDeEntregaUnicaDAO.ObtenerUltimoIDInsertado();
             this.DocumentosDeEntregaUnica.Add(documentoDeEntregaUnica);
         }
 
-        public void ActualizarHorasCubiertas()
+		public void Guardar()
+		{
+			AsignacionDAO asignacionDAO = new AsignacionDAO();
+			asignacionDAO.GuardarAsignacion(this);
+			this.Alumno.Asignar();
+		}
+
+		public void ActualizarHorasCubiertas()
         {
             int horasCubiertas = 0;
 

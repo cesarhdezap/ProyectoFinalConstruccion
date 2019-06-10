@@ -1,4 +1,5 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using System;
 using System.Collections.Generic;
 
 
@@ -18,6 +19,11 @@ namespace LogicaDeNegocios
             Matricula = string.Empty;
         }
 
+		public void Guardar()
+		{
+			AlumnoDAO alumnoDAO = new AlumnoDAO();
+			alumnoDAO.GuardarAlumno(this);
+		}
 		public void DarDeBaja()
 		{
 			EstadoAlumno = EstadoAlumno.DadoDeBaja;
@@ -61,7 +67,13 @@ namespace LogicaDeNegocios
             AlumnoDAO alumnoDAO = new AlumnoDAO();
             alumnoDAO.ActualizarAlumnoPorMatricula(this.Matricula, this);
         }
-    }
+
+		internal void Asignar()
+		{
+			EstadoAlumno = EstadoAlumno.Asignado;
+			ActualizarRegistroDeAlumno();
+		}
+	}
 
 	public enum EstadoAlumno
 	{

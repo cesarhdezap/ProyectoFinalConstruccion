@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeTecnicoAcademico"
         mc:Ignorable="d"
-        Title="GUIVerExpedienteDeAlumno" Height="1502.901" Width="1211.464">
+        Title="GUIVerExpedienteDeAlumno" Height="557.901" Width="1211.464">
     <Grid>
         <Label Content="Horas cubiertas:" HorizontalAlignment="Left" Margin="124,80,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Button x:Name="BtnRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="25,82,0,0" VerticalAlignment="Top" Width="75" Click="BtnRegresar_Click"/>
@@ -16,31 +16,37 @@
         <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1063,24,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
         <Button x:Name="BtnCapturarOtroDocumento" Content="Capturar otro documento" HorizontalAlignment="Left" Margin="1032,82,0,0" VerticalAlignment="Top" Width="159" FontFamily="Arial" Click="BtnCapturarOtroDocumento_Click"/>
         <Button x:Name="BtnCapturarReporteMensual" Content="Capturar reporte mensual" HorizontalAlignment="Left" Margin="841,82,0,0" VerticalAlignment="Top" Width="168" FontFamily="Arial" Click="BtnCapturarReporteMensual_Click"/>
-        <ListBox x:Name ="GrdReportesMensuales" Margin="0,116,0,1042">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel IsItemsHost="True"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
-        <ListBox x:Name ="GrdDocumentosDeEntregaUnica" Margin="0,435,0,723">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel IsItemsHost="True"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
+		<ItemsControl x:Name="ItemsControlReportesMensuales" Margin="0,144,0,0">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate x:Name="DataGridReportes">
+					<Grid>
+						<Image Source="{Binding Path=Imagen, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+						<TextBlock Text="{Binding Path=IDDocumento, Converter={StaticResource ResourceKey=ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica }, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+					</Grid>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<UniformGrid Columns="5"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+		</ItemsControl>
+		<!--<ListBox x:Name ="GrdDocumentosDeEntregaUnica" Margin="0,435,0,723">
+			<ListBox.ItemsPanel>
+				<ItemsPanelTemplate>
+					<WrapPanel IsItemsHost="True"/>
+				</ItemsPanelTemplate>
+			</ListBox.ItemsPanel>
+			<StackPanel>
+				<Image Source="{Binding Path=Imagen}"/>
+				<TextBlock Text="{Binding Path=IDDocumento, Converter={StaticResource ResourceKey=ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica }}"/>
+			</StackPanel>
+		</ListBox>-->
         <Label x:Name="LblHorasCubiertas" Content="[Horas cubiertas]" HorizontalAlignment="Left" Margin="252,80,0,0" VerticalAlignment="Top" FontSize="16"/>
     </Grid>
     <Window.Resources>
-        <o:ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica x:Key="ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica"/>
-        <DataTemplate DataType="{x:Type l:DocumentoDeEntregaUnica}">
-            <StackPanel>
-                <Image Source="{Binding Path=Imagen}"/>
-                <TextBlock Text="{Binding Path=IDDocumento, Converter={StaticResource ResourceKey=ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica }}"/>
-            </StackPanel>
-        </DataTemplate>
-        <o:ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual x:Key="ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual"/>
+		<o:ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica x:Key="ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica"/>
+		<o:ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual x:Key="ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual"/>
         <DataTemplate DataType="{x:Type l:ReporteMensual}">
             <StackPanel>
                 <Image Source="{Binding Path=Imagen}"/>
