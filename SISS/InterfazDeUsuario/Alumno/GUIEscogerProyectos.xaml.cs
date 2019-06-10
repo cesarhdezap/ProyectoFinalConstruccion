@@ -26,8 +26,31 @@ namespace InterfazDeUsuario.GUIsDeAlumno
             InitializeComponent();
             AdministradorDeProyectos = new AdministradorDeProyectos();
             this.Alumno = alumno;
-            AdministradorDeProyectos.CargarProyectosPorEstado(EstadoProyecto.Activo);
-            DtgProyectos.ItemsSource = AdministradorDeProyectos.Proyectos;
+			Mouse.OverrideCursor = Cursors.Wait;
+			try
+			{
+				AdministradorDeProyectos.CargarProyectosPorEstado(EstadoProyecto.Activo);
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ConexionABaseDeDatosFallida)
+			{
+				Mouse.OverrideCursor = null;
+				MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ObjetoNoExiste)
+			{
+				Mouse.OverrideCursor = null;
+				MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeError.ErrorDesconocidoDeAccesoABaseDeDatos)
+			{
+				Mouse.OverrideCursor = null;
+				MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			Mouse.OverrideCursor = null;
+			DtgProyectos.ItemsSource = AdministradorDeProyectos.Proyectos;
             DtgProyectos.UpdateLayout();
             Solicitud = new Solicitud
             {
