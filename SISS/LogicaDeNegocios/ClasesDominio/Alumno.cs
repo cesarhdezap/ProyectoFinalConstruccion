@@ -68,7 +68,7 @@ namespace LogicaDeNegocios
             alumnoDAO.ActualizarAlumnoPorMatricula(this.Matricula, this);
         }
 
-		internal void Asignar()
+		public void Asignar()
 		{
 			EstadoAlumno = EstadoAlumno.Asignado;
 			ActualizarRegistroDeAlumno();
