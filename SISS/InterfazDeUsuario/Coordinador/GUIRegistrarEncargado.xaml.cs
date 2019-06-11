@@ -12,7 +12,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 {
     public partial class GUIRegistrarEncargado : Window
     {
-        private List<Organizacion> Organizaciones;
+        private AdministradorDeOrganizaciones administradorDeOrganizaciones;
 
         public GUIRegistrarEncargado(DocenteAcademico coordinador)
         {
@@ -69,6 +69,12 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			Mouse.OverrideCursor = null;
 			ComboBoxOrganizacion.DisplayMemberPath = "Nombre";
             ComboBoxOrganizacion.ItemsSource = Organizaciones;
+            administradorDeOrganizaciones = new AdministradorDeOrganizaciones();
+            administradorDeOrganizaciones.CargarOrganizacionesConNombre();
+
+
+            ComboBoxOrganizacion.DisplayMemberPath = "Nombre";
+            ComboBoxOrganizacion.ItemsSource = administradorDeOrganizaciones.Organizaciones;
         }
 
         private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
@@ -84,15 +90,14 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			int indiceDeOrganizacion = ComboBoxOrganizacion.SelectedIndex;
             if (indiceDeOrganizacion >= 0)
             {
-                encargado.Organizacion = Organizaciones[indiceDeOrganizacion];
+                encargado.Organizacion = administradorDeOrganizaciones.Organizaciones[indiceDeOrganizacion];
                 if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text)
                 {
                     AdministradorDeEncargados administradorDeEncargados = new AdministradorDeEncargados();
                     bool resultadoDeCreacion = false;
                     try
                     {
-                        resultadoDeCreacion = administradorDeEncargados.CrearEncargado(encargado);
-                        
+                        resultadoDeCreacion = encargado.Guardar();
                     }
 					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada)
 					{
@@ -141,9 +146,9 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 					{
 						MessageBox.Show("Encargado registrado correctamente.", "¡Registro exitoso!", MessageBoxButton.OK, MessageBoxImage.Information);
 					}
-                }
-            }
-            else
+         }
+        }
+        else
             {
                 MessageBox.Show("Seleccione una organizacion.");
             }
@@ -163,7 +168,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
         private void TextBoxPuesto_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            if (ValidarPuestoEncargado(TextBoxPuesto.Text))
+            if (ValidarCadena(TextBoxPuesto.Text))
             {
                 TextBoxPuesto.BorderBrush = Brushes.Green;
             }

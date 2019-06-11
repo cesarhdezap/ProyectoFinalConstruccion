@@ -32,7 +32,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
                 AdministradorDeOrganizaciones administradorDeOrganizaciones = new AdministradorDeOrganizaciones();
                 try
                 {
-                    resultadoDeCreacionDeOrganizacion = administradorDeOrganizaciones.CrearOrganizacion(organizacion);
+                    resultadoDeCreacionDeOrganizacion = organizacion.Guardar();
                 }
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada)
 				{
@@ -80,14 +80,15 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			}
             if (resultadoDeCreacionDeOrganizacion)
             {
-                MessageBox.Show("Encargado registrado correctamente.", "!Registro exitoso!", MessageBoxButton.OK);
+                MessageBox.Show("Organizacion registrada correctamente.");
+                Close();
             }
         }
 
 
         private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarNombreDeOrganizacion(TextBoxNombre.Text))
+            if (ValidarCadena(TextBoxNombre.Text))
             {
                 TextBoxNombre.BorderBrush = Brushes.Green;
             }
@@ -99,7 +100,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
         private void TextBoxDireccion_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarDireccion(TextBoxDireccion.Text))
+            if (ValidarCadena(TextBoxDireccion.Text))
             {
                 TextBoxDireccion.BorderBrush = Brushes.Green;
             }
