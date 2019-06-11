@@ -159,12 +159,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             SqlParameter[] parametroIDDocumento = new SqlParameter[1];
             parametroIDDocumento[0] = new SqlParameter
             {
-                ParameterName = "@IDDocuemento",
+                ParameterName = "@IDDocumento",
                 Value = IDDocumento
             };
 			try
 			{
-				tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect("Query?", parametroIDDocumento);
+				tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect("SELECT IDDocenteAcademico FROM ReportesMensuales WHERE IDDocumento = @IDDocumento", parametroIDDocumento);
 			}
 			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
 			{

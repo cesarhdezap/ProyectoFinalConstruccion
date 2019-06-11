@@ -88,24 +88,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeDocumentosDeEntregaUnica;
         }
 
-        public int ObtenerUltimoIDInsertado()
-        {
-            int ultimoIDInsertado = 0;
-            try
-            {
-                ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar("SELECT IDENT_CURRENT('DocumentosDeEntregaUnica')");
-            }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
-            {
-                throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-            }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
-            }
-            return ultimoIDInsertado;
-        }
-
         public void GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion)
         {
             if (IDAsignacion <= 0)
