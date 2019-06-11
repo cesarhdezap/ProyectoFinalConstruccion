@@ -176,6 +176,24 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             throw new NotImplementedException();
         }
+
+		public int ObtenerUltimoIDInsertado()
+		{
+			int ultimoIDInsertado = 0;
+			try
+			{
+				ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar("SELECT IDENT_CURRENT('DocumentosDeEnregaUnica')");
+			}
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en DocumentoDeEntregaUnicaDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en DocumentoDeEntregaUnicaDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			return ultimoIDInsertado;
+		}
     }
 }
 

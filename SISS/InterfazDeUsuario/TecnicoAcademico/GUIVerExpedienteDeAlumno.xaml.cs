@@ -34,8 +34,6 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
             this.DocenteAcademico = docenteAcademico;
             AsignacionDAO asignacionDAO = new AsignacionDAO();
             Asignacion asignacion = new Asignacion();
-            AdministradorDeDocumentosDeEntregaUnica = new AdministradorDeDocumentosDeEntregaUnica();
-            AdministradorDeReportesMensuales = new AdministradorDeReportesMensuales();
             ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
             Mouse.OverrideCursor = Cursors.Wait;
             try
