@@ -27,6 +27,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
         private AdministradorDeDocumentosDeEntregaUnica AdministradorDeDocumentosDeEntregaUnica { get; set; }
         private Alumno Alumno { get; set; }
         private DocenteAcademico DocenteAcademico { get; set; }
+        List<ReporteMensual> reportes = new List<ReporteMensual>();
         public GUIVerExpedienteDeAlumno(DocenteAcademico docenteAcademico, Alumno alumno)
         {
             InitializeComponent();
@@ -88,8 +89,13 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 
 			LabelHorasCubiertas.Content = asignacion.ObtenerHorasCubiertas();
             LabelNombreDeUsuario.Content = DocenteAcademico.Nombre;
-            ItemsControlReportesMensuales.ItemsSource = asignacion.ReportesMensuales;
+            
+            reportes = asignacion.ReportesMensuales;
+            GridReportesMensuales.DataContext = this;
+
             //GrdReportesMensuales.ItemsSource = AdministradorDeReportesMensuales.ReportesMensuales;
+
+            
         }
 
         private void BtnCapturarOtroDocumento_Click(object sender, RoutedEventArgs e)

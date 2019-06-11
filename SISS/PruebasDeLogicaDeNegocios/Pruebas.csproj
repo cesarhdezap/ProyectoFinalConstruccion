@@ -58,6 +58,7 @@
     <Compile Include="PruebasDAO\PruebasDocenteAcademicoDAO.cs" />
     <Compile Include="PruebasDAO\PruebasDirectorDAO.cs" />
     <Compile Include="PruebasDAO\PruebasEncargadoDAO.cs" />
+    <Compile Include="PruebasDAO\PruebasReporteMensualDAO.cs" />
     <Compile Include="PruebasDeAccesoADatos.cs" />
     <Compile Include="PruebasDeServicios\PruebasDeServiciosDeAutenticacion.cs" />
     <Compile Include="PruebasDeServicios\PruebasDeServiciosDeValidacion.cs" />
