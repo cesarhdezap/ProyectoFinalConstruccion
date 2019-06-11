@@ -71,7 +71,6 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 				this.Close();
 			}
 			Mouse.OverrideCursor = null;
-			Mouse.OverrideCursor = null;
 			DtgAlumnos.ItemsSource = AdministradorDeAlumnos.Alumnos;
         }
 
