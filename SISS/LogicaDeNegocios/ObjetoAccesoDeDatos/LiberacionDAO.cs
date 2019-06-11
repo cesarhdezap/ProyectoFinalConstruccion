@@ -98,22 +98,22 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return parametrosDeLiberacion;
         }
 
-        public int ObtenerUltimoIDInsertado()
-        {
-            int ultimoIDInsertado = 0;
-            try
-            {
-                ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar("SELECT IDENT_CURRENT('Liberaciones')");
-            }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
-            {
-                throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-            }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
-            }
-            return ultimoIDInsertado;
-        }
+		public int ObtenerUltimoIDInsertado()
+		{
+			int ultimoIDInsertado = 0;
+			try
+			{
+				ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar("SELECT IDENT_CURRENT('Liberaciones')");
+			}
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			return ultimoIDInsertado;
+		}
     }
 }

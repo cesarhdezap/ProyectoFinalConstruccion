@@ -86,6 +86,7 @@ namespace LogicaDeNegocios
             this.DocumentosDeEntregaUnica.Add(documentoDeEntregaUnica);
         }
 
+
 		public void Guardar()
 		{
 			AsignacionDAO asignacionDAO = new AsignacionDAO();

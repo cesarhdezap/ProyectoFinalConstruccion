@@ -89,10 +89,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Alumno\GUILoginAnonimoEsperarValidacion.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Alumno\GUIRegistrarAlumno.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -159,9 +155,6 @@
     </Page>
     <Compile Include="Alumno\GUIEscogerProyectos.xaml.cs">
       <DependentUpon>GUIEscogerProyectos.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Alumno\GUILoginAnonimoEsperarValidacion.xaml.cs">
-      <DependentUpon>GUILoginAnonimoEsperarValidacion.xaml</DependentUpon>
     </Compile>
     <Compile Include="Alumno\GUIRegistrarAlumno.xaml.cs">
       <DependentUpon>GUIRegistrarAlumno.xaml</DependentUpon>
