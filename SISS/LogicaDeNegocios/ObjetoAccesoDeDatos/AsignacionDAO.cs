@@ -118,6 +118,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
 			DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
 			Asignacion asignacion = new Asignacion();
+
 			foreach (DataRow fila in tablaDeAsignaciones.Rows) {
 				asignacion.IDAsignacion = (int)fila["IDAsignacion"];
 				asignacion.EstadoAsignacion = (EstadoAsignacion)fila["Estado"];

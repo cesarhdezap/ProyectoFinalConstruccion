@@ -4,6 +4,8 @@ using static LogicaDeNegocios.Servicios.ServiciosDeSesion;
 using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
 using InterfazDeUsuario.GUITipoDeSesion;
 using InterfazDeUsuario.GUIsDeAlumno;
+using LogicaDeNegocios.Excepciones;
+using System.Windows.Input;
 
 namespace InterfazDeUsuario
 {
@@ -19,7 +21,22 @@ namespace InterfazDeUsuario
             string correo = TextBoxCorreo.Text;
             if (correo != null && PasswordBoxContraseña.Password != null)
             {
-                bool resultadoDeAutenticacion = AutenticarCredenciales(correo, PasswordBoxContraseña.Password);
+                bool resultadoDeAutenticacion = false;
+                try
+                {
+                    Mouse.OverrideCursor = Cursors.Wait;
+                    resultadoDeAutenticacion = AutenticarCredenciales(correo, PasswordBoxContraseña.Password);
+                }
+                catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
+                {
+                    MessageBox.Show("No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
+                {
+                    MessageBox.Show("No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                Mouse.OverrideCursor = null;
+
                 if (resultadoDeAutenticacion)
                 {
                     Sesion sesion = CargarSesion(correo);

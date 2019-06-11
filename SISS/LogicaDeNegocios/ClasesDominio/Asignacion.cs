@@ -94,7 +94,7 @@ namespace LogicaDeNegocios
 			this.Alumno.Asignar();
 		}
 
-		public void ActualizarHorasCubiertas()
+		private void ActualizarHorasCubiertas()
         {
             int horasCubiertas = 0;
 
