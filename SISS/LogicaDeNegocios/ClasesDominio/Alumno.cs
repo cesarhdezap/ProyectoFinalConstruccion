@@ -12,7 +12,7 @@ namespace LogicaDeNegocios
 		public string Carrera { get; set; }
 		public string Contraseña { get; set; }
 		public EstadoAlumno EstadoAlumno { get; set; }
-		public List<Asignacion> Asignaciones { get; set; }	
+		public Asignacion Asignacion { get; set; }	
 
         public Alumno ()
         {
@@ -31,6 +31,15 @@ namespace LogicaDeNegocios
             }
             return resultadoDeCreacion;
         }
+
+		public Asignacion CargarAsignacion()
+		{
+			AsignacionDAO asignacionDAO = new AsignacionDAO();
+			Asignacion asignacion = new Asignacion();
+			asignacion = asignacionDAO.CargarIDPorMatriculaDeAlumno(Matricula);
+			asignacion = asignacionDAO.CargarAsignacionPorID(asignacion.IDAsignacion);
+			return asignacion;
+		}
 
         private bool ValidarAlumno()
         {

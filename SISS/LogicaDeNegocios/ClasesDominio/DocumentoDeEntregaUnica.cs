@@ -11,12 +11,6 @@ namespace LogicaDeNegocios
 		public TipoDeDocumento TipoDeDocumento { get; set; }
 		public DocenteAcademico DocenteAcademico { get; set; }
 		public BitmapImage Imagen { get; set; }
-
-		public void Guardar()
-		{
-			DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
-			documentoDeEntregaUnicaDAO.GuardarDocumentoDeEntregaUnica(this);
-		}
 	}
 
 	

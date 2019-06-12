@@ -5,8 +5,8 @@ namespace LogicaDeNegocios.Interfaces
 {
 	interface IDocumentoDeEntregaUnicaDAO
 	{
-        DocumentoDeEntregaUnica CargarDocumentoDeEntregaUnicaPorID(int IDdocumentoDeEntregaUnica);
+        DocumentoDeEntregaUnica CargarDocumentoDeEntregaUnicaPorID(int IDAsignacion);
         List<DocumentoDeEntregaUnica> CargarIDsPorIDAsignacion(int IDAsignacion);
-        void GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica);
+        void GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion);
     }
 }

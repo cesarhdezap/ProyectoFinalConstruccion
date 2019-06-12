@@ -1,4 +1,5 @@
-﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
+﻿using System;
+using LogicaDeNegocios.ObjetoAccesoDeDatos;
 
 namespace LogicaDeNegocios
 {
@@ -34,6 +35,14 @@ namespace LogicaDeNegocios
             this.EsActivo = false;
         }
 
+		public DocenteAcademico CargarCoordinadorPorCarrera()
+		{
+			DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
+			DocenteAcademico docenteAcademico = new DocenteAcademico();
+			docenteAcademico = docenteAcademicoDAO.CargarIDPorCarrera(Carrera);
+			docenteAcademico = docenteAcademicoDAO.CargarDocenteAcademicoPorIDPersonal(IDPersonal);
+			return docenteAcademico;
+		}
 	}
 	
 	public enum Rol

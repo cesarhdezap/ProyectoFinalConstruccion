@@ -29,11 +29,9 @@ namespace InterfazDeUsuario.GUIsDeAlumno
         {
             InitializeComponent();
             this.Alumno = alumno;
-            AsignacionDAO asignacionDAO = new AsignacionDAO();
             try
             {
-                this.Asignacion = asignacionDAO.CargarIDsPorMatriculaDeAlumno(Alumno.Matricula).ElementAt(0);
-                this.Asignacion = asignacionDAO.CargarAsignacionPorID(this.Asignacion.IDAsignacion);
+				this.Asignacion = Alumno.CargarAsignacion();
                 this.Asignacion.CargarDocumentos();
             }
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada)

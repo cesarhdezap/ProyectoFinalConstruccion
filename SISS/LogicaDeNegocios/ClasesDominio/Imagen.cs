@@ -14,6 +14,12 @@ namespace LogicaDeNegocios.ClasesDominio
         public int IDDocumento { get; set; }
         public TipoDeDocumentoEnImagen TipoDeDocumentoEnImagen { get; set; }
 
+		public Imagen(TipoDeDocumentoEnImagen tipoDeDocumentoEnImagen)
+		{
+			this.DireccionDeImagen = string.Empty;
+			this.TipoDeDocumentoEnImagen = tipoDeDocumentoEnImagen;
+		}
+
 		public void Guardar()
 		{
 			ImagenDAO imagenDAO = new ImagenDAO();
