@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfazDeUsuario.GUITipoDeSesion"
         mc:Ignorable="d"
-        Title="GUIAlumno" Height="542" Width="893">
-    <Grid Margin="0,0,2,-4">
-        <Button x:Name="BtnEscogerProyecto" Content="Escoger proyecto" HorizontalAlignment="Left" Margin="335,225,0,0" VerticalAlignment="Top" Width="182" Height="102" BorderBrush="#FF231A1A" FontFamily="Arial" FontSize="20" Click="BtnEscogerProyecto_Click"/>
-        <Button x:Name="BtnVerExpediente" Content="Ver expediente" HorizontalAlignment="Left" Margin="335,225,0,0" VerticalAlignment="Top" Width="182" Height="102" BorderBrush="#FF151111" FontFamily="Arial" FontSize="20" Click="BtnVerExpediente_Click"/>
-        <Label x:Name="LblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="895" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C" Margin="0,0,-12,0"/>
-        <Label x:Name="LblSISS" Content="Sistema Informático de Servicio Social" HorizontalAlignment="Left" Margin="251,83,0,0" VerticalAlignment="Top" Height="33" Width="392" FontFamily="Arial" FontSize="22" BorderBrush="#FF1B1414"/>
-        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="627,23,0,0" Width="119"/>
-        <Label x:Name="LblCerrarSesión" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="751,23,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
-        <Label x:Name="LblEsperandoAsignacion" Content="Esperando asignación por el coordinador." HorizontalAlignment="Left" Margin="251,161,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label x:Name="LblEsperandoAceptacion" Content="Esperando aceptación al sistema por el coordinador" HorizontalAlignment="Left" Margin="200,161,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label x:Name="LblDadoDeBaja" Content="Ha sido dado de baja del sistema, consulte a su coordinador" HorizontalAlignment="Left" Margin="157,161,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label x:Name="LblLiberado" Content="Su servicio social ha concluido" HorizontalAlignment="Left" Margin="289,161,0,0" VerticalAlignment="Top" FontSize="20"/>
-    </Grid>
+        Title="SISS - Alumno" Height="450.5" Width="893" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+	<Grid Margin="0,0,2,-4">
+		<Button x:Name="ButtonEscogerProyecto" Content="Escoger proyecto" HorizontalAlignment="Left" Margin="359,249,0,0" VerticalAlignment="Top" Width="182" Height="102" BorderBrush="#FF231A1A" FontSize="20" Click="BtnEscogerProyecto_Click"/>
+		<Button x:Name="ButtonVerExpediente" Content="Ver expediente" HorizontalAlignment="Left" Margin="359,249,0,0" VerticalAlignment="Top" Width="182" Height="102" BorderBrush="#FF151111" FontSize="20" Click="BtnVerExpediente_Click"/>
+		<Label x:Name="LblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontSize="48" BorderThickness="2" Margin="0,0,-12,0" FontFamily="Gill Sans MT" Height="64"/>
+		<Label x:Name="LblSISS" Content="Sistema Informático de Servicio Social" HorizontalAlignment="Left" Margin="260,108,0,0" VerticalAlignment="Top" Height="34" Width="392" FontSize="22" BorderBrush="#FF1B1414"/>
+		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="560,23,0,0" FontSize="14"/>
+		<Label x:Name="LblCerrarSesión" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="742,23,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
+		<Label x:Name="LabelEsperandoAsignacion" Content="Esperando asignación por el coordinador." HorizontalAlignment="Left" Margin="275,161,0,0" VerticalAlignment="Top" FontSize="20"/>
+		<Label x:Name="LabelEsperandoAceptacion" Content="Esperando aceptación al sistema por el coordinador" HorizontalAlignment="Left" Margin="224,161,0,0" VerticalAlignment="Top" FontSize="20"/>
+		<Label x:Name="LabelDadoDeBaja" Content="Ha sido dado de baja del sistema, consulte a su coordinador" HorizontalAlignment="Left" Margin="181,161,0,0" VerticalAlignment="Top" FontSize="20"/>
+		<Label x:Name="LabelLiberado" Content="Su servicio social ha concluido" HorizontalAlignment="Left" Margin="313,161,0,0" VerticalAlignment="Top" FontSize="20"/>
+	</Grid>
 </Window>

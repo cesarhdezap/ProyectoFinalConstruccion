@@ -41,7 +41,16 @@ namespace LogicaDeNegocios
             return asignacion;
         }
 
-        public void CargarDocumentos()
+		public Proyecto CargarProyecto()
+		{
+			ProyectoDAO proyectoDAO = new ProyectoDAO();
+			Proyecto proyecto = new Proyecto();
+			proyecto = proyectoDAO.CargarIDProyectoPorIDAsignacion(IDAsignacion);
+			proyecto = proyectoDAO.CargarProyectoPorID(proyecto.IDProyecto);
+			return proyecto;
+		}
+
+		public void CargarDocumentos()
         {
             ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
             DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();

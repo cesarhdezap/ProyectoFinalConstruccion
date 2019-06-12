@@ -7,7 +7,7 @@ namespace LogicaDeNegocios.Interfaces
 	{
 		void ActualizarAsignacionPorID(int IDasignacion, Asignacion asignacion);
         Asignacion CargarAsignacionPorID(int IDasignacion);
-        List<Asignacion> CargarIDsPorMatriculaDeAlumno(string matricula);
+        Asignacion CargarIDPorMatriculaDeAlumno(string matricula);
         void GuardarAsignacion(Asignacion asignacion);
         List<Asignacion> CargarIDsPorIDProyecto(int IDProyecto);
     }

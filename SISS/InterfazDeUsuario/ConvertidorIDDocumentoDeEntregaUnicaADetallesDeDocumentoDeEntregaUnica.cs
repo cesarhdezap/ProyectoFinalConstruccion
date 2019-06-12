@@ -18,7 +18,7 @@ namespace InterfazDeUsuario
             DocumentoDeEntregaUnica documentoDeEntregaUnica = new DocumentoDeEntregaUnica();
             documentoDeEntregaUnica = documentoDeEntregaUnicaDAO.CargarDocumentoDeEntregaUnicaPorID((int)IDDocumento);
 
-            string cadenaResultado = documentoDeEntregaUnica.Nombre + System.Environment.NewLine +
+			string cadenaResultado = documentoDeEntregaUnica.TipoDeDocumento.ToString() + System.Environment.NewLine +
                                      "Entregado: " + documentoDeEntregaUnica.FechaDeEntrega.ToString();
 
             return cadenaResultado;

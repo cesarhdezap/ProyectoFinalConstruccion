@@ -11,14 +11,14 @@
 		<l:ConvertidorMatriculaDeAlumnoADetallesDeAlumno x:Key="ConvertidorMatriculaDeAlumnoADetallesDeAlumno" />
 	</Window.Resources>
 	<Grid>
-		<Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="994" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="48" BorderThickness="2" BorderBrush="#FF110C0C"/>
-		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="766,21,0,0" Width="119" FontFamily="Arial"/>
-		<Label x:Name="LblCerrarSesión" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="890,21,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontFamily="Arial"/>
-		<Label x:Name="LblBuscarAlumno" Content="Buscar alumno" HorizontalAlignment="Left" Margin="286,80,0,0" VerticalAlignment="Top" Width="258" FontSize="36"/>
-		<TextBox x:Name="TxtBuscarAlumnos_por_nombre" HorizontalAlignment="Left" Height="23" Margin="217,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" TextChanged="TxtBuscarAlumnos_por_nombre_TextChanged"/>
-		<Label x:Name="LblBuscarAlumnosPorNombre" Content="Buscar alumno por nombre:" HorizontalAlignment="Left" Margin="31,150,0,0" VerticalAlignment="Top" FontSize="14"/>
-		<Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="469,496,0,-97" VerticalAlignment="Top" Width="75" FontFamily="Arial" FontSize="14"/>
-		<DataGrid x:Name="DtgAlumnos" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="false" CanUserDeleteRows="False" SelectionUnit="FullRow" HorizontalAlignment="Left" Height="281" Margin="31,184,0,0" VerticalAlignment="Top" Width="941">
+		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="48" BorderThickness="2" Margin="31,10,0,0"/>
+		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="733,37,0,0" FontSize="14" Width="139"/>
+		<Label x:Name="LabelCerrarSesión" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="877,37,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
+		<Label x:Name="LabelBuscarAlumno" Content="Buscar alumno" HorizontalAlignment="Left" Margin="31,75,0,0" VerticalAlignment="Top" Width="258" FontSize="36"/>
+		<TextBox x:Name="TextBoxBuscarAlumnosPorNombre" HorizontalAlignment="Left" Height="23" Margin="217,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" TextChanged="TextBoxBuscarAlumnosPorNombre_TextChanged" FontSize="14"/>
+		<Label x:Name="LabelBuscarAlumnosPorNombre" Content="Buscar alumno por nombre:" HorizontalAlignment="Left" Margin="31,138,0,0" VerticalAlignment="Top" FontSize="14"/>
+		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="463,504,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Click="BtnCancelar_Click"/>
+		<DataGrid x:Name="DataGridAlumnos" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="false" CanUserDeleteRows="False" SelectionUnit="FullRow" HorizontalAlignment="Left" Height="290" Margin="31,172,0,0" VerticalAlignment="Top" Width="941" FontSize="14">
 			<DataGrid.CellStyle>
 				<Style TargetType="DataGridCell">
 					<Setter Property="BorderThickness" Value="0"/>

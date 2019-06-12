@@ -149,7 +149,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        private SqlParameter[] InicializarParametrosDeSql(ReporteMensual reporteMensual, int IDAsignacion)
+        private SqlParameter[] InicializarParametrosDeSql(ReporteMensual reporteMensual, int IDAsignacion = 0)
         {
             SqlParameter[] parametrosDeReporteMensual = new SqlParameter[7];
 
@@ -176,10 +176,32 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return parametrosDeReporteMensual;
         }
 
-        public void ActualizarReporteMensualPorID(int IDReporteMensual, ReporteMensual reporteMensual)
+        public void ActualizarReporteMensualPorID(int IDDocumento, ReporteMensual reporteMensual)
         {
-            throw new NotImplementedException();
-        }
+			if (IDDocumento <= 0)
+			{
+				throw new AccesoADatosException("Error al Actualizar ReporteMensual Por IDDocumento: " + IDDocumento + ". IDDocumento no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
+			}
+			SqlParameter[] parametrosDrProyecto = InicializarParametrosDeSql(reporteMensual);
+			int filasAfectadas = 0;
+			try
+			{
+				filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE ReportesMensuales SET HorasReportadas = @HorasReportadas WHERE IDDocumento = @IDDocumento", parametrosDrProyecto);
+			}
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al actualizar Proyecto: " + reporteMensual.ToString() + "Con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al actualizar Proyecto: " + reporteMensual.ToString() + "Con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+
+			if (filasAfectadas <= 0)
+			{
+				throw new AccesoADatosException("El Proyecto con IDProyecto: " + IDDocumento + " no existe.", TipoDeErrorDeAccesoADatos.ObjetoNoExiste);
+			}
+		}
 
         public int ObtenerUltimoIDInsertado()
         {

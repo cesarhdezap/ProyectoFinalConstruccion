@@ -18,10 +18,10 @@ namespace InterfazDeUsuario
             ReporteMensual reporteMensual = new ReporteMensual();
             reporteMensual = reporteMensualDAO.CargarReporteMensualPorID((int)IDDocumento);
 
-            string cadenaResultado = "Reporte Mensual: " + reporteMensual.NumeroDeReporte + System.Environment.NewLine +
-                                     "Entregado: " + reporteMensual.FechaDeEntrega.ToString() + System.Environment.NewLine +
-                                     "Horas reportadas: " + reporteMensual.HorasReportadas;
-
+			string cadenaResultado = "Mes: " + reporteMensual.Mes.ToString() + System.Environment.NewLine +
+									 "Horas reportadas: " + reporteMensual.HorasReportadas + System.Environment.NewLine +
+									 "Reporte Mensual: " + reporteMensual.NumeroDeReporte + System.Environment.NewLine +
+									 "Entregado: " + reporteMensual.FechaDeEntrega.ToString();
             return cadenaResultado;
         }
 

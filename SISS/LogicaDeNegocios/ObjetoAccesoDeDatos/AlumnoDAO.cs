@@ -252,7 +252,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 alumno.Carrera = fila["Carrera"].ToString();
                 alumno.Contraseña = fila["Contraseña"].ToString();
                 alumno.EstadoAlumno = (EstadoAlumno)fila["Estado"];
-                alumno.Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["Matricula"].ToString());
+                alumno.Asignacion = asignacionDAO.CargarIDPorMatriculaDeAlumno(fila["Matricula"].ToString());
             }
             return alumno;
         }
@@ -283,7 +283,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                     Carrera = fila["Carrera"].ToString(),
                     Contraseña = fila["Contraseña"].ToString(),
                     EstadoAlumno = (EstadoAlumno)fila["Estado"],
-                    Asignaciones = asignacionDAO.CargarIDsPorMatriculaDeAlumno(fila["Matricula"].ToString())
+                    Asignacion = asignacionDAO.CargarIDPorMatriculaDeAlumno(fila["Matricula"].ToString())
                 };
                 listaDeAlumnos.Add(alumno);
             }

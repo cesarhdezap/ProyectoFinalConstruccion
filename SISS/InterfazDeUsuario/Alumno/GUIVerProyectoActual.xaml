@@ -6,34 +6,33 @@
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeAlumno"
         mc:Ignorable="d"
         Title="GUIVerProyectoActual" Height="662.657" Width="1078.453">
-    <Grid Margin="-9,8,9,-8">
-        <Rectangle x:Name="RecOrganizacionYEnecargado" HorizontalAlignment="Left" Height="125" Margin="58,147,0,0" Stroke="Black" VerticalAlignment="Top" Width="448"/>
-        <Rectangle x:Name="RecCoordinador" HorizontalAlignment="Left" Height="125" Margin="564,147,0,0" Stroke="Black" VerticalAlignment="Top" Width="457"/>
-        <Rectangle x:Name="RecCoordinador1" HorizontalAlignment="Left" Height="213" Margin="58,349,0,0" Stroke="Black" VerticalAlignment="Top" Width="963"/>
-        <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="502,583,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Click="BtnCancelar_Click" />
-        <Label x:Name="LabelNombreDelProyecto" Content="[Nombre del proyecto]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="392,74,0,0" Width="297" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="24"/>
-        <Label Content="Organización y encargado" HorizontalAlignment="Left" Margin="58,121,0,0" VerticalAlignment="Top"/>
-        <Label Content="Coordinador" HorizontalAlignment="Left" Margin="564,121,0,0" VerticalAlignment="Top"/>
-        <Label Content="Descripción" HorizontalAlignment="Left" Margin="58,323,0,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="TextBoxDescripcionGeneralDeProyecto" HorizontalAlignment="Left" Margin="137,431,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="101" Width="833"><Run Text="-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"/><Run Text="----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"/></TextBlock>
-        <Label Content="Descripción general: " HorizontalAlignment="Left" Margin="92,400,0,0" VerticalAlignment="Top"/>
-        <Label Content="Nombre de organización:" HorizontalAlignment="Left" Margin="84,152,0,0" VerticalAlignment="Top"/>
-        <Label Content="Teléfono del coordinador: " HorizontalAlignment="Left" Margin="592,210,0,0" VerticalAlignment="Top"/>
-        <Label Content="Correo del coordinador: " HorizontalAlignment="Left" Margin="601,181,0,0" VerticalAlignment="Top"/>
-        <Label Content="Nombre del coordinador: " HorizontalAlignment="Left" Margin="595,152,0,0" VerticalAlignment="Top"/>
-        <Label Content="Teléfono del encargado: " HorizontalAlignment="Left" Margin="90,239,0,0" VerticalAlignment="Top" Width="137"/>
-        <Label Content="Correo del encargado: " HorizontalAlignment="Left" Margin="98,210,0,0" VerticalAlignment="Top" Width="130"/>
-        <Label Content="Nombre del encargado: " HorizontalAlignment="Left" Margin="93,181,0,0" VerticalAlignment="Top" Width="135"/>
-        <Label x:Name="LabelNombreDeOrganizacion" Content="[NombreDeOrganizacion]" HorizontalAlignment="Left" Margin="262,152,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="LabelTelefonoDelEncargado" Content="[TelefonoDelEncargado]" HorizontalAlignment="Left" Margin="262,239,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="LabelCorreoDelEncargado" Content="[CorreoDelEncargado]" HorizontalAlignment="Left" Margin="262,210,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="LabelNombreDelEncargado" Content="[NombreDelEncargado]" HorizontalAlignment="Left" Margin="262,181,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="LabelNombreDelCoordinador" Content="[NombreDelCoordinador]" HorizontalAlignment="Left" Margin="775,152,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="LabelCorreoDelCoordinador" Content="[CorreoDelCoordinador]" HorizontalAlignment="Left" Margin="775,181,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="LabelTelefonoDelCoordinador" Content="[TelefonoDelCoordinador]" HorizontalAlignment="Left" Margin="775,210,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="491" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="198,0,0,0"/>
-        <Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="799,24,0,0" Width="119"/>
-        <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="923,24,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
-
-    </Grid>
+	<Grid Margin="-9,8,9,-8">
+		<Rectangle x:Name="RectangleOrganizacionYEnecargado" HorizontalAlignment="Left" Height="125" Margin="58,147,0,0" Stroke="Black" VerticalAlignment="Top" Width="448"/>
+		<Rectangle x:Name="RectangleCoordinador" HorizontalAlignment="Left" Height="125" Margin="564,147,0,0" Stroke="Black" VerticalAlignment="Top" Width="457"/>
+		<Rectangle x:Name="RectangleProyecto" HorizontalAlignment="Left" Height="172" Margin="58,349,0,0" Stroke="Black" VerticalAlignment="Top" Width="963"/>
+		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="502,583,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Click="BtnCancelar_Click" />
+		<Label x:Name="LabelNombreDelProyecto" Content="[Nombre del proyecto]" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,74,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="24" Width="269"/>
+		<Label Content="Organización y encargado" HorizontalAlignment="Left" Margin="58,116,0,0" VerticalAlignment="Top"/>
+		<Label Content="Coordinador" HorizontalAlignment="Left" Margin="560,121,0,0" VerticalAlignment="Top"/>
+		<Label Content="Descripción" HorizontalAlignment="Left" Margin="58,323,0,0" VerticalAlignment="Top"/>
+		<TextBlock x:Name="TextBoxDescripcionGeneralDeProyecto" HorizontalAlignment="Left" Margin="138,404,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="101" Width="833"><Run Text="-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"/><Run Text="----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------"/></TextBlock>
+		<Label Content="Descripción general: " HorizontalAlignment="Left" Margin="93,373,0,0" VerticalAlignment="Top"/>
+		<Label Content="Nombre de organización:" HorizontalAlignment="Left" Margin="85,152,0,0" VerticalAlignment="Top"/>
+		<Label Content="Teléfono del coordinador: " HorizontalAlignment="Left" Margin="594,210,0,0" VerticalAlignment="Top"/>
+		<Label Content="Correo del coordinador: " HorizontalAlignment="Left" Margin="603,181,0,0" VerticalAlignment="Top"/>
+		<Label Content="Nombre del coordinador: " HorizontalAlignment="Left" Margin="595,152,0,0" VerticalAlignment="Top"/>
+		<Label Content="Teléfono del encargado: " HorizontalAlignment="Left" Margin="93,239,0,0" VerticalAlignment="Top" Width="137"/>
+		<Label Content="Correo del encargado: " HorizontalAlignment="Left" Margin="102,210,0,0" VerticalAlignment="Top" Width="130"/>
+		<Label Content="Nombre del encargado: " HorizontalAlignment="Left" Margin="94,181,0,0" VerticalAlignment="Top" Width="135"/>
+		<Label x:Name="LabelNombreDeOrganizacion" Content="[NombreDeOrganizacion]" HorizontalAlignment="Left" Margin="262,152,0,0" VerticalAlignment="Top"/>
+		<Label x:Name="LabelTelefonoDelEncargado" Content="[TelefonoDelEncargado]" HorizontalAlignment="Left" Margin="262,239,0,0" VerticalAlignment="Top"/>
+		<Label x:Name="LabelCorreoDelEncargado" Content="[CorreoDelEncargado]" HorizontalAlignment="Left" Margin="262,210,0,0" VerticalAlignment="Top"/>
+		<Label x:Name="LabelNombreDelEncargado" Content="[NombreDelEncargado]" HorizontalAlignment="Left" Margin="262,181,0,0" VerticalAlignment="Top"/>
+		<Label x:Name="LabelNombreDelCoordinador" Content="[NombreDelCoordinador]" HorizontalAlignment="Left" Margin="775,152,0,0" VerticalAlignment="Top"/>
+		<Label x:Name="LabelCorreoDelCoordinador" Content="[CorreoDelCoordinador]" HorizontalAlignment="Left" Margin="775,181,0,0" VerticalAlignment="Top"/>
+		<Label x:Name="LabelTelefonoDelCoordinador" Content="[TelefonoDelCoordinador]" HorizontalAlignment="Left" Margin="775,210,0,0" VerticalAlignment="Top"/>
+		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="58,0,0,0"/>
+		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="760,10,0,0" FontSize="14"/>
+		<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="926,10,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
+	</Grid>
 </Window>

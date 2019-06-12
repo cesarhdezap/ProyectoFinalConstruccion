@@ -5,34 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeAlumno"
         mc:Ignorable="d"
-        Title="GUIRegistrarAlumno" Height="492.8" Width="635" ResizeMode="NoResize">
-    <Grid Margin="0,0,1,-5">
-        <Grid.Background>
-            <ImageBrush/>
-        </Grid.Background>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" Margin="100,26,0,0" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" FontSize="38" BorderThickness="2" FontFamily="Gill Sans MT" Background="Transparent"/>
-        <Label Content="Registrar alumno" HorizontalAlignment="Left" Margin="274,114,0,0" VerticalAlignment="Top" FontSize="24" BorderBrush="#FF1B1414" Height="42" Width="190"/>
-        <Label Content="Matricula:" Margin="170,156,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="28" Width="70"/>
-        <Label Content="Nombre:" HorizontalAlignment="Left" Margin="176,184,0,0" VerticalAlignment="Top" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="30" Width="64"/>
-        <Label Content="Correo electrónico:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="114,244,0,0" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="28" Width="126"/>
-        <Label Content="Confirmar correo electrónico:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,272,0,0" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="30" Width="190"/>
-        <Label Content="Teléfono:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="174,302,0,0" RenderTransformOrigin="2.5,4.269" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="28" Width="66"/>
-        <Label Content="Carrera:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="182,214,0,0" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="30" Width="58"/>
-        <Label Content="Contraseña:" HorizontalAlignment="Left" Margin="158,330,0,0" VerticalAlignment="Top" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="30" Width="82"/>
-        <Label Content="Confirmar contraseña:" HorizontalAlignment="Left" Margin="94,360,0,0" VerticalAlignment="Top" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="28" Width="146"/>
-        <TextBox x:Name="TxtMatricula" HorizontalAlignment="Left" Height="24" Margin="246,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" TextChanged="TxtMatricula_TextChanged" FontSize="14"/>
-        <TextBox x:Name="TxtNombre" HorizontalAlignment="Left" Height="24" Margin="246,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" TextChanged="TxtNombre_TextChanged" FontSize="14"/>
-        <ComboBox x:Name="CbxCarrera" HorizontalAlignment="Left" Margin="246,218,0,0" VerticalAlignment="Top" Width="248" FontSize="14" Height="26"/>
-        <TextBox x:Name="TxtCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="246,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" TextChanged="TxtCorreoElectronico_TextChanged" FontSize="14"/>
-        <TextBox x:Name="TxtConfirmarCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="246,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" TextChanged="TxtConfirmarCorreoElectronico_TextChanged" FontSize="14"/>
-        <TextBox x:Name="TxtTelefono" HorizontalAlignment="Left" Height="24" Margin="246,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" TextChanged="TxtTelefono_TextChanged" FontSize="14"/>
-        <TextBox x:Name="TxtContraseña" HorizontalAlignment="Left" Height="24" Margin="246,336,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" TextChanged="TxtContraseña_TextChanged" FontSize="14"/>
-        <TextBox x:Name="TxtConfirmarContraseña" HorizontalAlignment="Left" Height="24" Margin="246,364,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" TextChanged="TxtConfirmarContraseña_TextChanged" FontSize="14"/>
-        <Button x:Name="BtnAceptar" Content="Aceptar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" Margin="402,400,0,0" Click="BtnAceptar_Click" FontSize="14" Height="22"/>
-        <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" Margin="246,400,0,0" Click="BtnCancelar_Click" FontSize="14" Height="22"/>
-        <Image x:Name="imgLogoUV" HorizontalAlignment="Left" Height="88" VerticalAlignment="Top" Width="74" Source="C:\Users\Alex\Desktop\Logo-UV2.jpg" Margin="26,10,0,0"/>
-    </Grid>
+        Title="GUIRegistrarAlumno" Height="492.8" Width="572" ResizeMode="NoResize">
+	<Grid Margin="0,0,1,-5">
+		<Grid.Background>
+			<ImageBrush/>
+		</Grid.Background>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" Margin="126,31,0,0" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" FontSize="38" BorderThickness="2" FontFamily="Gill Sans MT" Background="Transparent"/>
+		<Label Content="Registrar alumno" HorizontalAlignment="Left" Margin="242,105,0,0" VerticalAlignment="Top" FontSize="24" BorderBrush="#FF1B1414" Height="42" Width="190"/>
+		<Label Content="Matricula:" Margin="138,147,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="28" Width="70"/>
+		<Label Content="Nombre:" HorizontalAlignment="Left" Margin="144,175,0,0" VerticalAlignment="Top" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="30" Width="64"/>
+		<Label Content="Correo electrónico:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="82,235,0,0" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="28" Width="126"/>
+		<Label Content="Confirmar correo electrónico:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,263,0,0" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="30" Width="190"/>
+		<Label Content="Teléfono:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="142,293,0,0" RenderTransformOrigin="2.5,4.269" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="28" Width="66"/>
+		<Label Content="Carrera:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,205,0,0" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="30" Width="58"/>
+		<Label Content="Contraseña:" HorizontalAlignment="Left" Margin="126,321,0,0" VerticalAlignment="Top" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="30" Width="82"/>
+		<Label Content="Confirmar contraseña:" HorizontalAlignment="Left" Margin="62,351,0,0" VerticalAlignment="Top" FontFamily="{DynamicResource {x:Static SystemFonts.CaptionFontFamilyKey}}" Background="Transparent" FontSize="14" Height="28" Width="146"/>
+		<TextBox x:Name="TextBoxMatricula" HorizontalAlignment="Left" Height="24" Margin="214,151,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" TextChanged="TextBoxMatricula_TextChanged" FontSize="14"/>
+		<TextBox x:Name="TextBoxNombre" HorizontalAlignment="Left" Height="24" Margin="214,181,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" TextChanged="TextBoxNombre_TextChanged" FontSize="14"/>
+		<ComboBox x:Name="ComboBoxCarrera" HorizontalAlignment="Left" Margin="214,209,0,0" VerticalAlignment="Top" Width="248" FontSize="14" Height="26"/>
+		<TextBox x:Name="TextBoxCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="214,239,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" TextChanged="TextBoxCorreoElectronico_TextChanged" FontSize="14"/>
+		<TextBox x:Name="TextBoxConfirmarCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="214,269,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" TextChanged="TextBoxConfirmarCorreoElectronico_TextChanged" FontSize="14"/>
+		<TextBox x:Name="TextBoxTelefono" HorizontalAlignment="Left" Height="24" Margin="214,297,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" TextChanged="TextBoxTelefono_TextChanged" FontSize="14"/>
+		<TextBox x:Name="TextBoxContraseña" HorizontalAlignment="Left" Height="24" Margin="214,327,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" TextChanged="TextBoxContraseña_TextChanged" FontSize="14"/>
+		<TextBox x:Name="TextBoxConfirmarContraseña" HorizontalAlignment="Left" Height="24" Margin="214,355,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" TextChanged="TextBoxConfirmarContraseña_TextChanged" FontSize="14"/>
+		<Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" Margin="370,391,0,0" Click="ButtonAceptar_Click" FontSize="14" Height="22"/>
+		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" Margin="214,391,0,0" Click="ButtonCancelar_Click" FontSize="14" Height="22"/>
+		<Image x:Name="ImageLogoUV" HorizontalAlignment="Left" Height="88" VerticalAlignment="Top" Width="74" Source="C:\Users\Alex\Desktop\Logo-UV2.jpg" Margin="26,10,0,0"/>
+	</Grid>
 </Window>

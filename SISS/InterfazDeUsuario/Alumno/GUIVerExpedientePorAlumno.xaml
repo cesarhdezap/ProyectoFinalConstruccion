@@ -7,44 +7,48 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeAlumno"
         mc:Ignorable="d"
-        Title="GUIVerExpedientePorAlumno" Height="1502.901" Width="1211.464">
-    <Grid>
-        <Label Content="Horas cubiertas:" HorizontalAlignment="Left" Margin="124,80,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <Button x:Name="BtnVerProyectoActual" Content="Ver proyecto actual" HorizontalAlignment="Left" Margin="986,87,0,0" VerticalAlignment="Top" Width="159" Click="BtnVerProyectoActual_Click"/>
-        <Button x:Name="BtnRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="25,82,0,0" VerticalAlignment="Top" Width="75" Click="BtnRegresar_Click"/>
-        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="491" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="305,0,0,0"/>
-        <Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="939,24,0,0" Width="119"/>
-        <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1063,24,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
-        <ListBox x:Name ="GrdReportesMensuales" Margin="0,116,0,1042">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel IsItemsHost="True"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
-        <ListBox x:Name ="GrdDocumentosDeEntregaUnica" Margin="0,435,0,723">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel IsItemsHost="True"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
-        <Label x:Name="LabelHorasCubiertas" Content="[Horas cubiertas]" HorizontalAlignment="Left" Margin="252,80,0,0" VerticalAlignment="Top" FontSize="16"/>
-    </Grid>
-    <Window.Resources>
-        <o:ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica x:Key="ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica"/>
-        <DataTemplate DataType="{x:Type l:DocumentoDeEntregaUnica}">
-            <StackPanel>
-                <Image Source="{Binding Path=Imagen}"/>
-                <TextBlock Text="{Binding Path=IDDocumento, Converter={StaticResource ResourceKey=ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica }}"/>
-            </StackPanel>
-        </DataTemplate>
-        <o:ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual x:Key="ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual"/>
-        <DataTemplate DataType="{x:Type l:ReporteMensual}">
-            <StackPanel>
-                <Image Source="{Binding Path=Imagen}"/>
-                <TextBlock Text="{Binding Path=IDDocumento,Converter={StaticResource ResourceKey=ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual}}"/>
-            </StackPanel>
-        </DataTemplate>
-    </Window.Resources>
+        Title="GUIVerExpedientePorAlumno" Height="950.901" Width="1211.464">
+	<Window.Resources>
+		<o:ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica x:Key="ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica"/>
+		<o:ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual x:Key="ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual"/>
+	</Window.Resources>
+	<Grid>
+		<Label Content="Horas cubiertas:" HorizontalAlignment="Left" Margin="132,81,0,0" VerticalAlignment="Top" FontSize="14"/>
+		<Button x:Name="ButtonVerProyectoActual" Content="Ver proyecto actual" HorizontalAlignment="Left" Margin="986,83,0,0" VerticalAlignment="Top" Width="159" Click="ButtonVerProyectoActual_Click" FontSize="14" RenderTransformOrigin="0.491,-0.087"/>
+		<Button x:Name="ButtonRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="25,83,0,0" VerticalAlignment="Top" Width="94" Click="ButtonRegresar_Click" FontSize="14"/>
+		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="491" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="25,11,0,0" RenderTransformOrigin="0.063,0.641"/>
+		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="898,24,0,0" FontSize="14"/>
+		<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1050,24,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
+		<Label x:Name="LabelHorasCubiertas" Content="[Horas cubiertas]" HorizontalAlignment="Left" Margin="241,81,0,0" VerticalAlignment="Top" FontSize="14"/>
+		<ListBox  Name="GridReportesMensuales" Margin="10,146,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="378" Width="1181">
+			<ListBox.ItemsPanel>
+				<ItemsPanelTemplate>
+					<UniformGrid Columns="4" />
+				</ItemsPanelTemplate>
+			</ListBox.ItemsPanel>
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel>
+						<Image Source="{Binding Path=Imagen }" Height="285"/>
+						<TextBlock Text="{Binding Path=IDDocumento, Converter={StaticResource ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual}}"></TextBlock>
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+		<ListBox  Name="GridDocumentosDeEntregaUnica" Margin="10,529,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="378" Width="1181">
+			<ListBox.ItemsPanel>
+				<ItemsPanelTemplate>
+					<UniformGrid Columns="4" />
+				</ItemsPanelTemplate>
+			</ListBox.ItemsPanel>
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<StackPanel>
+						<Image Source="{Binding Path=Imagen }" Height="300"/>
+						<TextBlock Text="{Binding Path=IDDocumento, Converter={StaticResource ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica}}"></TextBlock>
+					</StackPanel>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</Grid>
 </Window>

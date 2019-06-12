@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Media.Imaging;
 using System.Threading.Tasks;
+using LogicaDeNegocios.ObjetoAccesoDeDatos;
 
 namespace LogicaDeNegocios.ClasesDominio
 {
@@ -12,6 +13,18 @@ namespace LogicaDeNegocios.ClasesDominio
         public string DireccionDeImagen { get; set; }
         public int IDDocumento { get; set; }
         public TipoDeDocumentoEnImagen TipoDeDocumentoEnImagen { get; set; }
+
+		public Imagen(TipoDeDocumentoEnImagen tipoDeDocumentoEnImagen)
+		{
+			this.DireccionDeImagen = string.Empty;
+			this.TipoDeDocumentoEnImagen = tipoDeDocumentoEnImagen;
+		}
+
+		public void Guardar()
+		{
+			ImagenDAO imagenDAO = new ImagenDAO();
+			imagenDAO.GuardarImagen(this);
+		}
     }
 
     public enum TipoDeDocumentoEnImagen
