@@ -135,10 +135,10 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                 EstadoAlumno = EstadoAlumno.EsperandoAceptacion,
                 Contraseña = ServiciosDeAutenticacion.EncriptarContraseña(TextBoxContraseña.Text)
             };
-
+			bool resultadoDeCreacion = false;
             if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text)
             {
-                bool resultadoDeCreacion = false;
+				Mouse.OverrideCursor = Cursors.Wait;
                 try
                 {
                     resultadoDeCreacion = alumno.Guardar();
@@ -172,14 +172,17 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 				{
 					Mouse.OverrideCursor = null;
 				}
+				
+            }
+			if (resultadoDeCreacion)
+			{
 				MessageBox.Show("Ha sido registrado exitosamente.", "¡Registro Exitoso!", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
 				this.Close();
-            }
-            else
-            {
-				Mouse.OverrideCursor = null;
+			}
+			else
+			{
 				MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+			}
         }
     }
 }

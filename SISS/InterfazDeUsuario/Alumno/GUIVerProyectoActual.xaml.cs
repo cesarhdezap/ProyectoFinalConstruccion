@@ -80,7 +80,60 @@ namespace InterfazDeUsuario.GUIsDeAlumno
             TextBoxDescripcionGeneralDeProyecto.Text = proyecto.DescripcionGeneral;
         }
 
-        private void BtnCancelar_Click(object sender, RoutedEventArgs e)
+		public GUIVerProyectoActual(DocenteAcademico Coordinador, Asignacion asignacion)
+		{
+			InitializeComponent();
+			Proyecto proyecto = new Proyecto();
+			Encargado encargado = new Encargado();
+			Organizacion organizacion = new Organizacion();
+			try
+			{
+				proyecto = asignacion.CargarProyecto();
+				encargado = proyecto.CargarEncargado();
+				organizacion = encargado.CargarOrganizacion();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
+			{
+				MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
+			{
+				MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
+			{
+				MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
+			{
+				MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
+			{
+				MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			finally
+			{
+				Mouse.OverrideCursor = null;
+			}
+			LabelCorreoDelCoordinador.Content = Coordinador.CorreoElectronico;
+			LabelCorreoDelEncargado.Content = encargado.CorreoElectronico;
+			LabelNombreDelCoordinador.Content = Coordinador.Nombre;
+			LabelNombreDelEncargado.Content = encargado.Nombre;
+			LabelNombreDelProyecto.Content = proyecto.Nombre;
+			LabelNombreDeOrganizacion.Content = organizacion.Nombre;
+			LabelNombreDeUsuario.Content = Coordinador.Nombre;
+			LabelTelefonoDelCoordinador.Content = Coordinador.Telefono;
+			LabelTelefonoDelEncargado.Content = encargado.Telefono;
+			TextBoxDescripcionGeneralDeProyecto.Text = proyecto.DescripcionGeneral;
+		}
+
+		private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

@@ -35,6 +35,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			this.DataContext = this;
 			InitializeComponent();
 			this.Coordinador = coordinador;
+			LabelNombreDeUsuario.Content = coordinador.Nombre;
 			AdministradorDeAlumnos = new AdministradorDeAlumnos();
 			AdministradorDeProyectos = new AdministradorDeProyectos();
 			Asignaciones = new List<Asignacion>();
@@ -44,50 +45,35 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				AdministradorDeAlumnos.CargarAlumnosPorCarreraYEstado(Coordinador.Carrera, EstadoAlumno.EsperandoAsignacion);
 				AdministradorDeProyectos.CargarProyectosPorEstado(EstadoProyecto.Activo);
 			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada)
-			{
-				Mouse.OverrideCursor = null;
-				MessageBox.Show("Hubo un error al completar el registro. La matricula ingresada ya existe.", "Matricula duplicada", MessageBoxButton.OK, MessageBoxImage.Error);
-				this.Close();
-			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
-				this.Close();
-			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
-			{
-				Mouse.OverrideCursor = null;
-				MessageBox.Show(this, "Hubo un error al completar el registro. Intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
-			Mouse.OverrideCursor = null;
-
+			finally
+			{
+				Mouse.OverrideCursor = null;
+			}
 			foreach (Alumno alumno in AdministradorDeAlumnos.Alumnos)
 			{
 				Asignacion asignacion = new Asignacion
@@ -112,49 +98,45 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			{
 				Asignaciones.ElementAt(indiceDeAlumnoAAsignar).Guardar();
 			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada)
-			{
-				Mouse.OverrideCursor = null;
-				MessageBox.Show("Hubo un error al completar el registro. La matricula ingresada ya existe.", "Matricula duplicada", MessageBoxButton.OK, MessageBoxImage.Error);
-				this.Close();
-			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "Hubo un error al completar el registro. Intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
-			Mouse.OverrideCursor = null;
+			finally
+			{
+				Mouse.OverrideCursor = null;
+			}
+			MessageBox.Show(this, "El alumno fue asignado con exito.", "¡Asignación exitosa!", MessageBoxButton.OK, MessageBoxImage.Information);
+			AdministradorDeAlumnos.Alumnos.Remove(alumnoAAsignar);
+			Asignaciones.RemoveAt(indiceDeAlumnoAAsignar);
+			DataGridAlumnos.ItemsSource = null;
+			DataGridAlumnos.ItemsSource = AdministradorDeAlumnos.Alumnos;
 		}
 
 		private void Expander_Expanded(object sender, RoutedEventArgs e)
@@ -205,6 +187,11 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			int indiceDeProyectoSeleccionado = comboBox.SelectedIndex;
 			Proyecto proyectoSeleccionado = AdministradorDeProyectos.Proyectos.ElementAt(indiceDeAlumnoSeleccionado);
 			Asignaciones.ElementAt(indiceDeAlumnoSeleccionado).Proyecto = proyectoSeleccionado;
+		}
+
+		private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
+		{
+			this.Close();
 		}
 	}
 }

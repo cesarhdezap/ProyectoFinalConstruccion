@@ -5,29 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeCoordinador"
         mc:Ignorable="d"
-        Title="GUIRegistrarProyecto" Height="797.369" Width="836.375">
-    <Grid>
-        <Label x:Name="LabelRegistrarProyecto" Content="Registrar proyecto" HorizontalAlignment="Left" Margin="320,79,0,0" VerticalAlignment="Top" Height="42" Width="214" FontSize="24" BorderBrush="#FF1B1414"/>
-        <Label x:Name="LabelOrganizacionAsociada" Content="Organización asociada:" HorizontalAlignment="Left" Margin="168,172,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Label x:Name="LabelNombreDelProyecto" Content="Nombre del proyecto:" HorizontalAlignment="Left" Margin="174,216,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Label x:Name="LabelEncargadoAsociado" Content="Encargado asociado:" HorizontalAlignment="Left" Margin="180,258,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <ComboBox x:Name="ComboBoxOrganizacionAsociada" HorizontalAlignment="Left" Margin="394,178,0,0" VerticalAlignment="Top" Width="300" FontSize="14" SelectionChanged="ComboBoxOrganizacionAsociada_SelectionChanged"/>
-        <TextBox x:Name="TextBoxNombre" HorizontalAlignment="Left" Height="24" Margin="394,226,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" FontSize="14" TextChanged="TextBoxNombre_TextChanged"/>
-        <ComboBox x:Name="ComboBoxEncargadoAsociado" HorizontalAlignment="Left" Margin="394,268,0,0" VerticalAlignment="Top" Width="300" FontSize="14"/>
-        <TextBox x:Name="TextBoxEstudiantesSolicitados" HorizontalAlignment="Left" Height="22" Margin="394,402,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" FontSize="14" TextChanged="TextBoxEstudiantesSolicitados_TextChanged" />
-        <Button x:Name="ButtonAdjuntarEvidencia" Content="Adjuntar evidencia" HorizontalAlignment="Left" Margin="234,548,0,0" VerticalAlignment="Top" Width="186" BorderBrush="#FF1B1717" FontSize="14" Click="ButtonAdjuntarEvidencia_Click"/>
-        <Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="248,627,0,0" VerticalAlignment="Top" Width="96" BorderBrush="#FF1B1717" FontSize="14" Click="ButtonCancelar_Click"/>
-        <Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="458,627,0,0" VerticalAlignment="Top" Width="90" BorderBrush="#FF1B1717" FontSize="14" Click="ButtonAceptar_Click"/>
-        <Label x:Name="LabelEstudiantesSolicitados" Content="Estudiantes solicitados:" HorizontalAlignment="Left" Margin="164,402,0,0" VerticalAlignment="Top" FontSize="14" Width="154"/>
-        <Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="491" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="180,10,0,0"/>
-        <Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="575,79,0,0" Width="119"/>
-        <Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="719,79,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
-        <Label x:Name="LabelDireccionDelDocumento" HorizontalAlignment="Left" Margin="434,547,0,0" VerticalAlignment="Top" Height="23" Width="152" Content="[DireccionDelDocumento]" Foreground="#FF12788F">
-        </Label>
-        <Label x:Name="LabelObjetivoGeneral" Content="Objetivo general:" HorizontalAlignment="Left" Margin="218,324,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="TextBoxObjetivoGeneral" HorizontalAlignment="Left" Height="54" Margin="394,324,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" TextChanged="TextBoxObjetivoGeneral_TextChanged"/>
-        <TextBox x:Name="TextBoxDescripcionGeneral" HorizontalAlignment="Left" Height="54" Margin="394,444,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" TextChanged="TextBoxDescripcionGeneral_TextChanged"/>
-        <Label x:Name="LabelDescripcionGeneral" Content="Descripcion general:" HorizontalAlignment="Left" Margin="202,444,0,0" VerticalAlignment="Top"/>
+        Title="Registrar proyecto" Height="510.869" Width="725.375" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+	<Grid>
 
-    </Grid>
+		<Label x:Name="LabelRegistrarProyecto" Content="Registrar proyecto" HorizontalAlignment="Left" Margin="316,86,0,0" VerticalAlignment="Top" FontSize="24" BorderBrush="#FF1B1414"/>
+		<Label x:Name="LabelOrganizacionAsociada" Content="Organización asociada:" HorizontalAlignment="Left" Margin="115,129,0,0" VerticalAlignment="Top" FontSize="14"/>
+		<Label x:Name="LabelNombreDelProyecto" Content="Nombre del proyecto:" HorizontalAlignment="Left" Margin="121,158,0,0" VerticalAlignment="Top" FontSize="14"/>
+		<Label x:Name="LabelEncargadoAsociado" Content="Encargado asociado:" HorizontalAlignment="Left" Margin="130,188,0,0" VerticalAlignment="Top" FontSize="14"/>
+		<ComboBox x:Name="ComboBoxOrganizacionAsociada" HorizontalAlignment="Left" Margin="272,133,0,0" VerticalAlignment="Top" Width="300" FontSize="14" SelectionChanged="ComboBoxOrganizacionAsociada_SelectionChanged"/>
+		<TextBox x:Name="TextBoxNombre" HorizontalAlignment="Left" Height="24" Margin="272,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" FontSize="14" TextChanged="TextBoxNombre_TextChanged"/>
+		<ComboBox x:Name="ComboBoxEncargadoAsociado" HorizontalAlignment="Left" Margin="272,192,0,0" VerticalAlignment="Top" Width="300" FontSize="14"/>
+		<TextBox x:Name="TextBoxEstudiantesSolicitados" HorizontalAlignment="Left" Height="22" Margin="272,301,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" FontSize="14" TextChanged="TextBoxEstudiantesSolicitados_TextChanged" />
+		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="272,410,0,0" VerticalAlignment="Top" Width="96" BorderBrush="#FF1B1717" FontSize="14" Click="ButtonCancelar_Click"/>
+		<Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="482,410,0,0" VerticalAlignment="Top" Width="90" BorderBrush="#FF1B1717" FontSize="14" Click="ButtonAceptar_Click"/>
+		<Label x:Name="LabelEstudiantesSolicitados" Content="Estudiantes solicitados:" HorizontalAlignment="Left" Margin="113,294,0,0" VerticalAlignment="Top" FontSize="14" Width="154"/>
+		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="10,10,0,0"/>
+		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="441,32,0,0" FontSize="14"/>
+		<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="612,32,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
+		<Label x:Name="LabelObjetivoGeneral" Content="Objetivo general:" HorizontalAlignment="Left" Margin="151,233,0,0" VerticalAlignment="Top" FontSize="14"/>
+		<TextBox x:Name="TextBoxObjetivoGeneral" HorizontalAlignment="Left" Height="54" Margin="272,233,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" TextChanged="TextBoxObjetivoGeneral_TextChanged" FontSize="14"/>
+		<TextBox x:Name="TextBoxDescripcionGeneral" HorizontalAlignment="Left" Height="54" Margin="272,339,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" TextChanged="TextBoxDescripcionGeneral_TextChanged" FontSize="14"/>
+		<Label x:Name="LabelDescripcionGeneral" Content="Descripcion general:" HorizontalAlignment="Left" Margin="132,339,0,0" VerticalAlignment="Top" FontSize="14"/>
+
+	</Grid>
 </Window>

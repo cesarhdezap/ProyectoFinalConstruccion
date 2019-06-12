@@ -10,7 +10,7 @@
 		<Rectangle x:Name="RectangleOrganizacionYEnecargado" HorizontalAlignment="Left" Height="125" Margin="58,147,0,0" Stroke="Black" VerticalAlignment="Top" Width="448"/>
 		<Rectangle x:Name="RectangleCoordinador" HorizontalAlignment="Left" Height="125" Margin="564,147,0,0" Stroke="Black" VerticalAlignment="Top" Width="457"/>
 		<Rectangle x:Name="RectangleProyecto" HorizontalAlignment="Left" Height="172" Margin="58,349,0,0" Stroke="Black" VerticalAlignment="Top" Width="963"/>
-		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="502,583,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Click="BtnCancelar_Click" />
+		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="502,583,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Click="ButtonCancelar_Click" />
 		<Label x:Name="LabelNombreDelProyecto" Content="[Nombre del proyecto]" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,74,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="24" Width="269"/>
 		<Label Content="Organización y encargado" HorizontalAlignment="Left" Margin="58,116,0,0" VerticalAlignment="Top"/>
 		<Label Content="Coordinador" HorizontalAlignment="Left" Margin="560,121,0,0" VerticalAlignment="Top"/>

@@ -121,7 +121,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 			}
 		}
 
-		private void BtnCancelar_Click(object sender, RoutedEventArgs e)
+		private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
 		{
 			this.Close();
 		}
