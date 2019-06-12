@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using System;
 using System.Windows.Media.Imaging;
 
 namespace LogicaDeNegocios
@@ -8,11 +9,17 @@ namespace LogicaDeNegocios
 		public int IDDocumento { get; set; }
 		public DateTime FechaDeEntrega { get; set; }
 		public TipoDeDocumento TipoDeDocumento { get; set; }
-		public string Nombre { get; set; }
 		public DocenteAcademico DocenteAcademico { get; set; }
-        public BitmapImage Imagen { get; set; }
-		
+		public BitmapImage Imagen { get; set; }
+
+		public void Guardar()
+		{
+			DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
+			documentoDeEntregaUnicaDAO.GuardarDocumentoDeEntregaUnica(this);
+		}
 	}
+
+	
 
 	public enum TipoDeDocumento
 	{
