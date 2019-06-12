@@ -4,6 +4,7 @@ using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.Excepciones;
 using System.Windows;
 using System.Windows.Input;
+using InterfazDeUsuario.GUIsDeAlumno;
 
 namespace InterfazDeUsuario.GUITipoDeSesion
 {
@@ -18,51 +19,66 @@ namespace InterfazDeUsuario.GUITipoDeSesion
             {
                 Alumno = alumnoDAO.CargarAlumnoPorMatricula(sesion.IDUsuario);
             }
-            catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
-            {
-                MessageBox.Show("No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-            {
-                MessageBox.Show("No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            Mouse.OverrideCursor = null;
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
+			{
+				MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
+			{
+				MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
+			{
+				MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
+			{
+				MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			finally
+			{
+				Mouse.OverrideCursor = null;
+			}
 
-            if (Alumno.EstadoAlumno == EstadoAlumno.EsperandoAsignacion)
+			if (Alumno.EstadoAlumno == EstadoAlumno.EsperandoAsignacion)
             {
-                LblEsperandoAsignacion.Visibility = Visibility.Visible;
+                LabelEsperandoAsignacion.Visibility = Visibility.Visible;
             }
-            LblNombreDeUsuario.Content = Alumno.Nombre;
+            LabelNombreDeUsuario.Content = Alumno.Nombre;
 
-            LblEsperandoAsignacion.Visibility = Visibility.Hidden;
-            LblDadoDeBaja.Visibility = Visibility.Hidden;
-            LblLiberado.Visibility = Visibility.Hidden;
-            LblEsperandoAceptacion.Visibility = Visibility.Hidden;
-            BtnEscogerProyecto.Visibility = Visibility.Hidden;
-            BtnVerExpediente.Visibility = Visibility.Hidden;
+            LabelEsperandoAsignacion.Visibility = Visibility.Hidden;
+            LabelDadoDeBaja.Visibility = Visibility.Hidden;
+            LabelLiberado.Visibility = Visibility.Hidden;
+            LabelEsperandoAceptacion.Visibility = Visibility.Hidden;
+            ButtonEscogerProyecto.Visibility = Visibility.Hidden;
+            ButtonVerExpediente.Visibility = Visibility.Hidden;
 
             switch (Alumno.EstadoAlumno)
             {
                 case EstadoAlumno.EsperandoAceptacion:
-                    LblEsperandoAceptacion.Visibility = Visibility.Visible;
+                    LabelEsperandoAceptacion.Visibility = Visibility.Visible;
                 break;
                 case EstadoAlumno.EsperandoAsignacion:
-                    LblEsperandoAsignacion.Visibility = Visibility.Visible;
+                    LabelEsperandoAsignacion.Visibility = Visibility.Visible;
                 break;
                 case EstadoAlumno.Aceptado:
-                    BtnEscogerProyecto.Visibility = Visibility.Visible;
+                    ButtonEscogerProyecto.Visibility = Visibility.Visible;
                 break;
                 case EstadoAlumno.Asignado:
-                    BtnVerExpediente.Visibility = Visibility.Visible;
+                    ButtonVerExpediente.Visibility = Visibility.Visible;
                 break;
                 case EstadoAlumno.Liberado:
-                    LblLiberado.Visibility = Visibility.Visible;
+                    LabelLiberado.Visibility = Visibility.Visible;
                 break;
                 case EstadoAlumno.DadoDeBaja:
-                    LblDadoDeBaja.Visibility = Visibility.Visible;
+                    LabelDadoDeBaja.Visibility = Visibility.Visible;
                 break;
                 case EstadoAlumno.Rechazado:
-                    LblDadoDeBaja.Visibility = Visibility.Visible;
+                    LabelDadoDeBaja.Visibility = Visibility.Visible;
                 break;
             }
         }
@@ -70,31 +86,43 @@ namespace InterfazDeUsuario.GUITipoDeSesion
         private void BtnEscogerProyecto_Click(object sender, RoutedEventArgs e)
         {
             Hide();
-            GUIsDeAlumno.GUIEscogerProyectos escogerProyectos = new GUIsDeAlumno.GUIEscogerProyectos(Alumno);
+            GUIEscogerProyectos escogerProyectos = new GUIEscogerProyectos(Alumno);
             escogerProyectos.ShowDialog();
-
             Mouse.OverrideCursor = Cursors.Wait;
-            AlumnoDAO alumnoDAO = new AlumnoDAO();
-            try
+			AlumnoDAO alumnoDAO = new AlumnoDAO();
+			try
+			{
+				Alumno = alumnoDAO.CargarAlumnoPorMatricula(Alumno.Matricula);
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
+			{
+				MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
+			{
+				MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
+			{
+				MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
+			{
+				MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			finally
+			{
+				Mouse.OverrideCursor = null;
+			}
+			if (Alumno.EstadoAlumno == EstadoAlumno.EsperandoAsignacion)
             {
-                Alumno = alumnoDAO.CargarAlumnoPorMatricula(Alumno.Matricula);
+                LabelEsperandoAsignacion.Visibility = Visibility.Visible;
+                ButtonEscogerProyecto.Visibility = Visibility.Hidden;
             }
-            catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
-            {
-                MessageBox.Show("No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-            {
-                MessageBox.Show("No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            Mouse.OverrideCursor = null;
-
-            if (Alumno.EstadoAlumno == EstadoAlumno.EsperandoAsignacion)
-            {
-                LblEsperandoAsignacion.Visibility = Visibility.Visible;
-                BtnEscogerProyecto.Visibility = Visibility.Hidden;
-            }
-
             ShowDialog();
         }
 

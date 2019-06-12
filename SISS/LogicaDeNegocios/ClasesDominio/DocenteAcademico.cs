@@ -35,12 +35,12 @@ namespace LogicaDeNegocios
             this.EsActivo = false;
         }
 
-		public DocenteAcademico CargarCoordinadorPorCarrera()
+		public DocenteAcademico CargarCoordinadorPorCarrera(string carrera)
 		{
 			DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
 			DocenteAcademico docenteAcademico = new DocenteAcademico();
-			docenteAcademico = docenteAcademicoDAO.CargarIDPorCarrera(Carrera);
-			docenteAcademico = docenteAcademicoDAO.CargarDocenteAcademicoPorIDPersonal(IDPersonal);
+			docenteAcademico = docenteAcademicoDAO.CargarIDPorCarrera(carrera);
+			docenteAcademico = docenteAcademicoDAO.CargarDocenteAcademicoPorIDPersonal(docenteAcademico.IDPersonal);
 			return docenteAcademico;
 		}
 	}

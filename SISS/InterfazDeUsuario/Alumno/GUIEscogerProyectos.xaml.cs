@@ -69,11 +69,6 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 			Solicitud.Proyectos = new List<Proyecto>();
         }
 
-        private void DtgProyectos_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void Expander_Expanded(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;

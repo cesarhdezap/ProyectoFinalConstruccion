@@ -36,7 +36,8 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 				asignacion = alumno.CargarAsignacion();
 				proyecto = asignacion.CargarProyecto();
 				encargado = proyecto.CargarEncargado();
-				coordinador = coordinador.CargarCoordinadorPorCarrera();
+				coordinador = coordinador.CargarCoordinadorPorCarrera(alumno.Carrera);
+				organizacion = encargado.CargarOrganizacion();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 			{
