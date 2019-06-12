@@ -91,9 +91,8 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
             LabelNombreDeUsuario.Content = DocenteAcademico.Nombre;
             
             reportes = asignacion.ReportesMensuales;
-            GridReportesMensuales.DataContext = this;
-
-            //GrdReportesMensuales.ItemsSource = AdministradorDeReportesMensuales.ReportesMensuales;
+            GridReportesMensuales.ItemsSource = reportes;
+                
 
             
         }
