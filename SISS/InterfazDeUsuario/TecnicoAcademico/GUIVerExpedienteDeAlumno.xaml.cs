@@ -23,92 +23,83 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
     /// </summary>
     public partial class GUIVerExpedienteDeAlumno : Window
     {
-        private AdministradorDeReportesMensuales AdministradorDeReportesMensuales { get; set; }
-        private AdministradorDeDocumentosDeEntregaUnica AdministradorDeDocumentosDeEntregaUnica { get; set; }
-        private Alumno Alumno { get; set; }
-        private DocenteAcademico DocenteAcademico { get; set; }
-        List<ReporteMensual> reportes = new List<ReporteMensual>();
-        public GUIVerExpedienteDeAlumno(DocenteAcademico docenteAcademico, Alumno alumno)
+		private const int NUMERO_MAXIMO_DE_REPORTES_MENSUALES = 12;
+
+		private Asignacion Asignacion{ get; set; }
+        private DocenteAcademico TecnicoAdministrativo { get; set; }
+        public GUIVerExpedienteDeAlumno(DocenteAcademico tecnicoAdministrativo, Asignacion asignacion)
         {
             InitializeComponent();
-            this.Alumno = alumno;
-            this.DocenteAcademico = docenteAcademico;
-            AsignacionDAO asignacionDAO = new AsignacionDAO();
-            Asignacion asignacion = new Asignacion();
-            ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
+            this.Asignacion = asignacion;
+            this.TecnicoAdministrativo = tecnicoAdministrativo;
             Mouse.OverrideCursor = Cursors.Wait;
-            try
-            {
-                asignacion = asignacionDAO.CargarIDsPorMatriculaDeAlumno(Alumno.Matricula).ElementAt(0);
-                asignacion = asignacionDAO.CargarAsignacionPorID(asignacion.IDAsignacion);
-				asignacion.CargarDocumentos();
-            }
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada)
+			try
 			{
-				Mouse.OverrideCursor = null;
-				MessageBox.Show("Hubo un error al completar el registro. La matricula ingresada ya existe.", "Matricula duplicada", MessageBoxButton.OK, MessageBoxImage.Error);
-				this.Close();
+				Asignacion.CargarDocumentos();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
-				this.Close();
-			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
-			{
-				Mouse.OverrideCursor = null;
-				MessageBox.Show(this, "Hubo un error al completar el registro. Intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
 				this.Close();
 			}
-			Mouse.OverrideCursor = null;
+			finally
+			{
+				Mouse.OverrideCursor = null;
+			}
+			if (asignacion.ReportesMensuales.Count <= NUMERO_MAXIMO_DE_REPORTES_MENSUALES)
+			{
+				ButtonCapturarReporteMensual.IsEnabled = false;
+				ToolTip toolTip = new ToolTip
+				{
+					Content = "El numero maximo de reportes ha sido entregado."
+				};
+				ButtonCapturarReporteMensual.ToolTip = toolTip;
 
-			LabelHorasCubiertas.Content = asignacion.ObtenerHorasCubiertas();
-            LabelNombreDeUsuario.Content = DocenteAcademico.Nombre;
-            
-            reportes = asignacion.ReportesMensuales;
-            GridReportesMensuales.ItemsSource = reportes;
-                
-
-            
+			}
+			LabelHorasCubiertas.Content = Asignacion.ObtenerHorasCubiertas();
+            LabelNombreDeUsuario.Content = TecnicoAdministrativo.Nombre;
+            GridReportesMensuales.ItemsSource = Asignacion.ReportesMensuales;
+			GridDocumentosDeEntregaUnica.ItemsSource = Asignacion.DocumentosDeEntregaUnica;
         }
 
-        private void BtnCapturarOtroDocumento_Click(object sender, RoutedEventArgs e)
+        private void ButtonCapturarOtroDocumento_Click(object sender, RoutedEventArgs e)
         {
+			GUICapturarOtroDocumento capturarOtroDocumento = new GUICapturarOtroDocumento(TecnicoAdministrativo, Asignacion);
+			capturarOtroDocumento.ShowDialog();
+			Asignacion.CargarDocumentos();
+			GridDocumentosDeEntregaUnica.ItemsSource = Asignacion.DocumentosDeEntregaUnica;
+		}
 
-        }
-
-        private void BtnCapturarReporteMensual_Click(object sender, RoutedEventArgs e)
+		private void ButtonCapturarReporteMensual_Click(object sender, RoutedEventArgs e)
         {
-			GUIEntregarReporteMensual entregarReporteMensual = new GUIEntregarReporteMensual(DocenteAcademico, Alumno);
+			GUIEntregarReporteMensual entregarReporteMensual = new GUIEntregarReporteMensual(TecnicoAdministrativo, Asignacion);
 			entregarReporteMensual.ShowDialog();
+			Asignacion.CargarDocumentos();
+			GridReportesMensuales.ItemsSource = Asignacion.ReportesMensuales;
+			LabelHorasCubiertas.Content = Asignacion.ObtenerHorasCubiertas();
         }
 
-        private void BtnRegresar_Click(object sender, RoutedEventArgs e)
+        private void ButtonRegresar_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

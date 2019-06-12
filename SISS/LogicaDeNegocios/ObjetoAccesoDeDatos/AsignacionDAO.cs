@@ -76,9 +76,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return asignacion;
 
 		}
-        public List<Asignacion> CargarIDsPorMatriculaDeAlumno(string matricula)
+        public Asignacion CargarIDPorMatriculaDeAlumno(string matricula)
 		{
-            DataTable tablaDeAsignaciones = new DataTable();
+            DataTable tablaDeAsignacion = new DataTable();
             SqlParameter[] parametroMatricula = new SqlParameter[1];
             parametroMatricula[0] = new SqlParameter
             {
@@ -87,7 +87,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             };
             try
             {
-                tablaDeAsignaciones = AccesoADatos.EjecutarSelect("SELECT IDAsignacion FROM Asignaciones WHERE Matricula = @Matricula", parametroMatricula);
+                tablaDeAsignacion = AccesoADatos.EjecutarSelect("SELECT IDAsignacion FROM Asignaciones WHERE Matricula = @Matricula", parametroMatricula);
             }
             catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
 			{
@@ -98,16 +98,16 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 				throw new AccesoADatosException("Error al cargar IDAsignacion con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
 
-			List<Asignacion> asignaciones = new List<Asignacion>();
+			Asignacion asignacion = new Asignacion();
             try
             {
-                asignaciones = ConvertirDataTableAListaDeAsignacionesConSoloID(tablaDeAsignaciones);
+                asignacion = ConvertirDataTableAAsignacionConSoloID(tablaDeAsignacion);
             }
             catch (FormatException e)
             {
                 throw new AccesoADatosException("Error al convertir datatable a lista de Asignaciones en cargar Asignacion con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
-            return asignaciones;
+            return asignacion;
         }
 
 
@@ -144,7 +144,18 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			return asignacion;
         }
 
-        private List<Asignacion> ConvertirDataTableAListaDeAsignacionesConSoloID(DataTable dataTableAsignaciones)
+		private Asignacion ConvertirDataTableAAsignacionConSoloID(DataTable tablaDeAsignaciones)
+		{
+			Asignacion asignacion = new Asignacion();
+
+			foreach (DataRow fila in tablaDeAsignaciones.Rows)
+			{
+				asignacion.IDAsignacion = (int)fila["IDAsignacion"];
+			}
+			return asignacion;
+		}
+
+		private List<Asignacion> ConvertirDataTableAListaDeAsignacionesConSoloID(DataTable dataTableAsignaciones)
         {
             List<Asignacion> listaDeAsignaciones = new List<Asignacion>();
             foreach (DataRow fila in dataTableAsignaciones.Rows)

@@ -47,5 +47,14 @@ namespace LogicaDeNegocios
 
             return resultadoDeValidacion;
         }
-    }
+
+		public Organizacion CargarOrganizacion()
+		{
+			OrganizacionDAO organizacionDAO = new OrganizacionDAO();
+			Organizacion organizacion = new Organizacion();
+			organizacion = organizacionDAO.CargarIDPorIDEncargado(IDEncargado);
+			organizacion = organizacionDAO.CargarOrganizacionPorID(organizacion.IDOrganizacion);
+			return organizacion;
+		}
+	}
 }

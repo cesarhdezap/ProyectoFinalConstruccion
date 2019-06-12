@@ -52,7 +52,16 @@ namespace LogicaDeNegocios
             return resultadoDeCreacion;
         }
 
-        private bool ValidarProyecto ()
+		public Encargado CargarEncargado()
+		{
+			EncargadoDAO encargadoDAO = new EncargadoDAO();
+			Encargado encargado = new Encargado();
+			encargado = encargadoDAO.CargarIDPorIDProyecto(IDProyecto);
+			encargado = encargadoDAO.CargarEncargadoPorID(encargado.IDEncargado);
+			return encargado;
+		}
+
+		private bool ValidarProyecto ()
         {
             bool resultadoDeValidacion = false;
             if (ValidarCadena(Nombre)

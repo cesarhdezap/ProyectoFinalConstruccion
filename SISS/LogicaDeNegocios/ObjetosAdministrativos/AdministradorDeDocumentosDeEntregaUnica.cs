@@ -15,7 +15,7 @@ namespace LogicaDeNegocios.ObjetosAdministrador
             AsignacionDAO asignacionDAO = new AsignacionDAO();
             DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
             Asignacion asignacion = new Asignacion();
-            asignacion = asignacionDAO.CargarIDsPorMatriculaDeAlumno(matricula).ElementAt(0);
+            asignacion = asignacionDAO.CargarIDPorMatriculaDeAlumno(matricula);
             this.DocumentosDeEntregaUnica = documentoDeEntregaUnicaDAO.CargarIDsPorIDAsignacion(asignacion.IDAsignacion);
             for (int i = 0; i < DocumentosDeEntregaUnica.Count; i++)
             {

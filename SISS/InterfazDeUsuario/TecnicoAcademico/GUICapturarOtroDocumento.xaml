@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeTecnicoAcademico"
         mc:Ignorable="d"
-        Title="GUICapturarOtroDocumento" Height="395.304" Width="530.249">
-    <Grid>
-        <Button x:Name="BtnRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="22,72,0,0" VerticalAlignment="Top" Width="105" FontFamily="Arial" FontSize="16"/>
-        <Label x:Name="LblEntregarDocumento" Content="      &#x9;     Entregar documento" HorizontalAlignment="Left" VerticalAlignment="Top" Height="53" Width="523" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Arial" FontSize="24" BorderThickness="2" BorderBrush="#FF110C0C"/>
-        <Label x:Name="LblTipoDeDocumento" Content="Tipo de documento: " HorizontalAlignment="Left" Margin="102,117,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14" Width="133"/>
-        <Button x:Name="BtnBuscarDocumento" Content="Buscar documento" HorizontalAlignment="Left" Margin="81,267,0,0" VerticalAlignment="Top" Width="154" FontFamily="Arial" FontSize="16"/>
-        <Button x:Name="BtnRegistrarDocumento" Content="Registrar documento" HorizontalAlignment="Left" Margin="287,267,0,0" VerticalAlignment="Top" Width="156" FontFamily="Arial" FontSize="16"/>
-        <Label x:Name="LblDireccionDeArchivo" Content="Documento seleccionado: [Dirección del archivo seleccionado]..." HorizontalAlignment="Left" Margin="66,179,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="14" Width="422"/>
-        <ComboBox x:Name="CbxTipoDeDocumento" HorizontalAlignment="Left" Margin="280,117,0,0" VerticalAlignment="Top" Width="163" SelectionChanged="CbxTipoDeDocumento_SelectionChanged"/>
+        Title="GUICapturarOtroDocumento" Height="242.638" Width="530.249">
+	<Grid>
+		<Button x:Name="ButtonRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="105" FontSize="14" Click="ButtonRegresar_Click"/>
+		<Label x:Name="LabelEntregarDocumento" Content="Entregar documento" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" BorderThickness="2" Background="Transparent" Width="232" Margin="153,10,0,0"/>
+		<Label x:Name="LabelTipoDeDocumento" Content="Tipo de documento: " HorizontalAlignment="Left" Margin="149,64,0,0" VerticalAlignment="Top" FontSize="14" Width="133"/>
+		<Button x:Name="ButtonBuscarDocumento" Content="Seleccionar Archivo" HorizontalAlignment="Left" Margin="128,99,0,0" VerticalAlignment="Top" Width="154" FontSize="14" Click="ButtonSeleccionarArchivo_Click"/>
+		<Button x:Name="ButtonRegistrarDocumento" Content="Registrar documento" HorizontalAlignment="Left" Margin="182,165,0,0" VerticalAlignment="Top" Width="156" FontSize="14" Click="ButtonRegistrarDocumento_Click"/>
+		<ComboBox x:Name="ComboBoxTipoDeDocumento" HorizontalAlignment="Left" Margin="287,66,0,0" VerticalAlignment="Top" Width="163" FontSize="14"/>
+		<Label x:Name="LabelDireccionDeArchivo" Content="Archivo no seleccionado." HorizontalAlignment="Left" Margin="287,96,0,0" VerticalAlignment="Top" FontSize="14"/>
 
-    </Grid>
+	</Grid>
 </Window>

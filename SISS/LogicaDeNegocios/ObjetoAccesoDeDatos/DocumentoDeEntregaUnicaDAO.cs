@@ -25,7 +25,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@IDDocumento",
                 Value = IDDocumento
             };
-
             try
             {
                 tablaDeDocumentoDeEntregaUnica = AccesoADatos.EjecutarSelect("SELECT * FROM DocumentosDeEntregaUnica WHERE IDDocumento = @IDDocumento",parametroIDDocumentoDeEntregaUnica);
@@ -99,13 +98,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO DocumentosDeEntregaUnica(FechaDeEntrega, TipoDeDocumento, Nombre, DocenteAdministrativo, IDAsignacion) VALUES(@IDDocumento, @FechaDeEntrega, @TipoDeDocumento, @Nombre, @DocenteAdministrativo, @IDAsignacion)", parametrosDocumentoDeEntregaUnica);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO DocumentosDeEntregaUnica(FechaDeEntrega, TipoDeDocumento, IDPersonal, IDAsignacion) VALUES(@FechaDeEntrega, @TipoDeDocumento, @DocenteAdministrativo, @IDAsignacion)", parametrosDocumentoDeEntregaUnica);
             }
 			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
 			{
                 throw new AccesoADatosException("Error al guardar DocumentoDeEntregaUnica: " + documentoDeEntregaUnica.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e)
 			{
 				throw new AccesoADatosException("Error al guardar DocumentoDeEntregaUnica: " + documentoDeEntregaUnica.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
@@ -141,8 +140,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 documentoDeEntregaUnica.IDDocumento = (int)fila["IDDocumento"];
                 documentoDeEntregaUnica.FechaDeEntrega = DateTime.Parse(fila["FechaDeEntrega"].ToString());
                 documentoDeEntregaUnica.TipoDeDocumento = (TipoDeDocumento)fila["TipoDeDocumento"];
-                documentoDeEntregaUnica.Nombre = fila["Nombre"].ToString();
-                documentoDeEntregaUnica.DocenteAcademico = docenteAcademicoDAO.CargarIDPorIDDocumento((int)fila["IDDocumento"]);
+                documentoDeEntregaUnica.DocenteAcademico = docenteAcademicoDAO.CargarDocenteAcademicoPorIDPersonal((int)fila["IDDocumento"]);
                 documentoDeEntregaUnica.Imagen = imagenDAO.CargarImagenPorIDDocumentoYTipoDeDocumentoEnImagen((int)fila["IDDocumento"], TipoDeDocumentoEnImagen.DocumentoDeEntregaUnica);
             }
             return documentoDeEntregaUnica;
@@ -150,7 +148,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
         private SqlParameter[] InicializarParametrosDeSQL(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion)
         {
-            SqlParameter[] parametrosDeDocumentoDeEntregaUnica = new SqlParameter[6];
+            SqlParameter[] parametrosDeDocumentoDeEntregaUnica = new SqlParameter[5];
 
             for (int i = 0; i < parametrosDeDocumentoDeEntregaUnica.Length; i++)
             {
@@ -163,18 +161,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeDocumentoDeEntregaUnica[1].Value = documentoDeEntregaUnica.FechaDeEntrega.ToString();
             parametrosDeDocumentoDeEntregaUnica[2].ParameterName = "@TipoDeDocumento";
             parametrosDeDocumentoDeEntregaUnica[2].Value = (int)documentoDeEntregaUnica.TipoDeDocumento;
-            parametrosDeDocumentoDeEntregaUnica[3].ParameterName = "@Nombre";
-            parametrosDeDocumentoDeEntregaUnica[3].Value = documentoDeEntregaUnica.Nombre;
-            parametrosDeDocumentoDeEntregaUnica[4].ParameterName = "@DocenteAdministrativo";
-            parametrosDeDocumentoDeEntregaUnica[4].Value = documentoDeEntregaUnica.DocenteAcademico.IDPersonal;
-            parametrosDeDocumentoDeEntregaUnica[5].ParameterName = "@IDAsignacion";
-            parametrosDeDocumentoDeEntregaUnica[5].Value = IDAsignacion;
+            parametrosDeDocumentoDeEntregaUnica[3].ParameterName = "@DocenteAdministrativo";
+            parametrosDeDocumentoDeEntregaUnica[3].Value = documentoDeEntregaUnica.DocenteAcademico.IDPersonal;
+            parametrosDeDocumentoDeEntregaUnica[4].ParameterName = "@IDAsignacion";
+            parametrosDeDocumentoDeEntregaUnica[4].Value = IDAsignacion;
 
             return parametrosDeDocumentoDeEntregaUnica;
-        }
-        public void GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica)
-        {
-            throw new NotImplementedException();
         }
 
 		public int ObtenerUltimoIDInsertado()
@@ -182,7 +174,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			int ultimoIDInsertado = 0;
 			try
 			{
-				ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar("SELECT IDENT_CURRENT('DocumentosDeEnregaUnica')");
+				ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar("SELECT IDENT_CURRENT('DocumentosDeEntregaUnica')");
 			}
 			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
 			{
@@ -191,6 +183,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			catch (SqlException e)
 			{
 				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en DocumentoDeEntregaUnicaDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+			catch (InvalidCastException e)
+			{
+				throw new AccesoADatosException("Error al obetner Ultimp ID Insertado en DocumentoDeEntregaUnicaDAO", e, TipoDeErrorDeAccesoADatos.IDInvalida);
 			}
 			return ultimoIDInsertado;
 		}

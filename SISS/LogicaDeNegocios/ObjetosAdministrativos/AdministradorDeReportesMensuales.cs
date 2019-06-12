@@ -15,7 +15,7 @@ namespace LogicaDeNegocios.ObjetosAdministrador
             ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
             AsignacionDAO asignacionDAO = new AsignacionDAO();
             Asignacion asignacion = new Asignacion();
-            asignacion = asignacionDAO.CargarIDsPorMatriculaDeAlumno(matricula).ElementAt(0);
+            asignacion = asignacionDAO.CargarIDPorMatriculaDeAlumno(matricula);
             this.ReportesMensuales = reporteMensualDAO.CargarIDsPorIDAsignacion(asignacion.IDAsignacion);
             for (int i = 0; i<ReportesMensuales.Count; i++)
             {
