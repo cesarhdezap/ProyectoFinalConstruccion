@@ -76,7 +76,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 				ButtonCapturarReporteMensual.ToolTip = toolTip;
 
 			}
-			LabelHorasCubiertas.Content = asignacion.ObtenerHorasCubiertas();
+			LabelHorasCubiertas.Content = Asignacion.ObtenerHorasCubiertas();
             LabelNombreDeUsuario.Content = TecnicoAdministrativo.Nombre;
             GridReportesMensuales.ItemsSource = Asignacion.ReportesMensuales;
 			GridDocumentosDeEntregaUnica.ItemsSource = Asignacion.DocumentosDeEntregaUnica;
