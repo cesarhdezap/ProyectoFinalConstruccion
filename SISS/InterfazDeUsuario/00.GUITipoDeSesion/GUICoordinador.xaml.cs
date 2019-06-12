@@ -102,5 +102,16 @@ namespace InterfazDeUsuario.GUITipoDeSesion
 			buscarProyecto.ShowDialog();
 			ShowDialog();
 		}
+
+		private void ButtonTecnicoAcademico_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void ButtonBuscarAlumno_Click(object sender, RoutedEventArgs e)
+		{
+			GUIBuscarAlumnoCoordinador buscarAlumnoCoordinador = new GUIBuscarAlumnoCoordinador(Coordinador);
+			buscarAlumnoCoordinador.ShowDialog();
+		}
 	}
 }

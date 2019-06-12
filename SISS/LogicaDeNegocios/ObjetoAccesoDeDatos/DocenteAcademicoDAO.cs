@@ -149,7 +149,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return docenteAcademico;
         }
 
-        internal DocenteAcademico CargarIDPorIDDocumento(int IDDocumento)
+        public DocenteAcademico CargarIDPorIDDocumento(int IDDocumento)
         {
             if (IDDocumento <= 0)
             {
@@ -185,8 +185,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             return docenteAcademico;
         }
+	
 
-        public List<DocenteAcademico> CargarDocentesAcademicosPorEstado(bool isActivo)
+		public List<DocenteAcademico> CargarDocentesAcademicosPorEstado(bool isActivo)
         {
             DataTable tablaDeDocenteAcademico = new DataTable();
             SqlParameter[] parametroEsActivo = new SqlParameter[1];

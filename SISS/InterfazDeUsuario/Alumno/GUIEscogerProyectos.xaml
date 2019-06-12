@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="GUIEscogerProyectos" Height="592.823" Width="883.287">
 	<Window.Resources>
-		<l:ConvertidorIDProyectoADetallesDeProyecto x:Key="ConvertidorIDProyectoADetallesDeProyecto" />
+		<l:ConvertidorIDPersonalADetallesDeDocenteAcademico x:Key="ConvertidorIDPersonalADetallesDeDocenteAcademico" />
 	</Window.Resources>
 	<Grid>
 		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="48" BorderThickness="2" Margin="38,13,0,0" Height="71" Background="{x:Null}"/>
@@ -43,7 +43,7 @@
 			</DataGrid.Columns>
 			<DataGrid.RowDetailsTemplate>
 				<DataTemplate>
-					<TextBlock Text="{Binding IDProyecto, Converter={StaticResource ResourceKey=ConvertidorIDProyectoADetallesDeProyecto}}"  Margin="10,5,10,10" />
+					<TextBlock Text="{Binding IDPersonal, Converter={StaticResource ResourceKey=ConvertidorIDPersonalADetallesDeDocenteAcademico}}"  Margin="10,5,10,10" />
 				</DataTemplate>
 			</DataGrid.RowDetailsTemplate>
 		</DataGrid>

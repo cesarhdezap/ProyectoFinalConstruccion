@@ -74,6 +74,18 @@ namespace LogicaDeNegocios
             }
             return resultadoDeValidacion;
         }
+
+		public void DarDeBaja()
+		{
+			this.Estado = EstadoProyecto.Inactivo;
+			ActualizarRegistroDeProyecto();
+		}
+
+		private void ActualizarRegistroDeProyecto()
+		{
+			ProyectoDAO proyectoDAO = new ProyectoDAO();
+			proyectoDAO.ActualizarProyectoPorID(IDProyecto, this);
+		}
 	}
 
     public enum EstadoProyecto

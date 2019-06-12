@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica.cs" />
     <Compile Include="ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual.cs" />
+    <Compile Include="ConvertidorIDPersonalADetallesDeDocenteAcademico.cs" />
     <Compile Include="ConvertidorIDProyectoADetallesDeProyecto.cs" />
     <Compile Include="ConvertidorMatriculaADetallesDeSolicitud.cs" />
     <Compile Include="ConvertidorMatriculaDeAlumnoADetallesDeAlumno.cs" />

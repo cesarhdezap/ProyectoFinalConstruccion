@@ -6,7 +6,7 @@
         xmlns:l ="clr-namespace:InterfazDeUsuario"
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeTecnicoAcademico"
         mc:Ignorable="d"
-        Title="GUIBuscarAlumnoPorTecnicoAcademico" Height="583" Width="1002">
+        Title="GUIBuscarAlumnoPorTecnicoAcademico" Height="520" Width="1002">
 	<Window.Resources>
 		<l:ConvertidorMatriculaDeAlumnoADetallesDeAlumno x:Key="ConvertidorMatriculaDeAlumnoADetallesDeAlumno" />
 	</Window.Resources>
@@ -15,10 +15,10 @@
 		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="733,37,0,0" FontSize="14" Width="139"/>
 		<Label x:Name="LabelCerrarSesión" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="877,37,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
 		<Label x:Name="LabelBuscarAlumno" Content="Buscar alumno" HorizontalAlignment="Left" Margin="31,75,0,0" VerticalAlignment="Top" Width="258" FontSize="36"/>
-		<TextBox x:Name="TextBoxBuscarAlumnosPorNombre" HorizontalAlignment="Left" Height="23" Margin="217,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" TextChanged="TextBoxBuscarAlumnosPorNombre_TextChanged" FontSize="14"/>
-		<Label x:Name="LabelBuscarAlumnosPorNombre" Content="Buscar alumno por nombre:" HorizontalAlignment="Left" Margin="31,138,0,0" VerticalAlignment="Top" FontSize="14"/>
-		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="463,504,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Click="BtnCancelar_Click"/>
-		<DataGrid x:Name="DataGridAlumnos" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="false" CanUserDeleteRows="False" SelectionUnit="FullRow" HorizontalAlignment="Left" Height="290" Margin="31,172,0,0" VerticalAlignment="Top" Width="941" FontSize="14">
+		<TextBox x:Name="TextBoxBuscarAlumnosPorNombre" HorizontalAlignment="Left" Height="23" Margin="765,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="206" TextChanged="TextBoxBuscarAlumnosPorNombre_TextChanged" FontSize="14"/>
+		<Label x:Name="LabelBuscarAlumnosPorNombre" Content="Buscar alumno por nombre:" HorizontalAlignment="Left" Margin="579,99,0,0" VerticalAlignment="Top" FontSize="14"/>
+		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="454,446,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Click="ButtonCancelar_Click"/>
+		<DataGrid x:Name="DataGridAlumnos" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="false" CanUserDeleteRows="False" SelectionUnit="FullRow" HorizontalAlignment="Left" Height="290" Margin="31,133,0,0" VerticalAlignment="Top" Width="941" FontSize="14">
 			<DataGrid.CellStyle>
 				<Style TargetType="DataGridCell">
 					<Setter Property="BorderThickness" Value="0"/>

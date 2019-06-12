@@ -3,6 +3,7 @@ using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetosAdministrador;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
@@ -22,11 +23,11 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             AdministradorDeOrganizaciones.CargarOrganizaciones();
             ComboBoxOrganizacionAsociada.DisplayMemberPath = "Nombre";
             ComboBoxOrganizacionAsociada.ItemsSource = AdministradorDeOrganizaciones.Organizaciones;
-
-            AdministradorDeEncargados = new AdministradorDeEncargados();
+			AdministradorDeEncargados = new AdministradorDeEncargados();
             AdministradorDeEncargados.CargarEncargadosTodos();
-
-        }
+			ComboBoxEncargadoAsociado.SelectedIndex = 0;
+			ComboBoxOrganizacionAsociada.SelectedIndex = 0;
+		}
 
         private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
         {
@@ -37,40 +38,69 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
                 ObjetivoGeneral = TextBoxObjetivoGeneral.Text,
                 DescripcionGeneral = TextBoxDescripcionGeneral.Text,
             };
-
             bool resultadoDeCreacion = false;
             int indiceDeEncargado = ComboBoxEncargadoAsociado.SelectedIndex;
+			if (indiceDeEncargado > SIN_INDICE)
+			{
+				if (int.TryParse(TextBoxEstudiantesSolicitados.Text, out int cupo)) {
+					int IDOrganizacion = (ComboBoxOrganizacionAsociada.SelectedItem as Organizacion).IDOrganizacion;
+					proyecto.Encargado = AdministradorDeEncargados.SeleccionarEncargadosPorIDOrganizacion(IDOrganizacion)[indiceDeEncargado];
+					proyecto.Cupo = cupo;
+					Mouse.OverrideCursor = Cursors.Wait;
+					try
+					{
+						resultadoDeCreacion = proyecto.Guardar();
+					}
+					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
+					{
+						MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
+						this.Close();
+					}
+					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
+					{
+						MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
+						this.Close();
+					}
+					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
+					{
+						MessageBox.Show(this, "Hubo un error al completar el registro. Intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
+						this.Close();
+					}
+					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
+					{
+						MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
+						this.Close();
+					}
+					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
+					{
+						MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
+						this.Close();
+					}
+					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
+					{
+						MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
+						this.Close();
+					}
+					finally
+					{
+						Mouse.OverrideCursor = null;
+					}
 
-            if (indiceDeEncargado > SIN_INDICE && int.TryParse(TextBoxEstudiantesSolicitados.Text, out int cupo))
-            {
-                int idOrganizacion = ComboBoxOrganizacionAsociada.SelectedIndex;
-                proyecto.Encargado = AdministradorDeEncargados.SeleccionarEncargadosPorIDOrganizacion(idOrganizacion)[indiceDeEncargado];
-                proyecto.Cupo = cupo;
-                try
-                {
-                    resultadoDeCreacion = proyecto.Guardar();
-                }
-                catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
-                {
-                    MessageBox.Show("No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-                {
-                    MessageBox.Show("No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
-                {
-                    MessageBox.Show("No se guardo la Organizacion en la base de datos.");
-                    resultadoDeCreacion = false;
-                }
-
-                if (resultadoDeCreacion)
-                {
-                    MessageBox.Show("Proyecto guardado exitosamente.");
-                    Close();
-                }
-            }
-        }
+					if (resultadoDeCreacion)
+					{
+						MessageBox.Show(this, "Proyecto guardado exitosamente.", "¡Registro exitoso!", MessageBoxButton.OK, MessageBoxImage.Information);
+						Close();
+					}
+				} else
+				{
+					MessageBox.Show(this, "El cupo del proyecto debe ser un número entero.", "Cupo invalido", MessageBoxButton.OK, MessageBoxImage.Error);
+				}
+			}
+			else
+			{
+				MessageBox.Show(this, "Debe seleccionar un encargado para ser asociado al proyecto.", "Encargado no seleccionado", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+		}
 
         private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -114,7 +144,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
                 int IDOrganizacion = AdministradorDeOrganizaciones.Organizaciones[indiceOrganizacion].IDOrganizacion;
                 ComboBoxEncargadoAsociado.DisplayMemberPath = "Nombre";
                 ComboBoxEncargadoAsociado.ItemsSource = AdministradorDeEncargados.SeleccionarEncargadosPorIDOrganizacion(IDOrganizacion);
-                ComboBoxEncargadoAsociado.SelectedIndex = SIN_INDICE;
+                ComboBoxEncargadoAsociado.SelectedIndex = 0;
             }
         }
 
