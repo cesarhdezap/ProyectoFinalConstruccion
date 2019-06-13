@@ -12,7 +12,5 @@ namespace LogicaDeNegocios.Interfaces
 		Encargado CargarIDPorIDProyecto(int IDProyecto);
 		void GuardarEncargado(Encargado encargado);
 		List<Encargado> CargarEncargadosConIDNombreYOrganizacion();
-
-
 	}
 }
