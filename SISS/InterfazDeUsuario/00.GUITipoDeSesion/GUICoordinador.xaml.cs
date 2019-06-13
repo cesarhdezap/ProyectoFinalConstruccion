@@ -103,9 +103,12 @@ namespace InterfazDeUsuario.GUITipoDeSesion
 			ShowDialog();
 		}
 
-		private void ButtonTecnicoAcademico_Click(object sender, RoutedEventArgs e)
+		private void ButtonRegistrarTecnicoAcademico_Click(object sender, RoutedEventArgs e)
 		{
-
+			GUIRegistrarTecnicoAcademico registrarTecnicoAcademico = new GUIRegistrarTecnicoAcademico(this.Coordinador);
+			Hide();
+			registrarTecnicoAcademico.ShowDialog();
+			ShowDialog();
 		}
 
 		private void ButtonBuscarAlumno_Click(object sender, RoutedEventArgs e)

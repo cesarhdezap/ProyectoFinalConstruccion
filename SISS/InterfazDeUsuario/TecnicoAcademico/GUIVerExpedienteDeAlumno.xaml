@@ -7,50 +7,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeTecnicoAcademico"
         mc:Ignorable="d"
-        Title="GUIVerExpedienteDeAlumno" Height="949.334" Width="1211.464">
+        Title="Expediente de alumno" Height="559.334" Width="1225.464" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 	<Window.Resources>
 		<o:ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica x:Key="ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica"/>
 		<o:ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual x:Key="ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual"/>
 	</Window.Resources>
-
-	<Grid ScrollViewer.CanContentScroll="True">
-		<Label Content="Horas cubiertas:" HorizontalAlignment="Left" Margin="138,80,0,0" VerticalAlignment="Top" FontSize="14"/>
-		<Button x:Name="ButtonRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="25,82,0,0" VerticalAlignment="Top" Width="94" Click="ButtonRegresar_Click" FontSize="14"/>
-		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="491" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="25,10,0,0"/>
-		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="920,24,0,0" FontSize="14"/>
-		<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1063,24,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
-		<Button x:Name="ButtonCapturarOtroDocumento" Content="Capturar otro documento" HorizontalAlignment="Left" Margin="973,82,0,0" VerticalAlignment="Top" Width="185" Click="ButtonCapturarOtroDocumento_Click" FontSize="14"/>
-		<Button x:Name="ButtonCapturarReporteMensual" ToolTip="El numero máximo de reportes mensuales ha sido entregado." ToolTipService.ShowOnDisabled="True" Content="Capturar reporte mensual" HorizontalAlignment="Left" Margin="774,82,0,0" VerticalAlignment="Top" Click="ButtonCapturarReporteMensual_Click" FontSize="14" Width="185"/>
-		<Label x:Name="LabelHorasCubiertas" Content="[Horas cubiertas]" HorizontalAlignment="Left" Margin="252,80,0,0" VerticalAlignment="Top" FontSize="14"/>
-		<ListBox  Name="GridReportesMensuales" Margin="10,146,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="378" Width="1181">
-			<ListBox.ItemsPanel>
-				<ItemsPanelTemplate>
-					<UniformGrid Columns="4" />
-				</ItemsPanelTemplate>
-			</ListBox.ItemsPanel>
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<StackPanel>
-						<Image Source="{Binding Path=Imagen }" Height="285"/>
-						<TextBlock Text="{Binding Path=IDDocumento, Converter={StaticResource ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual}}"></TextBlock>
-					</StackPanel>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
-		<ListBox  Name="GridDocumentosDeEntregaUnica" Margin="10,529,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="378" Width="1181">
-			<ListBox.ItemsPanel>
-				<ItemsPanelTemplate>
-					<UniformGrid Columns="4" />
-				</ItemsPanelTemplate>
-			</ListBox.ItemsPanel>
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<StackPanel>
-						<Image Source="{Binding Path=Imagen }" Height="300"/>
-						<TextBlock Text="{Binding Path=IDDocumento, Converter={StaticResource ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica}}"></TextBlock>
-					</StackPanel>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
-	</Grid>
+	<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+		<Grid>
+			<Label Content="Horas cubiertas:" HorizontalAlignment="Left" Margin="138,80,0,0" VerticalAlignment="Top" FontSize="14"/>
+			<Button x:Name="ButtonRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="25,82,0,0" VerticalAlignment="Top" Width="94" Click="ButtonRegresar_Click" FontSize="14"/>
+			<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="491" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="25,10,0,0"/>
+			<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="670,24,0,0" FontSize="14" Width="388" HorizontalContentAlignment="Right"/>
+			<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1063,24,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
+			<Button x:Name="ButtonCapturarOtroDocumento" Content="Capturar otro documento" HorizontalAlignment="Left" Margin="973,82,0,0" VerticalAlignment="Top" Width="185" Click="ButtonCapturarOtroDocumento_Click" FontSize="14"/>
+			<Button x:Name="ButtonCapturarReporteMensual" ToolTip="El numero máximo de reportes mensuales ha sido entregado." ToolTipService.ShowOnDisabled="True" Content="Capturar reporte mensual" HorizontalAlignment="Left" Margin="774,82,0,0" VerticalAlignment="Top" Click="ButtonCapturarReporteMensual_Click" FontSize="14" Width="185"/>
+			<Label x:Name="LabelHorasCubiertas" Content="[Horas cubiertas]" HorizontalAlignment="Left" Margin="252,80,0,0" VerticalAlignment="Top" FontSize="14"/>
+			<ListBox  Name="GridReportesMensuales" Margin="10,146,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="378" Width="1181">
+				<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<UniformGrid Columns="12" />
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel>
+							<Image Source="{Binding Path=Imagen }" Height="285"/>
+							<TextBlock Text="{Binding Path=IDDocumento, Converter={StaticResource ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual}}"></TextBlock>
+						</StackPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+			<ListBox  Name="GridDocumentosDeEntregaUnica" Margin="10,529,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="378" Width="1181">
+				<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<UniformGrid Columns="12" />
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<StackPanel>
+							<Image Source="{Binding Path=Imagen }" Height="300"/>
+							<TextBlock Text="{Binding Path=IDDocumento, Converter={StaticResource ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica}}"></TextBlock>
+						</StackPanel>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</Grid>
+	</ScrollViewer>
 </Window>

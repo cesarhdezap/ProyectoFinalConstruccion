@@ -6,13 +6,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeAlumno"
         mc:Ignorable="d"
-        Title="GUIEscogerProyectos" Height="592.823" Width="883.287">
+        Title="Escoger proyecto" Height="592.823" Width="883.287" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 	<Window.Resources>
 		<l:ConvertidorIDPersonalADetallesDeDocenteAcademico x:Key="ConvertidorIDPersonalADetallesDeDocenteAcademico" />
 	</Window.Resources>
 	<Grid>
-		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="48" BorderThickness="2" Margin="38,13,0,0" Height="71" Background="{x:Null}"/>
-		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="562,36,0,0" FontSize="14" RenderTransformOrigin="-0.025,1.293"/>
+		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="48" BorderThickness="2" Margin="10,10,0,0" Height="71" Background="{x:Null}"/>
+		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="508,36,0,0" FontSize="14" RenderTransformOrigin="-0.025,1.293" HorizontalContentAlignment="Right" Width="222"/>
 		<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="730,36,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
 		<Label x:Name="LabelEscogerProyectoDeServicioSocial" Content="Escoger proyecto de servicio social" HorizontalAlignment="Left" Margin="38,89,0,0" VerticalAlignment="Top" FontSize="24"/>
 		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="235,516,0,0" VerticalAlignment="Top" Width="75" FontSize="14"/>

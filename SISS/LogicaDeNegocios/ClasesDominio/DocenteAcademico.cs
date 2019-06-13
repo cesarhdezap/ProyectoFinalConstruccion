@@ -1,5 +1,6 @@
 ﻿using System;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace LogicaDeNegocios
 {
@@ -42,6 +43,26 @@ namespace LogicaDeNegocios
 			docenteAcademico = docenteAcademicoDAO.CargarIDPorCarrera(carrera);
 			docenteAcademico = docenteAcademicoDAO.CargarDocenteAcademicoPorIDPersonal(docenteAcademico.IDPersonal);
 			return docenteAcademico;
+		}
+
+		public void Guardar()
+		{
+			DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
+			docenteAcademicoDAO.GuardarDocenteAcademico(this);
+		}
+
+		public bool Validar()
+		{
+			bool resultadoDeValidacion = false;
+			if (ValidarContraseña(this.Contraseña)
+				&& ValidarCorreoElectronico(this.CorreoElectronico)
+				&& ValidarNombre(this.Nombre)
+				&& ValidarTelefono(this.Telefono)
+				&& this.Cubiculo > 0)
+			{
+				resultadoDeValidacion = true;
+			}
+			return resultadoDeValidacion;
 		}
 	}
 	

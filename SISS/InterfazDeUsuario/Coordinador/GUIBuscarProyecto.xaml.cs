@@ -126,14 +126,15 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 		private void ButtonDarDeBaja_Click(object sender, RoutedEventArgs e)
 		{
 			Proyecto proyectoSeleccionado = ((FrameworkElement)sender).DataContext as Proyecto;
-
 			MessageBoxResult resultado = MessageBox.Show("¿Esta seguro que desea dar de baja el proyecto seleccionado? Este cambio no puede deshacerse.", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
 			if (resultado == MessageBoxResult.Yes)
 			{
+				bool proyectoDadoDeBaja = false;
 				Mouse.OverrideCursor = Cursors.Wait;
 				try
 				{
 					proyectoSeleccionado.DarDeBaja();
+					proyectoDadoDeBaja = true;
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 				{
@@ -164,10 +165,13 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				{
 					Mouse.OverrideCursor = null;
 				}
-				MessageBox.Show("El proyecto fue dado de baja exitosamente.", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
-				AdministradorDeProyectos.Proyectos.Remove(proyectoSeleccionado);
-				DataGridProyectos.ItemsSource = null;
-				DataGridProyectos.ItemsSource = AdministradorDeProyectos.Proyectos;
+				if (proyectoDadoDeBaja)
+				{
+					MessageBox.Show("El proyecto fue dado de baja exitosamente.", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
+					AdministradorDeProyectos.Proyectos.Remove(proyectoSeleccionado);
+					DataGridProyectos.ItemsSource = null;
+					DataGridProyectos.ItemsSource = AdministradorDeProyectos.Proyectos;
+				}
 			}
 		}
 	}

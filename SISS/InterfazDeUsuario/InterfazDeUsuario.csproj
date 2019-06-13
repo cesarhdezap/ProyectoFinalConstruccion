@@ -74,6 +74,9 @@
     <Compile Include="Coordinador\GUIActualizarExpediente.xaml.cs">
       <DependentUpon>GUIActualizarExpediente.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Coordinador\GUIActualizarReporteMensual.xaml.cs">
+      <DependentUpon>GUIActualizarReporteMensual.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TecnicoAcademico\GUIBuscarAlumnoPorTecnicoAcademico.xaml.cs">
       <DependentUpon>GUIBuscarAlumnoPorTecnicoAcademico.xaml</DependentUpon>
     </Compile>
@@ -103,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Coordinador\GUIActualizarExpediente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Coordinador\GUIActualizarReporteMensual.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

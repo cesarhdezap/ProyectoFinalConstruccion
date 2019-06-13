@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Media.Imaging;
+using LogicaDeNegocios.ObjetoAccesoDeDatos;
 
 namespace LogicaDeNegocios
 {
@@ -12,6 +13,12 @@ namespace LogicaDeNegocios
 		public DocenteAcademico DocenteAcademico { get; set; }
         public BitmapImage Imagen { get; set; }
 		public Mes Mes { get; set; }
+
+		public void Actualizar()
+		{
+			ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
+			reporteMensualDAO.ActualizarReporteMensualPorID(IDDocumento, this);
+		}
 	}
 
 	public enum Mes

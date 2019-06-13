@@ -6,16 +6,16 @@
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeCoordinador"
         mc:Ignorable="d"
         Title="GUIActualizarExpediente" Height="313.26" Width="993.923">
-    <Grid>
-        <Label x:Name="LblActualizarExpediente" Content="Actualizar expediente" HorizontalAlignment="Left" Margin="380,69,0,0" VerticalAlignment="Top" FontSize="24"/>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="66" Margin="88,147,0,0" Stroke="Black" VerticalAlignment="Top" Width="825"/>
-        <Button x:Name="BtnCapturarDocumentoDeEntregaUnica" Content="Capturar documento de entrega única" HorizontalAlignment="Left" Margin="122,164,0,0" VerticalAlignment="Top" Width="257" Height="31" FontSize="14"/>
-        <Button x:Name="BtnCapturarReporteMensual" Content="Capturar reporte mensual" HorizontalAlignment="Left" Margin="445,164,0,0" VerticalAlignment="Top" Width="179" Height="31" FontSize="14"/>
-        <Button x:Name="BtnEliminarDocumento" Content="Eliminar documento" HorizontalAlignment="Left" Margin="688,164,0,0" VerticalAlignment="Top" Width="186" Height="31" FontSize="14"/>
-        <Button x:Name="BtnRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="25,79,0,0" VerticalAlignment="Top" Width="99" FontSize="14" Height="25"/>
-        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="491" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="201,5,0,0"/>
-        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="716,24,0,0" Width="119"/>
-        <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="840,24,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
+	<Grid>
+		<Label x:Name="LblActualizarExpediente" Content="Actualizar expediente" HorizontalAlignment="Left" Margin="409,68,0,0" VerticalAlignment="Top" FontSize="24"/>
+		<Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="66" Margin="75,136,0,0" Stroke="Black" VerticalAlignment="Top" Width="825"/>
+		<Button x:Name="BtnCapturarDocumentoDeEntregaUnica" Content="Capturar documento de entrega única" HorizontalAlignment="Left" Margin="109,153,0,0" VerticalAlignment="Top" Width="257" Height="31" FontSize="14"/>
+		<Button x:Name="BtnCapturarReporteMensual" Content="Capturar reporte mensual" HorizontalAlignment="Left" Margin="432,153,0,0" VerticalAlignment="Top" Width="179" Height="31" FontSize="14"/>
+		<Button x:Name="BtnEliminarDocumento" Content="Eliminar documento" HorizontalAlignment="Left" Margin="675,153,0,0" VerticalAlignment="Top" Width="186" Height="31" FontSize="14"/>
+		<Button x:Name="BtnRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="10,79,0,0" VerticalAlignment="Top" Width="99" FontSize="14" Height="25"/>
+		<Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="10,10,0,0"/>
+		<Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="432,24,0,0" FontSize="14" Width="403" HorizontalContentAlignment="Right"/>
+		<Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="840,24,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
 
-    </Grid>
+	</Grid>
 </Window>

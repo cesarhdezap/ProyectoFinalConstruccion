@@ -19,12 +19,12 @@ namespace InterfazDeUsuario
         private void ButtonIngresar_Click(object sender, RoutedEventArgs e)
         {
             string correo = TextBoxCorreo.Text;
-            if (correo != null && PasswordBoxContraseña.Password != null)
+            if (correo != string.Empty && PasswordBoxContraseña.Password != string.Empty)
             {
+				Mouse.OverrideCursor = Cursors.Wait;
                 bool resultadoDeAutenticacion = false;
                 try
                 {
-                    Mouse.OverrideCursor = Cursors.Wait;
                     resultadoDeAutenticacion = AutenticarCredenciales(correo, PasswordBoxContraseña.Password);
                 }
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
@@ -60,14 +60,14 @@ namespace InterfazDeUsuario
 					TextBoxCorreo.Clear();
 					PasswordBoxContraseña.Clear();
                 }
-                else
+                else 
                 {
-                    MessageBox.Show("Usuario o contraseña no validos.");
+                    MessageBox.Show("Usuario o contraseña no validos.", "Credenciales no validas", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show("No se han detectado datos.");
+                MessageBox.Show("Debe ingresar su contraseña y su correo para continuar.", "Campos vacios", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -95,7 +95,7 @@ namespace InterfazDeUsuario
             }
             else
             {
-                MessageBox.Show("Tipo de sesion no valida.");
+                MessageBox.Show("Tipo de sesion no valida. Contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

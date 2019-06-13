@@ -30,7 +30,6 @@ namespace InterfazDeUsuario.GUIsDeDirector
             InitializeComponent();
             this.Director = director;
             LabelNombreDeUsuario.Content = director.Nombre;
-            InitializeComponent();
             ComboBoxCarrera.Items.Add("LIS");
             ComboBoxCarrera.Items.Add("RYSC");
             ComboBoxCarrera.Items.Add("TC");
@@ -128,26 +127,30 @@ namespace InterfazDeUsuario.GUIsDeDirector
 
         private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
         {
-            Mouse.OverrideCursor = Cursors.Wait;
-            DocenteAcademico coordinador = new DocenteAcademico
-            {
-                Nombre = TextBoxNombre.Text,
-                CorreoElectronico = TextBoxCorreoElectronico.Text,
-                Telefono = TextBoxTelefono.Text,
-                Coordinador = null,
-                Carrera = ComboBoxCarrera.SelectedValue.ToString(),
-                EsActivo = true,
-                Contraseña = ServiciosDeAutenticacion.EncriptarContraseña(TextBoxContraseña.Text)
+            
+			DocenteAcademico coordinador = new DocenteAcademico
+			{
+				Nombre = TextBoxNombre.Text,
+				CorreoElectronico = TextBoxCorreoElectronico.Text,
+				Telefono = TextBoxTelefono.Text,
+				Coordinador = null,
+				Carrera = ComboBoxCarrera.SelectedValue.ToString(),
+				EsActivo = true,
+				Contraseña = ServiciosDeAutenticacion.EncriptarContraseña(TextBoxContraseña.Text),
+				Rol = Rol.Coordinador
             };
-            try
+			Mouse.OverrideCursor = Cursors.Wait;
+            if (Int32.TryParse(TextBoxCubiculo.Text, out int i))
             {
-                coordinador.Cubiculo = Int32.Parse(TxtCubiculo.Text);
-                if (ValidarCoordinador(coordinador)  && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text && ComboBoxCarrera.SelectedValue != null)
+                coordinador.Cubiculo = Int32.Parse(TextBoxCubiculo.Text);
+                if (coordinador.Validar() && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text && ComboBoxCarrera.SelectedIndex < 0)
                 {
-                    DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
+					bool registroExitoso = false;
                     try
                     {
-                        docenteAcademicoDAO.GuardarDocenteAcademico(coordinador);
+
+						coordinador.Guardar();
+						registroExitoso = true;
                     }
 					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 					{
@@ -183,17 +186,22 @@ namespace InterfazDeUsuario.GUIsDeDirector
 					{
 						Mouse.OverrideCursor = null;
 					}
-					MessageBox.Show("Ha sido registrado exitosamente.", "¡Registro Exitoso!", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
+					if (registroExitoso)
+					{
+						MessageBox.Show("El coordinador ha sido registrado exitosamente.", "¡Registro Exitoso!", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
+						Close();
+					}
                 }
                 else
                 {
                     Mouse.OverrideCursor = null;
                     MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-            } catch (FormatException)
+            }
+			else
             {
                 Mouse.OverrideCursor = null;
-                MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("El cubiculo debe ser un valor entero.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -14,10 +14,8 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
     /// </summary>
     public partial class GUIBuscarAlumnoPorTecnicoAcademico : Window
     {
-
-        private AdministradorDeAlumnos AdministradorDeAlumnos {get;set;}
+        private AdministradorDeAlumnos AdministradorDeAlumnos { get; set; }
         private DocenteAcademico TecnicoAdministrativo { get; set; }
-
         public GUIBuscarAlumnoPorTecnicoAcademico(DocenteAcademico tecnicoAdministrativo)
         {
             InitializeComponent();
@@ -71,38 +69,41 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
         private void Expander_Expanded(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
-            for (Visual elementoVisual = sender as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
-                if (elementoVisual is DataGridRow fila)
-                {
-                    if (fila.DetailsVisibility == Visibility.Visible)
-                    {
-                        fila.DetailsVisibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        fila.DetailsVisibility = Visibility.Visible;
-                    }
-
-                    break;
-                }
+			for (Visual elementoVisual = sender as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
+			{
+				if (elementoVisual is DataGridRow fila)
+				{
+					if (fila.DetailsVisibility == Visibility.Visible)
+					{
+						fila.DetailsVisibility = Visibility.Collapsed;
+					}
+					else
+					{
+						fila.DetailsVisibility = Visibility.Visible;
+					}
+					break;
+				}
+			}
             Mouse.OverrideCursor = null;
         }
 
         private void Expander_Collapsed(object sender, RoutedEventArgs e)
         {
-            for (var elementoVisual = sender as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
-                if (elementoVisual is DataGridRow fila)
-                {
-                    if (fila.DetailsVisibility == Visibility.Visible)
-                    {
-                        fila.DetailsVisibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        fila.DetailsVisibility = Visibility.Visible;
-                    }
-                    break;
-                }
+			for (var elementoVisual = sender as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
+			{
+				if (elementoVisual is DataGridRow fila)
+				{
+					if (fila.DetailsVisibility == Visibility.Visible)
+					{
+						fila.DetailsVisibility = Visibility.Collapsed;
+					}
+					else
+					{
+						fila.DetailsVisibility = Visibility.Visible;
+					}
+					break;
+				}
+			}
         }
 
 		private void TextBoxBuscarAlumnosPorNombre_TextChanged(object sender, TextChangedEventArgs e)

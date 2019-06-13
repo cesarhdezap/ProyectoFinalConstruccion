@@ -19,31 +19,28 @@ using LogicaDeNegocios.ClasesDominio;
 using System.IO;
 using Microsoft.Win32;
 
-namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
+namespace InterfazDeUsuario.GUIsDeCoordinador
 {
-	/// <summary>
-	/// Interaction logic for GUIEntregarReporteMensual.xaml
-	/// </summary>
-	public partial class GUIEntregarReporteMensual : Window
-	{
-		private DocenteAcademico TecnicoAdministrativo { get; set; }
+    /// <summary>
+    /// Interaction logic for GUIActualizarReporteMensual.xaml
+    /// </summary>
+    public partial class GUIActualizarReporteMensual : Window
+    {
+		private DocenteAcademico Coordinador { get; set; }
 		private Imagen Imagen { get; set; }
-		private Asignacion Asignacion { get; set; }
-
-		public GUIEntregarReporteMensual(DocenteAcademico tecnicoAdministrativo, Asignacion asignacion)
-		{
-			InitializeComponent();
-			ComboBoxMes.ItemsSource = Enum.GetValues(typeof(Mes));
-			ComboBoxMes.SelectedIndex = 0;
-			this.Asignacion = asignacion;
-			this.TecnicoAdministrativo = tecnicoAdministrativo;
-			this.Imagen = new Imagen(TipoDeDocumentoEnImagen.ReporteMensual);
-		}
-
-		private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-
-		}
+		private ReporteMensual ReporteMensual { get; set; }
+		public GUIActualizarReporteMensual(ReporteMensual reporteMensual, DocenteAcademico coordinador)
+        {
+            InitializeComponent();
+			this.Coordinador = coordinador;
+			this.ReporteMensual = reporteMensual;
+			this.TextBoxHorasReportadas.Text = ReporteMensual.HorasReportadas.ToString();
+			this.LabelMesEnReporte.Content = ReporteMensual.Mes.ToString();
+			this.Imagen = new Imagen(TipoDeDocumentoEnImagen.ReporteMensual)
+			{
+				IDDocumento = ReporteMensual.IDDocumento
+			};
+        }
 
 		private void ButtonRegresar_Click(object sender, RoutedEventArgs e)
 		{
@@ -68,22 +65,15 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 		{
 			if (ValidarCampos())
 			{
-				ReporteMensual reporteMensual = new ReporteMensual
-				{
-					FechaDeEntrega = DateTime.Now,
-					NumeroDeReporte = Asignacion.ReportesMensuales.Count + 1,
-					DocenteAcademico = this.TecnicoAdministrativo,
-					Mes = (Mes)ComboBoxMes.SelectedIndex
-				};
-				reporteMensual.HorasReportadas = Int32.Parse(TextBoxHorasReportadas.Text);
-				Mouse.OverrideCursor = Cursors.Wait;
-				bool reporteGuardado = false;
+				ReporteMensual.FechaDeEntrega = DateTime.Now;
+				ReporteMensual.DocenteAcademico = Coordinador;
+				ReporteMensual.HorasReportadas = Int32.Parse(TextBoxHorasReportadas.Text);
+				bool reporteActualizado = false;
 				try
 				{
-					Asignacion.RegistrarReporteMensual(reporteMensual);
-					Imagen.IDDocumento = reporteMensual.IDDocumento;
-					Imagen.Guardar();
-					reporteGuardado = true;
+					ReporteMensual.Actualizar();
+					Imagen.Actualizar();
+					reporteActualizado = true;
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 				{
@@ -114,9 +104,9 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 				{
 					Mouse.OverrideCursor = null;
 				}
-				if (reporteGuardado)
+				if (reporteActualizado)
 				{
-					MessageBox.Show("El reporte mensual fue registrado exitosamente.", "¡Registro exitoso!", MessageBoxButton.OK, MessageBoxImage.Information);
+					MessageBox.Show("El reporte mensual fue actualizado exitosamente.", "¡Registro exitoso!", MessageBoxButton.OK, MessageBoxImage.Information);
 					this.Close();
 				}
 			}
@@ -129,14 +119,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 			{
 				if (Int32.TryParse(TextBoxHorasReportadas.Text, out int i))
 				{
-					if (Asignacion.ReportesMensuales.TrueForAll(ComprobarMes))
-					{
-						resultadoDeValidacion = true;
-					}
-					else
-					{
-						MessageBox.Show("Un reporte mensual con el mes " + ComboBoxMes.SelectedItem.ToString() + " ya fue entregado.", "Mes duplicado", MessageBoxButton.OK, MessageBoxImage.Error);
-					}
+					resultadoDeValidacion = true;
 				}
 				else
 				{
@@ -148,16 +131,6 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 				MessageBox.Show("Debe seleccionar un archivo para continuar.", "Archivo no seleccionado", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 			return resultadoDeValidacion;
-		}
-
-		private bool ComprobarMes(ReporteMensual reporteMensual)
-		{
-				bool resultado = true; 
-				if (reporteMensual.Mes == (Mes)ComboBoxMes.SelectedIndex)
-				{
-					resultado = false;
-				}
-				return resultado;
 		}
 	}
 }
