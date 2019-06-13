@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeTecnicoAcademico"
         mc:Ignorable="d"
-        Title="GUICapturarOtroDocumento" Height="242.638" Width="530.249">
+        Title="Entregar documento" Height="242.638" Width="478.249" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 	<Grid>
 		<Button x:Name="ButtonRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="105" FontSize="14" Click="ButtonRegresar_Click"/>
 		<Label x:Name="LabelEntregarDocumento" Content="Entregar documento" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="24" BorderThickness="2" Background="Transparent" Width="232" Margin="153,10,0,0"/>

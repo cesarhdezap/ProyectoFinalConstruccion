@@ -27,7 +27,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			Mouse.OverrideCursor = Cursors.Wait;
 			try
 			{
-				AdministradorDeAlumnos.CargarAlumnosPorCarreraYEstado(coordinador.Carrera, EstadoAlumno.Asignado);
+				AdministradorDeAlumnos.CargarAlumnosPorCarreraYEstado(Coordinador.Carrera, EstadoAlumno.Asignado);
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 			{
@@ -119,6 +119,47 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			Alumno alumnoSeleccionado = ((FrameworkElement)sender).DataContext as Alumno;
 			GUIVerExpedientePorCoordinador verExpedientePorCoordinador = new GUIVerExpedientePorCoordinador(Coordinador, alumnoSeleccionado.CargarAsignacion());
 			verExpedientePorCoordinador.ShowDialog();
+			Mouse.OverrideCursor = Cursors.Wait;
+			try
+			{
+				AdministradorDeAlumnos.CargarAlumnosPorCarreraYEstado(Coordinador.Carrera, EstadoAlumno.Asignado);
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
+			{
+				MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
+			{
+				MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
+			{
+				MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
+			{
+				MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
+			{
+				MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
+				this.Close();
+			}
+			finally
+			{
+				Mouse.OverrideCursor = null;
+			}
+			DataGridAlumnos.ItemsSource = null;
+			DataGridAlumnos.ItemsSource = AdministradorDeAlumnos.Alumnos;
+		}
+
+		private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
+		{
+			this.Close();
 		}
 	}
 }

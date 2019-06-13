@@ -38,6 +38,7 @@ namespace LogicaDeNegocios
 			Asignacion asignacion = new Asignacion();
 			asignacion = asignacionDAO.CargarIDPorMatriculaDeAlumno(Matricula);
 			asignacion = asignacionDAO.CargarAsignacionPorID(asignacion.IDAsignacion);
+			asignacion.Alumno = this;
 			return asignacion;
 		}
 

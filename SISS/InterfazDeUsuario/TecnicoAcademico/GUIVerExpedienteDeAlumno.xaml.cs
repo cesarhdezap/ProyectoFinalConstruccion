@@ -66,7 +66,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 			{
 				Mouse.OverrideCursor = null;
 			}
-			if (asignacion.ReportesMensuales.Count <= NUMERO_MAXIMO_DE_REPORTES_MENSUALES)
+			if (asignacion.ReportesMensuales.Count >= NUMERO_MAXIMO_DE_REPORTES_MENSUALES)
 			{
 				ButtonCapturarReporteMensual.IsEnabled = false;
 				ToolTip toolTip = new ToolTip

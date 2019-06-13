@@ -57,16 +57,9 @@ namespace InterfazDeUsuario.GUIsDeAlumno
             {
                 TextBoxCorreoElectronico.BorderBrush = Brushes.Red;
             }
+			TextBoxConfirmarCorreoElectronico_TextChanged(sender, e);
 
-            if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text)
-            {
-                TextBoxConfirmarCorreoElectronico.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxConfirmarCorreoElectronico.BorderBrush = Brushes.Red;
-            }
-        }
+		}
 
         private void TextBoxConfirmarCorreoElectronico_TextChanged(object sender, TextChangedEventArgs e)
         {

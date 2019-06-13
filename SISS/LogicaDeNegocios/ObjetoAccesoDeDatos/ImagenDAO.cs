@@ -22,7 +22,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Imagenes SET DatosDeImagen = @DatosDeImagen WHERE IDDocumento = @IDDocuemnto AND TipoDeDocumentoEnImagen = @TipoDeDocumentoEnImagen", parametrosDeImagen);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Imagenes SET DatosDeImagen = @DatosDeImagen WHERE IDDocumento = @IDDocumento AND TipoDeDocumentoEnImagen = @TipoDeDocumentoEnImagen", parametrosDeImagen);
             }
 			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
 			{

@@ -27,9 +27,9 @@ namespace InterfazDeUsuario.GUITipoDeSesion
 			{
 				this.TecnicoAdministrativo = docenteAcademicoDAO.CargarDocenteAcademicoPorIDPersonal(Int32.Parse(sesion.IDUsuario));
 			}
-			catch (FormatException e)
+			catch (FormatException)
 			{
-				MessageBox.Show("Error. ID cargada incorrectamente. Mensaje: " + e.Message + " StackTrace: " + e.StackTrace.ToString());
+				MessageBox.Show(this, "Hubo un error al completar la carga, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
 				Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
