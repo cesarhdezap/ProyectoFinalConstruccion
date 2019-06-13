@@ -25,7 +25,7 @@ namespace LogicaDeNegocios
         {
             bool resultadoDeCreacion = false;
             AdministradorDeEncargados administradorDeEncargados = new AdministradorDeEncargados();
-            if (ValidarEncargado() && administradorDeEncargados.ValidarExistencia(this))
+            if (ValidarEncargado() && ValidarExistenciaDeCorreo(CorreoElectronico))
             {
                 EncargadoDAO encargadoDAO = new EncargadoDAO();
                 encargadoDAO.GuardarEncargado(this);

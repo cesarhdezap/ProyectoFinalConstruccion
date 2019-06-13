@@ -8,14 +8,6 @@ namespace LogicaDeNegocios.ObjetosAdministrador
     {
         public List<Organizacion> Organizaciones { get; set; }
 
-        public bool ValidarExistencia(Organizacion organizacion)
-        {
-            CargarOrganizaciones();
-            bool resultadoDeCreacion = false;
-            resultadoDeCreacion = !Organizaciones.Exists(e => e.CorreoElectronico == organizacion.CorreoElectronico);
-            return resultadoDeCreacion;
-        }
-
         public void CargarOrganizaciones()
         {
             OrganizacionDAO organizacionDAO = new OrganizacionDAO();
