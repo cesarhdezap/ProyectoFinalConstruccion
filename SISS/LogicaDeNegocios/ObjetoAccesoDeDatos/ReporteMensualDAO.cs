@@ -12,7 +12,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
 	public class ReporteMensualDAO : IReporteMensualDAO
 	{
-
+		
         public List<ReporteMensual> CargarIDsPorIDAsignacion(int IDAsignacion)
 		{
             if (IDAsignacion <= 0)
