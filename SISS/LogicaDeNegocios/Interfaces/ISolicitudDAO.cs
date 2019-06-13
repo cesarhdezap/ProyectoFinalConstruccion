@@ -6,10 +6,10 @@ namespace LogicaDeNegocios.Interfaces
 {
 	interface ISolicitudDAO
 	{
-        void ActualizarSolicitudPorID(int IDSolicitud, Solicitud solicitud);
-        Solicitud CargarSolicitudPorID(int IDSolicitud);
-        void GuardarSolicitud(Solicitud solicitud);
-        Solicitud CargarIDPorIDAsignacion(int IDAsignacion);
+		Solicitud CargarSolicitudPorID(int IDSolicitud);
+		void GuardarSolicitud(Solicitud solicitud);
+		Solicitud CargarIDPorIDAsignacion(int IDAsignacion);
+		Solicitud CargarIDPorMatricula(string matriculaAlumno);
         int ObtenerUltimoIDInsertado();
     }
 }

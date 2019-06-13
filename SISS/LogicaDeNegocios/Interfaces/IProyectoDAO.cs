@@ -8,9 +8,12 @@ namespace LogicaDeNegocios.Interfaces
 	{
         void ActualizarProyectoPorID(int IDproyecto, Proyecto proyecto);
         List<Proyecto> CargarIDsPorIDEncargado(int IDencargado);
-        Proyecto CargarProyectoPorID(int IDproyecto);
-        List<Proyecto> CargarProyectosPorEstado(EstadoProyecto estado);
+		int ContarAlumnosAsignadosAProyecto(int IDProyecto);
+		Proyecto CargarProyectoPorID(int IDproyecto);
+		List<Proyecto> CargarIDsPorIDSolicitud(int IDSolicitud);
+		List<Proyecto> CargarProyectosPorEstado(EstadoProyecto estado);
         List<Proyecto> CargarProyectosTodos();
-        void GuardarProyecto(Proyecto proyecto);
+		Proyecto CargarIDProyectoPorIDAsignacion(int IDAsignacion);
+		void GuardarProyecto(Proyecto proyecto);
     }
 }

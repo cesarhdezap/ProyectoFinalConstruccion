@@ -231,7 +231,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             foreach (DataRow fila in tablaDeEncargados.Rows)
             {
-                Organizacion organizacion;
                 Encargado encargado = new Encargado
                 {
                     IDEncargado = (int)fila["IDEncargado"],
