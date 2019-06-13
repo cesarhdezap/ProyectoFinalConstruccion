@@ -65,6 +65,7 @@
     <Compile Include="Alumno\GUIVerProyectoActual.xaml.cs">
       <DependentUpon>GUIVerProyectoActual.xaml</DependentUpon>
     </Compile>
+
     <Compile Include="ConvertidoresDeDatos\ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica.cs" />
     <Compile Include="ConvertidoresDeDatos\ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual.cs" />
     <Compile Include="ConvertidoresDeDatos\ConvertidorIDPersonalADetallesDeDocenteAcademico.cs" />
@@ -102,10 +103,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Alumno\GUIVerProyectoActual.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Coordinador\GUIActualizarExpediente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

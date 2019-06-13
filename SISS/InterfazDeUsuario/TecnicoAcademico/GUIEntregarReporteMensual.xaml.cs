@@ -18,12 +18,10 @@ using LogicaDeNegocios.ObjetosAdministrador;
 using LogicaDeNegocios.ClasesDominio;
 using System.IO;
 using Microsoft.Win32;
+using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 {
-	/// <summary>
-	/// Interaction logic for GUIEntregarReporteMensual.xaml
-	/// </summary>
 	public partial class GUIEntregarReporteMensual : Window
 	{
 		private DocenteAcademico TecnicoAdministrativo { get; set; }
@@ -38,11 +36,6 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 			this.Asignacion = asignacion;
 			this.TecnicoAdministrativo = tecnicoAdministrativo;
 			this.Imagen = new Imagen(TipoDeDocumentoEnImagen.ReporteMensual);
-		}
-
-		private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-
 		}
 
 		private void ButtonRegresar_Click(object sender, RoutedEventArgs e)
@@ -127,7 +120,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 			bool resultadoDeValidacion = false;
 			if (Imagen.DireccionDeImagen != string.Empty)
 			{
-				if (Int32.TryParse(TextBoxHorasReportadas.Text, out int i))
+				if (ValidarEntero(TextBoxHorasReportadas.Text))
 				{
 					if (Asignacion.ReportesMensuales.TrueForAll(ComprobarMes))
 					{
@@ -140,7 +133,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 				}
 				else
 				{
-					MessageBox.Show("El número de horas reportadas debe ser un valor entero.", "Número de horas invalido", MessageBoxButton.OK, MessageBoxImage.Error);
+					MessageBox.Show("El número de horas reportadas debe ser un valor entero mayor a 0.", "Número de horas invalido", MessageBoxButton.OK, MessageBoxImage.Error);
 				}
 			}
 			else
