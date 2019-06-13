@@ -5,31 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeDirector"
         mc:Ignorable="d"
-        Title="GUIRegistrarCoordinador" Height="466.5" Width="818">
-    <Grid Margin="0,0,2,1">
-        <Label x:Name="LblRegistrarCoordinador" Content="Registrar coordinador" HorizontalAlignment="Left" Margin="305,75,0,0" VerticalAlignment="Top" Height="44" Width="240" FontSize="24" />
-        <Label x:Name="LblTelefono" Content="Teléfono:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="223,321,0,0" RenderTransformOrigin="2.5,4.269" FontSize="14"/>
-        <Label x:Name="LblConfirmarCorreoElectronico" Content="Confirmar correo electrónico:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="99,235,0,0" FontSize="14"/>
-        <Label x:Name="LblCorreoElectronico" Content="Correo electrónico:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="163,205,0,0" FontSize="14"/>
-        <Label x:Name="LblCarrera" Content="Carrera:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="231,148,0,0" FontSize="14"/>
-        <Label x:Name="LblNombre" Content="Nombre:" HorizontalAlignment="Left" Margin="225,119,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Label x:Name="LblCubiculo" Content="Cubiculo:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="222,177,0,0" FontSize="14"/>
-        <Label x:Name="LblContraseña" Content="Contraseña:" HorizontalAlignment="Left" Margin="207,263,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <Label x:Name="LblConfirmarContraseña" Content="Confirmar contraseña:" HorizontalAlignment="Left" Margin="143,293,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox x:Name="TxtNombre" HorizontalAlignment="Left" Height="24" Margin="305,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TxtNombre_TextChanged"/>
-        <ComboBox x:Name="CbxCarrera" HorizontalAlignment="Left" Margin="305,152,0,0" VerticalAlignment="Top" Width="248" FontSize="14" />
-        <TextBox x:Name="TxtCubiculo" HorizontalAlignment="Left" Height="24" Margin="305,182,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TxtCubiculo_TextChanged"/>
-        <TextBox x:Name="TxtCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="305,211,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TxtCorreoElectronico_TextChanged"/>
-        <TextBox x:Name="TxtConfirmarCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="305,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TxtConfirmarCorreoElectronico_TextChanged"/>
-        <TextBox x:Name="TxtContraseña" HorizontalAlignment="Left" Height="24" Margin="305,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TxtContraseña_TextChanged"/>
-        <TextBox x:Name="TxtConfirmarContraseña" HorizontalAlignment="Left" Height="24" Margin="305,298,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TxtContraseña_TextChanged"/>
-        <TextBox x:Name="TxtTelefono" HorizontalAlignment="Left" Height="24" Margin="305,328,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TxtTelefono_TextChanged"/>
-        <Button x:Name="BtnAceptar" Content="Aceptar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Margin="479,375,0,0" FontSize="14" Click="BtnAceptar_Click"/>
-        <Button x:Name="BtnCancelar" Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Margin="305,375,0,0" FontSize="14" Click="BtnCancelar_Click"/>
-        <Label x:Name="lblUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="Bold" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="101,17,0,0"/>
-        <Label x:Name="LblNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="571,33,0,0" Width="120"/>
-        <Label x:Name="LblCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="695,33,0,0" Width="82" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold"/>
-
-
-    </Grid>
+        Title="Registrar coordinador" Height="466.5" Width="818" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+	<Grid Margin="0,0,2,1">
+		<Label Content="Registrar coordinador" HorizontalAlignment="Left" Margin="294,83,0,0" VerticalAlignment="Top" Height="44" Width="240" FontSize="24" />
+		<Label Content="Teléfono:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="212,329,0,0" RenderTransformOrigin="2.5,4.269" FontSize="14"/>
+		<Label Content="Confirmar correo electrónico:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="88,243,0,0" FontSize="14"/>
+		<Label Content="Correo electrónico:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="152,213,0,0" FontSize="14"/>
+		<Label Content="Carrera:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="220,156,0,0" FontSize="14"/>
+		<Label Content="Nombre:" HorizontalAlignment="Left" Margin="214,127,0,0" VerticalAlignment="Top" FontSize="14"/>
+		<Label Content="Cubiculo:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="211,185,0,0" FontSize="14"/>
+		<Label Content="Contraseña:" HorizontalAlignment="Left" Margin="196,271,0,0" VerticalAlignment="Top" FontSize="14"/>
+		<Label Content="Confirmar contraseña:" HorizontalAlignment="Left" Margin="132,301,0,0" VerticalAlignment="Top" FontSize="14"/>
+		<TextBox x:Name="TextBoxNombre" HorizontalAlignment="Left" Height="24" Margin="294,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxNombre_TextChanged"/>
+		<ComboBox x:Name="ComboBoxCarrera" HorizontalAlignment="Left" Margin="294,160,0,0" VerticalAlignment="Top" Width="248" FontSize="14" />
+		<TextBox x:Name="TxtCubiculo" HorizontalAlignment="Left" Height="24" Margin="294,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14"/>
+		<TextBox x:Name="TextBoxCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="294,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxCorreoElectronico_TextChanged"/>
+		<TextBox x:Name="TextBoxConfirmarCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="294,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxConfirmarCorreoElectronico_TextChanged"/>
+		<TextBox x:Name="TextBoxContraseña" HorizontalAlignment="Left" Height="24" Margin="294,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxContraseña_TextChanged"/>
+		<TextBox x:Name="TextBoxConfirmarContraseña" HorizontalAlignment="Left" Height="24" Margin="294,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxConfirmarContraseña_TextChanged"/>
+		<TextBox x:Name="TextBoxTelefono" HorizontalAlignment="Left" Height="24" Margin="294,336,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxTelefono_TextChanged"/>
+		<Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Margin="468,383,0,0" FontSize="14" Click="ButtonAceptar_Click"/>
+		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Margin="294,383,0,0" FontSize="14" Click="ButtonCancelar_Click"/>
+		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="10,10,0,0"/>
+		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="508,32,0,0" FontSize="14"/>
+		<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="684,32,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" RenderTransformOrigin="0.28,1.654" FontSize="14"/>
+	</Grid>
 </Window>

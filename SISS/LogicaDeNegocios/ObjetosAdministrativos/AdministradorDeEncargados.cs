@@ -17,9 +17,10 @@ namespace LogicaDeNegocios.ObjetosAdministrador
         public List<Encargado> SeleccionarEncargadosPorIDOrganizacion(int IDOrganizacion)
         {
             List<Encargado> encargados = new List<Encargado>();
+			this.CargarEncargadosTodos();
             if (Encargados.Count > 0)
             {
-                encargados = Encargados.FindAll(e => e.Organizacion.IDOrganizacion == IDOrganizacion);
+                encargados = Encargados.FindAll(encargadoActual => encargadoActual.Organizacion.IDOrganizacion == IDOrganizacion);
             }
             return encargados;
         }

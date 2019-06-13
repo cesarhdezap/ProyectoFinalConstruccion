@@ -280,6 +280,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         private List<Proyecto> ConvertirDataTableAListaDeProyectos (DataTable tablaDeProyectos)
 		{
             AsignacionDAO asignacionDAO = new AsignacionDAO();
+			EncargadoDAO encargadoDAO = new EncargadoDAO();
             List<Proyecto> listaDeProyectos = new List<Proyecto>();
             foreach (DataRow fila in tablaDeProyectos.Rows)
             {
@@ -291,7 +292,8 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                     ObjetivoGeneral = fila["ObjetivoGeneral"].ToString(),
                     Cupo = (int)fila["Cupo"],
                     Asignaciones = asignacionDAO.CargarIDsPorIDProyecto((int)fila["IDProyecto"]),
-					Estado = (EstadoProyecto)fila["Estado"]
+					Estado = (EstadoProyecto)fila["Estado"],
+					Encargado = encargadoDAO.CargarIDPorIDProyecto((int)fila["IDProyecto"])
                 };
                 listaDeProyectos.Add(proyecto);
             }
@@ -376,7 +378,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeProyecto[1].ParameterName = "@NombreProyecto";
             parametrosDeProyecto[1].Value = proyecto.Nombre;
             parametrosDeProyecto[2].ParameterName = "@EstadoProyecto";
-            parametrosDeProyecto[2].Value = proyecto.Estado.ToString();
+            parametrosDeProyecto[2].Value = (int)proyecto.Estado;
             parametrosDeProyecto[3].ParameterName = "@DescripcionGeneralProyecto";
             parametrosDeProyecto[3].Value = proyecto.DescripcionGeneral;
             parametrosDeProyecto[4].ParameterName = "@ObjetivoGeneralProyecto";
