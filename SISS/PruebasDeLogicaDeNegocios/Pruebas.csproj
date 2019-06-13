@@ -59,6 +59,7 @@
     <Compile Include="PruebasDAO\PruebasDirectorDAO.cs" />
     <Compile Include="PruebasDAO\PruebasEncargadoDAO.cs" />
     <Compile Include="PruebasDAO\PruebasReporteMensualDAO.cs" />
+    <Compile Include="PruebasDAO\PruebasServiciosDeValidacionDAO.cs" />
     <Compile Include="PruebasDeAccesoADatos.cs" />
     <Compile Include="PruebasDeServicios\PruebasDeServiciosDeAutenticacion.cs" />
     <Compile Include="PruebasDeServicios\PruebasDeServiciosDeValidacion.cs" />
@@ -78,6 +79,9 @@
       <Project>{555b197d-8a02-468d-93c7-ece4c20dcf55}</Project>
       <Name>LogicaDeNegocios</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PruebasDeAccesoADatos\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

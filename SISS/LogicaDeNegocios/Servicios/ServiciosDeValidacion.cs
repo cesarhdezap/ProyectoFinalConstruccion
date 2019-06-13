@@ -1,5 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using System;
+using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using System.Collections.Generic;
 
 namespace LogicaDeNegocios.Servicios
 {
@@ -105,6 +107,16 @@ namespace LogicaDeNegocios.Servicios
             {
                 resultadoDeValidacion = true;
             }
+            return resultadoDeValidacion;
+        }
+
+        public static bool ValidarExistenciaDeCorreo(string correoElectronico)
+        {
+            bool resultadoDeValidacion = false;
+            List<string> correosElectronicos = new List<string>();
+            ServiciosDeValidacionDAO serviciosDeValidacionDAO = new ServiciosDeValidacionDAO();
+            correosElectronicos = serviciosDeValidacionDAO.CargarCorreosDeUsuarios();
+            resultadoDeValidacion = !correosElectronicos.Exists(correoActual => correoActual == correoElectronico);
             return resultadoDeValidacion;
         }
 	}

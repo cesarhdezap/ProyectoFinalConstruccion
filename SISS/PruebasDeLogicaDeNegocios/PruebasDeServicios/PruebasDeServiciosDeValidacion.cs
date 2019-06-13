@@ -178,6 +178,19 @@ namespace Pruebas.PruebasDeServicios
             Assert.IsFalse(ValidarMatricula(matricula));
         }
 
+        [DataTestMethod]
+        [DataRow("cesarhdez@gmail.com")]
+        [DataRow("chema@gmail.com")]
+        [DataRow("joseph@correo.com")]
+        [DataRow("julio@correo.com")]
+        [DataRow("raul@correo.com")]
+
+        public void ProbarValidarExistenciaDeCorreo_CorreoExistente_RegresaFalse(string correo)
+        {
+            bool resultadoDeValidacion;
+            resultadoDeValidacion = ValidarExistenciaDeCorreo(correo);
+            Assert.IsFalse(resultadoDeValidacion);
+        }
 
     }
 }

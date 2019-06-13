@@ -18,5 +18,6 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 			DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
 			this.DocentesAcademicos = docenteAcademicoDAO.CargarDocentesAcademicosPorRol(Rol.Coordinador);
 		}
+
 	}
 }

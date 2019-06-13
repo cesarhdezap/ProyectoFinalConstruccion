@@ -14,15 +14,6 @@ namespace LogicaDeNegocios.ObjetosAdministrador
             Encargados = encargadoDAO.CargarEncargadosConIDNombreYOrganizacion();
         }
 
-        public bool ValidarExistencia(Encargado encargado)
-        {
-            bool resultadoDeCreacion = false;
-            CargarEncargadosTodos();
-            resultadoDeCreacion = !Encargados.Exists(e => e.CorreoElectronico == encargado.CorreoElectronico);
-            return resultadoDeCreacion;
-		}
-
-
         public List<Encargado> SeleccionarEncargadosPorIDOrganizacion(int IDOrganizacion)
         {
             List<Encargado> encargados = new List<Encargado>();
