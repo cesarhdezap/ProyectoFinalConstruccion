@@ -68,6 +68,7 @@
     <Compile Include="Interfaces\IOrganizacionDAO.cs" />
     <Compile Include="Interfaces\IProyectoDAO.cs" />
     <Compile Include="Interfaces\IReporteMensualDAO.cs" />
+    <Compile Include="Interfaces\IServiciosDeValidacionDAO.cs" />
     <Compile Include="Interfaces\ISolicitudDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\AlumnoDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\AsignacionDAO.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="ObjetoAccesoDeDatos\OrganizacionDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\ProyectoDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\ReporteMensualDAO.cs" />
+    <Compile Include="ObjetoAccesoDeDatos\ServiciosDeValidacionDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\SolicitudDAO.cs" />
     <Compile Include="ObjetosAdministrativos\AdministradorDeAlumnos.cs" />
     <Compile Include="ObjetosAdministrativos\AdministradorDeDocentesAcademicos.cs" />

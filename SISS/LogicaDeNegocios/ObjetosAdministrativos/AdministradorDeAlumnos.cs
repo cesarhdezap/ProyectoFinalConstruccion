@@ -1,5 +1,6 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System.Collections.Generic;
+using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace LogicaDeNegocios.ObjetosAdministrador
 {
@@ -11,7 +12,12 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 		{
             CargarAlumnosTodos();
             bool resultadoDeCreacion = false;
-            resultadoDeCreacion = !Alumnos.Exists(e => e.CorreoElectronico == alumno.CorreoElectronico);
+            bool resultadoDeExistenciaDeMatricula = !Alumnos.Exists(alumnoActual => alumnoActual.Matricula == alumno.Matricula);
+            if (resultadoDeExistenciaDeMatricula && ValidarExistenciaDeCorreo(alumno.CorreoElectronico))
+            {
+                resultadoDeCreacion = true;
+            }
+
             return resultadoDeCreacion;
 		}
 

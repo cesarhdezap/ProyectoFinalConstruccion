@@ -27,7 +27,7 @@ namespace LogicaDeNegocios
         {
             bool resultadoDeCreacion = false;
             AdministradorDeOrganizaciones administradorDeOrganizacion = new AdministradorDeOrganizaciones();
-            if (ValidarOrganizacion() && administradorDeOrganizacion.ValidarExistencia(this))
+            if (ValidarOrganizacion() && ValidarExistenciaDeCorreo(CorreoElectronico))
             {
                 OrganizacionDAO organizacionDAO = new OrganizacionDAO();
                 organizacionDAO.GuardarOrganizacion(this);

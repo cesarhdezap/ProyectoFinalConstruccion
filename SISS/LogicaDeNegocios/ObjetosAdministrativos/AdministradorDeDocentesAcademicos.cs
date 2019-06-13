@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LogicaDeNegocios.ObjetosAdministrador
 {
-	class AdministradorDeDocentesAcademicos
+	public class AdministradorDeDocentesAcademicos
 	{
 		public List<DocenteAcademico> DocentesAcademicos { get; set; }
 
@@ -19,5 +19,6 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 			DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
 			this.DocentesAcademicos = docenteAcademicoDAO.CargarDocentesAcademicosPorRol(rol);
 		}
+
 	}
 }
