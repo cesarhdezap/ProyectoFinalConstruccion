@@ -33,7 +33,15 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al Cargar contraseña por Correo:" + correoElectronico, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
-			string contraseña = ConvertirDataTableACadena(tablaDeContraseña);
+            string contraseña;
+            try
+            {
+                contraseña = ConvertirDataTableACadena(tablaDeContraseña);
+            }
+            catch (FormatException e)
+            {
+                throw new AccesoADatosException("Error al convertir datatable a cadena", e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
+            }
 
             return contraseña;
         }
@@ -55,7 +63,15 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 				throw new AccesoADatosException("Error al Cargar correos de todos los usuarios", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
 
-			List<string> listaDeCorreos = ConvertirDataTableAListaDeCadenas(tablaDeCorreos);
+            List<string> listaDeCorreos;
+            try
+            {
+                listaDeCorreos = ConvertirDataTableAListaDeCadenas(tablaDeCorreos);
+            }
+            catch (FormatException e)
+            {
+                throw new AccesoADatosException("Error al convertir cargar correos de usuarios", e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
+            }
 
             return listaDeCorreos;
         }

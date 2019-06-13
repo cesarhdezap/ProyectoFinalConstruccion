@@ -10,7 +10,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
 	public class AlumnoDAO : IAlumnoDAO
 	{
-		
         public void ActualizarAlumnoPorMatricula(string matricula, Alumno alumno)
 		{
             SqlParameter[] parametrosDeAlumno = InicializarParametrosDeSql(alumno);
@@ -27,6 +26,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al actualizar Alumno: " + alumno.ToString() + "Con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
+
             if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("El alumno con matricula: " + matricula + " no existe.", TipoDeErrorDeAccesoADatos.ObjetoNoExiste);
@@ -92,6 +92,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar alumnos con estado: " + estadoDeAlumno.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
+
             List<Alumno> alumnos = new List<Alumno>();
             try
             {
@@ -127,6 +128,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar alumnos con Carrera: " + carrera, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
+
             List<Alumno> listaDeAlumnos = new List<Alumno>();
             try
             {
@@ -161,6 +163,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar Alumno con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
+
             Alumno alumno = new Alumno();
             try
             {
@@ -189,6 +192,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar todos los Alumnos", e);
             }
+
             List<Alumno> listaDeAlumnos = new List<Alumno>();
             try
             {
@@ -207,6 +211,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar matricula Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
+
             DataTable tablaDeAlumno = new DataTable();
             SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
             parametroIDAsignacion[0] = new SqlParameter
@@ -227,6 +232,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar matricula con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
+
             Alumno alumno = new Alumno();
             try
             {

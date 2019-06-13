@@ -12,7 +12,6 @@ namespace LogicaDeNegocios.Excepciones
         
         public AccesoADatosException()
         {
-
         }
 
         public AccesoADatosException(string mensaje)

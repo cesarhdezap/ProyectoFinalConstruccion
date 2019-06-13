@@ -12,9 +12,7 @@ namespace LogicaDeNegocios
 		public DocenteAcademico DocenteAcademico { get; set; }
 		public BitmapImage Imagen { get; set; }
 	}
-
-	
-
+    
 	public enum TipoDeDocumento
 	{
 		CartaDeSolicitud,

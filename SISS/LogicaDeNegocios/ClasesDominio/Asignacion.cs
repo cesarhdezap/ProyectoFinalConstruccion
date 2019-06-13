@@ -19,7 +19,6 @@ namespace LogicaDeNegocios
 		public Liberacion Liberacion { get; set; }
 		public Solicitud Solicitud { get; set; }
 
-
 		public Asignacion()
 		{
 			DocumentosDeEntregaUnica = new List<DocumentoDeEntregaUnica>();
@@ -60,6 +59,7 @@ namespace LogicaDeNegocios
             {
                 this.DocumentosDeEntregaUnica[i] = documentoDeEntregaUnicaDAO.CargarDocumentoDeEntregaUnicaPorID(this.DocumentosDeEntregaUnica[i].IDDocumento);
             }
+
             for (int i = 0; i < this.ReportesMensuales.Count; i++)
             {
                 this.ReportesMensuales[i] = reporteMensualDAO.CargarReporteMensualPorID(this.ReportesMensuales[i].IDDocumento);
@@ -74,25 +74,24 @@ namespace LogicaDeNegocios
             {
                 ReportesMensuales[i] = reporteMensualDAO.CargarReporteMensualPorID(ReportesMensuales[i].IDDocumento);
             }
-
-            this.ActualizarHorasCubiertas();
-            return this.HorasCubiertas;
+            ActualizarHorasCubiertas();
+            return HorasCubiertas;
         }
 
         public void RegistrarReporteMensual(ReporteMensual reporteMensual)
         {
             ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
-            reporteMensualDAO.GuardarReporteMensual(reporteMensual, this.IDAsignacion);
+            reporteMensualDAO.GuardarReporteMensual(reporteMensual, IDAsignacion);
             reporteMensual.IDDocumento = reporteMensualDAO.ObtenerUltimoIDInsertado();
-            this.ReportesMensuales.Add(reporteMensual);
+            ReportesMensuales.Add(reporteMensual);
         }
 
         public void RegistrarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica)
         {
             DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
-            documentoDeEntregaUnicaDAO.GuardarDocumentoDeEntregaUnica(documentoDeEntregaUnica, this.IDAsignacion);
+            documentoDeEntregaUnicaDAO.GuardarDocumentoDeEntregaUnica(documentoDeEntregaUnica, IDAsignacion);
             documentoDeEntregaUnica.IDDocumento = documentoDeEntregaUnicaDAO.ObtenerUltimoIDInsertado();
-            this.DocumentosDeEntregaUnica.Add(documentoDeEntregaUnica);
+            DocumentosDeEntregaUnica.Add(documentoDeEntregaUnica);
         }
 
 
@@ -100,7 +99,7 @@ namespace LogicaDeNegocios
 		{
 			AsignacionDAO asignacionDAO = new AsignacionDAO();
 			asignacionDAO.GuardarAsignacion(this);
-			this.Alumno.Asignar();
+			Alumno.Asignar();
 		}
 
 		private void ActualizarHorasCubiertas()
@@ -112,7 +111,7 @@ namespace LogicaDeNegocios
                 horasCubiertas = horasCubiertas + reporteMensual.HorasReportadas;
             }
 
-            this.HorasCubiertas = horasCubiertas;
+            HorasCubiertas = horasCubiertas;
 		}
 
         public bool Liberar(DocumentoDeEntregaUnica cartaDeLiberacion)

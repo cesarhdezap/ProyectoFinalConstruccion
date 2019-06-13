@@ -13,6 +13,5 @@ namespace LogicaDeNegocios.Interfaces
         List<Alumno> CargarAlumnosTodos();
         void GuardarAlumno(Alumno alumno);
 		Alumno CargarMatriculaPorIDAsignacion(int IDAsignacion);
-
 	}
 }

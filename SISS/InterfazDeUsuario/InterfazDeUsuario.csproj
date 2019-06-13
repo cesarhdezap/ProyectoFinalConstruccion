@@ -65,16 +65,12 @@
     <Compile Include="Alumno\GUIVerProyectoActual.xaml.cs">
       <DependentUpon>GUIVerProyectoActual.xaml</DependentUpon>
     </Compile>
-
     <Compile Include="ConvertidoresDeDatos\ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica.cs" />
     <Compile Include="ConvertidoresDeDatos\ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual.cs" />
     <Compile Include="ConvertidoresDeDatos\ConvertidorIDPersonalADetallesDeDocenteAcademico.cs" />
     <Compile Include="ConvertidoresDeDatos\ConvertidorIDProyectoADetallesDeProyecto.cs" />
     <Compile Include="ConvertidoresDeDatos\ConvertidorMatriculaADetallesDeSolicitud.cs" />
     <Compile Include="ConvertidoresDeDatos\ConvertidorMatriculaDeAlumnoADetallesDeAlumno.cs" />
-    <Compile Include="Coordinador\GUIActualizarExpediente.xaml.cs">
-      <DependentUpon>GUIActualizarExpediente.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Coordinador\GUIActualizarReporteMensual.xaml.cs">
       <DependentUpon>GUIActualizarReporteMensual.xaml</DependentUpon>
     </Compile>
