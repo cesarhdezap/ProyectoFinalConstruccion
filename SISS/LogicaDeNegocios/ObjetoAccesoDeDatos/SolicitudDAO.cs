@@ -11,11 +11,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
 	public class SolicitudDAO : ISolicitudDAO
 	{
-        public void ActualizarSolicitudPorID(int IDSolicitud, Solicitud solicitud)
-        {
-			throw new NotImplementedException();
-        }
-
 		public Solicitud CargarSolicitudPorID(int IDSolicitud)
 		{
             if (IDSolicitud <= 0)
@@ -140,7 +135,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             parametrosDeSolicitud[2].Value = 0;
             parametrosDeSolicitud[3].ParameterName = "@IDProyecto";
             parametrosDeSolicitud[3].Value = 0;
-
+			
             return parametrosDeSolicitud;
         }
 

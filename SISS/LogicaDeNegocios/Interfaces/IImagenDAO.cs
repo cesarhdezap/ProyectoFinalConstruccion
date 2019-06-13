@@ -8,10 +8,10 @@ using LogicaDeNegocios.ClasesDominio;
 
 namespace LogicaDeNegocios.Interfaces
 {
-    interface IImagenDAO
-    {
-        void GuardarImagen(Imagen imagen);
-        BitmapImage CargarImagenPorIDDocumentoYTipoDeDocumentoEnImagen(int IDDocumento, TipoDeDocumentoEnImagen tipoDeDocumentoEnImagen);
-        void ActualizarImagenPorIDDocumentno(Imagen imagen);
-    }
+	interface IImagenDAO
+	{
+		void ActualizarImagenPorIDDocumentno(Imagen imagen);
+		BitmapImage CargarImagenPorIDDocumentoYTipoDeDocumentoEnImagen(int IDDocumento, TipoDeDocumentoEnImagen tipoDeDocumentoEnImagen);
+		void GuardarImagen(Imagen imagen);
+	}
 }
