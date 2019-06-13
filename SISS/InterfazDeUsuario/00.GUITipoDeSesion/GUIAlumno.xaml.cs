@@ -49,14 +49,12 @@ namespace InterfazDeUsuario.GUITipoDeSesion
                 LabelEsperandoAsignacion.Visibility = Visibility.Visible;
             }
             LabelNombreDeUsuario.Content = Alumno.Nombre;
-
             LabelEsperandoAsignacion.Visibility = Visibility.Hidden;
             LabelDadoDeBaja.Visibility = Visibility.Hidden;
             LabelLiberado.Visibility = Visibility.Hidden;
             LabelEsperandoAceptacion.Visibility = Visibility.Hidden;
             ButtonEscogerProyecto.Visibility = Visibility.Hidden;
             ButtonVerExpediente.Visibility = Visibility.Hidden;
-
             switch (Alumno.EstadoAlumno)
             {
                 case EstadoAlumno.EsperandoAceptacion:
@@ -83,7 +81,7 @@ namespace InterfazDeUsuario.GUITipoDeSesion
             }
         }
 
-        private void BtnEscogerProyecto_Click(object sender, RoutedEventArgs e)
+        private void ButtonEscogerProyecto_Click(object sender, RoutedEventArgs e)
         {
             Hide();
             GUIEscogerProyectos escogerProyectos = new GUIEscogerProyectos(Alumno);
@@ -126,10 +124,10 @@ namespace InterfazDeUsuario.GUITipoDeSesion
             ShowDialog();
         }
 
-        private void BtnVerExpediente_Click(object sender, RoutedEventArgs e)
+        private void ButtonVerExpediente_Click(object sender, RoutedEventArgs e)
         {
             Hide();
-            GUIsDeAlumno.GUIVerExpedientePorAlumno verExpediente = new GUIsDeAlumno.GUIVerExpedientePorAlumno(Alumno);
+            GUIVerExpedientePorAlumno verExpediente = new GUIVerExpedientePorAlumno(Alumno);
             verExpediente.ShowDialog();
             ShowDialog();
         }

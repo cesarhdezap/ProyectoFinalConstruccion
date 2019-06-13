@@ -25,7 +25,13 @@ namespace LogicaDeNegocios.ClasesDominio
 			ImagenDAO imagenDAO = new ImagenDAO();
 			imagenDAO.GuardarImagen(this);
 		}
-    }
+
+		public void Actualizar()
+		{
+			ImagenDAO imagenDAO = new ImagenDAO();
+			imagenDAO.ActualizarImagenPorIDDocumentno(this);
+		}
+	}
 
     public enum TipoDeDocumentoEnImagen
     {

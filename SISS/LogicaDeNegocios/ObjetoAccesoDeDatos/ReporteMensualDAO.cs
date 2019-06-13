@@ -186,7 +186,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			int filasAfectadas = 0;
 			try
 			{
-				filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE ReportesMensuales SET HorasReportadas = @HorasReportadas WHERE IDDocumento = @IDDocumento", parametrosDrProyecto);
+				filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE ReportesMensuales SET HorasReportadas = @HorasReportadas WHERE IDDocumento = @IDReporte", parametrosDrProyecto);
 			}
 			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
 			{

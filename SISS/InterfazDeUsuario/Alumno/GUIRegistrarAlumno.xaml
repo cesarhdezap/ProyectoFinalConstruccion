@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeAlumno"
         mc:Ignorable="d"
-        Title="GUIRegistrarAlumno" Height="492.8" Width="572" ResizeMode="NoResize">
+        Title="Registrar alumno" Height="492.8" Width="572" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 	<Grid Margin="0,0,1,-5">
 		<Grid.Background>
 			<ImageBrush/>

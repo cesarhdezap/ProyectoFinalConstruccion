@@ -5,19 +5,18 @@ namespace LogicaDeNegocios.Servicios
 {
 	public class ServiciosDeValidacion
 	{
-		private static readonly Regex regexTelefono = new Regex(@"^(1\s*[-\/\.]?)?(\((\d{3})\)|(\d{3}))\s*[-\/\.]?\s*(\d{3})\s*[-\/\.]?\s*(\d{4})\s*(([xX]|[eE][xX][tT])\.?\s*(\d+))*$");
-		private static readonly Regex regexCorreoElectronico = new Regex(@"^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$");
-		private static readonly Regex regexNombre = new Regex(@"^[a-zA-Z àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð,.'-]+$");
-		private static readonly Regex regexMatricula = new Regex(@"^s[0-9]{8}$");
-        private static readonly Regex regexContraseña = new Regex(@"^\S{6,255}$");
+		private static readonly Regex RegexTelefono = new Regex(@"^(1\s*[-\/\.]?)?(\((\d{3})\)|(\d{3}))\s*[-\/\.]?\s*(\d{3})\s*[-\/\.]?\s*(\d{4})\s*(([xX]|[eE][xX][tT])\.?\s*(\d+))*$");
+		private static readonly Regex RegexCorreoElectronico = new Regex(@"^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$");
+		private static readonly Regex RegexNombre = new Regex(@"^[a-zA-Z àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð,.'-]+$");
+		private static readonly Regex RegexMatricula = new Regex(@"^s[0-9]{8}$");
+        private static readonly Regex RegexContraseña = new Regex(@"^\S{6,255}$");
         private const int TAMAÑO_MAXIMO_VARCHAR = 255;
         
-
 		public static bool ValidarCorreoElectronico(string correoElectronico)
 		{
 			bool resultadoDeValidacion = false;
 
-			if (regexCorreoElectronico.IsMatch(correoElectronico))
+			if (RegexCorreoElectronico.IsMatch(correoElectronico))
 			{
 				resultadoDeValidacion = true;
 			}
@@ -28,7 +27,7 @@ namespace LogicaDeNegocios.Servicios
 		{
             bool resultadoDeValidacion = false;
 
-			if (regexTelefono.IsMatch(telefono))
+			if (RegexTelefono.IsMatch(telefono))
 			{
                 resultadoDeValidacion = true;
 			}
@@ -39,7 +38,7 @@ namespace LogicaDeNegocios.Servicios
 		{
             bool resultadoDeValidacion = false;
 
-			if (regexNombre.IsMatch(nombre))
+			if (RegexNombre.IsMatch(nombre))
 			{
                 resultadoDeValidacion = true;
 			}
@@ -50,7 +49,7 @@ namespace LogicaDeNegocios.Servicios
 		{
             bool resultadoDeValidacion = false;
 
-			if (regexMatricula.IsMatch(matricula))
+			if (RegexMatricula.IsMatch(matricula))
 			{
                 resultadoDeValidacion = true;
 			}
@@ -62,7 +61,7 @@ namespace LogicaDeNegocios.Servicios
         {
             bool resultadoDeValidacion = false;
 
-            if (regexContraseña.IsMatch(contraseña))
+            if (RegexContraseña.IsMatch(contraseña))
             {
                 resultadoDeValidacion = true;
             }

@@ -114,5 +114,10 @@ namespace InterfazDeUsuario.GUIsDeDirector
 				DataGridCoordinadores.ItemsSource = coordinadoresFiltrados;
 			}
 		}
+
+		private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
+		{
+			this.Close();
+		}
 	}
 }

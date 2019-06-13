@@ -23,7 +23,7 @@ namespace LogicaDeNegocios
         {
             bool resultadoDeCreacion = false;
             AdministradorDeAlumnos administradorDeAlumnos = new AdministradorDeAlumnos();
-            if (ValidarAlumno() && administradorDeAlumnos.ValidarExistencia(this))
+            if (Validar() && administradorDeAlumnos.ValidarExistencia(this))
             {
                 AlumnoDAO alumnoDAO = new AlumnoDAO();
                 alumnoDAO.GuardarAlumno(this);
@@ -38,10 +38,11 @@ namespace LogicaDeNegocios
 			Asignacion asignacion = new Asignacion();
 			asignacion = asignacionDAO.CargarIDPorMatriculaDeAlumno(Matricula);
 			asignacion = asignacionDAO.CargarAsignacionPorID(asignacion.IDAsignacion);
+			asignacion.Alumno = this;
 			return asignacion;
 		}
 
-        private bool ValidarAlumno()
+        private bool Validar()
         {
             bool resultadoDeValidacion = false;
 
