@@ -7,8 +7,10 @@ namespace LogicaDeNegocios.Interfaces
     {
         void ActualizarOrganizacionPorID(int IDorganizacion, Organizacion organizacion);
         List<Organizacion> CargarOrganizacionesTodas();
-        Organizacion CargarOrganizacionPorID(int IDorganizacion);
-        void GuardarOrganizacion(Organizacion organizacion);
+		List<Organizacion> CargarIDYNombreDeOrganizaciones();
+		Organizacion CargarOrganizacionPorID(int IDorganizacion);
+		Organizacion CargarIDPorIDEncargado(int IDEncargado);
+		void GuardarOrganizacion(Organizacion organizacion);
     }
 }
 
