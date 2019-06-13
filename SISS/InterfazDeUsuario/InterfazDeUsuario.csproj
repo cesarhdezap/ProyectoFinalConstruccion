@@ -65,12 +65,12 @@
     <Compile Include="Alumno\GUIVerProyectoActual.xaml.cs">
       <DependentUpon>GUIVerProyectoActual.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica.cs" />
-    <Compile Include="ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual.cs" />
-    <Compile Include="ConvertidorIDPersonalADetallesDeDocenteAcademico.cs" />
-    <Compile Include="ConvertidorIDProyectoADetallesDeProyecto.cs" />
-    <Compile Include="ConvertidorMatriculaADetallesDeSolicitud.cs" />
-    <Compile Include="ConvertidorMatriculaDeAlumnoADetallesDeAlumno.cs" />
+    <Compile Include="ConvertidoresDeDatos\ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica.cs" />
+    <Compile Include="ConvertidoresDeDatos\ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual.cs" />
+    <Compile Include="ConvertidoresDeDatos\ConvertidorIDPersonalADetallesDeDocenteAcademico.cs" />
+    <Compile Include="ConvertidoresDeDatos\ConvertidorIDProyectoADetallesDeProyecto.cs" />
+    <Compile Include="ConvertidoresDeDatos\ConvertidorMatriculaADetallesDeSolicitud.cs" />
+    <Compile Include="ConvertidoresDeDatos\ConvertidorMatriculaDeAlumnoADetallesDeAlumno.cs" />
     <Compile Include="Coordinador\GUIActualizarExpediente.xaml.cs">
       <DependentUpon>GUIActualizarExpediente.xaml</DependentUpon>
     </Compile>
@@ -208,19 +208,19 @@
       <DependentUpon>GUILoginAnonimo.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="00.GUITipoDeSesion\GUIAlumno.xaml">
+    <Page Include="TipoDeSesion\GUIAlumno.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="00.GUITipoDeSesion\GUICoordinador.xaml">
+    <Page Include="TipoDeSesion\GUICoordinador.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="00.GUITipoDeSesion\GUIDirector.xaml">
+    <Page Include="TipoDeSesion\GUIDirector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="00.GUITipoDeSesion\GUITecnicoAcademico.xaml">
+    <Page Include="TipoDeSesion\GUITecnicoAcademico.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -242,16 +242,16 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="00.GUITipoDeSesion\GUIAlumno.xaml.cs">
+    <Compile Include="TipoDeSesion\GUIAlumno.xaml.cs">
       <DependentUpon>GUIAlumno.xaml</DependentUpon>
     </Compile>
-    <Compile Include="00.GUITipoDeSesion\GUICoordinador.xaml.cs">
+    <Compile Include="TipoDeSesion\GUICoordinador.xaml.cs">
       <DependentUpon>GUICoordinador.xaml</DependentUpon>
     </Compile>
-    <Compile Include="00.GUITipoDeSesion\GUIDirector.xaml.cs">
+    <Compile Include="TipoDeSesion\GUIDirector.xaml.cs">
       <DependentUpon>GUIDirector.xaml</DependentUpon>
     </Compile>
-    <Compile Include="00.GUITipoDeSesion\GUITecnicoAcademico.xaml.cs">
+    <Compile Include="TipoDeSesion\GUITecnicoAcademico.xaml.cs">
       <DependentUpon>GUITecnicoAcademico.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">

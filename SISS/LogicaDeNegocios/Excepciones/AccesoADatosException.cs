@@ -8,7 +8,7 @@ namespace LogicaDeNegocios.Excepciones
 {
     public class AccesoADatosException : Exception
     {
-        public TipoDeErrorDeAccesoADatos TipoDeError { get; set; } = TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos;
+        public TipoDeErrorDeAccesoADatos TipoDeError { get; } = TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos;
         
         public AccesoADatosException()
         {
