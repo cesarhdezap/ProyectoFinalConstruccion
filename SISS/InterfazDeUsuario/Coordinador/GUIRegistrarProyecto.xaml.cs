@@ -1,6 +1,7 @@
 ﻿using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetosAdministrador;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -42,10 +43,10 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             int indiceDeEncargado = ComboBoxEncargadoAsociado.SelectedIndex;
 			if (indiceDeEncargado > SIN_INDICE)
 			{
-				if (int.TryParse(TextBoxEstudiantesSolicitados.Text, out int cupo)) {
+				if (ValidarEntero(TextBoxEstudiantesSolicitados.Text)) {
 					int IDOrganizacion = (ComboBoxOrganizacionAsociada.SelectedItem as Organizacion).IDOrganizacion;
 					proyecto.Encargado = AdministradorDeEncargados.SeleccionarEncargadosPorIDOrganizacion(IDOrganizacion)[indiceDeEncargado];
-					proyecto.Cupo = cupo;
+                    proyecto.Cupo = Int32.Parse(TextBoxEstudiantesSolicitados.Text);
 					Mouse.OverrideCursor = Cursors.Wait;
 					try
 					{

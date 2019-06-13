@@ -22,6 +22,7 @@ namespace LogicaDeNegocios.Servicios
 			{
 				resultadoDeValidacion = true;
 			}
+
 			return resultadoDeValidacion;
 		}
 
@@ -33,6 +34,7 @@ namespace LogicaDeNegocios.Servicios
 			{
                 resultadoDeValidacion = true;
 			}
+
 			return resultadoDeValidacion;
 		}
 
@@ -44,6 +46,7 @@ namespace LogicaDeNegocios.Servicios
 			{
                 resultadoDeValidacion = true;
 			}
+
 			return resultadoDeValidacion;
 		}
 
@@ -103,10 +106,12 @@ namespace LogicaDeNegocios.Servicios
         public static bool ValidarCadena(string cadena)
         {
             bool resultadoDeValidacion = false;
+
             if (!string.IsNullOrEmpty(cadena) && cadena.Length < TAMAÑO_MAXIMO_VARCHAR)
             {
                 resultadoDeValidacion = true;
             }
+
             return resultadoDeValidacion;
         }
 
@@ -117,6 +122,18 @@ namespace LogicaDeNegocios.Servicios
             ServiciosDeValidacionDAO serviciosDeValidacionDAO = new ServiciosDeValidacionDAO();
             correosElectronicos = serviciosDeValidacionDAO.CargarCorreosDeUsuarios();
             resultadoDeValidacion = !correosElectronicos.Exists(correoActual => correoActual == correoElectronico);
+            return resultadoDeValidacion;
+        }
+
+        public static bool ValidarEntero(string numeroEntero)
+        {
+            bool resultadoDeValidacion = false;
+
+            if(Int32.TryParse(numeroEntero, out int numeroConvertido) && numeroConvertido > 0)
+            {
+                resultadoDeValidacion = true;
+            }
+
             return resultadoDeValidacion;
         }
 	}

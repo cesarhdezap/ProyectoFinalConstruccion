@@ -71,9 +71,6 @@
     <Compile Include="ConvertidorIDProyectoADetallesDeProyecto.cs" />
     <Compile Include="ConvertidorMatriculaADetallesDeSolicitud.cs" />
     <Compile Include="ConvertidorMatriculaDeAlumnoADetallesDeAlumno.cs" />
-    <Compile Include="Coordinador\GUIActualizarExpediente.xaml.cs">
-      <DependentUpon>GUIActualizarExpediente.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Coordinador\GUIActualizarReporteMensual.xaml.cs">
       <DependentUpon>GUIActualizarReporteMensual.xaml</DependentUpon>
     </Compile>
@@ -102,10 +99,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Alumno\GUIVerProyectoActual.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Coordinador\GUIActualizarExpediente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

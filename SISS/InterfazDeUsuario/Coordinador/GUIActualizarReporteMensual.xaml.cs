@@ -18,6 +18,7 @@ using LogicaDeNegocios.ObjetosAdministrador;
 using LogicaDeNegocios.ClasesDominio;
 using System.IO;
 using Microsoft.Win32;
+using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
 {
@@ -117,7 +118,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			bool resultadoDeValidacion = false;
 			if (Imagen.DireccionDeImagen != string.Empty)
 			{
-				if (Int32.TryParse(TextBoxHorasReportadas.Text, out int i))
+				if (ValidarEntero(TextBoxHorasReportadas.Text))
 				{
 					resultadoDeValidacion = true;
 				}
