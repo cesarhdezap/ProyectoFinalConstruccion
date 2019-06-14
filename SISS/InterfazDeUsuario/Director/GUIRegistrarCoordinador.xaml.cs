@@ -24,7 +24,9 @@ namespace InterfazDeUsuario.GUIsDeDirector
     /// </summary>
     public partial class GUIRegistrarCoordinador : Window
     {
-        private Director Director { get; set; }
+		private const int VALOR_DE_INDICE_SELECCIONADO_INVALIDO = -1;
+
+		private Director Director { get; set; }
         public GUIRegistrarCoordinador(Director director)
         {
             InitializeComponent();
@@ -140,10 +142,10 @@ namespace InterfazDeUsuario.GUIsDeDirector
 				Rol = Rol.Coordinador
             };
 			Mouse.OverrideCursor = Cursors.Wait;
-            if (Int32.TryParse(TextBoxCubiculo.Text, out int i))
+            if (ValidarEntero(TextBoxCubiculo.Text))
             {
                 coordinador.Cubiculo = Int32.Parse(TextBoxCubiculo.Text);
-                if (coordinador.Validar() && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text && ComboBoxCarrera.SelectedIndex > 0)
+                if (coordinador.Validar() && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text && ComboBoxCarrera.SelectedIndex > VALOR_DE_INDICE_SELECCIONADO_INVALIDO)
                 {
 					bool registroExitoso = false;
                     try
@@ -154,7 +156,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
                     }
 					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 					{
-						MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
+						MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexión fallida", MessageBoxButton.OK, MessageBoxImage.Error);
 						this.Close();
 					}
 					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
@@ -195,13 +197,13 @@ namespace InterfazDeUsuario.GUIsDeDirector
                 else
                 {
                     Mouse.OverrideCursor = null;
-                    MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
+					MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
 			else
             {
                 Mouse.OverrideCursor = null;
-                MessageBox.Show("El cubiculo debe ser un valor entero.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("El cubiculo debe ser un valor entero no negativo y menor a 255.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -209,5 +211,18 @@ namespace InterfazDeUsuario.GUIsDeDirector
         {
             this.Close();
         }
-    }
+
+		private void TextBoxCubiculo_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			if (ValidarEntero(TextBoxCubiculo.Text))
+			{
+
+				TextBoxCubiculo.BorderBrush = Brushes.Green;
+			}
+			else
+			{
+				TextBoxCubiculo.BorderBrush = Brushes.Red;
+			}
+		}
+	}
 }

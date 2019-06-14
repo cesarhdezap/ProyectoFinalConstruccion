@@ -11,14 +11,14 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 		public bool ValidarExistencia(Alumno alumno)
 		{
             CargarAlumnosTodos();
-            bool resultadoDeCreacion = false;
+            bool esxistencia = false;
             bool resultadoDeExistenciaDeMatricula = !Alumnos.Exists(alumnoActual => alumnoActual.Matricula == alumno.Matricula);
             if (resultadoDeExistenciaDeMatricula && ValidarExistenciaDeCorreo(alumno.CorreoElectronico))
             {
-                resultadoDeCreacion = true;
+                esxistencia = true;
             }
 
-            return resultadoDeCreacion;
+            return esxistencia;
 		}
 
 		public void CargarAlumnosTodos()

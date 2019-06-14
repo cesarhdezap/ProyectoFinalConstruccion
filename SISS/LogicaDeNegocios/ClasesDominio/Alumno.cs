@@ -19,17 +19,14 @@ namespace LogicaDeNegocios
             Matricula = string.Empty;
         }
 
-        public bool Guardar()
+        public void Guardar()
         {
-            bool resultadoDeCreacion = false;
             AdministradorDeAlumnos administradorDeAlumnos = new AdministradorDeAlumnos();
             if (Validar() && administradorDeAlumnos.ValidarExistencia(this))
             {
                 AlumnoDAO alumnoDAO = new AlumnoDAO();
                 alumnoDAO.GuardarAlumno(this);
-                resultadoDeCreacion = true;
             }
-            return resultadoDeCreacion;
         }
 
 		public Asignacion CargarAsignacion()
@@ -42,7 +39,7 @@ namespace LogicaDeNegocios
 			return asignacion;
 		}
 
-        private bool Validar()
+        public bool Validar()
         {
             bool resultadoDeValidacion = false;
             if (ValidarContraseña(Contraseña) 

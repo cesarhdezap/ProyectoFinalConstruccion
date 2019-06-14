@@ -25,76 +25,33 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
         private void TextBoxMatricula_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarMatricula (TextBoxMatricula.Text))
-            {
-                TextBoxMatricula.BorderBrush = Brushes.Green;
-            } else
-            {
-                TextBoxMatricula.BorderBrush = Brushes.Red;
-            }
-
+			MostrarEstadoDeValidacionMatricula();
         }
 
         private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarNombre(TextBoxNombre.Text))
-            {
-                TextBoxNombre.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxNombre.BorderBrush = Brushes.Red;
-            }
+			MostrarEstadoDeValidacionNombre();
         }
 
         private void TextBoxCorreoElectronico_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarCorreoElectronico(TextBoxCorreoElectronico.Text))
-            {
-                TextBoxCorreoElectronico.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxCorreoElectronico.BorderBrush = Brushes.Red;
-            }
+			MostrarEstadoDeValidacionCorreoElectronico();
 			TextBoxConfirmarCorreoElectronico_TextChanged(sender, e);
-
 		}
 
         private void TextBoxConfirmarCorreoElectronico_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text)
-            {
-                TextBoxConfirmarCorreoElectronico.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxConfirmarCorreoElectronico.BorderBrush = Brushes.Red;
-            }
-        }
+		{
+			MostrarEstadoDeValidacionConfirmacionDeCorreoElectronic();
+		}
 
-        private void TextBoxTelefono_TextChanged(object sender, TextChangedEventArgs e)
+		private void TextBoxTelefono_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarTelefono(TextBoxTelefono.Text))
-            {
-                TextBoxTelefono.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxTelefono.BorderBrush = Brushes.Red;
-            }
+			MostrarEstadoDeValidacionTelefono();
         }
 
         private void TextBoxContraseña_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarContraseña(TextBoxContraseña.Text))
-            {
-                TextBoxContraseña.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxContraseña.BorderBrush = Brushes.Red;
-            }
+			MostrarEstadoDeValidacionContraseña();
             TextBoxConfirmarContraseña_TextChanged(sender, e);
         }
 
@@ -129,28 +86,29 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                 Contraseña = ServiciosDeAutenticacion.EncriptarContraseña(TextBoxContraseña.Text)
             };
 			bool resultadoDeCreacion = false;
-            if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text)
-            {
+			if (alumno.Validar() && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text)
+			{
 				Mouse.OverrideCursor = Cursors.Wait;
-                try
-                {
-                    resultadoDeCreacion = alumno.Guardar();
-                } 
-                catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada)
-                {
-                    MessageBox.Show("Hubo un error al completar el registro. La matricula ingresada ya existe.", "Matricula duplicada", MessageBoxButton.OK, MessageBoxImage.Error);
-                    this.Close();
-                }
-                catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
-                {
-                    MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-                    this.Close();
-                }
-                catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
-                {
-                    MessageBox.Show(this, "Hubo un error al completar el registro. Intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                    this.Close();
-                }
+				try
+				{
+					alumno.Guardar();
+					resultadoDeCreacion = true;
+				}
+				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada)
+				{
+					MessageBox.Show("Hubo un error al completar el registro. La matricula ingresada ya existe.", "Matricula duplicada", MessageBoxButton.OK, MessageBoxImage.Error);
+					this.Close();
+				}
+				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
+				{
+					MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
+					this.Close();
+				}
+				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
+				{
+					MessageBox.Show(this, "Hubo un error al completar el registro. Intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
+					this.Close();
+				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
 				{
 					MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -165,17 +123,106 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 				{
 					Mouse.OverrideCursor = null;
 				}
-				
-            }
-			if (resultadoDeCreacion)
-			{
-				MessageBox.Show("Ha sido registrado exitosamente.", "¡Registro Exitoso!", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
-				this.Close();
+				if (resultadoDeCreacion)
+				{
+					MessageBox.Show("Ha sido registrado exitosamente.", "¡Registro Exitoso!", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
+					this.Close();
+				}
 			}
 			else
 			{
+				Mouse.OverrideCursor = null;
 				MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarEstadoDeValidacionMatricula();
+				MostrarEstadoDeValidacionNombre();
+				MostrarEstadoDeValidacionCorreoElectronico();
+				MostrarEstadoDeValidacionTelefono();
+				MostrarEstadoDeValidacionContraseña();
 			}
-        }
-    }
+		}
+
+		private void MostrarEstadoDeValidacionContraseña()
+		{
+			if (ServiciosDeValidacion.ValidarContraseña(TextBoxContraseña.Text))
+			{
+				TextBoxContraseña.BorderBrush = Brushes.Green;
+			}
+			else
+			{
+				TextBoxContraseña.BorderBrush = Brushes.Red;
+			}
+		}
+
+		private void MostrarEstadoDeValidacionTelefono()
+		{
+			if (ServiciosDeValidacion.ValidarTelefono(TextBoxTelefono.Text))
+			{
+				TextBoxTelefono.BorderBrush = Brushes.Green;
+			}
+			else
+			{
+				TextBoxTelefono.BorderBrush = Brushes.Red;
+			}
+		}
+
+		private void MostrarEstadoDeValidacionCorreoElectronico()
+		{
+			if (ServiciosDeValidacion.ValidarCorreoElectronico(TextBoxCorreoElectronico.Text))
+			{
+				TextBoxCorreoElectronico.BorderBrush = Brushes.Green;
+				if (!ValidarExistenciaDeCorreo(TextBoxCorreoElectronico.Text))
+				{
+					ToolTip mensajeDeCorreoDuplicado = new ToolTip
+					{
+						Content = "Este correo electronico ya esta registrado."
+					};
+					TextBoxCorreoElectronico.ToolTip = mensajeDeCorreoDuplicado;
+				}
+				else
+				{
+					TextBoxCorreoElectronico.ToolTip = null;
+				}
+			}
+			else
+			{
+				TextBoxCorreoElectronico.BorderBrush = Brushes.Red;
+			}
+		}
+
+		private void MostrarEstadoDeValidacionConfirmacionDeCorreoElectronic()
+		{
+			if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text)
+			{
+				TextBoxConfirmarCorreoElectronico.BorderBrush = Brushes.Green;
+			}
+			else
+			{
+				TextBoxConfirmarCorreoElectronico.BorderBrush = Brushes.Red;
+			}
+		}
+
+		private void MostrarEstadoDeValidacionNombre()
+		{
+			if (ServiciosDeValidacion.ValidarNombre(TextBoxNombre.Text))
+			{
+				TextBoxNombre.BorderBrush = Brushes.Green;
+			}
+			else
+			{
+				TextBoxNombre.BorderBrush = Brushes.Red;
+			}
+		}
+
+		private void MostrarEstadoDeValidacionMatricula()
+		{
+			if (ServiciosDeValidacion.ValidarMatricula(TextBoxMatricula.Text))
+			{
+				TextBoxMatricula.BorderBrush = Brushes.Green;
+			}
+			else
+			{
+				TextBoxMatricula.BorderBrush = Brushes.Red;
+			}
+		}
+	}
 }
