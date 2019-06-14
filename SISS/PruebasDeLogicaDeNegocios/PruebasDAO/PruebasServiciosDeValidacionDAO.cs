@@ -16,5 +16,23 @@ namespace Pruebas.PruebasDAO
 
             Assert.AreEqual(12, listaDeCorreos.Count);
         }
-    }
+
+		[TestMethod]
+		public void ProbarContarOcurrenciasDeCorreo_Regresa2()
+		{
+			ServiciosDeValidacionDAO serviciosDeValidacionDAO = new ServiciosDeValidacionDAO();
+			int ocurrencias = serviciosDeValidacionDAO.ContarOcurrenciasDeCorreo("a@uv.mx");
+
+			Assert.AreEqual(3, ocurrencias);
+		}
+
+		[TestMethod]
+		public void ProbarContarOcurrenciasDeCorreo_Regresa0()
+		{
+			ServiciosDeValidacionDAO serviciosDeValidacionDAO = new ServiciosDeValidacionDAO();
+			int ocurrencias = serviciosDeValidacionDAO.ContarOcurrenciasDeCorreo("a@sdfsduv.mx");
+
+			Assert.AreEqual(0, ocurrencias);
+		}
+	}
 }
