@@ -13,7 +13,9 @@ namespace LogicaDeNegocios.Servicios
 		private static readonly Regex RegexMatricula = new Regex(@"^s[0-9]{8}$");
         private static readonly Regex RegexContraseña = new Regex(@"^\S{6,255}$");
         private const int TAMAÑO_MAXIMO_VARCHAR = 255;
-        
+		private const int VALOR_ENTER_MINIMO_PERMITIDO = 0;
+		private const int VALOR_ENTER_MAXIMO_PERMITIDO = 255;
+
 		public static bool ValidarCorreoElectronico(string correoElectronico)
 		{
 			bool resultadoDeValidacion = false;
@@ -117,19 +119,23 @@ namespace LogicaDeNegocios.Servicios
 
         public static bool ValidarExistenciaDeCorreo(string correoElectronico)
         {
-            bool resultadoDeValidacion = false;
-            List<string> correosElectronicos = new List<string>();
-            ServiciosDeValidacionDAO serviciosDeValidacionDAO = new ServiciosDeValidacionDAO();
-            correosElectronicos = serviciosDeValidacionDAO.CargarCorreosDeUsuarios();
-            resultadoDeValidacion = !correosElectronicos.Exists(correoActual => correoActual == correoElectronico);
-            return resultadoDeValidacion;
-        }
+			ServiciosDeValidacionDAO serviciosDeValidacionDAO = new ServiciosDeValidacionDAO();
+
+			bool resultadoDeValidacion = false;
+
+			if (serviciosDeValidacionDAO.ContarOcurrenciasDeCorreo(correoElectronico) == 0)
+			{
+				resultadoDeValidacion = true;
+			}
+
+			return resultadoDeValidacion;
+		}
 
         public static bool ValidarEntero(string numeroEntero)
         {
             bool resultadoDeValidacion = false;
 
-            if(Int32.TryParse(numeroEntero, out int numeroConvertido) && numeroConvertido > 0)
+            if(Int32.TryParse(numeroEntero, out int numeroConvertido) && numeroConvertido > VALOR_ENTER_MINIMO_PERMITIDO && numeroConvertido <= VALOR_ENTER_MAXIMO_PERMITIDO)
             {
                 resultadoDeValidacion = true;
             }

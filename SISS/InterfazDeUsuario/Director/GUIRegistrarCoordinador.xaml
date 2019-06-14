@@ -18,7 +18,7 @@
 		<Label Content="Confirmar contraseña:" HorizontalAlignment="Left" Margin="132,301,0,0" VerticalAlignment="Top" FontSize="14"/>
 		<TextBox x:Name="TextBoxNombre" HorizontalAlignment="Left" Height="24" Margin="294,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxNombre_TextChanged"/>
 		<ComboBox x:Name="ComboBoxCarrera" HorizontalAlignment="Left" Margin="294,160,0,0" VerticalAlignment="Top" Width="248" FontSize="14" />
-		<TextBox x:Name="TextBoxCubiculo" HorizontalAlignment="Left" Height="24" Margin="294,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14"/>
+		<TextBox x:Name="TextBoxCubiculo" HorizontalAlignment="Left" Height="24" Margin="294,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxCubiculo_TextChanged"/>
 		<TextBox x:Name="TextBoxCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="294,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxCorreoElectronico_TextChanged"/>
 		<TextBox x:Name="TextBoxConfirmarCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="294,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxConfirmarCorreoElectronico_TextChanged"/>
 		<TextBox x:Name="TextBoxContraseña" HorizontalAlignment="Left" Height="24" Margin="294,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxContraseña_TextChanged"/>

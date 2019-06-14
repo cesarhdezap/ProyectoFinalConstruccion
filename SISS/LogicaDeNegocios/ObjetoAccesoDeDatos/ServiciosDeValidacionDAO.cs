@@ -43,6 +43,34 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return correosElectronicos;
         }
 
+		public int ContarOcurrenciasDeCorreo(string correo)
+		{
+			int numeroDeOcurrencias = 0;
+
+			SqlParameter[] parametroCorreoElectronico = new SqlParameter[1];
+			parametroCorreoElectronico[0] = new SqlParameter
+			{
+				ParameterName = "@CorreoElectronico",
+				Value = correo
+			};
+
+			try
+			{
+				numeroDeOcurrencias = EjecutarOperacionEscalar("SELECT (SELECT COUNT(*) FROM Alumnos WHERE CorreoElectronico = @CorreoElectronico) + (SELECT COUNT(*) FROM Directores WHERE CorreoElectronico = @CorreoElectronico) + (SELECT COUNT(*) FROM DocentesAcademicos WHERE CorreoElectronico = @CorreoElectronico)", parametroCorreoElectronico);
+			}
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al Cargar Correos De Usuarios ServiciosDeValidacionDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al Cargar Correos De Usuarios ServiciosDeValidacionDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+
+			return numeroDeOcurrencias;
+		}
+	
+
         private List<string> ConvertirDataTableAListaDeCadenasDeCorreo(DataTable tablaDeCorreos)
         {
             List<string> correosElectronicos = new List<string>();
