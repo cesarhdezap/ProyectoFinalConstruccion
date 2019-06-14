@@ -6,6 +6,5 @@ namespace LogicaDeNegocios.Interfaces
     {
         string CargarContraseñaPorCorreo(string correoElectronico);
         List<string> CargarCorreosDeUsuarios();
-        
     }
 }

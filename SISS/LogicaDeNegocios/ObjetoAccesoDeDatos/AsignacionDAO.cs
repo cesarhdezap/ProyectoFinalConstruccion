@@ -17,6 +17,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al Actualizar Asignacion Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
+
             SqlParameter[] parametrosDeAsignacion = InicializarParametrosDeSql(asignacion);
             int filasAfectadas = 0;
             try
@@ -32,6 +33,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al actualizar Asignacion: " + asignacion.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
+
 			if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("La Asignacion con IDAsignacion: " + IDAsignacion + " no existe.", TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
@@ -44,6 +46,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar Asignacion Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
+
             DataTable tablaDeAsignacion = new DataTable();
             SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
             parametroIDAsignacion[0] = new SqlParameter
@@ -51,6 +54,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@IDAsignacion",
                 Value = IDAsignacion
             };
+
             try
             {
                 tablaDeAsignacion = AccesoADatos.EjecutarSelect("SELECT * FROM Asignaciones WHERE IDAsignacion = @IDAsignacion", parametroIDAsignacion);
@@ -85,6 +89,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@Matricula",
                 Value = matricula
             };
+
             try
             {
                 tablaDeAsignacion = AccesoADatos.EjecutarSelect("SELECT IDAsignacion FROM Asignaciones WHERE Matricula = @Matricula", parametroMatricula);
@@ -175,6 +180,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar IDAsignacion Por IDProyecto: " + IDProyecto + ". IDProyecto no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
+
             DataTable tablaDeAsignaciones = new DataTable();
             SqlParameter[] parametroIDProyecto = new SqlParameter[1];
             parametroIDProyecto[0] = new SqlParameter
@@ -197,6 +203,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 				throw new AccesoADatosException("Error al cargar IDsAsignacion con IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
+
 			List<Asignacion> listaDeAsignaciones = new List<Asignacion>();
             try
             {
@@ -225,6 +232,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al guardar Asignacion:" + asignacion.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
+
             if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("Asignacion: " + asignacion.ToString() + " no fue guardada.", TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);

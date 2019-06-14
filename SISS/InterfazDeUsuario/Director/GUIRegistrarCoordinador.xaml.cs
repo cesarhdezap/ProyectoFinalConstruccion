@@ -143,7 +143,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
             if (Int32.TryParse(TextBoxCubiculo.Text, out int i))
             {
                 coordinador.Cubiculo = Int32.Parse(TextBoxCubiculo.Text);
-                if (coordinador.Validar() && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text && ComboBoxCarrera.SelectedIndex < 0)
+                if (coordinador.Validar() && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text && ComboBoxCarrera.SelectedIndex > 0)
                 {
 					bool registroExitoso = false;
                     try

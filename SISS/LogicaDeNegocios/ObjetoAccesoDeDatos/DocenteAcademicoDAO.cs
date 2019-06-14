@@ -17,6 +17,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al Actualizar DocenteAcademico Por IDpersonal: " + IDPersonal + ". IDpersonal no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
+
             SqlParameter[] parametrosDeDocenteAcademico = InicializarParametrosDeSql(docenteAcademico);
 			int filasAfectadas = 0;
             try
@@ -31,6 +32,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al actualizar DocenteAcademico: " + docenteAcademico.ToString() + "Con ID: " + IDPersonal, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
+
 			if (filasAfectadas <= 0)
 			{
 				throw new AccesoADatosException("El DocenteAcademico con ID: " + IDPersonal + " no existe.", TipoDeErrorDeAccesoADatos.ObjetoNoExiste);
@@ -46,6 +48,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@Carrera",
                 Value = carrera
             };
+
             try
             {
                 tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect("SELECT IDPersonal FROM DocentesAcademicos WHERE Carrera = @Carrera", parametroCarrera);
@@ -58,6 +61,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al cargar IDPersonal con Carrera: " + carrera, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
+
 			DocenteAcademico docenteAcademico = new DocenteAcademico();
             try
             {
@@ -97,6 +101,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
             }
+
             string IDUsuario = string.Empty;
             try
             {
@@ -117,6 +122,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar DocenteAcademico Por IDpersonal: " + IDPersonal + ". IDpersonal no es valido.");
             }
+
             DataTable tablaDeDocenteAcademico = new DataTable();
             SqlParameter[] parametroIDPersonal = new SqlParameter[1];
             parametroIDPersonal[0] = new SqlParameter
@@ -124,6 +130,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@IDPersonal",
                 Value = IDPersonal
             };
+
             try
             {
                 tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect("SELECT * FROM DocentesAcademicos WHERE IDPersonal = @IDPersonal", parametroIDPersonal);
@@ -155,6 +162,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar IDPersonal Por IDDocumento: " + IDDocumento + ". IDDocumento no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
+
             DataTable tablaDeDocenteAcademico = new DataTable();
             SqlParameter[] parametroIDDocumento = new SqlParameter[1];
             parametroIDDocumento[0] = new SqlParameter
@@ -162,6 +170,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@IDDocumento",
                 Value = IDDocumento
             };
+
 			try
 			{
 				tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect("SELECT IDDocenteAcademico FROM ReportesMensuales WHERE IDDocumento = @IDDocumento", parametroIDDocumento);
@@ -174,6 +183,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al cargar IDPersonal con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
+
 			DocenteAcademico docenteAcademico = new DocenteAcademico();
             try
             {
@@ -196,6 +206,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@EsActivo",
                 Value = isActivo
             };
+
             try
             {
                 tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect("SELECT * FROM DocentesAcademicos WHERE EsActivo = @EsActivo", parametroEsActivo);
@@ -208,6 +219,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al cargar DocentesAcademicos por estado isActivo: " + isActivo.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
+
 			List<DocenteAcademico> listaDeDocentesAcademicos = new List<DocenteAcademico>();
             try
             {
@@ -229,6 +241,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@Rol",
                 Value = rol
             };
+
             try
             {
                 tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect("SELECT * FROM DocentesAcademicos WHERE Rol = @Rol", parametroRol);
@@ -241,6 +254,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al cargar DocentesAcademicos por rol: " + rol.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
+
 			List<DocenteAcademico> listaDeDocentesAcademicos = new List<DocenteAcademico>();
             try
             {
@@ -310,6 +324,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                     EsActivo = (bool)fila["EsActivo"],
                     Rol = (Rol)fila["Rol"]
                 };
+
 				if (docenteAcademico.Rol == Rol.TecnicoAcademico)
 				{
 					docenteAcademico.Coordinador = new DocenteAcademico() { IDPersonal = (int)fila["IDCoordinador"] };
@@ -318,9 +333,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 				{
 					docenteAcademico.Coordinador = null;
 				}
+
                 listaDeDocentesAcademicos.Add(docenteAcademico);
             }
-
 
             return listaDeDocentesAcademicos;
         }
@@ -341,6 +356,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al guardar DocenteAcademico:" + docenteAcademico.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
+
 			if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("DocenteAcademico: " + docenteAcademico.ToString() + "no fue guardado.", TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);

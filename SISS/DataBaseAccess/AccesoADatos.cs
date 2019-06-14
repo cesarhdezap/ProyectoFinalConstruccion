@@ -10,7 +10,6 @@ namespace AccesoABaseDeDatos
 	{
 		private const int PRIMERA_POSICION_EN_DATATABLE = 0;
         public static readonly string CadenaDeConexion = ConfigurationManager.ConnectionStrings["myConection"].ConnectionString.ToString();
-		
 
 		public static DataTable EjecutarSelect(String consulta, SqlParameter[] parametros = null)
 		{
@@ -96,6 +95,7 @@ namespace AccesoABaseDeDatos
                 {
                     comando.Parameters.AddRange(parametros);
                 }
+
                 int resultadoEscalar = 0;
                 try
                 {

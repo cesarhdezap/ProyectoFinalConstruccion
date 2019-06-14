@@ -124,7 +124,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				Rol = Rol.TecnicoAcademico
 			};
 			Mouse.OverrideCursor = Cursors.Wait;
-			if(Int32.TryParse(TextBoxCubiculo.Text, out int i))
+			if(ValidarEntero(TextBoxCubiculo.Text))
 			{
 				tecnicoAcademico.Cubiculo = Int32.Parse(TextBoxCubiculo.Text);
 				if (tecnicoAcademico.Validar() && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text && ComboBoxCarrera.SelectedIndex > -1)

@@ -18,6 +18,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar DocumentoDeEntregaUnica Por IDDocumento: " + IDDocumento + ". IDDocumento no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
+
             DataTable tablaDeDocumentoDeEntregaUnica = new DataTable();
             SqlParameter[] parametroIDDocumentoDeEntregaUnica = new SqlParameter[1];
             parametroIDDocumentoDeEntregaUnica[0] = new SqlParameter
@@ -25,6 +26,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@IDDocumento",
                 Value = IDDocumento
             };
+
             try
             {
                 tablaDeDocumentoDeEntregaUnica = AccesoADatos.EjecutarSelect("SELECT * FROM DocumentosDeEntregaUnica WHERE IDDocumento = @IDDocumento",parametroIDDocumentoDeEntregaUnica);
@@ -37,6 +39,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al cargar DocumentoDeEntregaUnica con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
+
 			DocumentoDeEntregaUnica documentoDeEntregaUnica = new DocumentoDeEntregaUnica();
             try
             {
@@ -55,6 +58,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar IDs de DocumentoDeEntregaUnica Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
+
             DataTable tablaDeDocumentosDeEntregaUnica = new DataTable();
             SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
             parametroIDAsignacion[0] = new SqlParameter
@@ -75,6 +79,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al cargar IDs de DocumentoDeEntregaUnica por IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
+
 			List<DocumentoDeEntregaUnica> listaDeDocumentosDeEntregaUnica = new List<DocumentoDeEntregaUnica>();
             try
             {
@@ -93,8 +98,8 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al guardar DocumentoDeEntregaUnica Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.");
             }
-            SqlParameter[] parametrosDocumentoDeEntregaUnica = InicializarParametrosDeSQL(documentoDeEntregaUnica, IDAsignacion);
 
+            SqlParameter[] parametrosDocumentoDeEntregaUnica = InicializarParametrosDeSQL(documentoDeEntregaUnica, IDAsignacion);
             int filasAfectadas = 0;
             try
             {
@@ -108,6 +113,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al guardar DocumentoDeEntregaUnica: " + documentoDeEntregaUnica.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
+
 			if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("El DocumentoDeEntregaUnica: " + documentoDeEntregaUnica.ToString() + " no fue guardado.", TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
@@ -149,7 +155,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         private SqlParameter[] InicializarParametrosDeSQL(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion)
         {
             SqlParameter[] parametrosDeDocumentoDeEntregaUnica = new SqlParameter[5];
-
             for (int i = 0; i < parametrosDeDocumentoDeEntregaUnica.Length; i++)
             {
                 parametrosDeDocumentoDeEntregaUnica[i] = new SqlParameter();

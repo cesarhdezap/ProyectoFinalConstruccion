@@ -45,7 +45,6 @@ namespace LogicaDeNegocios
         private bool Validar()
         {
             bool resultadoDeValidacion = false;
-
             if (ValidarContraseña(Contraseña) 
                 && ValidarCorreoElectronico(CorreoElectronico) 
                 && ValidarMatricula(Matricula) 

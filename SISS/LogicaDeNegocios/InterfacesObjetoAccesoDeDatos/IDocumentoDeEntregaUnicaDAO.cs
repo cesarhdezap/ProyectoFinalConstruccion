@@ -9,6 +9,5 @@ namespace LogicaDeNegocios.Interfaces
         List<DocumentoDeEntregaUnica> CargarIDsPorIDAsignacion(int IDAsignacion);
         void GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion);
 		int ObtenerUltimoIDInsertado();
-
 	}
 }

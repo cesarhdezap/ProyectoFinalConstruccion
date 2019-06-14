@@ -33,7 +33,7 @@ namespace LogicaDeNegocios
             DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
             docenteAcademicoDAO.ActualizarDocenteAcademicoPorIDPersonal(IDPersonal, this);
 
-            this.EsActivo = false;
+            EsActivo = false;
         }
 
 		public DocenteAcademico CargarCoordinadorPorCarrera(string carrera)
@@ -54,11 +54,11 @@ namespace LogicaDeNegocios
 		public bool Validar()
 		{
 			bool resultadoDeValidacion = false;
-			if (ValidarContraseña(this.Contraseña)
-				&& ValidarCorreoElectronico(this.CorreoElectronico)
-				&& ValidarNombre(this.Nombre)
-				&& ValidarTelefono(this.Telefono)
-				&& this.Cubiculo > 0)
+			if (ValidarContraseña(Contraseña)
+				&& ValidarCorreoElectronico(CorreoElectronico)
+				&& ValidarNombre(Nombre)
+				&& ValidarTelefono(Telefono)
+				&& Cubiculo > 0)
 			{
 				resultadoDeValidacion = true;
 			}

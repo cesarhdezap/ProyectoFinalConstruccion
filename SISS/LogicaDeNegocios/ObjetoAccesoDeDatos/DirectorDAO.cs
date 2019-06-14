@@ -69,6 +69,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al Cargar Director Por IDpersonal: " + IDPersonal + ". IDpersonal no es valido.");
             }
+
             DataTable tablaDeDirector = new DataTable();
             SqlParameter[] parametroIDPersonal = new SqlParameter[1];
             parametroIDPersonal[0] = new SqlParameter()
@@ -76,6 +77,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@IDpersonal",
                 Value = IDPersonal
             };
+
 			try
 			{
 				tablaDeDirector = AccesoADatos.EjecutarSelect("SELECT * FROM Directores WHERE IDPersonal = @IDPersonal", parametroIDPersonal);
@@ -88,6 +90,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al cargar Director por IDPersonal: " + IDPersonal, e);
 			}
+
 			Director director = new Director();
             try
             {
