@@ -88,23 +88,6 @@ namespace LogicaDeNegocios.Servicios
             return resultadoDeValidacion;
         }
 
-        public static bool ValidarCoordinador(DocenteAcademico docenteAcademico)
-        {
-            bool resultadoDeValidacion = false;
-
-            if (ValidarContraseña(docenteAcademico.Contraseña)  
-                && ValidarCorreoElectronico(docenteAcademico.CorreoElectronico)  
-                && ValidarNombre(docenteAcademico.Nombre)  
-                && ValidarTelefono(docenteAcademico.Telefono)  
-                && docenteAcademico.Cubiculo > 0 
-                && docenteAcademico.Coordinador == null)
-            {
-                resultadoDeValidacion = true;
-            }
-
-            return resultadoDeValidacion;
-        }
-
         public static bool ValidarCadena(string cadena)
         {
             bool resultadoDeValidacion = false;
@@ -131,7 +114,21 @@ namespace LogicaDeNegocios.Servicios
 			return resultadoDeValidacion;
 		}
 
-        public static bool ValidarEntero(string numeroEntero)
+		public static bool ValidarExistenciaDeMatricula(string matricula)
+		{
+			ServiciosDeValidacionDAO serviciosDeValidacionDAO = new ServiciosDeValidacionDAO();
+
+			bool resultadoDeValidacion = false;
+
+			if (serviciosDeValidacionDAO.ContarOcurrenciasDeMatricula(matricula) == 0)
+			{
+				resultadoDeValidacion = true;
+			}
+
+			return resultadoDeValidacion;
+		}
+
+		public static bool ValidarEntero(string numeroEntero)
         {
             bool resultadoDeValidacion = false;
 

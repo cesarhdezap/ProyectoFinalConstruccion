@@ -74,6 +74,7 @@
     <Compile Include="Coordinador\GUIActualizarReporteMensual.xaml.cs">
       <DependentUpon>GUIActualizarReporteMensual.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RecursosDeTexto\MensajesAUsuario.cs" />
     <Compile Include="TecnicoAcademico\GUIBuscarAlumnoPorTecnicoAcademico.xaml.cs">
       <DependentUpon>GUIBuscarAlumnoPorTecnicoAcademico.xaml</DependentUpon>
     </Compile>
