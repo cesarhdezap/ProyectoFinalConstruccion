@@ -81,12 +81,23 @@ namespace InterfazDeUsuario.GUIsDeDirector
 				Rol = Rol.Coordinador
             };
 
-			if (coordinador.Validar() && ValidarEntero(TextBoxCubiculo.Text) && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text && ComboBoxCarrera.SelectedIndex > VALOR_DE_INDICE_SELECCIONADO_INVALIDO)
+            if (ValidarEntero(TextBoxCubiculo.Text))
+            {
+                coordinador.Cubiculo = int.Parse(TextBoxCubiculo.Text);
+            }
+            else
+            {
+                coordinador.Cubiculo = VALOR_ENTERO_MINIMO_PERMITIDO;
+            }
+
+            if (coordinador.Validar() 
+                && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text 
+                && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text 
+                && ComboBoxCarrera.SelectedIndex > VALOR_DE_INDICE_SELECCIONADO_INVALIDO)
 			{	
 				bool registroExitoso = false;
 				try
 				{
-					coordinador.Cubiculo = Int32.Parse(TextBoxCubiculo.Text);
 					coordinador.Guardar();
 					registroExitoso = true;
 				}
@@ -97,17 +108,17 @@ namespace InterfazDeUsuario.GUIsDeDirector
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
 				{
 					MessageBox.Show(this, ERROR_GUARDAR_REGISTRO, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
 				{
 					MessageBox.Show(this, ERROR_PETICION_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
 				{
 					MessageBox.Show(this, ERROR_DESCONOCIDO_MENSAJE, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				finally
 				{
@@ -129,7 +140,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
 
         private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 	}
 }
