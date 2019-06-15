@@ -31,10 +31,10 @@ namespace InterfazDeUsuario.RecursosDeTexto
 		public const string TELEFONO_INVALIDO = "Deben ser 10 caracteres numéricos.";
 		public const string CONFIRMACION_INVALIDA = "Los valores no coinciden.";
 		public const string REGISTRO_EXITOSO_COORDINADOR = "El coordinador ha sido registrado exitosamente.";
-		//public const string;
-		//public const string;
-		//public const string;
-
-		//public const string;
+		public const string CADENA_INVALIDA = "Debe tener entre 1 y 255 caracteres.";
+		public const string ERROR_OBJETO_NO_EXISTE_MENSAJE = "El objeto especificado no se encontro en la base de datos.";
+		public const string ERROR_OBJETO_NO_EXISTE_TITULO = "Objeto no encontrado";
+		public const string COMBO_BOX_INVALIDO = "Porfavor, elija un elemento.";
+		public const string REGISTRO_EXITOSO_ENCARGADO = "Encargado registrado correctamente.";
 	}
 }

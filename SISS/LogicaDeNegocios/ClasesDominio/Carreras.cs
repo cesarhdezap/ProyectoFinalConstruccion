@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaDeNegocios.ClasesDominio
 {
-	public enum Carreras
+	public enum Carrera
 	{
 		LIS, 
 		RYSC, 

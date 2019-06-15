@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,7 +22,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
             InitializeComponent();
             Director = director;
             LabelNombreDeUsuario.Content = director.Nombre;
-			foreach (var carrera in Enum.GetValues(typeof(Carreras)))
+			foreach (Carrera carrera in Enum.GetValues(typeof(Carrera)))
 			{
 				ComboBoxCarrera.Items.Add(carrera).ToString();
 			}
@@ -77,13 +77,13 @@ namespace InterfazDeUsuario.GUIsDeDirector
 				Coordinador = null,
 				Carrera = ComboBoxCarrera.SelectedValue.ToString(),
 				EsActivo = true,
-				Contraseña = EncriptarContraseña(TextBoxContraseña.Text),
+				Contraseña = TextBoxContraseña.Text,
 				Rol = Rol.Coordinador
             };
 
             if (ValidarEntero(TextBoxCubiculo.Text))
             {
-                coordinador.Cubiculo = int.Parse(TextBoxCubiculo.Text);
+                coordinador.Cubiculo = Int32.Parse(TextBoxCubiculo.Text); 
             }
             else
             {
