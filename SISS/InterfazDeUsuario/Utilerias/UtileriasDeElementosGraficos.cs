@@ -110,28 +110,67 @@ namespace InterfazDeUsuario.Utilerias
 			}
 		}
 
-		private static void MostrarToolTip(TextBox cajaDeTexto, string mensaje)
+		public static void MostrarEstadoDeValidacionCadena(TextBox textBoxCadena)
 		{
-			if (cajaDeTexto.ToolTip == null)
+			if (ValidarCadena(textBoxCadena.Text))
 			{
-				cajaDeTexto.ToolTip = new ToolTip()
+				textBoxCadena.BorderBrush = Brushes.Red;
+				OcultarToolTip(textBoxCadena);
+			}
+			else
+			{
+				textBoxCadena.BorderBrush = Brushes.Red;
+				MostrarToolTip(textBoxCadena, CADENA_INVALIDA);
+			}
+		}
+
+		public static void MostrarEstadoDeValidacionComboBox(ComboBox comboBox)
+		{
+			if (ValidarSeleccionComboBox(comboBox))
+			{
+				comboBox.ClearValue(Control.BorderBrushProperty);
+				OcultarToolTip(comboBox);
+			}
+			else
+			{
+				comboBox.BorderBrush = Brushes.Red;
+				MostrarToolTip(comboBox, COMBO_BOX_INVALIDO);
+			}
+		}
+
+		public static bool ValidarSeleccionComboBox(ComboBox comboBox)
+		{
+
+			bool resultadoDeValidacion = false;
+			if (comboBox.SelectedIndex > -1 && comboBox.SelectedIndex < comboBox.Items.Count)
+			{
+				resultadoDeValidacion = true;
+			}
+			return resultadoDeValidacion;
+		}
+
+		private static void MostrarToolTip(Control controlGrafico, string mensaje)
+		{
+			if (controlGrafico.ToolTip == null)
+			{
+				controlGrafico.ToolTip = new ToolTip()
 				{
 					Content = mensaje,
 					Placement = System.Windows.Controls.Primitives.PlacementMode.Right,
 				};
 			}
-			((ToolTip)cajaDeTexto.ToolTip).IsEnabled = true;
-			ToolTipService.SetPlacementTarget((ToolTip)cajaDeTexto.ToolTip, cajaDeTexto);	
-			((ToolTip)cajaDeTexto.ToolTip).IsOpen = true;
+			((ToolTip)controlGrafico.ToolTip).IsEnabled = true;
+			ToolTipService.SetPlacementTarget((ToolTip)controlGrafico.ToolTip, controlGrafico);	
+			((ToolTip)controlGrafico.ToolTip).IsOpen = true;
 		}
 
-		private static void OcultarToolTip(TextBox cajaDeTexto)
+		private static void OcultarToolTip(Control controlGrafico)
 		{
-			if (cajaDeTexto.ToolTip != null)
+			if (controlGrafico.ToolTip != null)
 			{
-				((ToolTip)cajaDeTexto.ToolTip).IsOpen = false;
-				((ToolTip)cajaDeTexto.ToolTip).IsEnabled = false;
-				cajaDeTexto.ToolTip = null;
+				((ToolTip)controlGrafico.ToolTip).IsOpen = false;
+				((ToolTip)controlGrafico.ToolTip).IsEnabled = false;
+				controlGrafico.ToolTip = null;
 			} 
 		}
 	}

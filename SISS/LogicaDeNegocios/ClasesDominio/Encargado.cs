@@ -21,17 +21,14 @@ namespace LogicaDeNegocios
             proyectoDAO.GuardarProyecto(proyecto);
         }
 
-        public bool Guardar()
+        public void Guardar()
         {
-            bool resultadoDeCreacion = false;
             AdministradorDeEncargados administradorDeEncargados = new AdministradorDeEncargados();
             if (ValidarEncargado() && ValidarExistenciaDeCorreo(CorreoElectronico))
             {
                 EncargadoDAO encargadoDAO = new EncargadoDAO();
                 encargadoDAO.GuardarEncargado(this);
-                resultadoDeCreacion = true;
             }
-            return resultadoDeCreacion;
         }
 
         private bool ValidarEncargado()

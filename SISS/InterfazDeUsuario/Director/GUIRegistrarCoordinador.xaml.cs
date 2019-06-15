@@ -22,7 +22,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
             InitializeComponent();
             Director = director;
             LabelNombreDeUsuario.Content = director.Nombre;
-			foreach (var carrera in Enum.GetValues(typeof(Carreras)))
+			foreach (Carrera carrera in Enum.GetValues(typeof(Carrera)))
 			{
 				ComboBoxCarrera.Items.Add(carrera).ToString();
 			}
@@ -77,16 +77,25 @@ namespace InterfazDeUsuario.GUIsDeDirector
 				Coordinador = null,
 				Carrera = ComboBoxCarrera.SelectedValue.ToString(),
 				EsActivo = true,
-				Contraseña = EncriptarContraseña(TextBoxContraseña.Text),
+				Contraseña = TextBoxContraseña.Text,
 				Rol = Rol.Coordinador
             };
 
-			if (coordinador.Validar() && ValidarEntero(TextBoxCubiculo.Text) && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text && ComboBoxCarrera.SelectedIndex > VALOR_DE_INDICE_SELECCIONADO_INVALIDO)
+			if (Int32.TryParse(TextBoxCubiculo.Text, out int i))
+			{
+				coordinador.Cubiculo = Int32.Parse(TextBoxCubiculo.Text); 
+			}
+			else
+			{
+				coordinador.Cubiculo = 0;
+			}
+
+			if (coordinador.Validar() && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text && ComboBoxCarrera.SelectedIndex > VALOR_DE_INDICE_SELECCIONADO_INVALIDO)
 			{	
 				bool registroExitoso = false;
 				try
 				{
-					coordinador.Cubiculo = Int32.Parse(TextBoxCubiculo.Text);
+					
 					coordinador.Guardar();
 					registroExitoso = true;
 				}
