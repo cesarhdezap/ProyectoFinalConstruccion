@@ -22,7 +22,7 @@ namespace LogicaDeNegocios
         public void Guardar()
         {
             AdministradorDeAlumnos administradorDeAlumnos = new AdministradorDeAlumnos();
-            if (Validar() && ValidarExistenciaDeMatricula(this.Matricula))
+            if (Validar() && ValidarExistenciaDeMatricula(Matricula))
             {
                 AlumnoDAO alumnoDAO = new AlumnoDAO();
                 alumnoDAO.GuardarAlumno(this);
@@ -82,12 +82,12 @@ namespace LogicaDeNegocios
         {
             
             string alumno = System.Environment.NewLine +
-                            "Matricula: " + this.Matricula + System.Environment.NewLine +
-                            "Nombre: " + this.Nombre + System.Environment.NewLine +
-                            "Correo Electronico: " + this.CorreoElectronico + System.Environment.NewLine +
-                            "Telefono: " + this.Telefono + System.Environment.NewLine +
-                            "Estado: " + this.EstadoAlumno.ToString() + System.Environment.NewLine +
-                            "Carrera" + this.Carrera;
+                            "Matricula: " + Matricula + System.Environment.NewLine +
+                            "Nombre: " + Nombre + System.Environment.NewLine +
+                            "Correo Electronico: " + CorreoElectronico + System.Environment.NewLine +
+                            "Telefono: " + Telefono + System.Environment.NewLine +
+                            "Estado: " + EstadoAlumno.ToString() + System.Environment.NewLine +
+                            "Carrera" + Carrera;
 
             return alumno;
         }
@@ -95,7 +95,7 @@ namespace LogicaDeNegocios
         private void ActualizarRegistroDeAlumno()
         {
             AlumnoDAO alumnoDAO = new AlumnoDAO();
-            alumnoDAO.ActualizarAlumnoPorMatricula(this.Matricula, this);
+            alumnoDAO.ActualizarAlumnoPorMatricula(Matricula, this);
         }
 
 		public void Asignar()

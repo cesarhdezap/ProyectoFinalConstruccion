@@ -16,7 +16,7 @@ namespace LogicaDeNegocios
 		public void AñadirProyecto(Proyecto proyecto)
 		{
             proyecto.Encargado = this;
-            this.Proyectos.Add(proyecto);
+            Proyectos.Add(proyecto);
             ProyectoDAO proyectoDAO = new ProyectoDAO();
             proyectoDAO.GuardarProyecto(proyecto);
         }

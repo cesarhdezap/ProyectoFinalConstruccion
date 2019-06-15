@@ -31,7 +31,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				Nombre = TextBoxNombre.Text,
 				CorreoElectronico = TextBoxCorreoElectronico.Text,
 				Telefono = TextBoxTelefono.Text,
-				Coordinador = this.Coordinador,
+				Coordinador = Coordinador,
 				Carrera = ComboBoxCarrera.SelectedValue.ToString(),
 				EsActivo = true,
 				Contraseña = TextBoxContraseña.Text,

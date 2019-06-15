@@ -17,8 +17,8 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
         public GUICapturarOtroDocumento(DocenteAcademico tecnicoAdministrativo, Asignacion asignacion)
         {
             InitializeComponent();
-			this.TecnicoAdministrativo = tecnicoAdministrativo;
-			this.Asignacion = asignacion;
+            TecnicoAdministrativo = tecnicoAdministrativo;
+            Asignacion = asignacion;
 			Imagen = new Imagen(TipoDeDocumentoEnImagen.DocumentoDeEntregaUnica);
 			ComboBoxTipoDeDocumento.ItemsSource = Enum.GetValues(typeof(TipoDeDocumento));
 			ComboBoxTipoDeDocumento.SelectedIndex = 0;
@@ -34,13 +34,13 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 			if (ventanaDeSeleccionDeArchivo.ShowDialog() == true)
 			{
 				LabelDireccionDeArchivo.Content = ventanaDeSeleccionDeArchivo.FileName;
-				this.Imagen.DireccionDeImagen = ventanaDeSeleccionDeArchivo.FileName;
+                Imagen.DireccionDeImagen = ventanaDeSeleccionDeArchivo.FileName;
 			}
 		}
 
 		private void ButtonRegresar_Click(object sender, RoutedEventArgs e)
 		{
-			this.Close();
+            Close();
 		}
 
 		private void ButtonRegistrarDocumento_Click(object sender, RoutedEventArgs e)
@@ -53,7 +53,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 					{
 						FechaDeEntrega = DateTime.Now,
 						TipoDeDocumento = (TipoDeDocumento)ComboBoxTipoDeDocumento.SelectedIndex,
-						DocenteAcademico = this.TecnicoAdministrativo,
+						DocenteAcademico = TecnicoAdministrativo,
 					};
 					try
 					{
@@ -64,34 +64,34 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 					{
 						MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-						this.Close();
+                        Close();
 					}
 					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
 					{
 						MessageBox.Show(this, "Hubo un error al completar el registro. Intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-						this.Close();
+                        Close();
 					}
 					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
 					{
 						MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-						this.Close();
+                        Close();
 					}
 					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
 					{
 						MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-						this.Close();
+                        Close();
 					}
 					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
 					{
 						MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-						this.Close();
+                        Close();
 					}
 					finally
 					{
 						Mouse.OverrideCursor = null;
 					}
 					MessageBox.Show("El " + ComboBoxTipoDeDocumento.SelectedItem.ToString() + " fue registrado exitosamente.", "¡Registro exitoso!", MessageBoxButton.OK, MessageBoxImage.Information);
-					this.Close();
+                    Close();
 				}
 				else
 				{
