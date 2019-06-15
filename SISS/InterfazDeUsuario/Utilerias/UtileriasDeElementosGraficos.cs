@@ -150,6 +150,39 @@ namespace InterfazDeUsuario.Utilerias
 			return resultadoDeValidacion;
 		}
 
+		public static void MostrarEstadoDeValidacionCorreoDuplicado(TextBox textBoxCorreo)
+		{
+			if (ValidarCorreoElectronico(textBoxCorreo.Text))
+			{
+				if (ValidarDisponibilidadDeCorreo(textBoxCorreo.Text))
+				{
+					textBoxCorreo.BorderBrush = Brushes.Green;
+					OcultarToolTip(textBoxCorreo);
+				}
+				else
+				{
+					textBoxCorreo.BorderBrush = Brushes.Red;
+					MostrarToolTip(textBoxCorreo, CORREOELECTRONICO_DUPLICADO_MENSAJE);
+				}
+			}
+		}
+
+		public static void MostrarEstadoDeValidacionMatriculaDuplicada(TextBox textBoxMatricula)
+		{
+			if (ValidarMatricula(textBoxMatricula.Text)){
+				if (ValidarDisponibilidadDeMatricula(textBoxMatricula.Text))
+				{
+					textBoxMatricula.BorderBrush = Brushes.Green;
+					OcultarToolTip(textBoxMatricula);
+				}
+				else
+				{
+					textBoxMatricula.BorderBrush = Brushes.Red;
+					MostrarToolTip(textBoxMatricula, MATRICULA_DUPLICADA_MENSAJE);
+				}
+			}
+		}
+
 		private static void MostrarToolTip(Control controlGrafico, string mensaje)
 		{
 			if (controlGrafico.ToolTip == null)

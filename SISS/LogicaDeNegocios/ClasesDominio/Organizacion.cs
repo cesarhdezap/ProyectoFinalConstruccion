@@ -23,20 +23,17 @@ namespace LogicaDeNegocios
             encargadoDAO.GuardarEncargado(encargado);
         }
 
-        public bool Guardar()
+        public void Guardar()
         {
-            bool resultadoDeCreacion = false;
             AdministradorDeOrganizaciones administradorDeOrganizacion = new AdministradorDeOrganizaciones();
-            if (ValidarOrganizacion() && ValidarExistenciaDeCorreo(CorreoElectronico))
+            if (Validar() && ValidarDisponibilidadDeCorreo(CorreoElectronico))
             {
                 OrganizacionDAO organizacionDAO = new OrganizacionDAO();
                 organizacionDAO.GuardarOrganizacion(this);
-                resultadoDeCreacion = true;
             }
-            return resultadoDeCreacion;
         }
 
-        private bool ValidarOrganizacion()
+        public bool Validar()
         {
             bool resultadoDeValidacion = false;
             if (ValidarCadena(Nombre)

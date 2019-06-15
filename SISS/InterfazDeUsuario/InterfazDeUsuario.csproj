@@ -74,6 +74,8 @@
     <Compile Include="Coordinador\GUIActualizarReporteMensual.xaml.cs">
       <DependentUpon>GUIActualizarReporteMensual.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ManejadorDeExcepciones.cs" />
+    <Compile Include="MensajeDeErrorParaMessageBox.cs" />
     <Compile Include="RecursosDeTexto\MensajesAUsuario.cs" />
     <Compile Include="TecnicoAcademico\GUIBuscarAlumnoPorTecnicoAcademico.xaml.cs">
       <DependentUpon>GUIBuscarAlumnoPorTecnicoAcademico.xaml</DependentUpon>

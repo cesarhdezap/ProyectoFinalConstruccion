@@ -44,7 +44,9 @@ namespace LogicaDeNegocios
                 && ValidarCorreoElectronico(CorreoElectronico) 
                 && ValidarMatricula(Matricula) 
                 && ValidarNombre(Nombre) 
-                && ValidarTelefono(Telefono))
+                && ValidarTelefono(Telefono)
+				&& ValidarDisponibilidadDeCorreo(CorreoElectronico)
+				&& ValidarDisponibilidadDeMatricula(Matricula))
             {
                 resultadoDeValidacion = true;
             }

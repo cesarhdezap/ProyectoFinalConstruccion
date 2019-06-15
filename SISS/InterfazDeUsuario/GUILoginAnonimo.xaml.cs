@@ -3,10 +3,12 @@ using System.Windows;
 using static LogicaDeNegocios.Servicios.ServiciosDeSesion;
 using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
+using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 using InterfazDeUsuario.GUITipoDeSesion;
 using InterfazDeUsuario.GUIsDeAlumno;
 using LogicaDeNegocios.Excepciones;
 using System.Windows.Input;
+using System.Security;
 
 namespace InterfazDeUsuario
 {
@@ -26,7 +28,8 @@ namespace InterfazDeUsuario
         private void ButtonIngresar_Click(object sender, RoutedEventArgs e)
         {
             string correo = TextBoxCorreo.Text;
-            if (ValidarCadena(correo) && ValidarCadena(PasswordBoxContraseña.Password))
+			string contraseña = PasswordBoxContraseña.Password;
+			if (!string.IsNullOrEmpty(correo) && !string.IsNullOrEmpty(contraseña))
             {
 				Mouse.OverrideCursor = Cursors.Wait;
                 bool resultadoDeAutenticacion = false;
@@ -34,25 +37,11 @@ namespace InterfazDeUsuario
                 {
                     resultadoDeAutenticacion = AutenticarCredenciales(correo, PasswordBoxContraseña.Password);
                 }
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
+				catch (AccesoADatosException ex)
 				{
-					MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
-				{
-					MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
-				{
-					MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
-				{
-					MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-				{
-					MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
+					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
 				}
 				finally
 				{
@@ -70,12 +59,12 @@ namespace InterfazDeUsuario
                 }
                 else 
                 {
-                    MessageBox.Show("Usuario o contraseña no validos.", "Credenciales no validas", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(CREDENCIALES_INVALIDAS_MENSAJE, CREDENCIALES_INVALIDAS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Debe ingresar su contraseña y su correo para continuar.", "Campos vacios", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(CAMPOS_LOGIN_VACIOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -103,7 +92,7 @@ namespace InterfazDeUsuario
             }
             else
             {
-                MessageBox.Show("Tipo de sesion no valida. Contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(TIPO_DE_SESION_INVALIDO_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -113,7 +102,9 @@ namespace InterfazDeUsuario
             Hide();
             registrarAlumno.ShowDialog();
             Show();
-        }
+			TextBoxCorreo.Clear();
+			PasswordBoxContraseña.Clear();
+		}
 
 		private void Window_Closed(object sender, System.EventArgs e)
 		{

@@ -19,9 +19,12 @@ namespace LogicaDeNegocios.Servicios
 		{
 			bool resultadoDeValidacion = false;
 
-			if (RegexCorreoElectronico.IsMatch(correoElectronico))
+			if (correoElectronico.Length <= TAMAÑO_MAXIMO_VARCHAR)
 			{
-				resultadoDeValidacion = true;
+				if (RegexCorreoElectronico.IsMatch(correoElectronico))
+				{
+					resultadoDeValidacion = true;
+				}
 			}
 
 			return resultadoDeValidacion;
@@ -42,12 +45,13 @@ namespace LogicaDeNegocios.Servicios
 		public static bool ValidarNombre(string nombre)
 		{
             bool resultadoDeValidacion = false;
-
-			if (RegexNombre.IsMatch(nombre))
+			if (nombre.Length <= TAMAÑO_MAXIMO_VARCHAR)
 			{
-                resultadoDeValidacion = true;
+				if (RegexNombre.IsMatch(nombre))
+				{
+					resultadoDeValidacion = true;
+				}
 			}
-
 			return resultadoDeValidacion;
 		}
 
@@ -79,7 +83,7 @@ namespace LogicaDeNegocios.Servicios
         {
             bool resultadoDeValidacion = false;
 
-            if (!string.IsNullOrEmpty(cadena) && cadena.Length < TAMAÑO_MAXIMO_VARCHAR)
+            if (!string.IsNullOrEmpty(cadena) && cadena.Length <= TAMAÑO_MAXIMO_VARCHAR)
             {
                 resultadoDeValidacion = true;
             }
@@ -87,7 +91,7 @@ namespace LogicaDeNegocios.Servicios
             return resultadoDeValidacion;
         }
 
-        public static bool ValidarExistenciaDeCorreo(string correoElectronico)
+        public static bool ValidarDisponibilidadDeCorreo(string correoElectronico)
         {
 			ServiciosDeValidacionDAO serviciosDeValidacionDAO = new ServiciosDeValidacionDAO();
 
@@ -101,7 +105,7 @@ namespace LogicaDeNegocios.Servicios
 			return resultadoDeValidacion;
 		}
 
-		public static bool ValidarExistenciaDeMatricula(string matricula)
+		public static bool ValidarDisponibilidadDeMatricula(string matricula)
 		{
 			ServiciosDeValidacionDAO serviciosDeValidacionDAO = new ServiciosDeValidacionDAO();
 

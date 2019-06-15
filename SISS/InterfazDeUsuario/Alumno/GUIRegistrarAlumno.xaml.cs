@@ -83,67 +83,80 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 			
 			if (alumno.Validar() && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text)
 			{
-				if (ValidarExistenciaDeCorreo(alumno.CorreoElectronico))
+				bool resultadoDeCreacion = false;
+				try
 				{
-					if (ValidarExistenciaDeMatricula(alumno.Matricula))
-					{
-						bool resultadoDeCreacion = false;
-						try
-						{
-							alumno.Guardar();
-							resultadoDeCreacion = true;
-						}
-						catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada)
-						{
-							MessageBox.Show(this, MATRICULA_DUPLICADA_MENSAJE, MATRICULA_DUPLICADA_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-						}
-						catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
-						{
-							MessageBox.Show(this, CONEXION_FALLIDA_MENSAJE, CONEXION_FALLIDA_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-						}
-						catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
-						{
-							MessageBox.Show(this, ERROR_GUARDAR_REGISTRO, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                            Close();
-						}
-						catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
-						{
-							MessageBox.Show(this, ERROR_PETICION_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                            Close();
-						}
-						catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-						{
-							MessageBox.Show(this, ERROR_DESCONOCIDO_MENSAJE, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                            Close();
-						}
-						finally
-						{
-							Mouse.OverrideCursor = null;
-						}
-						if (resultadoDeCreacion)
-						{
-							MessageBox.Show(REGISTRO_EXITOSO_MENSAJE, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
-                            Close();
-						}
-					} else
-					{
-						MessageBox.Show(this, MATRICULA_DUPLICADA_MENSAJE, MATRICULA_DUPLICADA_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-					}
+
+					alumno.Guardar();
+					resultadoDeCreacion = true;
+
 				}
-				else
+				catch (AccesoADatosException ex) 
 				{
-					MessageBox.Show(CORREOELECTRONICO_DUPLICADO_MENSAJE, CORREOELECTRONICO_DUPLICADO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				}
+				finally
+				{
+					Mouse.OverrideCursor = null;
+				}
+				if (resultadoDeCreacion)
+				{
+					MessageBox.Show(REGISTRO_EXITOSO_MENSAJE, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
+					this.Close();
 				}
 			}
 			else
 			{
 				Mouse.OverrideCursor = null;
 				MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+				Mouse.OverrideCursor = Cursors.Wait;
 				MostrarEstadoDeValidacionMatricula(TextBoxMatricula);
 				MostrarEstadoDeValidacionNombre(TextBoxNombre);
 				MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
 				MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
 				MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
+				try
+				{
+					MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
+					MostrarEstadoDeValidacionMatriculaDuplicada(TextBoxMatricula);
+				}
+				catch (AccesoADatosException ex)
+				{
+					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				}
+				Mouse.OverrideCursor = null;
+			}
+		}
+
+		private void TextBoxCorreoElectronico_LostFocus(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
+			}
+			catch (AccesoADatosException ex)
+			{
+				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+		}
+
+		private void TextBoxMatricula_LostFocus(object sender, RoutedEventArgs e)
+		{
+			try
+			{
+				MostrarEstadoDeValidacionMatriculaDuplicada(TextBoxMatricula);
+			}
+			catch (AccesoADatosException ex)
+			{
+				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
 	}
