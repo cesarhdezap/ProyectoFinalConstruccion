@@ -82,7 +82,6 @@ namespace InterfazDeUsuario.Utilerias
 			}
 		}
 
-
 		public static void MostrarEstadoDeValidacionMatricula(TextBox textBoxMatricula)
 		{
 			if (ValidarMatricula(textBoxMatricula.Text))
@@ -115,7 +114,7 @@ namespace InterfazDeUsuario.Utilerias
 		{
 			if (ValidarCadena(textBoxCadena.Text))
 			{
-				textBoxCadena.BorderBrush = Brushes.Red;
+				textBoxCadena.BorderBrush = Brushes.Green;
 				OcultarToolTip(textBoxCadena);
 			}
 			else
