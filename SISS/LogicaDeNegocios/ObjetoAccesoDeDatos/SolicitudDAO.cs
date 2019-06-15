@@ -29,7 +29,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeMatricula = AccesoADatos.EjecutarSelect("SELECT * FROM Solicitudes WHERE IDSolicitud = @IDSolicitud", parametroIDSolicitud);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
                 throw new AccesoADatosException("Error al cargar Solicitud con IDSolicitud: " + IDSolicitud, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
@@ -83,7 +83,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Solicitudes(Fecha, Matricula) VALUES(@Fecha, @Matricula)", parametrosDeSolicitud);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
 				throw new AccesoADatosException("Error al guardar solicitud: " + solicitud.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
 			}
@@ -104,7 +104,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 {
                    filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO SolicitudesProyectos(IDSolicitud, IDProyecto) VALUES(@IDSolicitud, @IDProyecto)", parametrosDeSolicitud);
                 }
-				catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+				catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 				{
 					throw new AccesoADatosException("Error al guardar relacion Proyectos-Solicitud: " + solicitud.ToString() + proyecto.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
 				}
@@ -156,7 +156,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeSolicitud = AccesoADatos.EjecutarSelect("Query", parametroIDAsignacion);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
 				throw new AccesoADatosException("Error al cargar IDSolicitud con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
 			}
@@ -190,7 +190,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				tablaDeSolicitud = AccesoADatos.EjecutarSelect("SELECT IDSolicitud FROM Solicitudes WHERE Matricula = @MatriculaAlumno", parametroMatricula);
 			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
 				throw new AccesoADatosException("Error al cargar IDSolicitud con Matricula: " + matriculaAlumno, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
 			}
@@ -224,7 +224,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar("SELECT IDENT_CURRENT('Solicitudes')");
             }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
             {
                 throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en SolicitudDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }

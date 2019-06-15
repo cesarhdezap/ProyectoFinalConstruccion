@@ -8,7 +8,10 @@ namespace AccesoABaseDeDatos
 {
     public enum CodigoDeErrorDeSqlException
     {
-        InsercionFallidaPorLlavePrimariaDuplicada = 2627,
-        ConexionABaseDeDatosFallida = 2
+		ConexionAServidorFallida = -1,
+		TiempoDeEsperaExpirado = -2,
+		ServidorNoRespondio = 2,
+		ServidorNoEncontrado = 53,
+        InsercionFallidaPorLlavePrimariaDuplicada = 2627
     }
 }

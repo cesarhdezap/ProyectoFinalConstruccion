@@ -30,11 +30,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Liberaciones(Fecha, IDDocumento) VALUES(@Fecha, @IDDocumento)", parametrosDeLiberacion);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
                 throw new AccesoADatosException("Error al guardar Liberacion: " + liberacion.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
 				throw new AccesoADatosException("Error al guardar Liberacion: " + liberacion.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
@@ -58,7 +58,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeLiberacion = AccesoADatos.EjecutarSelect("SELECT * FROM Liberaciones WHERE IDLiberacion = @Liberacion", parametroIDLiberacion);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
                 throw new AccesoADatosException("Error al cargar Liberacion con IDLiberacion: " + IDLiberacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
@@ -105,7 +105,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar("SELECT IDENT_CURRENT('Liberaciones')");
 			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
 				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
 			}

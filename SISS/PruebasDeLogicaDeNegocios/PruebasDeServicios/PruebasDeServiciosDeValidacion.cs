@@ -188,9 +188,23 @@ namespace Pruebas.PruebasDeServicios
         public void ProbarValidarExistenciaDeCorreo_CorreoExistente_RegresaFalse(string correo)
         {
             bool resultadoDeValidacion;
-            resultadoDeValidacion = ValidarExistenciaDeCorreo(correo);
+            resultadoDeValidacion = ValidarDisponibilidadDeCorreo(correo);
             Assert.IsFalse(resultadoDeValidacion);
         }
 
-    }
+		[DataTestMethod]
+		[DataRow("999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")]
+		[DataRow("99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999")]
+		[DataRow("contraseña")]
+		[DataRow("12345678900987654321")]
+		[DataRow("pedro345")]
+
+		public void ProbarValidarContraseña_Correcto_RegresaTrue(string correo)
+		{
+			bool resultadoDeValidacion;
+			resultadoDeValidacion = ValidarDisponibilidadDeCorreo(correo);
+			Assert.IsTrue(resultadoDeValidacion);
+		}
+
+	}
 }

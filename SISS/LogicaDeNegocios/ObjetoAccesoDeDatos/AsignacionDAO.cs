@@ -24,7 +24,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Asignaciones SET EstadoAsignacion = @EstadoAsignacion, FechaDeFinal = @FechaDeFinalAsignacion, IDLiberacion = @IDLiberacionAsignacion WHERE IDAsignacion = @IDAsignacion ", parametrosDeAsignacion);
             }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 
 			{
                 throw new AccesoADatosException("Error al actualizar Asignacion: " + asignacion.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
@@ -59,7 +59,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeAsignacion = AccesoADatos.EjecutarSelect("SELECT * FROM Asignaciones WHERE IDAsignacion = @IDAsignacion", parametroIDAsignacion);
             }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
             {
                 throw new AccesoADatosException("Error al cargar Asignacion con IDAsigncion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
@@ -94,7 +94,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeAsignacion = AccesoADatos.EjecutarSelect("SELECT IDAsignacion FROM Asignaciones WHERE Matricula = @Matricula", parametroMatricula);
             }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
                 throw new AccesoADatosException("Error al cargar IDAsignacion con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
@@ -193,7 +193,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeAsignaciones = AccesoADatos.EjecutarSelect("SELECT IDAsignacion FROM Asignaciones WHERE IDProyecto = @IDProyecto", parametroIDProyecto);
             }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
 				
                 throw new AccesoADatosException("Error al cargar IDsAsignacion con IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
@@ -223,7 +223,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Asignaciones(Estado, FechaDeInicio, Matricula, IDProyecto, IDSolicitud) VALUES(@EstadoAsignacion, @FechaDeInicioAsignacion, @MatriculaDeAlumnoAsignacion, @IDProyectoAsignacion, @IDSolicitudAsignacion)", parametrosDeAsignacion);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
 
 				throw new AccesoADatosException("Error al guardar Asignacion:" + asignacion.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);

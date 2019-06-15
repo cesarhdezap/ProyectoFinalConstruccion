@@ -24,7 +24,7 @@ namespace LogicaDeNegocios
         public void Guardar()
         {
             AdministradorDeEncargados administradorDeEncargados = new AdministradorDeEncargados();
-            if (ValidarEncargado() && ValidarExistenciaDeCorreo(CorreoElectronico))
+            if (ValidarEncargado() && ValidarDisponibilidadDeCorreo(CorreoElectronico))
             {
                 EncargadoDAO encargadoDAO = new EncargadoDAO();
                 encargadoDAO.GuardarEncargado(this);

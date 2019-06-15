@@ -21,7 +21,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeCorreos = EjecutarSelect("SELECT CorreoElectronico FROM Alumnos UNION SELECT CorreoElectronico FROM DocentesAcademicos UNION SELECT CorreoElectronico FROM Directores");
             }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
             {
                 throw new AccesoADatosException("Error al Cargar Correos De Usuarios ServiciosDeValidacionDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
@@ -58,7 +58,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				numeroDeOcurrencias = EjecutarOperacionEscalar("SELECT (SELECT COUNT(*) FROM Alumnos WHERE CorreoElectronico = @CorreoElectronico) + (SELECT COUNT(*) FROM Directores WHERE CorreoElectronico = @CorreoElectronico) + (SELECT COUNT(*) FROM DocentesAcademicos WHERE CorreoElectronico = @CorreoElectronico)", parametroCorreoElectronico);
 			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
 				throw new AccesoADatosException("Error al Cargar Correos De Usuarios ServiciosDeValidacionDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
 			}
@@ -85,7 +85,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				numeroDeOcurrencias = EjecutarOperacionEscalar("SELECT COUNT(*) FROM Alumnos WHERE Matricula = @Matricula", parametroMatricula);
 			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
 				throw new AccesoADatosException("Error al Cargar Correos De Usuarios ServiciosDeValidacionDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
 			}

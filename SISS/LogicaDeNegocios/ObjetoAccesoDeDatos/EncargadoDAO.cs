@@ -24,7 +24,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Encargados SET Nombre = @NombreEncargado, CorreoElectronico = @CorreoElectronicoEncargado, Telefono = @TelefonoEncargado, Puesto = @PuestoEncargado WHERE IDEncargado = @IDEncargado", parametrosDeEncargado);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
                 throw new AccesoADatosException("Error al actualizar Encargaddo: " + encargado.ToString() + "Con IDEncargado: " + IDEncargado, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
@@ -57,7 +57,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeEncargado = AccesoADatos.EjecutarSelect("SELECT * FROM Encargados WHERE IDEncargado = @IDEncargado", parametroIDEncargado);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
                 throw new AccesoADatosException("Error al cargar Encargado con IDEncargado: " + IDEncargado, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
@@ -84,7 +84,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {    
                 tablaDeEncargados = AccesoADatos.EjecutarSelect("SELECT * FROM Encargados");
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
                 throw new AccesoADatosException("Error al cargar todos los Encargados", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
@@ -121,7 +121,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeEncargados = AccesoADatos.EjecutarSelect("SELECT IDEncargado FROM Encargados WHERE IDOrganizacion = @IDOrganizacion",parametroIDOrganicacion);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
                 throw new AccesoADatosException("Error al cargar IDsEncargado con IDOrganizacion: " + IDOrganizacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
@@ -158,7 +158,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 tablaDeEncargado = AccesoADatos.EjecutarSelect("SELECT IDEncargado FROM Proyectos WHERE IDProyecto = @IDProyecto",parametroIDProyecto);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
                 throw new AccesoADatosException("Error al cargar IDEncargado con IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }
@@ -264,7 +264,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Encargados(IDOrganizacion, Nombre, CorreoElectronico, Telefono, Puesto ) VALUES(@IDOrganizacion, @NombreEncargado, @CorreoElectronicoEncargado, @TelefonoEncargado, @PuestoEncargado)", parametrosDeEncargado);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{
                 throw new AccesoADatosException("Error al guardar Encardago: " + encargado.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
             }

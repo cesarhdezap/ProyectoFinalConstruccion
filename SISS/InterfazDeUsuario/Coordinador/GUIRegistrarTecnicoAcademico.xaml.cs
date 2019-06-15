@@ -54,7 +54,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
                 && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text
                 && ComboBoxCarrera.SelectedIndex >= VALOR_ENTERO_MINIMO_PERMITIDO)
             {
-                if (ValidarExistenciaDeCorreo(tecnicoAcademico.CorreoElectronico))
+                if (ValidarDisponibilidadDeCorreo(tecnicoAcademico.CorreoElectronico))
                 {
                     bool registroExitoso = false;
                     try
