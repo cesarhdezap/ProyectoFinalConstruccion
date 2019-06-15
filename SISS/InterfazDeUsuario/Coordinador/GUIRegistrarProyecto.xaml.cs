@@ -5,7 +5,6 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
@@ -116,32 +115,21 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             }
 			else
 			{
-				MessageBox.Show(this, "Debe seleccionar un encargado para ser asociado al proyecto.", "Encargado no seleccionado", MessageBoxButton.OK, MessageBoxImage.Error);
-			}
+                MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+                MostrarEstadoDeValidacionCadena(TextBoxNombre);
+                MostrarEstadoDeValidacionCadena(TextBoxObjetivoGeneral);
+                MostrarEstadoDeValidacionCadena(TextBoxDescripcionGeneral);
+            }
 		}
 
         private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarCadena(TextBoxNombre.Text))
-            {
-                TextBoxNombre.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxNombre.BorderBrush = Brushes.Red;
-            }
+            MostrarEstadoDeValidacionCadena(TextBoxNombre);
         }
 
         private void TextBoxEstudiantesSolicitados_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (int.TryParse(TextBoxEstudiantesSolicitados.Text, out int resultado))
-            {
-                TextBoxEstudiantesSolicitados.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxEstudiantesSolicitados.BorderBrush = Brushes.Red;
-            }
+            MostrarEstadoDeValidacionCampoNumerico(TextBoxEstudiantesSolicitados);
         }
 
         private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
@@ -168,26 +156,12 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
         private void TextBoxObjetivoGeneral_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarCadena(TextBoxObjetivoGeneral.Text))
-            {
-                TextBoxObjetivoGeneral.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxObjetivoGeneral.BorderBrush = Brushes.Red;
-            }
+            MostrarEstadoDeValidacionCadena(TextBoxObjetivoGeneral);
         }
 
         private void TextBoxDescripcionGeneral_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarCadena(TextBoxDescripcionGeneral.Text))
-            {
-                TextBoxDescripcionGeneral.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxDescripcionGeneral.BorderBrush = Brushes.Red;
-            }
+            MostrarEstadoDeValidacionCadena(TextBoxDescripcionGeneral);
         }
     }
 }
