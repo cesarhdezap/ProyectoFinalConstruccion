@@ -22,7 +22,7 @@ namespace LogicaDeNegocios
         public void Guardar()
         {
             AdministradorDeAlumnos administradorDeAlumnos = new AdministradorDeAlumnos();
-            if (Validar() && administradorDeAlumnos.ValidarExistencia(this))
+            if (Validar() && ValidarExistenciaDeMatricula(this.Matricula))
             {
                 AlumnoDAO alumnoDAO = new AlumnoDAO();
                 alumnoDAO.GuardarAlumno(this);

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="ClasesDominio\Alumno.cs" />
     <Compile Include="ClasesDominio\Asignacion.cs" />
+    <Compile Include="ClasesDominio\Carreras.cs" />
     <Compile Include="ClasesDominio\Director.cs" />
     <Compile Include="ClasesDominio\DocenteAcademico.cs" />
     <Compile Include="ClasesDominio\DocumentoDeEntregaUnica.cs" />

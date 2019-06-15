@@ -69,9 +69,36 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			return numeroDeOcurrencias;
 		}
-	
 
-        private List<string> ConvertirDataTableAListaDeCadenasDeCorreo(DataTable tablaDeCorreos)
+		public int ContarOcurrenciasDeMatricula(string matricula)
+		{
+			int numeroDeOcurrencias = 0;
+
+			SqlParameter[] parametroMatricula = new SqlParameter[1];
+			parametroMatricula[0] = new SqlParameter
+			{
+				ParameterName = "@Matricula",
+				Value = matricula
+			};
+
+			try
+			{
+				numeroDeOcurrencias = EjecutarOperacionEscalar("SELECT COUNT(*) FROM Alumnos WHERE Matricula = @Matricula", parametroMatricula);
+			}
+			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ConexionABaseDeDatosFallida)
+			{
+				throw new AccesoADatosException("Error al Cargar Correos De Usuarios ServiciosDeValidacionDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			catch (SqlException e)
+			{
+				throw new AccesoADatosException("Error al Cargar Correos De Usuarios ServiciosDeValidacionDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+
+			return numeroDeOcurrencias;
+		}
+
+
+		private List<string> ConvertirDataTableAListaDeCadenasDeCorreo(DataTable tablaDeCorreos)
         {
             List<string> correosElectronicos = new List<string>();
             foreach (DataRow fila in tablaDeCorreos.Rows)
