@@ -1,6 +1,6 @@
-﻿using System;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
+﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
+using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
 
 namespace LogicaDeNegocios
 {
@@ -48,7 +48,9 @@ namespace LogicaDeNegocios
 		public void Guardar()
 		{
 			DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
-			docenteAcademicoDAO.GuardarDocenteAcademico(this);
+            string contraseñaEncriptada = EncriptarContraseña(Contraseña);
+            Contraseña = contraseñaEncriptada;
+            docenteAcademicoDAO.GuardarDocenteAcademico(this);
 		}
 
 		public bool Validar()
@@ -58,8 +60,8 @@ namespace LogicaDeNegocios
 				&& ValidarCorreoElectronico(CorreoElectronico)
 				&& ValidarNombre(Nombre)
 				&& ValidarTelefono(Telefono)
-				&& Cubiculo > 0)
-			{
+                && Cubiculo > VALOR_ENTERO_MINIMO_PERMITIDO)
+            {
 				resultadoDeValidacion = true;
 			}
 			return resultadoDeValidacion;
