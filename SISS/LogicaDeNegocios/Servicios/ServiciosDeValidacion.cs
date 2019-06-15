@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 using System;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 
@@ -101,7 +101,21 @@ namespace LogicaDeNegocios.Servicios
 			return resultadoDeValidacion;
 		}
 
-        public static bool ValidarEntero(string numeroEntero)
+		public static bool ValidarExistenciaDeMatricula(string matricula)
+		{
+			ServiciosDeValidacionDAO serviciosDeValidacionDAO = new ServiciosDeValidacionDAO();
+
+			bool resultadoDeValidacion = false;
+
+			if (serviciosDeValidacionDAO.ContarOcurrenciasDeMatricula(matricula) == 0)
+			{
+				resultadoDeValidacion = true;
+			}
+
+			return resultadoDeValidacion;
+		}
+
+		public static bool ValidarEntero(string numeroEntero)
         {
             bool resultadoDeValidacion = false;
 

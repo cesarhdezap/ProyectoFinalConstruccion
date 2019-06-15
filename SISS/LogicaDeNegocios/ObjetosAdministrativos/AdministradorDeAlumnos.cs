@@ -8,18 +8,6 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 	{
 		public List<Alumno> Alumnos { get; set; }
 
-		public bool ValidarExistencia(Alumno alumno)
-		{
-            CargarAlumnosTodos();
-            bool esxistencia = false;
-            bool resultadoDeExistenciaDeMatricula = !Alumnos.Exists(alumnoActual => alumnoActual.Matricula == alumno.Matricula);
-            if (resultadoDeExistenciaDeMatricula && ValidarExistenciaDeCorreo(alumno.CorreoElectronico))
-            {
-                esxistencia = true;
-            }
-
-            return esxistencia;
-		}
 
 		public void CargarAlumnosTodos()
 		{
