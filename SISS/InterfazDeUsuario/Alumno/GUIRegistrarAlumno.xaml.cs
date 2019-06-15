@@ -8,6 +8,7 @@ using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using System;
 using LogicaDeNegocios.ClasesDominio;
+using LogicaDeNegocios;
 
 namespace InterfazDeUsuario.GUIsDeAlumno
 {
