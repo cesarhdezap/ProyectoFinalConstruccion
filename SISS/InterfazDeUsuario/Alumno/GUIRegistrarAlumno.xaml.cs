@@ -104,17 +104,17 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 						catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
 						{
 							MessageBox.Show(this, ERROR_GUARDAR_REGISTRO, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-							this.Close();
+                            Close();
 						}
 						catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
 						{
 							MessageBox.Show(this, ERROR_PETICION_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-							this.Close();
+                            Close();
 						}
 						catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
 						{
 							MessageBox.Show(this, ERROR_DESCONOCIDO_MENSAJE, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-							this.Close();
+                            Close();
 						}
 						finally
 						{
@@ -123,7 +123,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 						if (resultadoDeCreacion)
 						{
 							MessageBox.Show(REGISTRO_EXITOSO_MENSAJE, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
-							this.Close();
+                            Close();
 						}
 					} else
 					{

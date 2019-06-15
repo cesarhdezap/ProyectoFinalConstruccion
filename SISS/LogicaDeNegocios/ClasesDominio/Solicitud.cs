@@ -17,7 +17,7 @@ namespace LogicaDeNegocios
 
 		public Solicitud(Alumno alumno)
 		{
-			this.Alumno = alumno;
+            Alumno = alumno;
 		}
 
         public override string ToString()

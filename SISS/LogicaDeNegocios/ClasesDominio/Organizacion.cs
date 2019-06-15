@@ -18,7 +18,7 @@ namespace LogicaDeNegocios
         public void AñadirEncargado(Encargado encargado)
 		{
             encargado.Organizacion = this;
-            this.Encargados.Add(encargado);
+            Encargados.Add(encargado);
             EncargadoDAO encargadoDAO = new EncargadoDAO();
             encargadoDAO.GuardarEncargado(encargado);
         }

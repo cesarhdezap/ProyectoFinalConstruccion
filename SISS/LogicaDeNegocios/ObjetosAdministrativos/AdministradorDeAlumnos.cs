@@ -12,27 +12,27 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 		public void CargarAlumnosTodos()
 		{
 			AlumnoDAO alumnoDAO = new AlumnoDAO();
-			this.Alumnos = alumnoDAO.CargarAlumnosTodos();
+            Alumnos = alumnoDAO.CargarAlumnosTodos();
 		}
 
 		public void CargarAlumnosPorEstado(EstadoAlumno estadoAlumno)
 		{
 			AlumnoDAO alumnoDAO = new AlumnoDAO();
-			this.Alumnos = alumnoDAO.CargarAlumnosPorEstado(estadoAlumno);
+            Alumnos = alumnoDAO.CargarAlumnosPorEstado(estadoAlumno);
 		}
         public void CargarAlumnosPorCarrera(string carrera)
         {
             AlumnoDAO alumnoDAO = new AlumnoDAO();
-            this.Alumnos = alumnoDAO.CargarAlumnosPorCarrera(carrera);
+            Alumnos = alumnoDAO.CargarAlumnosPorCarrera(carrera);
         }
 		public void CargarAlumnosPorCarreraYEstado(string carrera, EstadoAlumno estadoAlumno)
 		{
 			AlumnoDAO alumnoDAO = new AlumnoDAO();
-			this.Alumnos = alumnoDAO.CargarAlumnosPorCarrera(carrera);
+            Alumnos = alumnoDAO.CargarAlumnosPorCarrera(carrera);
 			List<Alumno> alumnosFiltrados = new List<Alumno>();
 			alumnosFiltrados = Alumnos.FindAll(alumno => alumno.EstadoAlumno == estadoAlumno);
-			this.Alumnos = null;
-			this.Alumnos = alumnosFiltrados;
+            Alumnos = null;
+            Alumnos = alumnosFiltrados;
 		}
 	}
 }
