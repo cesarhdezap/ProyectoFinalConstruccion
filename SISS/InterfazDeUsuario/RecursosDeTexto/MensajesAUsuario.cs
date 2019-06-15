@@ -12,7 +12,7 @@ namespace InterfazDeUsuario.RecursosDeTexto
 		public const string COMPROBAR_CAMPOS_TITULO = "Campos invalidos";
 		public const string MATRICULA_DUPLICADA_MENSAJE = "Hubo un error al completar el registro. La matricula ingresada ya existe en el sistema.";
 		public const string MATRICULA_DUPLICADA_TITULO = "Matricula duplicada";
-		public const string CORREOELECTRONICO_DUPLICADO_MENSAJE = "Hubo un problema al completar su registro. El correo electrónico ingresado ya esta registrado en el sistema.";
+		public const string CORREOELECTRONICO_DUPLICADO_MENSAJE = "El correo electrónico ya esta registrado en el sistema.";
 		public const string CORREOELECTRONICO_DUPLICADO_TITULO = "Correo electrónico duplicado";
 		public const string REGISTRO_EXITOSO_TITULO = "¡Registro Exitoso!";
 		public const string REGISTRO_EXITOSO_MENSAJE = "Ha sido registrado exitosamente.";
@@ -36,6 +36,11 @@ namespace InterfazDeUsuario.RecursosDeTexto
 		public const string ERROR_OBJETO_NO_EXISTE_TITULO = "Objeto no encontrado";
 		public const string COMBO_BOX_INVALIDO = "Porfavor, elija un elemento.";
 		public const string REGISTRO_EXITOSO_ENCARGADO = "Encargado registrado correctamente.";
-        public const string ERROR_AL_CONVERTIR_OBJETO = "Error al cargar datos del servidor.";
+    public const string ERROR_AL_CONVERTIR_OBJETO = "Error al cargar datos del servidor.";
+		public const string REGISTRO_EXITOSO_ORGANIZACION = "Organización registrada correctamente.";
+		public const string TIPO_DE_SESION_INVALIDO_MENSAJE = "Tipo de sesion no valida. Contacte a su administrador.";
+		public const string CREDENCIALES_INVALIDAS_MENSAJE = "Correo o contraseña no validos.";
+		public const string CREDENCIALES_INVALIDAS_TITULO = "Credenciales no validas";
+		public const string CAMPOS_LOGIN_VACIOS_MENSAJE = "Debe ingresar su contraseña y su correo para continuar.";
 	}
 }

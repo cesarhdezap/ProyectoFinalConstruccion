@@ -5,7 +5,9 @@ using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetosAdministrador;
 using System.Windows.Input;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
+using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
 {
@@ -26,119 +28,82 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
                 Telefono = TextBoxTelefono.Text,
                 CorreoElectronico = TextBoxCorreoElectronico.Text
             };
-			bool resultadoDeCreacionDeOrganizacion = false;
-            if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text)
+            if (organizacion.Validar() && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text)
             {
 				Mouse.OverrideCursor = Cursors.Wait;
 				try
 				{
-                    resultadoDeCreacionDeOrganizacion = organizacion.Guardar();
+					organizacion.Guardar();
                 }
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 				{
-					MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
+
+					MessageBox.Show(this, CONEXION_FALLIDA_MENSAJE, CONEXION_FALLIDA_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
 				{
-					MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
+					MessageBox.Show(this, ERROR_OBJETO_NO_EXISTE_MENSAJE, ERROR_OBJETO_NO_EXISTE_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+					this.Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
 				{
-					MessageBox.Show(this, "Hubo un error al completar el registro. Intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
+					MessageBox.Show(this, ERROR_GUARDAR_REGISTRO, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+					this.Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
 				{
-					MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
+					MessageBox.Show(this, ERROR_PETICION_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+					this.Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
 				{
-					MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
+					MessageBox.Show(this, ERROR_PETICION_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+					this.Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
 				{
-					MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
+					MessageBox.Show(this, ERROR_DESCONOCIDO_MENSAJE, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+					this.Close();
+
 				}
 				finally
 				{
 					Mouse.OverrideCursor = null;
 				}
+
+				MessageBox.Show(REGISTRO_EXITOSO_ORGANIZACION, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
 			}
-            if (resultadoDeCreacionDeOrganizacion)
-            {
-                MessageBox.Show("Organizacion registrada correctamente.", "¡Registro exitosos!", MessageBoxButton.OK, MessageBoxImage.Information);
-                Close();
-            }
 			else
 			{
-				MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
+				MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
 
         private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarCadena(TextBoxNombre.Text))
-            {
-                TextBoxNombre.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxNombre.BorderBrush = Brushes.Red;
-            }
+			MostrarEstadoDeValidacionCadena(TextBoxNombre);
         }
 
         private void TextBoxDireccion_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarCadena(TextBoxDireccion.Text))
-            {
-                TextBoxDireccion.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxDireccion.BorderBrush = Brushes.Red;
-            }
-        }
+			MostrarEstadoDeValidacionCadena(TextBoxDireccion);
+		}
 
         private void TextBoxTelefono_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarTelefono(TextBoxTelefono.Text))
-            {
-                TextBoxTelefono.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxTelefono.BorderBrush = Brushes.Red;
-            }
-        }
+			MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
+		}
 
         private void TextBoxCorreoElectronico_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarCorreoElectronico(TextBoxCorreoElectronico.Text))
-            {
-                TextBoxCorreoElectronico.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxCorreoElectronico.BorderBrush = Brushes.Red;
-            }
+			MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
             TextBoxConfirmarCorreoElectronico_TextChanged(sender, e);
         }
 
         private void TextBoxConfirmarCorreoElectronico_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (TextBoxConfirmarCorreoElectronico.Text == TextBoxCorreoElectronico.Text)
-            {
-				TextBoxConfirmarCorreoElectronico.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-				TextBoxConfirmarCorreoElectronico.BorderBrush = Brushes.Red;
-            }
+			MostrarEstadoDeValidacionConfirmacion(TextBoxCorreoElectronico, TextBoxConfirmarCorreoElectronico);
         }
 
         private void ButtonCancelar_Click(object sender, RoutedEventArgs e)

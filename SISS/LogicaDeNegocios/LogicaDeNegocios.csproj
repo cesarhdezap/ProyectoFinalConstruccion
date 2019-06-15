@@ -56,6 +56,7 @@
     <Compile Include="ClasesDominio\Persona.cs" />
     <Compile Include="ClasesDominio\Sesion.cs" />
     <Compile Include="Excepciones\AccesoADatosException.cs" />
+    <Compile Include="Excepciones\EncadenadorDeExcepciones.cs" />
     <Compile Include="InterfacesObjetoAccesoDeDatos\IAlumnoDAO.cs" />
     <Compile Include="InterfacesObjetoAccesoDeDatos\IAsignacionDAO.cs" />
     <Compile Include="InterfacesObjetoAccesoDeDatos\IAutenticacionDAO.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="ObjetoAccesoDeDatos\LiberacionDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\OrganizacionDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\ProyectoDAO.cs" />
+    <Compile Include="Querys\QuerysDeAlumno.cs" />
     <Compile Include="ObjetoAccesoDeDatos\ReporteMensualDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\ServiciosDeValidacionDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\SolicitudDAO.cs" />
