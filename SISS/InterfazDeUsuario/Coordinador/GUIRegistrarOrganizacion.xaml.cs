@@ -37,6 +37,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
                 }
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 				{
+
 					MessageBox.Show(this, CONEXION_FALLIDA_MENSAJE, CONEXION_FALLIDA_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
@@ -63,11 +64,13 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				{
 					MessageBox.Show(this, ERROR_DESCONOCIDO_MENSAJE, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 					this.Close();
+
 				}
 				finally
 				{
 					Mouse.OverrideCursor = null;
 				}
+
 				MessageBox.Show(REGISTRO_EXITOSO_ORGANIZACION, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
                 this.Close();
 			}

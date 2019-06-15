@@ -12,13 +12,13 @@ namespace LogicaDeNegocios.ObjetosAdministrador
         public void CargarProyectosTodos()
         {
             ProyectoDAO proyectoDAO = new ProyectoDAO();
-            this.Proyectos = proyectoDAO.CargarProyectosTodos();
+            Proyectos = proyectoDAO.CargarProyectosTodos();
 		}
 
         public void CargarProyectosPorEstado(EstadoProyecto estadoProyecto)
         {
             ProyectoDAO proyectoDAO = new ProyectoDAO();
-            this.Proyectos = proyectoDAO.CargarProyectosPorEstado(estadoProyecto);
+            Proyectos = proyectoDAO.CargarProyectosPorEstado(estadoProyecto);
         }
 
 		public List<string> ObtenerNombresDeProyectos()
@@ -29,12 +29,6 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 				listaDeNombres.Add(proyecto.Nombre);
 			}
 			return listaDeNombres;
-		}
-
-        public void CrearProyecto (Proyecto proyecto)
-        {
-			//TODO
-			throw new NotImplementedException();
 		}
     }
 }

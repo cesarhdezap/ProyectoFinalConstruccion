@@ -82,6 +82,7 @@ namespace InterfazDeUsuario.Utilerias
 			}
 		}
 
+
 		public static void MostrarEstadoDeValidacionMatricula(TextBox textBoxMatricula)
 		{
 			if (ValidarMatricula(textBoxMatricula.Text))

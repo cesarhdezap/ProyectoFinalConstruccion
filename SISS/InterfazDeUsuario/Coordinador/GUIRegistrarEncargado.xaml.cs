@@ -1,4 +1,4 @@
-﻿using LogicaDeNegocios;
+using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.ObjetosAdministrador;
