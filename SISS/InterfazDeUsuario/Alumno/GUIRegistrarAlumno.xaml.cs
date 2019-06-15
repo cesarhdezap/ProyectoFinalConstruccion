@@ -1,19 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using LogicaDeNegocios.Excepciones;
-using LogicaDeNegocios;
 using LogicaDeNegocios.Servicios;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
-using InterfazDeUsuario;
-using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
+using LogicaDeNegocios;
 
 namespace InterfazDeUsuario.GUIsDeAlumno
 {
-    /// <summary>
-    /// Interaction logic for GUIRegistrarAlumno.xaml
-    /// </summary>
     public partial class GUIRegistrarAlumno : Window
     {
         public GUIRegistrarAlumno()
@@ -37,7 +31,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
         private void TextBoxCorreoElectronico_TextChanged(object sender, TextChangedEventArgs e)
         {
-			MostrarEstadoDeValidacionCorreoElectronico(TextBoxConfirmarCorreoElectronico);
+			MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
 			TextBoxConfirmarCorreoElectronico_TextChanged(sender, e);
 		}
 
@@ -92,27 +86,27 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada)
 				{
 					MessageBox.Show("Hubo un error al completar el registro. La matricula ingresada ya existe.", "Matricula duplicada", MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 				{
 					MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
 				{
 					MessageBox.Show(this, "Hubo un error al completar el registro. Intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
 				{
 					MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
 				{
 					MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				finally
 				{
@@ -121,7 +115,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 				if (resultadoDeCreacion)
 				{
 					MessageBox.Show("Ha sido registrado exitosamente.", "¡Registro Exitoso!", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
-					this.Close();
+                    Close();
 				}
 			}
 			else

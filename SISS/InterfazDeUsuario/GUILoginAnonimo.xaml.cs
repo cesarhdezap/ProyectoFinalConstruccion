@@ -2,6 +2,7 @@ using LogicaDeNegocios.ClasesDominio;
 using System.Windows;
 using static LogicaDeNegocios.Servicios.ServiciosDeSesion;
 using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
+using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using InterfazDeUsuario.GUITipoDeSesion;
 using InterfazDeUsuario.GUIsDeAlumno;
 using LogicaDeNegocios.Excepciones;
@@ -14,12 +15,18 @@ namespace InterfazDeUsuario
         public GUILoginAnonimo()
         {
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            TextBoxCorreo.MaxLength = TAMAÑO_MAXIMO_VARCHAR;
+            PasswordBoxContraseña.MaxLength = TAMAÑO_MAXIMO_VARCHAR;
+            
         }
+
+
 
         private void ButtonIngresar_Click(object sender, RoutedEventArgs e)
         {
             string correo = TextBoxCorreo.Text;
-            if (correo != string.Empty && PasswordBoxContraseña.Password != string.Empty)
+            if (ValidarCadena(correo) && ValidarCadena(PasswordBoxContraseña.Password))
             {
 				Mouse.OverrideCursor = Cursors.Wait;
                 bool resultadoDeAutenticacion = false;
@@ -51,6 +58,7 @@ namespace InterfazDeUsuario
 				{
 					Mouse.OverrideCursor = null;
 				}
+
                 if (resultadoDeAutenticacion)
                 {
                     Sesion sesion = CargarSesion(correo);

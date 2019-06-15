@@ -18,9 +18,6 @@ using LogicaDeNegocios.Excepciones;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
 {
-    /// <summary>
-    /// Interaction logic for GUIBuscarProyecto.xaml
-    /// </summary>
     public partial class GUIBuscarProyecto : Window
     {
 		private AdministradorDeProyectos AdministradorDeProyectos { get; set; }
