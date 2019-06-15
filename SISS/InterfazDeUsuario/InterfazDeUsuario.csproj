@@ -86,6 +86,7 @@
     <Compile Include="TecnicoAcademico\GUIEntregarReporteMensual.xaml.cs">
       <DependentUpon>GUIEntregarReporteMensual.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilerias\UtileriasDeElementosGraficos.cs" />
     <Page Include="Alumno\GUIEscogerProyectos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

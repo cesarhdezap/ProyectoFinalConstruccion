@@ -5,6 +5,8 @@ using System.Windows.Media;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios;
 using LogicaDeNegocios.Servicios;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
+using InterfazDeUsuario;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace InterfazDeUsuario.GUIsDeAlumno
@@ -25,49 +27,42 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
         private void TextBoxMatricula_TextChanged(object sender, TextChangedEventArgs e)
         {
-			MostrarEstadoDeValidacionMatricula();
+			MostrarEstadoDeValidacionMatricula(TextBoxMatricula);
         }
 
         private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
-			MostrarEstadoDeValidacionNombre();
+			MostrarEstadoDeValidacionNombre(TextBoxNombre);
         }
 
         private void TextBoxCorreoElectronico_TextChanged(object sender, TextChangedEventArgs e)
         {
-			MostrarEstadoDeValidacionCorreoElectronico();
+			MostrarEstadoDeValidacionCorreoElectronico(TextBoxConfirmarCorreoElectronico);
 			TextBoxConfirmarCorreoElectronico_TextChanged(sender, e);
 		}
 
         private void TextBoxConfirmarCorreoElectronico_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			MostrarEstadoDeValidacionConfirmacionDeCorreoElectronic();
+			MostrarEstadoDeValidacionConfirmacion(TextBoxConfirmarCorreoElectronico, TextBoxConfirmarCorreoElectronico);
 		}
 
 		private void TextBoxTelefono_TextChanged(object sender, TextChangedEventArgs e)
         {
-			MostrarEstadoDeValidacionTelefono();
+			MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
         }
 
         private void TextBoxContraseña_TextChanged(object sender, TextChangedEventArgs e)
         {
-			MostrarEstadoDeValidacionContraseña();
+			MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
             TextBoxConfirmarContraseña_TextChanged(sender, e);
         }
 
         private void TextBoxConfirmarContraseña_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text)
-            {
-                TextBoxConfirmarContraseña.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxConfirmarContraseña.BorderBrush = Brushes.Red;
-            }
-        }
+		{
+			MostrarEstadoDeValidacionConfirmacion(TextBoxContraseña, TextBoxConfirmarContraseña);
+		}
 
-        private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
+		private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
@@ -133,95 +128,11 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 			{
 				Mouse.OverrideCursor = null;
 				MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
-				MostrarEstadoDeValidacionMatricula();
-				MostrarEstadoDeValidacionNombre();
-				MostrarEstadoDeValidacionCorreoElectronico();
-				MostrarEstadoDeValidacionTelefono();
-				MostrarEstadoDeValidacionContraseña();
-			}
-		}
-
-		private void MostrarEstadoDeValidacionContraseña()
-		{
-			if (ServiciosDeValidacion.ValidarContraseña(TextBoxContraseña.Text))
-			{
-				TextBoxContraseña.BorderBrush = Brushes.Green;
-			}
-			else
-			{
-				TextBoxContraseña.BorderBrush = Brushes.Red;
-			}
-		}
-
-		private void MostrarEstadoDeValidacionTelefono()
-		{
-			if (ServiciosDeValidacion.ValidarTelefono(TextBoxTelefono.Text))
-			{
-				TextBoxTelefono.BorderBrush = Brushes.Green;
-			}
-			else
-			{
-				TextBoxTelefono.BorderBrush = Brushes.Red;
-			}
-		}
-
-		private void MostrarEstadoDeValidacionCorreoElectronico()
-		{
-			if (ServiciosDeValidacion.ValidarCorreoElectronico(TextBoxCorreoElectronico.Text))
-			{
-				TextBoxCorreoElectronico.BorderBrush = Brushes.Green;
-				if (!ValidarExistenciaDeCorreo(TextBoxCorreoElectronico.Text))
-				{
-					ToolTip mensajeDeCorreoDuplicado = new ToolTip
-					{
-						Content = "Este correo electronico ya esta registrado."
-					};
-					TextBoxCorreoElectronico.ToolTip = mensajeDeCorreoDuplicado;
-				}
-				else
-				{
-					TextBoxCorreoElectronico.ToolTip = null;
-				}
-			}
-			else
-			{
-				TextBoxCorreoElectronico.BorderBrush = Brushes.Red;
-			}
-		}
-
-		private void MostrarEstadoDeValidacionConfirmacionDeCorreoElectronic()
-		{
-			if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text)
-			{
-				TextBoxConfirmarCorreoElectronico.BorderBrush = Brushes.Green;
-			}
-			else
-			{
-				TextBoxConfirmarCorreoElectronico.BorderBrush = Brushes.Red;
-			}
-		}
-
-		private void MostrarEstadoDeValidacionNombre()
-		{
-			if (ServiciosDeValidacion.ValidarNombre(TextBoxNombre.Text))
-			{
-				TextBoxNombre.BorderBrush = Brushes.Green;
-			}
-			else
-			{
-				TextBoxNombre.BorderBrush = Brushes.Red;
-			}
-		}
-
-		private void MostrarEstadoDeValidacionMatricula()
-		{
-			if (ServiciosDeValidacion.ValidarMatricula(TextBoxMatricula.Text))
-			{
-				TextBoxMatricula.BorderBrush = Brushes.Green;
-			}
-			else
-			{
-				TextBoxMatricula.BorderBrush = Brushes.Red;
+				MostrarEstadoDeValidacionMatricula(TextBoxMatricula);
+				MostrarEstadoDeValidacionNombre(TextBoxNombre);
+				MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
+				MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
+				MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
 			}
 		}
 	}
