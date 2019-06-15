@@ -114,7 +114,7 @@ namespace InterfazDeUsuario.Utilerias
 		{
 			if (ValidarCadena(textBoxCadena.Text))
 			{
-				textBoxCadena.BorderBrush = Brushes.Red;
+				textBoxCadena.BorderBrush = Brushes.Green;
 				OcultarToolTip(textBoxCadena);
 			}
 			else

@@ -36,5 +36,6 @@ namespace InterfazDeUsuario.RecursosDeTexto
 		public const string ERROR_OBJETO_NO_EXISTE_TITULO = "Objeto no encontrado";
 		public const string COMBO_BOX_INVALIDO = "Porfavor, elija un elemento.";
 		public const string REGISTRO_EXITOSO_ENCARGADO = "Encargado registrado correctamente.";
+        public const string ERROR_AL_CONVERTIR_OBJETO = "Error al cargar datos del servidor.";
 	}
 }
