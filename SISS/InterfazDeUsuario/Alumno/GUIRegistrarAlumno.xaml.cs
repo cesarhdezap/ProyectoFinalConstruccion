@@ -1,8 +1,7 @@
-﻿using System.Windows;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using LogicaDeNegocios.Excepciones;
-using LogicaDeNegocios;
 using LogicaDeNegocios.Servicios;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
@@ -12,9 +11,6 @@ using LogicaDeNegocios.ClasesDominio;
 
 namespace InterfazDeUsuario.GUIsDeAlumno
 {
-    /// <summary>
-    /// Interaction logic for GUIRegistrarAlumno.xaml
-    /// </summary>
     public partial class GUIRegistrarAlumno : Window
     {
         public GUIRegistrarAlumno()

@@ -59,7 +59,6 @@ namespace AccesoABaseDeDatos
 				}
 			}
 		}
-			
 	
 		public static int EjecutarInsertInto(string consulta, SqlParameter[] parametros = null)
 		{

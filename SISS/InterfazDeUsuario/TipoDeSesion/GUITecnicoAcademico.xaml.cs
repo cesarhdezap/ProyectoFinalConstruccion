@@ -9,9 +9,6 @@ using InterfazDeUsuario.GUIsDeTecnicoAcademico;
 
 namespace InterfazDeUsuario.GUITipoDeSesion
 {
-    /// <summary>
-    /// Interaction logic for GUITecnicoAcademico.xaml
-    /// </summary>
     public partial class GUITecnicoAcademico : Window
     {
         private DocenteAcademico TecnicoAdministrativo { get; set; }

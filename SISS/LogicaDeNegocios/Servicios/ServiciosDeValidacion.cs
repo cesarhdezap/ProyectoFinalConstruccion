@@ -1,20 +1,19 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 using System;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
-using System.Collections.Generic;
 
 namespace LogicaDeNegocios.Servicios
 {
-	public class ServiciosDeValidacion
-	{
-		private static readonly Regex RegexTelefono = new Regex(@"^(1\s*[-\/\.]?)?(\((\d{3})\)|(\d{3}))\s*[-\/\.]?\s*(\d{3})\s*[-\/\.]?\s*(\d{4})\s*(([xX]|[eE][xX][tT])\.?\s*(\d+))*$");
-		private static readonly Regex RegexCorreoElectronico = new Regex(@"^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$");
-		private static readonly Regex RegexNombre = new Regex(@"^[a-zA-Z àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð,.'-]+$");
-		private static readonly Regex RegexMatricula = new Regex(@"^s[0-9]{8}$");
+    public class ServiciosDeValidacion
+    {
+        private static readonly Regex RegexTelefono = new Regex(@"^(1\s*[-\/\.]?)?(\((\d{3})\)|(\d{3}))\s*[-\/\.]?\s*(\d{3})\s*[-\/\.]?\s*(\d{4})\s*(([xX]|[eE][xX][tT])\.?\s*(\d+))*$");
+        private static readonly Regex RegexCorreoElectronico = new Regex(@"^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$");
+        private static readonly Regex RegexNombre = new Regex(@"^[a-zA-Z àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð,.'-]+$");
+        private static readonly Regex RegexMatricula = new Regex(@"^s[0-9]{8}$");
         private static readonly Regex RegexContraseña = new Regex(@"^\S{6,255}$");
-        private const int TAMAÑO_MAXIMO_VARCHAR = 255;
-		private const int VALOR_ENTER_MINIMO_PERMITIDO = 0;
-		private const int VALOR_ENTER_MAXIMO_PERMITIDO = 255;
+        public const int TAMAÑO_MAXIMO_VARCHAR = 255;
+		public const int VALOR_ENTERO_MINIMO_PERMITIDO = 0;
+		private const int VALOR_ENTERO_MAXIMO_PERMITIDO = 255;
 
 		public static bool ValidarCorreoElectronico(string correoElectronico)
 		{
@@ -76,18 +75,6 @@ namespace LogicaDeNegocios.Servicios
             return resultadoDeValidacion;
         }
 
-        public static bool ValidarAlumno(Alumno alumno)
-        {
-            bool resultadoDeValidacion = false;
-
-            if (ValidarContraseña(alumno.Contraseña)  && ValidarCorreoElectronico(alumno.CorreoElectronico)  && ValidarMatricula(alumno.Matricula)  && ValidarNombre(alumno.Nombre)  && ValidarTelefono(alumno.Telefono))
-            {
-                resultadoDeValidacion = true;
-            }
-
-            return resultadoDeValidacion;
-        }
-
         public static bool ValidarCadena(string cadena)
         {
             bool resultadoDeValidacion = false;
@@ -132,12 +119,12 @@ namespace LogicaDeNegocios.Servicios
         {
             bool resultadoDeValidacion = false;
 
-            if(Int32.TryParse(numeroEntero, out int numeroConvertido) && numeroConvertido > VALOR_ENTER_MINIMO_PERMITIDO && numeroConvertido <= VALOR_ENTER_MAXIMO_PERMITIDO)
+            if(Int32.TryParse(numeroEntero, out int numeroConvertido) && numeroConvertido > VALOR_ENTERO_MINIMO_PERMITIDO && numeroConvertido <= VALOR_ENTERO_MAXIMO_PERMITIDO)
             {
                 resultadoDeValidacion = true;
             }
 
             return resultadoDeValidacion;
         }
-	}
+    }
 }

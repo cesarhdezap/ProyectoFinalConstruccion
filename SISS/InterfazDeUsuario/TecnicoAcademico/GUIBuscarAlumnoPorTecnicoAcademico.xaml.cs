@@ -9,9 +9,6 @@ using System.Collections.Generic;
 
 namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 {
-    /// <summary>
-    /// Interaction logic for GUIBuscarAlumnoPorTecnicoAcademico.xaml
-    /// </summary>
     public partial class GUIBuscarAlumnoPorTecnicoAcademico : Window
     {
         private AdministradorDeAlumnos AdministradorDeAlumnos { get; set; }

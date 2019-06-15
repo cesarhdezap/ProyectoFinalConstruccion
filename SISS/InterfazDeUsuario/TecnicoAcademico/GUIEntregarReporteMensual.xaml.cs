@@ -1,28 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
-using LogicaDeNegocios.ObjetosAdministrador;
 using LogicaDeNegocios.ClasesDominio;
-using System.IO;
 using Microsoft.Win32;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 {
-	public partial class GUIEntregarReporteMensual : Window
+    public partial class GUIEntregarReporteMensual : Window
 	{
 		private DocenteAcademico TecnicoAdministrativo { get; set; }
 		private Imagen Imagen { get; set; }
