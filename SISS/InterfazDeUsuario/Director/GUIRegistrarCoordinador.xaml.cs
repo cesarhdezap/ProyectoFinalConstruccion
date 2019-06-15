@@ -23,97 +23,11 @@ namespace InterfazDeUsuario.GUIsDeDirector
             InitializeComponent();
             Director = director;
             LabelNombreDeUsuario.Content = director.Nombre;
-			foreach (var carrera in Enum.GetValues(typeof(Carreras)))
+			foreach (Carrera carrera in Enum.GetValues(typeof(Carrera)))
 			{
 				ComboBoxCarrera.Items.Add(carrera).ToString();
 			}
 			ComboBoxCarrera.SelectedIndex = 0;
-        }
-
-
-        private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
-        {
-            
-			DocenteAcademico coordinador = new DocenteAcademico
-			{
-				Nombre = TextBoxNombre.Text,
-				CorreoElectronico = TextBoxCorreoElectronico.Text,
-				Telefono = TextBoxTelefono.Text,
-				Coordinador = null,
-				Carrera = ComboBoxCarrera.SelectedValue.ToString(),
-				EsActivo = true,
-				Contraseña = ServiciosDeAutenticacion.EncriptarContraseña(TextBoxContraseña.Text),
-				Rol = Rol.Coordinador
-            };
-			Mouse.OverrideCursor = Cursors.Wait;
-            if (ValidarEntero(TextBoxCubiculo.Text))
-            {
-                coordinador.Cubiculo = Int32.Parse(TextBoxCubiculo.Text);
-                if (coordinador.Validar() && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text && ComboBoxCarrera.SelectedIndex > VALOR_DE_INDICE_SELECCIONADO_INVALIDO)
-                {
-					bool registroExitoso = false;
-                    try
-                    {
-
-						coordinador.Guardar();
-						registroExitoso = true;
-                    }
-					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
-					{
-						MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexión fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-						this.Close();
-					}
-					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
-					{
-						MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
-						this.Close();
-					}
-					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
-					{
-						MessageBox.Show(this, "Hubo un error al completar el registro. Intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-						this.Close();
-					}
-					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
-					{
-						MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-						this.Close();
-					}
-					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
-					{
-						MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-						this.Close();
-					}
-					catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-					{
-						MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-						this.Close();
-					}
-					finally
-					{
-						Mouse.OverrideCursor = null;
-					}
-					if (registroExitoso)
-					{
-						MessageBox.Show("El coordinador ha sido registrado exitosamente.", "¡Registro Exitoso!", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
-						Close();
-					}
-                }
-                else
-                {
-                    Mouse.OverrideCursor = null;
-					MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-			else
-            {
-                Mouse.OverrideCursor = null;
-                MessageBox.Show("El cubiculo debe ser un valor entero no negativo y menor a 255.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
 
         private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)
@@ -164,16 +78,25 @@ namespace InterfazDeUsuario.GUIsDeDirector
 				Coordinador = null,
 				Carrera = ComboBoxCarrera.SelectedValue.ToString(),
 				EsActivo = true,
-				Contraseña = EncriptarContraseña(TextBoxContraseña.Text),
+				Contraseña = TextBoxContraseña.Text,
 				Rol = Rol.Coordinador
             };
 
-			if (coordinador.Validar() && ValidarEntero(TextBoxCubiculo.Text) && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text && ComboBoxCarrera.SelectedIndex > VALOR_DE_INDICE_SELECCIONADO_INVALIDO)
+			if (Int32.TryParse(TextBoxCubiculo.Text, out int i))
+			{
+				coordinador.Cubiculo = Int32.Parse(TextBoxCubiculo.Text); 
+			}
+			else
+			{
+				coordinador.Cubiculo = 0;
+			}
+
+			if (coordinador.Validar() && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text && ComboBoxCarrera.SelectedIndex > VALOR_DE_INDICE_SELECCIONADO_INVALIDO)
 			{	
 				bool registroExitoso = false;
 				try
 				{
-					coordinador.Cubiculo = Int32.Parse(TextBoxCubiculo.Text);
+					
 					coordinador.Guardar();
 					registroExitoso = true;
 				}

@@ -21,12 +21,11 @@ namespace LogicaDeNegocios
 
         public void Guardar()
         {
-            AdministradorDeAlumnos administradorDeAlumnos = new AdministradorDeAlumnos();
-            if (Validar() && ValidarExistenciaDeMatricula(this.Matricula))
-            {
-                AlumnoDAO alumnoDAO = new AlumnoDAO();
-                alumnoDAO.GuardarAlumno(this);
-            }
+			string contraseñaEncriptada = Servicios.ServiciosDeAutenticacion.EncriptarContraseña(Contraseña);
+			Contraseña = contraseñaEncriptada;
+            AlumnoDAO alumnoDAO = new AlumnoDAO();
+            alumnoDAO.GuardarAlumno(this);
+
         }
 
 		public Asignacion CargarAsignacion()

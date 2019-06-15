@@ -6,6 +6,7 @@ using LogicaDeNegocios.Servicios;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
+using LogicaDeNegocios;
 using System;
 using LogicaDeNegocios.ClasesDominio;
 
@@ -16,7 +17,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
         public GUIRegistrarAlumno()
         {
             InitializeComponent();
-			foreach (var carrera in Enum.GetValues(typeof(Carreras)))
+			foreach (var carrera in Enum.GetValues(typeof(Carrera)))
 			{
 				ComboBoxCarrera.Items.Add(carrera).ToString();
 			}
@@ -76,7 +77,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                 Matricula = TextBoxMatricula.Text,
                 Carrera = ComboBoxCarrera.SelectedValue.ToString(),
                 EstadoAlumno = EstadoAlumno.EsperandoAceptacion,
-                Contraseña = ServiciosDeAutenticacion.EncriptarContraseña(TextBoxContraseña.Text)
+                Contraseña = TextBoxContraseña.Text
             };
 			
 			if (alumno.Validar() && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text)
