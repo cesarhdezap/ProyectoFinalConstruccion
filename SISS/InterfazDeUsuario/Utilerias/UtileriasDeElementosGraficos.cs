@@ -196,8 +196,6 @@ namespace InterfazDeUsuario.Utilerias
 			}
 		}
 
-		public static void 
-
 		private static void MostrarToolTip(Control controlGrafico, string mensaje)
 		{
 			if (controlGrafico.ToolTip == null)
