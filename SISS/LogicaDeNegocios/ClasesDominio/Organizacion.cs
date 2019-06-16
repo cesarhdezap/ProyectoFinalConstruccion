@@ -1,12 +1,10 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
-using LogicaDeNegocios.ObjetosAdministrador;
-using System;
 using System.Collections.Generic;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace LogicaDeNegocios
 {
-	public class Organizacion
+    public class Organizacion
 	{
 		public int IDOrganizacion { get; set; }
 		public string CorreoElectronico { get; set; }
@@ -25,7 +23,6 @@ namespace LogicaDeNegocios
 
         public void Guardar()
         {
-            AdministradorDeOrganizaciones administradorDeOrganizacion = new AdministradorDeOrganizaciones();
             if (Validar() && ValidarDisponibilidadDeCorreo(CorreoElectronico))
             {
                 OrganizacionDAO organizacionDAO = new OrganizacionDAO();
@@ -39,7 +36,8 @@ namespace LogicaDeNegocios
             if (ValidarCadena(Nombre)
                 && ValidarCadena(Direccion)
                 && ValidarTelefono(Telefono)
-                && ValidarCorreoElectronico(CorreoElectronico))
+                && ValidarCorreoElectronico(CorreoElectronico)
+                && ValidarDisponibilidadDeCorreo(CorreoElectronico))
             {
                 resultadoDeValidacion = true;
             }

@@ -90,10 +90,10 @@ namespace InterfazDeUsuario.GUIsDeDirector
                 coordinador.Cubiculo = VALOR_ENTERO_MINIMO_PERMITIDO;
             }
 
-            if (coordinador.Validar() 
-                && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text 
-                && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text 
-                && ComboBoxCarrera.SelectedIndex > VALOR_DE_INDICE_SELECCIONADO_INVALIDO)
+            if (coordinador.Validar()
+                && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text
+                && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text
+                && ValidarSeleccionComboBox(ComboBoxCarrera))
 			{	
 				bool registroExitoso = false;
 				try
@@ -134,7 +134,12 @@ namespace InterfazDeUsuario.GUIsDeDirector
 			{
 				Mouse.OverrideCursor = null;
 				MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-			}
+                MostrarEstadoDeValidacionNombre(TextBoxNombre);
+                MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
+                MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
+                MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
+                MostrarEstadoDeValidacionCampoNumerico(TextBoxCubiculo);
+            }
 
         }
 

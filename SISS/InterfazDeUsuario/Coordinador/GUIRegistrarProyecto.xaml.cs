@@ -16,7 +16,6 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
     {
         private AdministradorDeOrganizaciones AdministradorDeOrganizaciones;
         private AdministradorDeEncargados AdministradorDeEncargados;
-        private const int SIN_INDICE = -1;
 
         public GUIRegistrarProyecto(DocenteAcademico coordinador)
         {
@@ -55,8 +54,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
             };
 
-            int indiceDeEncargado = ComboBoxEncargadoAsociado.SelectedIndex;
-            if (indiceDeEncargado > SIN_INDICE)
+            if (ValidarSeleccionComboBox(ComboBoxEncargadoAsociado))
 			{
                 proyecto.Encargado = ComboBoxEncargadoAsociado.SelectedItem as Encargado;
 
@@ -151,8 +149,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
         private void ComboBoxOrganizacionAsociada_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int indiceOrganizacion = ComboBoxOrganizacionAsociada.SelectedIndex;
-            if (indiceOrganizacion > SIN_INDICE)
+            if (ValidarSeleccionComboBox(ComboBoxOrganizacionAsociada))
             {
                 Organizacion organizacion = ComboBoxOrganizacionAsociada.SelectedItem as Organizacion;
 
