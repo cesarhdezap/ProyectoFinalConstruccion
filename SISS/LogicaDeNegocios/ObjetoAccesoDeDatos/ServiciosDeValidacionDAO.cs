@@ -56,7 +56,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			try
 			{
-				numeroDeOcurrencias = EjecutarOperacionEscalar("SELECT (SELECT COUNT(*) FROM Alumnos WHERE CorreoElectronico = @CorreoElectronico) + (SELECT COUNT(*) FROM Directores WHERE CorreoElectronico = @CorreoElectronico) + (SELECT COUNT(*) FROM DocentesAcademicos WHERE CorreoElectronico = @CorreoElectronico)", parametroCorreoElectronico);
+				numeroDeOcurrencias = EjecutarOperacionEscalar("SELECT (SELECT COUNT(*) FROM Alumnos WHERE CorreoElectronico = @CorreoElectronico) + (SELECT COUNT(*) FROM Directores WHERE CorreoElectronico = @CorreoElectronico) + (SELECT COUNT(*) FROM DocentesAcademicos WHERE CorreoElectronico = @CorreoElectronico) + (SELECT COUNT(*) FROM Organizaciones WHERE CorreoElectronico = @CorreoElectronico)", parametroCorreoElectronico);
 			}
 			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
 			{

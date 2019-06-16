@@ -1,12 +1,8 @@
 using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.ObjetosAdministrador;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 
@@ -22,9 +18,17 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             LabelNombreDeUsuario.Content = coordinador.Nombre;
             AdministradorDeOrganizaciones = new AdministradorDeOrganizaciones();
             AdministradorDeOrganizaciones.CargarOrganizacionesConNombre();
-            ComboBoxOrganizacion.DisplayMemberPath = "Nombre";
-            ComboBoxOrganizacion.ItemsSource = AdministradorDeOrganizaciones.Organizaciones;
-			ComboBoxOrganizacion.SelectedIndex = 0;
+
+            if (AdministradorDeOrganizaciones.Organizaciones.Count > 0)
+            {
+                ComboBoxOrganizacion.DisplayMemberPath = "Nombre";
+                ComboBoxOrganizacion.ItemsSource = AdministradorDeOrganizaciones.Organizaciones;
+                ComboBoxOrganizacion.SelectedIndex = 0;
+            }
+            else
+            {
+                ComboBoxOrganizacion.IsEnabled = false;
+            }
         }
 
         private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
@@ -36,14 +40,17 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				CorreoElectronico = TextBoxCorreoElectronico.Text,
 				Telefono = TextBoxTelefono.Text
 			};
-				encargado.Organizacion = (Organizacion)ComboBoxOrganizacion.SelectedItem;
+
 			if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && ValidarSeleccionComboBox(ComboBoxOrganizacion))
 			{
-				AdministradorDeEncargados administradorDeEncargados = new AdministradorDeEncargados();
+                Mouse.OverrideCursor = Cursors.Wait;
+                encargado.Organizacion = (Organizacion)ComboBoxOrganizacion.SelectedItem;
 
-				try
+                bool resultadoDeCreacion = false;
+                try
 				{
 					encargado.Guardar();
+                    resultadoDeCreacion = true;
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 				{
@@ -52,39 +59,47 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
 				{
 					MessageBox.Show(this, ERROR_OBJETO_NO_EXISTE_MENSAJE, ERROR_OBJETO_NO_EXISTE_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
 				{
 					MessageBox.Show(this, ERROR_GUARDAR_REGISTRO, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
 				{
 					MessageBox.Show(this, ERROR_PETICION_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
 				{
 					MessageBox.Show(this, ERROR_PETICION_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
 				{
 					MessageBox.Show(this, ERROR_DESCONOCIDO_MENSAJE, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				finally
 				{
 					Mouse.OverrideCursor = null;
 				}
-				MessageBox.Show(REGISTRO_EXITOSO_ENCARGADO, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
-				Close();
+
+				if (resultadoDeCreacion)
+                {
+                    MessageBox.Show(REGISTRO_EXITOSO_ENCARGADO, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
+                }
 			}
 			else
 			{
 				MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-			}
+                MostrarEstadoDeValidacionNombre(TextBoxNombre);
+                MostrarEstadoDeValidacionCadena(TextBoxPuesto);
+                MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
+                MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
+            }
         }
 
         private void TextBoxNombre_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)

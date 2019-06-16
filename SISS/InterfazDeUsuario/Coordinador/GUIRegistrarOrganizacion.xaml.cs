@@ -1,12 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
-using LogicaDeNegocios.ObjetosAdministrador;
 using System.Windows.Input;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
-using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
@@ -28,43 +25,42 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
                 Telefono = TextBoxTelefono.Text,
                 CorreoElectronico = TextBoxCorreoElectronico.Text
             };
-            if (organizacion.Validar() && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text)
+
+            Mouse.OverrideCursor = Cursors.Wait;
+            if (organizacion.Validar() && organizacion.CorreoElectronico == TextBoxConfirmarCorreoElectronico.Text)
             {
-				Mouse.OverrideCursor = Cursors.Wait;
 				try
 				{
 					organizacion.Guardar();
                 }
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 				{
-
 					MessageBox.Show(this, CONEXION_FALLIDA_MENSAJE, CONEXION_FALLIDA_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
 				{
 					MessageBox.Show(this, ERROR_OBJETO_NO_EXISTE_MENSAJE, ERROR_OBJETO_NO_EXISTE_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
 				{
 					MessageBox.Show(this, ERROR_GUARDAR_REGISTRO, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
 				{
 					MessageBox.Show(this, ERROR_PETICION_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
 				{
 					MessageBox.Show(this, ERROR_PETICION_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
+                    Close();
 				}
 				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
 				{
 					MessageBox.Show(this, ERROR_DESCONOCIDO_MENSAJE, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-					this.Close();
-
+                    Close();
 				}
 				finally
 				{
@@ -72,12 +68,27 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				}
 
 				MessageBox.Show(REGISTRO_EXITOSO_ORGANIZACION, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
-                this.Close();
+                Close();
 			}
 			else
 			{
 				MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-			}
+                MostrarEstadoDeValidacionCadena(TextBoxNombre);
+                MostrarEstadoDeValidacionCadena(TextBoxDireccion);
+                MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
+                MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
+                try
+                {
+                    MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
+                }
+                catch (AccesoADatosException ex)
+                {
+                    MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+                    mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+                    MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                Mouse.OverrideCursor = null;
+            }
 		}
 
         private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)

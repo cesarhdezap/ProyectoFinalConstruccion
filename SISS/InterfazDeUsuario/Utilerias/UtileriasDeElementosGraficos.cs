@@ -1,10 +1,5 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows.Controls;
 using System.Windows.Media;
-using LogicaDeNegocios.Excepciones;
-using LogicaDeNegocios;
-using LogicaDeNegocios.Servicios;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 
