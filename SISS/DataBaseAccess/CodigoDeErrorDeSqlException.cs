@@ -11,6 +11,8 @@ namespace AccesoABaseDeDatos
 		ConexionAServidorFallida = -1,
 		TiempoDeEsperaExpirado = -2,
 		ServidorNoRespondio = 2,
+		ColumnaInvalida = 207,
+		ObjetoInvalido = 208,
 		ServidorNoEncontrado = 53,
         InsercionFallidaPorLlavePrimariaDuplicada = 2627
     }

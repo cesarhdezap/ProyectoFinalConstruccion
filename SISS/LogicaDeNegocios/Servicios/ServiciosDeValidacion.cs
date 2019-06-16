@@ -38,8 +38,8 @@ namespace LogicaDeNegocios.Servicios
 			{
                 resultadoDeValidacion = true;
 			}
-
-			return resultadoDeValidacion;
+return resultadoDeValidacion;
+			
 		}
 
 		public static bool ValidarNombre(string nombre)
