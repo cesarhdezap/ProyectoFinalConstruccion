@@ -13,7 +13,7 @@ namespace LogicaDeNegocios.Interfaces
 		List<Proyecto> CargarIDsPorIDSolicitud(int IDSolicitud);
 		List<Proyecto> CargarProyectosPorEstado(EstadoProyecto estado);
         List<Proyecto> CargarProyectosTodos();
-		Proyecto CargarIDProyectoPorIDAsignacion(int IDAsignacion);
+		Proyecto CargarIDPorIDAsignacion(int IDAsignacion);
 		void GuardarProyecto(Proyecto proyecto);
     }
 }

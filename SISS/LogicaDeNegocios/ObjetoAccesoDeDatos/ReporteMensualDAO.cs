@@ -6,6 +6,7 @@ using LogicaDeNegocios.Interfaces;
 using LogicaDeNegocios.ClasesDominio;
 using LogicaDeNegocios.Excepciones;
 using AccesoABaseDeDatos;
+using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
@@ -30,15 +31,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeReportesMensuales = AccesoADatos.EjecutarSelect("SELECT IDDocumento FROM ReportesMensuales WHERE IDAsignacion = @IDAsignacion", parametroIDAsignacion);
+                tablaDeReportesMensuales = AccesoADatos.EjecutarSelect(QuerysDeReporteMensual.CARGAR_IDS_POR_IDASIGNACION, parametroIDAsignacion);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al cargar IDsReporteMensual por IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar IDsReporteMensual por IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDAsignacion);
 			}
 			List<ReporteMensual> listaDeReportesMensuales = new List<ReporteMensual>();
             try
@@ -67,15 +64,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             };
             try
             {
-                tablaDeReporteMensual = AccesoADatos.EjecutarSelect("SELECT * FROM ReportesMensuales WHERE IDDocumento = @IDDocumento", parametroIDDocumento);
+                tablaDeReporteMensual = AccesoADatos.EjecutarSelect(QuerysDeReporteMensual.CARGAR_REPORTE_MENSUAL_POR_ID, parametroIDDocumento);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al cargar ReporteMensual con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar ReporteMensual con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDDocumento);
 			}
 			ReporteMensual reporteMensual = new ReporteMensual();
             try
@@ -133,15 +126,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO ReportesMensuales(HorasReportadas, FechaDeEntrega, NumeroDeReporte, IDPersonal, Mes, IDAsignacion) VALUES(@HorasReportadas, @FechaDeEntrega, @NumeroDeReporte, @IDPersonal, @Mes, @IDAsignacion)", parametrosDocumentoDeEntregaUnica);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeReporteMensual.GUARDAR_REPORTE_MENSUAL, parametrosDocumentoDeEntregaUnica);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al guardar ReporteMensual: " + reporteMensual.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al guardar ReporteMensual: " + reporteMensual.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDAsignacion);
 			}
 			if (filasAfectadas <= 0)
             {
@@ -186,15 +175,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			int filasAfectadas = 0;
 			try
 			{
-				filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE ReportesMensuales SET HorasReportadas = @HorasReportadas WHERE IDDocumento = @IDReporte", parametrosDrProyecto);
-			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al actualizar Proyecto: " + reporteMensual.ToString() + "Con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+				filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeReporteMensual.ACTUALIZAR_REPORTE_MENSUAL, parametrosDrProyecto);
 			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al actualizar Proyecto: " + reporteMensual.ToString() + "Con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, reporteMensual);
 			}
 
 			if (filasAfectadas <= 0)
@@ -208,15 +193,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			int ultimoIDInsertado = 0;
 			try
 			{
-				ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar("SELECT IDENT_CURRENT('ReportesMensuales')");
-			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+				ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar(QuerysDeReporteMensual.OBTENER_ULTIMO_IDINSERTADO);
 			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
 			}
 			return ultimoIDInsertado;
 		}

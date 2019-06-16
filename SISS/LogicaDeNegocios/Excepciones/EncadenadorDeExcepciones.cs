@@ -29,6 +29,25 @@ namespace LogicaDeNegocios.Excepciones
 			}
 		}
 
+		public static void EncadenarExcepcionDeSql(SqlException e)
+		{
+			if (e.Number == (int)CodigoDeErrorDeSqlException.ConexionAServidorFallida
+			 || e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado
+			 || e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoRespondio
+			 || e.Number == (int)CodigoDeErrorDeSqlException.TiempoDeEsperaExpirado)
+			{
+				throw new AccesoADatosException(e.Message, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+			}
+			else if (e.Number == (int)CodigoDeErrorDeSqlException.InsercionFallidaPorLlavePrimariaDuplicada)
+			{
+				throw new AccesoADatosException(e.Message, e, TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada);
+			}
+			else
+			{
+				throw new AccesoADatosException(e.Message, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			}
+		}
+
 		public static void EncadenarExcepcionDeSql(SqlException e, object objetoAsociado, int IDAsociada)
 		{
 			if (e.Number == (int)CodigoDeErrorDeSqlException.ConexionAServidorFallida

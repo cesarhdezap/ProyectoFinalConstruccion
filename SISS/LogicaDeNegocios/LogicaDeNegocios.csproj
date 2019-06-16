@@ -82,6 +82,7 @@
     <Compile Include="ObjetoAccesoDeDatos\LiberacionDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\OrganizacionDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\ProyectoDAO.cs" />
+    <Compile Include="Querys\QuerysDeSolicitud.cs" />
     <Compile Include="Querys\QuerysDeAlumno.cs" />
     <Compile Include="ObjetoAccesoDeDatos\ReporteMensualDAO.cs" />
     <Compile Include="ObjetoAccesoDeDatos\ServiciosDeValidacionDAO.cs" />
@@ -95,6 +96,18 @@
     <Compile Include="ClasesDominio\Proyecto.cs" />
     <Compile Include="ClasesDominio\ReporteMensual.cs" />
     <Compile Include="ClasesDominio\Solicitud.cs" />
+    <Compile Include="Querys\QuerysDeAsignacion.cs" />
+    <Compile Include="Querys\QuerysDeAutenticacion.cs" />
+    <Compile Include="Querys\QuerysDeDirector.cs" />
+    <Compile Include="Querys\QuerysDeDocenteAcademico.cs" />
+    <Compile Include="Querys\QuerysDeDocumentoDeEntregaUnica.cs" />
+    <Compile Include="Querys\QuerysDeEncargado.cs" />
+    <Compile Include="Querys\QuerysDeImagen.cs" />
+    <Compile Include="Querys\QuerysDeLiberacion.cs" />
+    <Compile Include="Querys\QuerysDeOrganizacion.cs" />
+    <Compile Include="Querys\QuerysDeProyecto.cs" />
+    <Compile Include="Querys\QuerysDeReporteMensual.cs" />
+    <Compile Include="Querys\QuerysDeServiciosDeValidacion.cs" />
     <Compile Include="Servicios\ServiciosDeManejoDeImagenes.cs" />
     <Compile Include="Servicios\ServiciosDeSesion.cs" />
     <Compile Include="Servicios\ServiciosDeAutenticacion.cs" />

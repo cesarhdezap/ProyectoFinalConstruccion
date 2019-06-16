@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using LogicaDeNegocios.Interfaces;
 using LogicaDeNegocios.Excepciones;
 using AccesoABaseDeDatos;
+using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -28,15 +29,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Liberaciones(Fecha, IDDocumento) VALUES(@Fecha, @IDDocumento)", parametrosDeLiberacion);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeLiberacion.GUARDAR_LIBERACION, parametrosDeLiberacion);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
+			catch (SqlException e)
 			{
-                throw new AccesoADatosException("Error al guardar Liberacion: " + liberacion.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al guardar Liberacion: " + liberacion.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, liberacion);
 			}
 			if (filasAfectadas <= 0)
             {
@@ -56,15 +53,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeLiberacion = AccesoADatos.EjecutarSelect("SELECT * FROM Liberaciones WHERE IDLiberacion = @Liberacion", parametroIDLiberacion);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al cargar Liberacion con IDLiberacion: " + IDLiberacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeLiberacion = AccesoADatos.EjecutarSelect(QuerysDeLiberacion.CARGAR_LIBERACION_POR_ID, parametroIDLiberacion);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar Liberacion con IDLiberacion: " + IDLiberacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDLiberacion);
 			}
 			Liberacion liberacion = new Liberacion();
             try
@@ -103,15 +96,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			int ultimoIDInsertado = 0;
 			try
 			{
-				ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar("SELECT IDENT_CURRENT('Liberaciones')");
-			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+				ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar(QuerysDeLiberacion.OBTENER_ULTIMO_ID_INSERTADO);
 			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en ReporteMensualDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
 			}
 			return ultimoIDInsertado;
 		}

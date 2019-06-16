@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using LogicaDeNegocios.Excepciones;
+using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -22,15 +23,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE DocentesAcademicos SET (Nombre = @NombreDocenteAcademico, CorreoElectronico = @CorreoElectronicoDocenteAcademico, Telefono = @TelefonoDocenteAcademico, EsActivo = @EsActivoDocenteAcademico)", parametrosDeDocenteAcademico);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al actualizar DocenteAcademico: " + docenteAcademico.ToString() + "Con ID: " + IDPersonal, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeDocenteAcademico.ACTUALIZAR_DOCENTE_ACADEMICO_POR_IDPERSONAL, parametrosDeDocenteAcademico);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al actualizar DocenteAcademico: " + docenteAcademico.ToString() + "Con ID: " + IDPersonal, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, docenteAcademico);
 			}
 
 			if (filasAfectadas <= 0)
@@ -39,7 +36,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 		}
 
-        public DocenteAcademico CargarIDPorCarrera(string carrera)
+        public DocenteAcademico CargarIDCoordinadorPorCarrera(string carrera)
         {
             DataTable tablaDeDocenteAcademico = new DataTable();
             SqlParameter[] parametroCarrera = new SqlParameter[1];
@@ -51,15 +48,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect("SELECT IDPersonal FROM DocentesAcademicos WHERE Carrera = @Carrera", parametroCarrera);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al cargar IDPersonal con Carrera: " + carrera, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect(QuerysDeDocenteAcademico.CARGAR_ID_COORDINADOR_POR_CARRERA, parametroCarrera);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar IDPersonal con Carrera: " + carrera, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, carrera);
 			}
 
 			DocenteAcademico docenteAcademico = new DocenteAcademico();
@@ -91,18 +84,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeID = AccesoADatos.EjecutarSelect("SELECT IDPersonal FROM DocentesAcademicos WHERE CorreoElectronico = @CorreoElectronico AND Rol = @Rol", parametros);
+                tablaDeID = AccesoADatos.EjecutarSelect(QuerysDeDocenteAcademico.CARGAR_ID_POR_CORREO_Y_ROL, parametros);
             }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-            {
-                throw new AccesoADatosException("Error al cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-            }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
-            }
+			catch (SqlException e)
+			{
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, correoElectronico);
+			}
 
-            string IDUsuario = string.Empty;
+			string IDUsuario = string.Empty;
             try
             {
                 IDUsuario = ConvertirDataTableADocenteAcademicoConSoloID(tablaDeID).IDPersonal.ToString();
@@ -113,7 +102,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             return IDUsuario;
         }
-
 
         public DocenteAcademico CargarDocenteAcademicoPorIDPersonal(int IDPersonal)
         {
@@ -133,15 +121,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect("SELECT * FROM DocentesAcademicos WHERE IDPersonal = @IDPersonal", parametroIDPersonal);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al cargar DocenteAcademico por IDPersonal: " + IDPersonal, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect(QuerysDeDocenteAcademico.CARGAR_DOCENTE_ACADEMICO_POR_IDPERSONAL, parametroIDPersonal);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar DocenteAcademico por IDPersonal: " + IDPersonal, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDPersonal);
 			}
 
 			DocenteAcademico docenteAcademico = new DocenteAcademico();
@@ -173,15 +157,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			try
 			{
-				tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect("SELECT IDDocenteAcademico FROM ReportesMensuales WHERE IDDocumento = @IDDocumento", parametroIDDocumento);
-			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al cargar IDPersonal con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+				tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect(QuerysDeDocenteAcademico.CARGAR_ID_POR_IDDOCUMENTO, parametroIDDocumento);
 			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar IDPersonal con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDDocumento);
 			}
 
 			DocenteAcademico docenteAcademico = new DocenteAcademico();
@@ -194,8 +174,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 throw new AccesoADatosException("Error al convertir datatable a DocenteAcademico en cargar IDPersonal con IDDcumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return docenteAcademico;
-        }
-	
+        }	
 
 		public List<DocenteAcademico> CargarDocentesAcademicosPorEstado(bool isActivo)
         {
@@ -209,15 +188,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect("SELECT * FROM DocentesAcademicos WHERE EsActivo = @EsActivo", parametroEsActivo);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al cargar DocentesAcademicos por estado isActivo: " + isActivo.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect(QuerysDeDocenteAcademico.CARGAR_DOCENTES_ACADEMICOS_POR_ESTADO, parametroEsActivo);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar DocentesAcademicos por estado isActivo: " + isActivo.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, isActivo);
 			}
 
 			List<DocenteAcademico> listaDeDocentesAcademicos = new List<DocenteAcademico>();
@@ -244,15 +219,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect("SELECT * FROM DocentesAcademicos WHERE Rol = @Rol", parametroRol);
+                tablaDeDocenteAcademico = AccesoADatos.EjecutarSelect(QuerysDeDocenteAcademico.CARGAR_DOCENTES_ACADADEMICOS_POR_ROL, parametroRol);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
+			catch (SqlException e)
 			{
-                throw new AccesoADatosException("Error al cargar DocentesAcademicos por rol: " + rol.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al cargar DocentesAcademicos por rol: " + rol.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, rol);
 			}
 
 			List<DocenteAcademico> listaDeDocentesAcademicos = new List<DocenteAcademico>();
@@ -346,15 +317,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
 			try
 			{
-				filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO DocentesAcademicos(Nombre, Rol, IDCoordinador, CorreoElectronico, Telefono, Carrera, EsActivo, Cubiculo, Contraseña) VALUES (@NombreDocenteAcademico, @RolDocenteAcademico, @IDCoordinadorDocenteAcademico, @CorreoElectronicoDocenteAcademico, @TelefonoDocenteAcademico, @CarreraDocenteAcademico, @EsActivoDocenteAcademico, @CubiculoDocenteAcademico, @ContraseñaDocenteAcademico)", parametrosDeDocenteAcademico);
+				filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeDocenteAcademico.GUARDAR_DOCENTE_ACADEMICO, parametrosDeDocenteAcademico);
 			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
+			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al guardar DocenteAcademico:" + docenteAcademico.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al guardar DocenteAcademico:" + docenteAcademico.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, docenteAcademico);
 			}
 
 			if (filasAfectadas <= 0)

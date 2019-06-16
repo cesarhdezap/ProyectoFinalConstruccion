@@ -106,18 +106,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE Carrera = @Carrera", parametroCarreraAlumno);
-            }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-            {
-                throw new AccesoADatosException("Error al cargar alumnos con Carrera: " + carrera, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeAlumnos = AccesoADatos.EjecutarSelect(QuerysDeAlumno.CARGAR_ALUMNOS_POR_CARRERA, parametroCarreraAlumno);
             }
             catch (SqlException e)
             {
-                throw new AccesoADatosException("Error al cargar alumnos con Carrera: " + carrera, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
-            }
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, carrera);
+			}
 
-            List<Alumno> listaDeAlumnos = new List<Alumno>();
+			List<Alumno> listaDeAlumnos = new List<Alumno>();
             try
             {
                 listaDeAlumnos = ConvertirDataTableAListaDeAlumnos(tablaDeAlumnos);
@@ -141,18 +137,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			try
             {
-                tablaDeAlumno = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos WHERE Matricula = @Matricula", parametroMatricula);
+                tablaDeAlumno = AccesoADatos.EjecutarSelect(QuerysDeAlumno.CARGAR_ALUMNO_POR_MATRICULA, parametroMatricula);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-            {
-                throw new AccesoADatosException("Error al cargar Alumno con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-            }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar Alumno con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-            }
+			catch (SqlException e)
+			{
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, matricula);
+			}
 
-            Alumno alumno = new Alumno();
+			Alumno alumno = new Alumno();
             try
             {
                 alumno = ConvertirDataTableAAlumno(tablaDeAlumno);
@@ -170,18 +162,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			DataTable tablaDeAlumnos = new DataTable();
 			try
 			{
-				tablaDeAlumnos = AccesoADatos.EjecutarSelect("SELECT * FROM Alumnos");
+				tablaDeAlumnos = AccesoADatos.EjecutarSelect(QuerysDeAlumno.CARGAR_ALUMNOS_TODOS);
 			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-            {
-                throw new AccesoADatosException("Error al cargar todos los Alumnos", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-            }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar todos los Alumnos", e);
-            }
+			catch (SqlException e)
+			{
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
+			}
 
-            List<Alumno> listaDeAlumnos = new List<Alumno>();
+			List<Alumno> listaDeAlumnos = new List<Alumno>();
             try
             {
                 listaDeAlumnos = ConvertirDataTableAListaDeAlumnos(tablaDeAlumnos);
@@ -210,18 +198,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeAlumno = AccesoADatos.EjecutarSelect("SELECT Matricula FROM Asignaciones WHERE IDAsignacion = @IDAsignacion", parametroIDAsignacion);
+                tablaDeAlumno = AccesoADatos.EjecutarSelect(QuerysDeAlumno.CARGAR_MATRICULA_POR_IDASIGNACION, parametroIDAsignacion);
             }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-            {
-                throw new AccesoADatosException("Error al cargar matricula con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-            }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar matricula con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
-            }
+			catch (SqlException e)
+			{
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDAsignacion);
+			}
 
-            Alumno alumno = new Alumno();
+			Alumno alumno = new Alumno();
             try
             {
                 alumno = ConvertirDataTableAAlumnoConSoloMatricula(tablaDeAlumno);
@@ -290,21 +274,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Alumnos(Matricula, Nombre, Carrera, Estado, Telefono, CorreoElectronico, Contraseña) VALUES (@MatriculaAlumno, @NombreAlumno, @CarreraAlumno, @EstadoAlumno, @TelefonoAlumno, @CorreoElectronicoAlumno, @ContraseñaAlumno)", parametrosDeAlumno);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeAlumno.GUARDAR_ALUMNO, parametrosDeAlumno);
             }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.InsercionFallidaPorLlavePrimariaDuplicada)
-            {
-                throw new AccesoADatosException("No se puede guardar el alumno: " + alumno.ToString() + " porque la matricula: " + alumno.Matricula + " ya existe." , e, TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada);
-            }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-            {
-                throw new AccesoADatosException("No se puede guardar el alumno: " + alumno.ToString() + " porque no se pudo establecer conexion al servidor.", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-            }
-            catch (SqlException e)
-            { 
-                throw new AccesoADatosException(e.Number.ToString() + "Error al guardar Alumno:" + alumno.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
-            }
-            if (filasAfectadas <= 0)
+			catch (SqlException e)
+			{
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, alumno);
+			}
+			if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("Alumno: " + alumno.ToString() + "no fue guardado.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
             }
