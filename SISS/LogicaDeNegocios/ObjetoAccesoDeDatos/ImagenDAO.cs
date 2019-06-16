@@ -11,6 +11,7 @@ using LogicaDeNegocios.ClasesDominio;
 using AccesoABaseDeDatos;
 using System.Data.SqlClient;
 using System.Data;
+using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -22,15 +23,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Imagenes SET DatosDeImagen = @DatosDeImagen WHERE IDDocumento = @IDDocumento AND TipoDeDocumentoEnImagen = @TipoDeDocumentoEnImagen", parametrosDeImagen);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al acutalizar imagen por IDDocumento: " + imagen.IDDocumento, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeImagen.ACTUALIZAR_IMAGEN_POR_IDDOCUMENTO, parametrosDeImagen);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al acutalizar imagen por IDDocumento: " + imagen.IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, imagen);
 			}
 			if (filasAfectadas <= 0)
             {
@@ -58,15 +55,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             };
             try
             {
-                tablaDeImagen = AccesoADatos.EjecutarSelect("SELECT DatosDeImagen FROM Imagenes WHERE IDDocumento = @IDDocumento AND TipoDeDocumentoEnImagen = @TipoDeDocumentoEnimagen", parametrosDeDocumento);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al cargar Imagen por IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeImagen = AccesoADatos.EjecutarSelect(QuerysDeImagen.CARGAR_IMAGEN_POR_IDDOCUMENTO_Y_TIPO_DE_DOCUMENTO_EN_IMAGEN, parametrosDeDocumento);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar Imagen por IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDDocumento);
 			}
 			BitmapImage imagen = new BitmapImage();
             try
@@ -87,15 +80,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Imagenes(IDDocumento, DatosDeImagen, TipoDeDocumentoEnImagen) VALUES(@IDDocumento, @DatosDeImagen, @TipoDeDocumentoEnImagen)", parametroIDDocumento);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeImagen.CARGAR_IMAGEN_POR_IDDOCUMENTO_Y_TIPO_DE_DOCUMENTO_EN_IMAGEN, parametroIDDocumento);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
+			catch (SqlException e)
 			{
-                throw new AccesoADatosException("Error al guardar imagen con IDDocumento: " + imagen.IDDocumento, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al guardar imagen con IDDocumento: " + imagen.IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, imagen);
 			}
 			if (filasAfectadas <= 0)
             {

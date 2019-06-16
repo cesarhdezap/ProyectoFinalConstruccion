@@ -7,6 +7,7 @@ using LogicaDeNegocios.ClasesDominio;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using AccesoABaseDeDatos;
 using LogicaDeNegocios.Interfaces;
+using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -29,15 +30,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeDocumentoDeEntregaUnica = AccesoADatos.EjecutarSelect("SELECT * FROM DocumentosDeEntregaUnica WHERE IDDocumento = @IDDocumento",parametroIDDocumentoDeEntregaUnica);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al cargar DocumentoDeEntregaUnica con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeDocumentoDeEntregaUnica = AccesoADatos.EjecutarSelect(QuerysDeDocumentoDeEntregaUnica.CARGAR_DOCUMENTO_DE_ENTREGA_UNICA_POR_ID, parametroIDDocumentoDeEntregaUnica);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar DocumentoDeEntregaUnica con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDDocumento);
 			}
 
 			DocumentoDeEntregaUnica documentoDeEntregaUnica = new DocumentoDeEntregaUnica();
@@ -69,15 +66,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeDocumentosDeEntregaUnica = AccesoADatos.EjecutarSelect("SELECT IDDocumento FROM DocumentosDeEntregaUnica WHERE IDAsignacion = @IDasignacion", parametroIDAsignacion);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al cargar IDs de DocumentoDeEntregaUnica por IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeDocumentosDeEntregaUnica = AccesoADatos.EjecutarSelect(QuerysDeDocumentoDeEntregaUnica.CARGAR_IDS_POR_IDASIGNACION, parametroIDAsignacion);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar IDs de DocumentoDeEntregaUnica por IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDAsignacion);
 			}
 
 			List<DocumentoDeEntregaUnica> listaDeDocumentosDeEntregaUnica = new List<DocumentoDeEntregaUnica>();
@@ -103,15 +96,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO DocumentosDeEntregaUnica(FechaDeEntrega, TipoDeDocumento, IDPersonal, IDAsignacion) VALUES(@FechaDeEntrega, @TipoDeDocumento, @DocenteAdministrativo, @IDAsignacion)", parametrosDocumentoDeEntregaUnica);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al guardar DocumentoDeEntregaUnica: " + documentoDeEntregaUnica.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeDocumentoDeEntregaUnica.GUARDAR_DOCUMENTO_DE_ENTREGA_UNICA, parametrosDocumentoDeEntregaUnica);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al guardar DocumentoDeEntregaUnica: " + documentoDeEntregaUnica.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, documentoDeEntregaUnica);
 			}
 
 			if (filasAfectadas <= 0)
@@ -179,19 +168,15 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			int ultimoIDInsertado = 0;
 			try
 			{
-				ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar("SELECT IDENT_CURRENT('DocumentosDeEntregaUnica')");
-			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en DocumentoDeEntregaUnicaDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+				ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar(QuerysDeDocumentoDeEntregaUnica.OBTENER_ULTIMO_ID_INSERTADO);
 			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en DocumentoDeEntregaUnicaDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
 			}
 			catch (InvalidCastException e)
 			{
-				throw new AccesoADatosException("Error al obetner Ultimp ID Insertado en DocumentoDeEntregaUnicaDAO", e, TipoDeErrorDeAccesoADatos.IDInvalida);
+				throw new AccesoADatosException("Error al obetner Ultimo ID Insertado en DocumentoDeEntregaUnicaDAO", e, TipoDeErrorDeAccesoADatos.IDInvalida);
 			}
 			return ultimoIDInsertado;
 		}
