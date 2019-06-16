@@ -1,10 +1,5 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows.Controls;
 using System.Windows.Media;
-using LogicaDeNegocios.Excepciones;
-using LogicaDeNegocios;
-using LogicaDeNegocios.Servicios;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 
@@ -82,7 +77,6 @@ namespace InterfazDeUsuario.Utilerias
 			}
 		}
 
-
 		public static void MostrarEstadoDeValidacionMatricula(TextBox textBoxMatricula)
 		{
 			if (ValidarMatricula(textBoxMatricula.Text))
@@ -115,7 +109,7 @@ namespace InterfazDeUsuario.Utilerias
 		{
 			if (ValidarCadena(textBoxCadena.Text))
 			{
-				textBoxCadena.BorderBrush = Brushes.Red;
+				textBoxCadena.BorderBrush = Brushes.Green;
 				OcultarToolTip(textBoxCadena);
 			}
 			else
