@@ -13,7 +13,7 @@
 		<Label x:Name="LabelMes" Content="Mes:" HorizontalAlignment="Left" Margin="206,97,0,0" VerticalAlignment="Top" FontSize="14" Width="42"/>
 		<Button x:Name="ButtonBuscarDocumento" Content="Seleccionar archivo" HorizontalAlignment="Left" Margin="110,131,0,0" VerticalAlignment="Top" FontSize="14" Width="138" Click="ButtonBuscarDocumento_Click"/>
 		<Button x:Name="ButtonRegistrarReporte" Content="Actualizar reporte" HorizontalAlignment="Left" Margin="181,188,0,0" VerticalAlignment="Top" FontSize="14" Width="138" Click="ButtonRegistrarReporte_Click"/>
-		<TextBox x:Name="TextBoxHorasReportadas" HorizontalAlignment="Left" Height="23" Margin="253,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163" FontSize="14"/>
+		<TextBox x:Name="TextBoxHorasReportadas" HorizontalAlignment="Left" Height="23" Margin="253,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="163" FontSize="14" TextChanged="TextBoxHorasReportadas_TextChanged"/>
 		<Label x:Name="LabelDirecciónDeArchivo" Content="Archivo no seleccionado." HorizontalAlignment="Left" Margin="253,128,0,0" VerticalAlignment="Top" FontSize="14"/>
 		<Label x:Name="LabelMesEnReporte"  Content="[Mes]" HorizontalAlignment="Left" Margin="248,97,0,0" VerticalAlignment="Top" FontSize="14"/>
 

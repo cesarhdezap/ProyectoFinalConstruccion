@@ -78,13 +78,21 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                 Contraseña = TextBoxContraseña.Text
             };
 			
-			if (alumno.Validar() && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text)
+			if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text 
+				&& TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text)
 			{
 				bool resultadoDeCreacion = false;
 				try
 				{
-					alumno.Guardar();
-					resultadoDeCreacion = true;
+					if (alumno.Validar())
+					{
+						alumno.Guardar();
+						resultadoDeCreacion = true;
+					}
+					else
+					{
+						ActualizarInformacionDeCamposConError();
+					}
 				}
 				catch (AccesoADatosException ex) 
 				{
@@ -104,25 +112,30 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 			}
 			else
 			{
-				MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-				MostrarEstadoDeValidacionMatricula(TextBoxMatricula);
-				MostrarEstadoDeValidacionNombre(TextBoxNombre);
-				MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
-				MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
-				MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
-				try
-				{
-					MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
-					MostrarEstadoDeValidacionMatriculaDuplicada(TextBoxMatricula);
-				}
-				catch (AccesoADatosException ex)
-				{
-					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
-				}
-				Mouse.OverrideCursor = null;
+				ActualizarInformacionDeCamposConError();
 			}
+		}
+
+		private void ActualizarInformacionDeCamposConError()
+		{
+			MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+			MostrarEstadoDeValidacionMatricula(TextBoxMatricula);
+			MostrarEstadoDeValidacionNombre(TextBoxNombre);
+			MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
+			MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
+			MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
+			try
+			{
+				MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
+				MostrarEstadoDeValidacionMatriculaDuplicada(TextBoxMatricula);
+			}
+			catch (AccesoADatosException ex)
+			{
+				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+			Mouse.OverrideCursor = null;
 		}
 
 		private void TextBoxCorreoElectronico_LostFocus(object sender, RoutedEventArgs e)

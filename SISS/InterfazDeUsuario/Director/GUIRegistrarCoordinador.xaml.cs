@@ -139,7 +139,8 @@ namespace InterfazDeUsuario.GUIsDeDirector
                 MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
                 MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
                 MostrarEstadoDeValidacionCampoNumerico(TextBoxCubiculo);
-            }
+				MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
+			}
 
         }
 
@@ -147,5 +148,11 @@ namespace InterfazDeUsuario.GUIsDeDirector
         {
             Close();
         }
+
+		private void TextBoxCorreoElectronico_LostFocus(object sender, RoutedEventArgs e)
+		{
+			MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
+		}
+			
 	}
 }
