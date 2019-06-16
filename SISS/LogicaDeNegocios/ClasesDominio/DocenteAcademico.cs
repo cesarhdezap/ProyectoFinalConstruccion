@@ -60,7 +60,8 @@ namespace LogicaDeNegocios
 				&& ValidarCorreoElectronico(CorreoElectronico)
 				&& ValidarNombre(Nombre)
 				&& ValidarTelefono(Telefono)
-                && Cubiculo > VALOR_ENTERO_MINIMO_PERMITIDO)
+                && Cubiculo > VALOR_ENTERO_MINIMO_PERMITIDO
+                && ValidarDisponibilidadDeCorreo(CorreoElectronico))
             {
 				resultadoDeValidacion = true;
 			}

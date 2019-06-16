@@ -5,7 +5,6 @@ using System.Windows.Input;
 using LogicaDeNegocios.ClasesDominio;
 using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
-using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
@@ -96,31 +95,26 @@ namespace InterfazDeUsuario.GUIsDeDirector
                 && ValidarSeleccionComboBox(ComboBoxCarrera))
 			{	
 				bool registroExitoso = false;
+                
 				try
 				{
-					coordinador.Guardar();
-					registroExitoso = true;
+                    if (coordinador.Validar())
+                    {
+                        coordinador.Guardar();
+                        registroExitoso = true;
+                    }
+                    else
+                    {
+                        ActualizarInformacionDeCamposConError();
+                    }
 				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
-				{
-					MessageBox.Show(this, CONEXION_FALLIDA_MENSAJE, CONEXION_FALLIDA_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
-				{
-					MessageBox.Show(this, ERROR_GUARDAR_REGISTRO, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
-				{
-					MessageBox.Show(this, ERROR_PETICION_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-				{
-					MessageBox.Show(this, ERROR_DESCONOCIDO_MENSAJE, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				finally
+                catch (AccesoADatosException ex)
+                {
+                    MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+                    mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+                    MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                finally
 				{
 					Mouse.OverrideCursor = null;
 				}
@@ -131,16 +125,33 @@ namespace InterfazDeUsuario.GUIsDeDirector
 				}
 			}
 			else
-			{
-				Mouse.OverrideCursor = null;
-				MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                MostrarEstadoDeValidacionNombre(TextBoxNombre);
-                MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
-                MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
-                MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
-                MostrarEstadoDeValidacionCampoNumerico(TextBoxCubiculo);
+            {
+                Mouse.OverrideCursor = null;
+                ActualizarInformacionDeCamposConError();
             }
 
+        }
+
+        private void ActualizarInformacionDeCamposConError()
+        {
+            MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+            MostrarEstadoDeValidacionNombre(TextBoxNombre);
+            MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
+            MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
+            MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
+            MostrarEstadoDeValidacionCampoNumerico(TextBoxCubiculo);
+            try
+            {
+                MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
+            }
+            catch (AccesoADatosException ex)
+            {
+                MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+                mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+                MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            MostrarEstadoDeValidacionComboBox(ComboBoxCarrera);
         }
 
         private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
