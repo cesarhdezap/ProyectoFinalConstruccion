@@ -23,20 +23,20 @@ namespace LogicaDeNegocios
 		{
 			DocumentosDeEntregaUnica = new List<DocumentoDeEntregaUnica>();
 			ReportesMensuales = new List<ReporteMensual>();
-			this.Solicitud = new Solicitud();
-			this.Liberacion = new Liberacion();
-			this.FechaDeFinal = DateTime.MinValue;
-			this.FechaDeInicio = DateTime.MinValue;
+            Solicitud = new Solicitud();
+            Liberacion = new Liberacion();
+            FechaDeFinal = DateTime.MinValue;
+            FechaDeInicio = DateTime.MinValue;
 		}
 
         public override string ToString()
         {
             string asignacion = System.Environment.NewLine +
-                                "IDAsignacion: " + this.IDAsignacion + System.Environment.NewLine +
-                                "Estado: " + this.EstadoAsignacion.ToString() + System.Environment.NewLine +
-                                "FechaDeInicio: " + this.FechaDeInicio.ToString() + System.Environment.NewLine +
-                                "FechaDeFinal: " + this.FechaDeFinal.ToString() + System.Environment.NewLine +
-                                "HorasCubiertas: " + this.HorasCubiertas + System.Environment.NewLine;
+                                "IDAsignacion: " + IDAsignacion + System.Environment.NewLine +
+                                "Estado: " + EstadoAsignacion.ToString() + System.Environment.NewLine +
+                                "FechaDeInicio: " + FechaDeInicio.ToString() + System.Environment.NewLine +
+                                "FechaDeFinal: " + FechaDeFinal.ToString() + System.Environment.NewLine +
+                                "HorasCubiertas: " + HorasCubiertas + System.Environment.NewLine;
             return asignacion;
         }
 
@@ -53,16 +53,16 @@ namespace LogicaDeNegocios
         {
             ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
             DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
-			this.ReportesMensuales = reporteMensualDAO.CargarIDsPorIDAsignacion(this.IDAsignacion);
-			this.DocumentosDeEntregaUnica = documentoDeEntregaUnicaDAO.CargarIDsPorIDAsignacion(this.IDAsignacion);
-            for (int i = 0; i<this.DocumentosDeEntregaUnica.Count; i++)
+            ReportesMensuales = reporteMensualDAO.CargarIDsPorIDAsignacion(IDAsignacion);
+            DocumentosDeEntregaUnica = documentoDeEntregaUnicaDAO.CargarIDsPorIDAsignacion(IDAsignacion);
+            for (int i = 0; i< DocumentosDeEntregaUnica.Count; i++)
             {
-                this.DocumentosDeEntregaUnica[i] = documentoDeEntregaUnicaDAO.CargarDocumentoDeEntregaUnicaPorID(this.DocumentosDeEntregaUnica[i].IDDocumento);
+                DocumentosDeEntregaUnica[i] = documentoDeEntregaUnicaDAO.CargarDocumentoDeEntregaUnicaPorID(DocumentosDeEntregaUnica[i].IDDocumento);
             }
 
-            for (int i = 0; i < this.ReportesMensuales.Count; i++)
+            for (int i = 0; i < ReportesMensuales.Count; i++)
             {
-                this.ReportesMensuales[i] = reporteMensualDAO.CargarReporteMensualPorID(this.ReportesMensuales[i].IDDocumento);
+                ReportesMensuales[i] = reporteMensualDAO.CargarReporteMensualPorID(ReportesMensuales[i].IDDocumento);
             }
         }
 
@@ -106,7 +106,7 @@ namespace LogicaDeNegocios
         {
             int horasCubiertas = 0;
 
-            foreach (ReporteMensual reporteMensual in this.ReportesMensuales)
+            foreach (ReporteMensual reporteMensual in ReportesMensuales)
             {
                 horasCubiertas = horasCubiertas + reporteMensual.HorasReportadas;
             }
@@ -126,7 +126,7 @@ namespace LogicaDeNegocios
                 liberacion.CartaDeLiberacion = cartaDeLiberacion;
                 liberacionDAO.GuardarLiberacion(liberacion);
                 liberacion.IDLiberacion = liberacionDAO.ObtenerUltimoIDInsertado();
-                this.Liberacion = liberacion;
+                Liberacion = liberacion;
                 fueLiberado = true;
             }
             return fueLiberado;

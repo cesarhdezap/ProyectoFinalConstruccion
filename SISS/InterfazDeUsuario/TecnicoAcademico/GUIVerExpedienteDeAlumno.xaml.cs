@@ -30,8 +30,8 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
         public GUIVerExpedienteDeAlumno(DocenteAcademico tecnicoAdministrativo, Asignacion asignacion)
         {
             InitializeComponent();
-            this.Asignacion = asignacion;
-            this.TecnicoAdministrativo = tecnicoAdministrativo;
+            Asignacion = asignacion;
+            TecnicoAdministrativo = tecnicoAdministrativo;
             Mouse.OverrideCursor = Cursors.Wait;
 			try
 			{
@@ -40,27 +40,27 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
 			{
 				MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-				this.Close();
+                Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
 			{
 				MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
-				this.Close();
+                Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
 			{
 				MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-				this.Close();
+                Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
 			{
 				MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-				this.Close();
+                Close();
 			}
 			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
 			{
 				MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-				this.Close();
+                Close();
 			}
 			finally
 			{
@@ -101,7 +101,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 
         private void ButtonRegresar_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

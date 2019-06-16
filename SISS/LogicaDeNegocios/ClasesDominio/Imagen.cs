@@ -16,8 +16,8 @@ namespace LogicaDeNegocios.ClasesDominio
 
 		public Imagen(TipoDeDocumentoEnImagen tipoDeDocumentoEnImagen)
 		{
-			this.DireccionDeImagen = string.Empty;
-			this.TipoDeDocumentoEnImagen = tipoDeDocumentoEnImagen;
+            DireccionDeImagen = string.Empty;
+            TipoDeDocumentoEnImagen = tipoDeDocumentoEnImagen;
 		}
 
 		public void Guardar()

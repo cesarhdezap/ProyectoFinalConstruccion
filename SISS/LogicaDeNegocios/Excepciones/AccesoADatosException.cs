@@ -27,13 +27,13 @@ namespace LogicaDeNegocios.Excepciones
         public AccesoADatosException(string mensaje, TipoDeErrorDeAccesoADatos tipoDeError)
             : base(mensaje)
         {
-            this.TipoDeError = tipoDeError;
+            TipoDeError = tipoDeError;
         }
 
         public AccesoADatosException(string mensaje, Exception excepcionInterna, TipoDeErrorDeAccesoADatos tipoDeError)
             :base (mensaje, excepcionInterna)
         {
-            this.TipoDeError = tipoDeError;
+            TipoDeError = tipoDeError;
         }
     }
 

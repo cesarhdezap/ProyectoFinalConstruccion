@@ -40,16 +40,10 @@ namespace LogicaDeNegocios
             asignacionDAO.GuardarAsignacion(asignacion);
         }
 
-        public bool Guardar()
+        public void Guardar()
         {
-            bool resultadoDeCreacion = false;
-            if (ValidarProyecto())
-            {
-                ProyectoDAO proyectoDAO = new ProyectoDAO();
-                proyectoDAO.GuardarProyecto(this);
-                resultadoDeCreacion = true;
-            }
-            return resultadoDeCreacion;
+            ProyectoDAO proyectoDAO = new ProyectoDAO();
+            proyectoDAO.GuardarProyecto(this);
         }
 
 		public Encargado CargarEncargado()
@@ -61,14 +55,13 @@ namespace LogicaDeNegocios
 			return encargado;
 		}
 
-		private bool ValidarProyecto ()
+		public bool Validar()
         {
             bool resultadoDeValidacion = false;
             if (ValidarCadena(Nombre)
-                && Encargado.IDEncargado > 0
                 && ValidarCadena(DescripcionGeneral)
                 && ValidarCadena(ObjetivoGeneral)
-                && Cupo > 0)
+                && Cupo > VALOR_ENTERO_MINIMO_PERMITIDO)
             {
                 resultadoDeValidacion = true;
             }
@@ -77,7 +70,7 @@ namespace LogicaDeNegocios
 
 		public void DarDeBaja()
 		{
-			this.Estado = EstadoProyecto.Inactivo;
+            Estado = EstadoProyecto.Inactivo;
 			ActualizarRegistroDeProyecto();
 		}
 

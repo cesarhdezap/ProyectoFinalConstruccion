@@ -10,13 +10,13 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 		public void CargarDocentesPorRol(Rol rol)
 		{
 			DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
-			this.DocentesAcademicos = docenteAcademicoDAO.CargarDocentesAcademicosPorRol(rol);
+            DocentesAcademicos = docenteAcademicoDAO.CargarDocentesAcademicosPorRol(rol);
 		}
 
 		public void CargarCoordinadoresTodos()
 		{
 			DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
-			this.DocentesAcademicos = docenteAcademicoDAO.CargarDocentesAcademicosPorRol(Rol.Coordinador);
+            DocentesAcademicos = docenteAcademicoDAO.CargarDocentesAcademicosPorRol(Rol.Coordinador);
 		}
 
 	}

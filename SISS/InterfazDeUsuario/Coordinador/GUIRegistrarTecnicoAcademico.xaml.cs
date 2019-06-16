@@ -1,12 +1,11 @@
 ﻿using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
+using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
 {
@@ -32,7 +31,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				Nombre = TextBoxNombre.Text,
 				CorreoElectronico = TextBoxCorreoElectronico.Text,
 				Telefono = TextBoxTelefono.Text,
-				Coordinador = this.Coordinador,
+				Coordinador = Coordinador,
 				Carrera = ComboBoxCarrera.SelectedValue.ToString(),
 				EsActivo = true,
 				Contraseña = TextBoxContraseña.Text,
@@ -62,34 +61,32 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
                         tecnicoAcademico.Guardar();
                         registroExitoso = true;
                     }
+                    catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada)
+                    {
+                        MessageBox.Show(this, MATRICULA_DUPLICADA_MENSAJE, MATRICULA_DUPLICADA_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                     catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
                     {
-                        MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-                        Close();
-                    }
-                    catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
-                    {
-                        MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
-                        Close();
-                    }
-                    catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
-                    {
-                        MessageBox.Show(this, "Hubo un error al completar el registro. Intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                        Close();
+                        MessageBox.Show(this, CONEXION_FALLIDA_MENSAJE, CONEXION_FALLIDA_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
                     {
                         MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
                         Close();
                     }
+                    catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
+                    {
+                        MessageBox.Show(this, ERROR_GUARDAR_REGISTRO, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+                        Close();
+                    }
                     catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
                     {
-                        MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(this, ERROR_PETICION_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
                         Close();
                     }
                     catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
                     {
-                        MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(this, ERROR_DESCONOCIDO_MENSAJE, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
                         Close();
                     }
                     finally
@@ -111,10 +108,12 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             else
             {
                 Mouse.OverrideCursor = null;
-                MessageBox.Show("Porfavor compruebe los campos remarcados en rojo.", "Campos invalidos", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+                MostrarEstadoDeValidacionNombre(TextBoxNombre);
+                MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
+                MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
+                MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
             }
-
-
         }
 
 
@@ -131,7 +130,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
         private void TextBoxConfirmarCorreoElectronico_TextChanged(object sender, TextChangedEventArgs e)
         {
-            MostrarEstadoDeValidacionConfirmacion(TextBoxConfirmarCorreoElectronico, TextBoxConfirmarCorreoElectronico);
+            MostrarEstadoDeValidacionConfirmacion(TextBoxCorreoElectronico, TextBoxConfirmarCorreoElectronico);
         }
 
         private void TextBoxTelefono_TextChanged(object sender, TextChangedEventArgs e)
@@ -154,5 +153,10 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 		{
             Close();
 		}
-	}
+
+        private void TextBoxCubiculo_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            MostrarEstadoDeValidacionCampoNumerico(TextBoxCubiculo);
+        }
+    }
 }

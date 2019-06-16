@@ -9,6 +9,7 @@ using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using LogicaDeNegocios;
 using System;
 using LogicaDeNegocios.ClasesDominio;
+using LogicaDeNegocios;
 
 namespace InterfazDeUsuario.GUIsDeAlumno
 {
@@ -85,8 +86,10 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 				bool resultadoDeCreacion = false;
 				try
 				{
+
 					alumno.Guardar();
 					resultadoDeCreacion = true;
+
 				}
 				catch (AccesoADatosException ex) 
 				{
