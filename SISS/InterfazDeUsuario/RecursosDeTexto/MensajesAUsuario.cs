@@ -36,6 +36,7 @@ namespace InterfazDeUsuario.RecursosDeTexto
 		public const string ERROR_OBJETO_NO_EXISTE_TITULO = "Objeto no encontrado";
 		public const string COMBO_BOX_INVALIDO = "Porfavor, elija un elemento.";
 		public const string REGISTRO_EXITOSO_ENCARGADO = "Encargado registrado correctamente.";
+    public const string ERROR_AL_CONVERTIR_OBJETO = "Error al cargar datos del servidor.";
 		public const string REGISTRO_EXITOSO_ORGANIZACION = "Organización registrada correctamente.";
 		public const string TIPO_DE_SESION_INVALIDO_MENSAJE = "Tipo de sesion no valida. Contacte a su administrador.";
 		public const string CREDENCIALES_INVALIDAS_MENSAJE = "Correo o contraseña no validos.";

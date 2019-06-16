@@ -2,14 +2,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using LogicaDeNegocios.Excepciones;
-using LogicaDeNegocios.Servicios;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
-using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using LogicaDeNegocios;
 using System;
 using LogicaDeNegocios.ClasesDominio;
-using LogicaDeNegocios;
 
 namespace InterfazDeUsuario.GUIsDeAlumno
 {
@@ -86,10 +83,8 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 				bool resultadoDeCreacion = false;
 				try
 				{
-
 					alumno.Guardar();
 					resultadoDeCreacion = true;
-
 				}
 				catch (AccesoADatosException ex) 
 				{
@@ -104,14 +99,12 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 				if (resultadoDeCreacion)
 				{
 					MessageBox.Show(REGISTRO_EXITOSO_MENSAJE, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
-					this.Close();
+                    Close();
 				}
 			}
 			else
 			{
-				Mouse.OverrideCursor = null;
 				MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-				Mouse.OverrideCursor = Cursors.Wait;
 				MostrarEstadoDeValidacionMatricula(TextBoxMatricula);
 				MostrarEstadoDeValidacionNombre(TextBoxNombre);
 				MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);

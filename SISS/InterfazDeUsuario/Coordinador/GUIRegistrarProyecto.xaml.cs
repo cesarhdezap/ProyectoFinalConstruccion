@@ -5,10 +5,10 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
+using System.Collections.Generic;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
 {
@@ -16,7 +16,6 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
     {
         private AdministradorDeOrganizaciones AdministradorDeOrganizaciones;
         private AdministradorDeEncargados AdministradorDeEncargados;
-        private const int SIN_INDICE = -1;
 
         public GUIRegistrarProyecto(DocenteAcademico coordinador)
         {
@@ -25,14 +24,24 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
             AdministradorDeOrganizaciones = new AdministradorDeOrganizaciones();
             AdministradorDeOrganizaciones.CargarOrganizaciones();
-            ComboBoxOrganizacionAsociada.DisplayMemberPath = "Nombre";
-            ComboBoxOrganizacionAsociada.ItemsSource = AdministradorDeOrganizaciones.Organizaciones;
-            ComboBoxOrganizacionAsociada.SelectedIndex = 0;
 
             AdministradorDeEncargados = new AdministradorDeEncargados();
             AdministradorDeEncargados.CargarEncargadosTodos();
-			ComboBoxEncargadoAsociado.SelectedIndex = 0;
-		}
+
+            if (AdministradorDeOrganizaciones.Organizaciones.Count > 0)
+            {
+                ComboBoxOrganizacionAsociada.DisplayMemberPath = "Nombre";
+                ComboBoxOrganizacionAsociada.ItemsSource = AdministradorDeOrganizaciones.Organizaciones;
+                ComboBoxOrganizacionAsociada.SelectedIndex = 0;
+            }
+            else
+            {
+                ComboBoxOrganizacionAsociada.IsEnabled = false;
+                ComboBoxEncargadoAsociado.IsEnabled = false;
+            }
+
+            ComboBoxEncargadoAsociado.DisplayMemberPath = "Nombre";
+        }
 
         private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
         {
@@ -45,8 +54,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
             };
 
-            int indiceDeEncargado = ComboBoxEncargadoAsociado.SelectedIndex;
-            if (indiceDeEncargado > SIN_INDICE)
+            if (ValidarSeleccionComboBox(ComboBoxEncargadoAsociado))
 			{
                 proyecto.Encargado = ComboBoxEncargadoAsociado.SelectedItem as Encargado;
 
@@ -84,7 +92,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
                     }
                     catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
                     {
-                        MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(this, ERROR_AL_CONVERTIR_OBJETO, "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
                         Close();
                     }
                     catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
@@ -111,37 +119,27 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
                 else
                 {
                     MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MostrarEstadoDeValidacionCadena(TextBoxNombre);
+                    MostrarEstadoDeValidacionCadena(TextBoxObjetivoGeneral);
+                    MostrarEstadoDeValidacionCadena(TextBoxDescripcionGeneral);
+                    MostrarEstadoDeValidacionCampoNumerico(TextBoxEstudiantesSolicitados);
+                    Mouse.OverrideCursor = null;
                 }
-                Mouse.OverrideCursor = null;
             }
 			else
 			{
-				MessageBox.Show(this, "Debe seleccionar un encargado para ser asociado al proyecto.", "Encargado no seleccionado", MessageBoxButton.OK, MessageBoxImage.Error);
-			}
+                MessageBox.Show(this, "Seleccione un encargado.");
+            }
 		}
 
         private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarCadena(TextBoxNombre.Text))
-            {
-                TextBoxNombre.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxNombre.BorderBrush = Brushes.Red;
-            }
+            MostrarEstadoDeValidacionCadena(TextBoxNombre);
         }
 
         private void TextBoxEstudiantesSolicitados_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (int.TryParse(TextBoxEstudiantesSolicitados.Text, out int resultado))
-            {
-                TextBoxEstudiantesSolicitados.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxEstudiantesSolicitados.BorderBrush = Brushes.Red;
-            }
+            MostrarEstadoDeValidacionCampoNumerico(TextBoxEstudiantesSolicitados);
         }
 
         private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
@@ -149,45 +147,33 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             Close();
         }
 
-        private void ButtonAdjuntarEvidencia_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         private void ComboBoxOrganizacionAsociada_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int indiceOrganizacion = ComboBoxOrganizacionAsociada.SelectedIndex;
-            if (indiceOrganizacion > SIN_INDICE)
+            if (ValidarSeleccionComboBox(ComboBoxOrganizacionAsociada))
             {
-                int IDOrganizacion = AdministradorDeOrganizaciones.Organizaciones[indiceOrganizacion].IDOrganizacion;
-                ComboBoxEncargadoAsociado.DisplayMemberPath = "Nombre";
-                ComboBoxEncargadoAsociado.ItemsSource = AdministradorDeEncargados.SeleccionarEncargadosPorIDOrganizacion(IDOrganizacion);
-                ComboBoxEncargadoAsociado.SelectedIndex = 0;
+                Organizacion organizacion = ComboBoxOrganizacionAsociada.SelectedItem as Organizacion;
+
+                List<Encargado> encargadosPorOrganizacion = AdministradorDeEncargados.SeleccionarEncargadosPorIDOrganizacion(organizacion.IDOrganizacion);
+                if (encargadosPorOrganizacion.Count > 0)
+                {
+                    ComboBoxEncargadoAsociado.ItemsSource = encargadosPorOrganizacion;
+                    ComboBoxEncargadoAsociado.SelectedIndex = 0;
+                }
+                else
+                {
+                    ComboBoxEncargadoAsociado.IsEnabled = false;
+                }
             }
         }
 
         private void TextBoxObjetivoGeneral_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarCadena(TextBoxObjetivoGeneral.Text))
-            {
-                TextBoxObjetivoGeneral.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxObjetivoGeneral.BorderBrush = Brushes.Red;
-            }
+            MostrarEstadoDeValidacionCadena(TextBoxObjetivoGeneral);
         }
 
         private void TextBoxDescripcionGeneral_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ValidarCadena(TextBoxDescripcionGeneral.Text))
-            {
-                TextBoxDescripcionGeneral.BorderBrush = Brushes.Green;
-            }
-            else
-            {
-                TextBoxDescripcionGeneral.BorderBrush = Brushes.Red;
-            }
+            MostrarEstadoDeValidacionCadena(TextBoxDescripcionGeneral);
         }
     }
 }
