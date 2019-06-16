@@ -125,6 +125,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
 				}
 			}
 			else
+
             {
                 Mouse.OverrideCursor = null;
                 ActualizarInformacionDeCamposConError();
@@ -151,6 +152,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
                 MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+
             MostrarEstadoDeValidacionComboBox(ComboBoxCarrera);
         }
 
@@ -158,5 +160,11 @@ namespace InterfazDeUsuario.GUIsDeDirector
         {
             Close();
         }
+
+		private void TextBoxCorreoElectronico_LostFocus(object sender, RoutedEventArgs e)
+		{
+			MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
+		}
+			
 	}
 }

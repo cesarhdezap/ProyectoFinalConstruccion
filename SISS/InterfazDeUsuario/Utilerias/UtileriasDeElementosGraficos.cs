@@ -177,6 +177,27 @@ namespace InterfazDeUsuario.Utilerias
 			}
 		}
 
+		public static void CambiarEstadoDeExpander(object expander)
+		{
+			for (Visual elementoVisual = expander as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
+			{
+				if (elementoVisual is DataGridRow fila)
+				{
+					if (fila.DetailsVisibility == System.Windows.Visibility.Visible)
+					{
+						fila.DetailsVisibility = System.Windows.Visibility.Collapsed;
+					}
+					else
+					{
+						fila.DetailsVisibility = System.Windows.Visibility.Visible;
+					}
+					break;
+				}	
+			}
+		}
+
+		public static void 
+
 		private static void MostrarToolTip(Control controlGrafico, string mensaje)
 		{
 			if (controlGrafico.ToolTip == null)

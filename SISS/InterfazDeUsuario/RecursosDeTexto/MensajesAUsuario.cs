@@ -36,11 +36,20 @@ namespace InterfazDeUsuario.RecursosDeTexto
 		public const string ERROR_OBJETO_NO_EXISTE_TITULO = "Objeto no encontrado";
 		public const string COMBO_BOX_INVALIDO = "Porfavor, elija un elemento.";
 		public const string REGISTRO_EXITOSO_ENCARGADO = "Encargado registrado correctamente.";
-    public const string ERROR_AL_CONVERTIR_OBJETO = "Error al cargar datos del servidor.";
+		public const string ERROR_AL_CONVERTIR_OBJETO = "Error al cargar datos del servidor.";
 		public const string REGISTRO_EXITOSO_ORGANIZACION = "Organización registrada correctamente.";
 		public const string TIPO_DE_SESION_INVALIDO_MENSAJE = "Tipo de sesion no valida. Contacte a su administrador.";
 		public const string CREDENCIALES_INVALIDAS_MENSAJE = "Correo o contraseña no validos.";
 		public const string CREDENCIALES_INVALIDAS_TITULO = "Credenciales no validas";
 		public const string CAMPOS_LOGIN_VACIOS_MENSAJE = "Debe ingresar su contraseña y su correo para continuar.";
+		public const string ASIGNACION_EXITOSA_MENSAJE = "El alumno fue asignado con exito.";
+		public const string ASIGNACION_EXITOSA_TITULO = "¡Asignación exitosa!";
+		public const string SELECCION_DE_PROYECTOS_EXITOSA_MENSAJE = "Su seleccion de proyectos ha sido guardada con exito.";
+		public const string SELECCION_DE_PROYECTOS_EXITOSA_TITULO = "¡Proyectos seleccionados exitosamente!";
+		public const string CANTIDAD_INVALIDA_DE_PROYECTOS_SELECCIONANDOS_MENSAJE = "Debe escoger 3 proyectos.";
+		public const string CANTIDAD_INVALIDA_DE_PROYECTOS_SELECCIONANDOS_TITULO = "Cantidad de proyectos seleccionados invalida";
+		public const string ACTUALIZACION_DE_REPORTE_MENSUAL_EXITOSA_MENSAJE = "El reporte mensual fue actualizado exitosamente.";
+		public const string ARCHIVO_NO_SLECCIONADO_MENSAJE = "Debe seleccionar un archivo para continuar.";
+		public const string ARCHIVO_NO_SLECCIONADO_TITULO = "Archivo no seleccionado";
 	}
 }

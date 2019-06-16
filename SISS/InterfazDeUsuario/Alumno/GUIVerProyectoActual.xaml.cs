@@ -22,115 +22,81 @@ namespace InterfazDeUsuario.GUIsDeAlumno
     /// </summary>
     public partial class GUIVerProyectoActual : Window
     {
-        public GUIVerProyectoActual(Alumno alumno)
+		private Asignacion Asignacion { get;set; }
+		private Proyecto Proyecto { get; set; }
+		private Encargado Encargado { get; set; }
+		private Organizacion Organizacion { get; set; }
+		private DocenteAcademico Coordinador { get; set; }
+
+		public GUIVerProyectoActual(Alumno alumno)
         {
             InitializeComponent();
-            Asignacion asignacion = new Asignacion();
-            Proyecto proyecto = new Proyecto();
-            Encargado encargado = new Encargado();
-            Organizacion organizacion = new Organizacion();
-            DocenteAcademico coordinador = new DocenteAcademico();
+            Asignacion = new Asignacion();
+            Proyecto = new Proyecto();
+            Encargado = new Encargado();
+            Organizacion = new Organizacion();
+            Coordinador = new DocenteAcademico();
             Mouse.OverrideCursor = Cursors.Wait;
 			try
 			{
-				asignacion = alumno.CargarAsignacion();
-				proyecto = asignacion.CargarProyecto();
-				encargado = proyecto.CargarEncargado();
-				coordinador = coordinador.CargarCoordinadorPorCarrera(alumno.Carrera);
-				organizacion = encargado.CargarOrganizacion();
+				Asignacion = alumno.CargarAsignacion();
+				Proyecto = Asignacion.CargarProyecto();
+				Encargado = Proyecto.CargarEncargado();
+				Coordinador = Coordinador.CargarCoordinadorPorCarrera(alumno.Carrera);
+				Organizacion = Encargado.CargarOrganizacion();
 			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
+			catch (AccesoADatosException ex)
 			{
-				MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
-			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
-			{
-				MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
-			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
-			{
-				MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
-			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
-			{
-				MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
-			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-			{
-				MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
+				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
-			LabelCorreoDelCoordinador.Content = coordinador.CorreoElectronico;
-            LabelCorreoDelEncargado.Content = encargado.CorreoElectronico;
-            LabelNombreDelCoordinador.Content = coordinador.Nombre;
-            LabelNombreDelEncargado.Content = encargado.Nombre;
-            LabelNombreDelProyecto.Content = proyecto.Nombre;
-            LabelNombreDeOrganizacion.Content = organizacion.Nombre;
-            LabelNombreDeUsuario.Content = alumno.Nombre;
-            LabelTelefonoDelCoordinador.Content = coordinador.Telefono;
-            LabelTelefonoDelEncargado.Content = encargado.Telefono;
-            TextBoxDescripcionGeneralDeProyecto.Text = proyecto.DescripcionGeneral;
+			AsignarValoresAInterfaz();
         }
 
-		public GUIVerProyectoActual(DocenteAcademico Coordinador, Asignacion asignacion)
+		public GUIVerProyectoActual(DocenteAcademico coordinador, Asignacion asignacion)
 		{
 			InitializeComponent();
-			Proyecto proyecto = new Proyecto();
-			Encargado encargado = new Encargado();
-			Organizacion organizacion = new Organizacion();
+			Coordinador = coordinador;
+			Asignacion = asignacion;
+			Proyecto = new Proyecto();
+			Encargado = new Encargado();
+			Organizacion = new Organizacion();
 			try
 			{
-				proyecto = asignacion.CargarProyecto();
-				encargado = proyecto.CargarEncargado();
-				organizacion = encargado.CargarOrganizacion();
+				Proyecto = asignacion.CargarProyecto();
+				Encargado = Proyecto.CargarEncargado();
+				Organizacion = Encargado.CargarOrganizacion();
 			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
+			catch (AccesoADatosException ex)
 			{
-				MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
-			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
-			{
-				MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
-			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
-			{
-				MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
-			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
-			{
-				MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
-			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-			{
-				MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
+				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
+			AsignarValoresAInterfaz();
+		}
+
+		private void AsignarValoresAInterfaz()
+		{
 			LabelCorreoDelCoordinador.Content = Coordinador.CorreoElectronico;
-			LabelCorreoDelEncargado.Content = encargado.CorreoElectronico;
+			LabelCorreoDelEncargado.Content = Encargado.CorreoElectronico;
 			LabelNombreDelCoordinador.Content = Coordinador.Nombre;
-			LabelNombreDelEncargado.Content = encargado.Nombre;
-			LabelNombreDelProyecto.Content = proyecto.Nombre;
-			LabelNombreDeOrganizacion.Content = organizacion.Nombre;
+			LabelNombreDelEncargado.Content = Encargado.Nombre;
+			LabelNombreDelProyecto.Content = Proyecto.Nombre;
+			LabelNombreDeOrganizacion.Content = Organizacion.Nombre;
 			LabelNombreDeUsuario.Content = Coordinador.Nombre;
 			LabelTelefonoDelCoordinador.Content = Coordinador.Telefono;
-			LabelTelefonoDelEncargado.Content = encargado.Telefono;
-			TextBoxDescripcionGeneralDeProyecto.Text = proyecto.DescripcionGeneral;
+			LabelTelefonoDelEncargado.Content = Encargado.Telefono;
+			TextBoxDescripcionGeneralDeProyecto.Text = Proyecto.DescripcionGeneral;
 		}
 
 		private void ButtonCancelar_Click(object sender, RoutedEventArgs e)

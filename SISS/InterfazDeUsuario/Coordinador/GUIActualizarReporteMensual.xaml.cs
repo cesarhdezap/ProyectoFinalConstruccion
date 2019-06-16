@@ -19,6 +19,8 @@ using LogicaDeNegocios.ClasesDominio;
 using System.IO;
 using Microsoft.Win32;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
+using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
+using InterfazDeUsuario.Utilerias;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
 {
@@ -76,30 +78,11 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 					Imagen.Actualizar();
 					reporteActualizado = true;
 				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
+				catch (AccesoADatosException ex)
 				{
-					MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
-				{
-					MessageBox.Show(this, "Hubo un error al completar el registro. Intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
-				{
-					MessageBox.Show(this, "Hubo un error al completar el la carga, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
-				{
-					MessageBox.Show(this, "Hubo un error al completar el la carga. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-				{
-					MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
+					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
 				}
 				finally
 				{
@@ -107,31 +90,34 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				}
 				if (reporteActualizado)
 				{
-					MessageBox.Show("El reporte mensual fue actualizado exitosamente.", "¡Registro exitoso!", MessageBoxButton.OK, MessageBoxImage.Information);
+					MessageBox.Show(ACTUALIZACION_DE_REPORTE_MENSUAL_EXITOSA_MENSAJE, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
                     Close();
 				}
+			} else
+			{
+				UtileriasDeElementosGraficos.MostrarEstadoDeValidacionCampoNumerico(TextBoxHorasReportadas);
 			}
 		}
 
 		private bool ValidarCampos()
 		{
 			bool resultadoDeValidacion = false;
-			if (Imagen.DireccionDeImagen != string.Empty)
+
+			if (Imagen.DireccionDeImagen == string.Empty)
 			{
-				if (ValidarEntero(TextBoxHorasReportadas.Text))
-				{
-					resultadoDeValidacion = true;
-				}
-				else
-				{
-					MessageBox.Show("El número de horas reportadas debe ser un valor entero.", "Número de horas invalido", MessageBoxButton.OK, MessageBoxImage.Error);
-				}
-			}
-			else
+				MessageBox.Show(ARCHIVO_NO_SLECCIONADO_MENSAJE, ARCHIVO_NO_SLECCIONADO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+				
+			} else if(ValidarEntero(TextBoxHorasReportadas.Text))
 			{
-				MessageBox.Show("Debe seleccionar un archivo para continuar.", "Archivo no seleccionado", MessageBoxButton.OK, MessageBoxImage.Error);
+				resultadoDeValidacion = true;
 			}
+
 			return resultadoDeValidacion;
+		}
+
+		private void TextBoxHorasReportadas_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			UtileriasDeElementosGraficos.MostrarEstadoDeValidacionCampoNumerico(TextBoxHorasReportadas);
 		}
 	}
 }
