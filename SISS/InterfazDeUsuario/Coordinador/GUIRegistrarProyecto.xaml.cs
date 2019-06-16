@@ -128,7 +128,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             }
 			else
 			{
-                MessageBox.Show(this, "Seleccione un encargado.");
+                MostrarEstadoDeValidacionComboBox(ComboBoxEncargadoAsociado);
             }
 		}
 

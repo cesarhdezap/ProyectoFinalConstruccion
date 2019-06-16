@@ -80,7 +80,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeImagen.CARGAR_IMAGEN_POR_IDDOCUMENTO_Y_TIPO_DE_DOCUMENTO_EN_IMAGEN, parametroIDDocumento);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeImagen.GUARDAR_IMAGEN, parametroIDDocumento);
             }
 			catch (SqlException e)
 			{
