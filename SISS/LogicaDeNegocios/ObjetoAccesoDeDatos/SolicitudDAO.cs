@@ -6,6 +6,7 @@ using LogicaDeNegocios.Excepciones;
 using System.Data.SqlClient;
 using AccesoABaseDeDatos;
 using System.Linq;
+using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -27,15 +28,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeMatricula = AccesoADatos.EjecutarSelect("SELECT * FROM Solicitudes WHERE IDSolicitud = @IDSolicitud", parametroIDSolicitud);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al cargar Solicitud con IDSolicitud: " + IDSolicitud, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeMatricula = AccesoADatos.EjecutarSelect(QuerysDeSolicitud.CARGAR_SOLICITUD_POR_ID, parametroIDSolicitud);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar Solicitud con IDSolicitud: " + IDSolicitud, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDSolicitud);
 			}
 			Solicitud solicitud = new Solicitud();
             try
@@ -45,12 +42,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             catch (FormatException e)
             {
                 throw new AccesoADatosException("Error al convertir datatable a Solicitud en cargar Solicitud con IDSolicitud: " + IDSolicitud, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
-
             }
             return solicitud;
         }
 
-        
         private Solicitud ConvertirDataTableASolicutud(DataTable tablaDeSolicitud)
 		{
             ProyectoDAO proyectoDAO = new ProyectoDAO();
@@ -81,15 +76,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Solicitudes(Fecha, Matricula) VALUES(@Fecha, @Matricula)", parametrosDeSolicitud);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeSolicitud.GUARDAR_SOLICITUD, parametrosDeSolicitud);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al guardar solicitud: " + solicitud.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al guardar solicitud: " + solicitud.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, solicitud);
 			}
 			if (filasAfectadas <= 0)
             {
@@ -102,15 +93,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 parametrosDeSolicitud[3].Value = proyecto.IDProyecto;
                 try
                 {
-                   filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO SolicitudesProyectos(IDSolicitud, IDProyecto) VALUES(@IDSolicitud, @IDProyecto)", parametrosDeSolicitud);
+                   filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeSolicitud.GUARDAR_RELACION_SOLICITUD_PROYECTO, parametrosDeSolicitud);
                 }
-				catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-				{
-					throw new AccesoADatosException("Error al guardar relacion Proyectos-Solicitud: " + solicitud.ToString() + proyecto.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-				}
 				catch (SqlException e)
 				{
-					throw new AccesoADatosException("Error al guardar relacion Proyectos-Solicitud: " + solicitud.ToString() + proyecto.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+					EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, proyecto);
 				}
 				if (filasAfectadas <= 0)
                 {
@@ -139,46 +126,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return parametrosDeSolicitud;
         }
 
-        public Solicitud CargarIDPorIDAsignacion(int IDAsignacion)
-        {
-            if (IDAsignacion <= 0)
-            {
-                throw new AccesoADatosException("Error al cargar IDSolicitud Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
-            }
-            DataTable tablaDeSolicitud = new DataTable();
-            SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
-            parametroIDAsignacion[0] = new SqlParameter
-            {
-                ParameterName = "@IDAsignacion",
-                Value = IDAsignacion
-            };
-            try
-            {
-                tablaDeSolicitud = AccesoADatos.EjecutarSelect("Query", parametroIDAsignacion);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al cargar IDSolicitud con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-			}
-			catch (SqlException e)
-			{
-				throw new AccesoADatosException("Error al cargar IDSolicitud con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
-			}
-			Solicitud solicitud = new Solicitud();
-            try
-            {
-                solicitud = ConvertirDataTableASolicutudConSoloID(tablaDeSolicitud);
-            }
-            catch (FormatException e)
-            {
-                throw new AccesoADatosException("Error al convertir datatable a Solicitud en cargar IDSolicitud con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
-            }
-            return solicitud;
-        }
-
 		public Solicitud CargarIDPorMatricula(string matriculaAlumno)
 		{
-			DataTable tablaDeSolicitud;
+			DataTable tablaDeSolicitud = new DataTable();
 			SqlParameter[] parametroMatricula = new SqlParameter[1];
 			parametroMatricula[0] = new SqlParameter
 			{
@@ -188,15 +138,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			try
 			{
-				tablaDeSolicitud = AccesoADatos.EjecutarSelect("SELECT IDSolicitud FROM Solicitudes WHERE Matricula = @MatriculaAlumno", parametroMatricula);
-			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al cargar IDSolicitud con Matricula: " + matriculaAlumno, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+				tablaDeSolicitud = AccesoADatos.EjecutarSelect(QuerysDeSolicitud.CARGAR_ID_POR_MATRICULA, parametroMatricula);
 			}
 			catch (SqlException e)
-			{ 
-				throw new AccesoADatosException("Error al cargar IDSolicitud con Matricula: " + matriculaAlumno, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+			{
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, matriculaAlumno);
 			}
 			Solicitud solicitud = new Solicitud();
 			if (tablaDeSolicitud.Rows.Count > 0)
@@ -205,9 +151,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 				{
 					solicitud = ConvertirDataTableASolicutudConSoloID(tablaDeSolicitud);
 				}
-				catch (FormatException e)
+				catch (SqlException e)
 				{
-					throw new AccesoADatosException("Error al convertir datatable a Solicitud en cargar IDSolicitud con Matricula: " + matriculaAlumno, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
+					EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, matriculaAlumno);
 				}
 			}
 			else
@@ -222,15 +168,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int ultimoIDInsertado = 0;
             try
             {
-                ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar("SELECT IDENT_CURRENT('Solicitudes')");
-            }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-            {
-                throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en SolicitudDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar(QuerysDeSolicitud.OBTENER_ULTIMO_ID_INSERTADO);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en SolicitudDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
 			}
 			return ultimoIDInsertado;
         }

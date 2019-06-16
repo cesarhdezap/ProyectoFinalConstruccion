@@ -6,6 +6,7 @@ using LogicaDeNegocios.Excepciones;
 using AccesoABaseDeDatos;
 using System.Data.SqlClient;
 using System.Linq;
+using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -21,15 +22,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Organizaciones SET CorreoElectronico = @CorreoElectronicoOrganizacion, Direccion = @DireccionOrganizacion, Telefono = @TelefonoOrganizacion, Nombre = @NombreOrganizacion WHERE IDOrganizacion = @IDOrganizacion", parametrosDeOrganizacion);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al actualizar Organizacion: " + organizacion.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeOrganizacion.ACTUALIZAR_ORGANIZACION_POR_ID, parametrosDeOrganizacion);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al actualizar Organizacion: " + organizacion.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, organizacion);
 			}
 			if (filasAfectadas <= 0)
             {
@@ -42,15 +39,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             DataTable tablaDeOrganizaciones = new DataTable();
             try
             {
-                tablaDeOrganizaciones = AccesoADatos.EjecutarSelect("SELECT * FROM Organizaciones");
+                tablaDeOrganizaciones = AccesoADatos.EjecutarSelect(QuerysDeOrganizacion.CARGAR_ORGANIZACIONES_TODAS);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al cargar todas las Organizaciones", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar todas las Organizaciones", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
 			}
 			List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
             try
@@ -70,15 +63,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             DataTable tablaDeOrganizaciones = new DataTable();
             try
             {
-                tablaDeOrganizaciones = AccesoADatos.EjecutarSelect("SELECT IDOrganizacion, Nombre FROM Organizaciones");
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al cargar todas las Organizaciones", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeOrganizaciones = AccesoADatos.EjecutarSelect(QuerysDeOrganizacion.CARGAR_ID_Y_NOMBRE_DE_ORGANIZACIONES);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar todas las Organizaciones", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
 			}
 			List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
             try
@@ -105,15 +94,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeOrganizacion = AccesoADatos.EjecutarSelect("SELECT * FROM Organizaciones WHERE IDOrganizacion = @IDOrganizacion", parametroIDOrganizacion);
+                tablaDeOrganizacion = AccesoADatos.EjecutarSelect(QuerysDeOrganizacion.CARGAR_ORGANIZACION_POR_ID, parametroIDOrganizacion);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al cargar Organizacion con IDOrganizacion: " + IDOrganizacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar Organizacion con IDOrganizacion: " + IDOrganizacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDOrganizacion);
 			}
 
 			Organizacion organizacion = new Organizacion();
@@ -143,15 +128,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             };
             try
             {
-                tablaDeOrganizacion = AccesoADatos.EjecutarSelect("SELECT IDOrganizacion FROM Encargados WHERE IDEncargado = @IDEncargado", parametroIDEncargado);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al Cargar IDOrganizacion Por IDEncargado: " + IDEncargado, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeOrganizacion = AccesoADatos.EjecutarSelect(QuerysDeOrganizacion.CARGAR_ID_POR_IDENCARGADO, parametroIDEncargado);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al Cargar IDOrganizacion Por IDEncargado: " + IDEncargado, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDEncargado);
 			}
 			Organizacion organizacion = new Organizacion();
             try
@@ -236,22 +217,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Organizaciones(Nombre, CorreoElectronico, Telefono, Direccion) VALUES(@NombreOrganizacion, @CorreoElectronicoOrganizacion, @TelefonoOrganizacion, @DireccionOrganizacion)", parametrosDeOrganizacion);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeOrganizacion.GUARDAR_ORGANIZACION, parametrosDeOrganizacion);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al guardar Organizacion:" + organizacion.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al guardar Organizacion:" + organizacion.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, organizacion);
 			}
 			if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("Organizacion: " + organizacion.ToString() + "no fue guardada.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
             }
         }
-
 
         private SqlParameter[] InicializarParametrosDeSql(Organizacion organizacion)
         {

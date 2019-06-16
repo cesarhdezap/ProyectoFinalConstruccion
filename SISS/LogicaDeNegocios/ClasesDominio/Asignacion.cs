@@ -44,7 +44,7 @@ namespace LogicaDeNegocios
 		{
 			ProyectoDAO proyectoDAO = new ProyectoDAO();
 			Proyecto proyecto = new Proyecto();
-			proyecto = proyectoDAO.CargarIDProyectoPorIDAsignacion(IDAsignacion);
+			proyecto = proyectoDAO.CargarIDPorIDAsignacion(IDAsignacion);
 			proyecto = proyectoDAO.CargarProyectoPorID(proyecto.IDProyecto);
 			return proyecto;
 		}

@@ -40,7 +40,7 @@ namespace LogicaDeNegocios
 		{
 			DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
 			DocenteAcademico docenteAcademico = new DocenteAcademico();
-			docenteAcademico = docenteAcademicoDAO.CargarIDPorCarrera(carrera);
+			docenteAcademico = docenteAcademicoDAO.CargarIDCoordinadorPorCarrera(carrera);
 			docenteAcademico = docenteAcademicoDAO.CargarDocenteAcademicoPorIDPersonal(docenteAcademico.IDPersonal);
 			return docenteAcademico;
 		}

@@ -6,7 +6,7 @@ namespace LogicaDeNegocios.Interfaces
 	interface IDocenteAcademicoDAO
 	{
 		void ActualizarDocenteAcademicoPorIDPersonal(int IDpersonal, DocenteAcademico docenteAcademico);
-		DocenteAcademico CargarIDPorCarrera(string carrera);
+		DocenteAcademico CargarIDCoordinadorPorCarrera(string carrera);
 		string CargarIDPorCorreoYRol(string correoElectronico, Rol rol);
 		DocenteAcademico CargarDocenteAcademicoPorIDPersonal(int IDpersonal);
 		DocenteAcademico CargarIDPorIDDocumento(int IDDocumento);

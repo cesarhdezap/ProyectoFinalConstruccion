@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LogicaDeNegocios.ClasesDominio;
 using LogicaDeNegocios.Excepciones;
+using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -27,18 +28,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeID = AccesoADatos.EjecutarSelect("SELECT IDPersonal FROM Directores WHERE CorreoElectronico = @CorreoElectronico", parametroCorreo);
+                tablaDeID = AccesoADatos.EjecutarSelect(QuerysDeDirector.CARGAR_ID_POR_CORREO, parametroCorreo);
             }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-            {
-                throw new AccesoADatosException("Error al cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-            }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
-            }
+			catch (SqlException e)
+			{
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, correoElectronico);
+			}
 
-            string IDDirector = string.Empty;
+			string IDDirector = string.Empty;
             try
             {
                 IDDirector = ConvertirDataTableADirectorConSoloID(tablaDeID).IDPersonal.ToString();
@@ -80,15 +77,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			try
 			{
-				tablaDeDirector = AccesoADatos.EjecutarSelect("SELECT * FROM Directores WHERE IDPersonal = @IDPersonal", parametroIDPersonal);
-			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al cargar Director por IDPersonal: " + IDPersonal, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+				tablaDeDirector = AccesoADatos.EjecutarSelect(QuerysDeDirector.CARGAR_DIRECTOR_POR_ID, parametroIDPersonal);
 			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar Director por IDPersonal: " + IDPersonal, e);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDPersonal);
 			}
 
 			Director director = new Director();

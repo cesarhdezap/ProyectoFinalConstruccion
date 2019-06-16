@@ -6,6 +6,7 @@ using System.Data;
 using AccesoABaseDeDatos;
 using System.Data.SqlClient;
 using LogicaDeNegocios.Excepciones;
+using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -23,17 +24,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeContraseña= AccesoADatos.EjecutarSelect("SELECT Contraseña FROM (SELECT CorreoElectronico,Contraseña FROM Alumnos UNION SELECT CorreoElectronico, Contraseña FROM DocentesAcademicos UNION SELECT CorreoElectronico, Contraseña From Directores) AS U WHERE CorreoElectronico = @CorreoElectronico", parametroCorreoElectronico);
+                tablaDeContraseña= AccesoADatos.EjecutarSelect(QuerysDeAutenticacion.CARGAR_CONTRASEÑA_POR_CORREO, parametroCorreoElectronico);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al Cargar contraseña por Correo:" + correoElectronico, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al Cargar contraseña por Correo:" + correoElectronico, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, correoElectronico);
 			}
-            string contraseña;
+			string contraseña;
             try
             {
                 contraseña = ConvertirDataTableACadena(tablaDeContraseña);
@@ -46,24 +43,19 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return contraseña;
         }
 
-
         public List<string> CargarCorreosDeUsuarios()
         {
             DataTable tablaDeCorreos = new DataTable();
             try
             {
-                tablaDeCorreos = AccesoADatos.EjecutarSelect("SELECT CorreoElectronico FROM Alumnos UNION SELECT CorreoElectronico FROM DocentesAcademicos UNION SELECT CorreoElectronico FROM Directores");
+                tablaDeCorreos = AccesoADatos.EjecutarSelect(QuerysDeAutenticacion.CARGAR_CORREOS_DE_USUARIOS);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al Cargar correos de todos los usuarios", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al Cargar correos de todos los usuarios", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
 			}
 
-            List<string> listaDeCorreos;
+			List<string> listaDeCorreos;
             try
             {
                 listaDeCorreos = ConvertirDataTableAListaDeCadenas(tablaDeCorreos);

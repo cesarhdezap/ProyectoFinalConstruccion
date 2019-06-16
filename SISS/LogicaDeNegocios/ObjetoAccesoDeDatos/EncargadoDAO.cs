@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.Excepciones;
+using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -22,15 +23,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Encargados SET Nombre = @NombreEncargado, CorreoElectronico = @CorreoElectronicoEncargado, Telefono = @TelefonoEncargado, Puesto = @PuestoEncargado WHERE IDEncargado = @IDEncargado", parametrosDeEncargado);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al actualizar Encargaddo: " + encargado.ToString() + "Con IDEncargado: " + IDEncargado, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeEncargado.ACTUALIZAR_ENCARGADO_POR_ID, parametrosDeEncargado);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al actualizar Encargaddo: " + encargado.ToString() + "Con IDEncargado: " + IDEncargado, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, encargado);
 			}
 
 			if (filasAfectadas <= 0)
@@ -55,15 +52,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeEncargado = AccesoADatos.EjecutarSelect("SELECT * FROM Encargados WHERE IDEncargado = @IDEncargado", parametroIDEncargado);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al cargar Encargado con IDEncargado: " + IDEncargado, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeEncargado = AccesoADatos.EjecutarSelect(QuerysDeEncargado.CARGAR_ENCARGADO_POR_ID, parametroIDEncargado);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar Encargado con IDEncargado: " + IDEncargado, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDEncargado);
 			}
 			Encargado encargado = new Encargado();
             try
@@ -82,15 +75,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			DataTable tablaDeEncargados = new DataTable();
             try
             {    
-                tablaDeEncargados = AccesoADatos.EjecutarSelect("SELECT * FROM Encargados");
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al cargar todos los Encargados", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeEncargados = AccesoADatos.EjecutarSelect(QuerysDeEncargado.CARGAR_ENCARGADOS_TODOS);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar todos los Encargados", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
 			}
 			List<Encargado> ListaEncargados = new List<Encargado>();
             try
@@ -119,15 +108,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             };
             try
             {
-                tablaDeEncargados = AccesoADatos.EjecutarSelect("SELECT IDEncargado FROM Encargados WHERE IDOrganizacion = @IDOrganizacion",parametroIDOrganicacion);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al cargar IDsEncargado con IDOrganizacion: " + IDOrganizacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeEncargados = AccesoADatos.EjecutarSelect(QuerysDeEncargado.CARGAR_IDS_POR_IDORGANIZACION, parametroIDOrganicacion);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar IDsEncargado con IDOrganizacion: " + IDOrganizacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDOrganizacion);
 			}
 			List<Encargado> listaDeEncargados = new List<Encargado>();
             try
@@ -156,15 +141,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             };
             try
             {
-                tablaDeEncargado = AccesoADatos.EjecutarSelect("SELECT IDEncargado FROM Proyectos WHERE IDProyecto = @IDProyecto",parametroIDProyecto);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al cargar IDEncargado con IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeEncargado = AccesoADatos.EjecutarSelect(QuerysDeEncargado.CARGAR_ID_POR_IDROYECTO, parametroIDProyecto);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar IDEncargado con IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDProyecto);
 			}
 			Encargado encargado = new Encargado();
             try
@@ -193,6 +174,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             return encargado;
 		}
+
         private Encargado ConvertirDataTableAEncargadoConSoloID(DataTable tablaDeEncargado)
         {
             ProyectoDAO proyectoDAO = new ProyectoDAO();
@@ -256,21 +238,18 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             return encargados;
         }
+
         public void GuardarEncargado(Encargado encargado)
 		{
             SqlParameter[] parametrosDeEncargado = InicializarParametrosDeSql(encargado);
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Encargados(IDOrganizacion, Nombre, CorreoElectronico, Telefono, Puesto ) VALUES(@IDOrganizacion, @NombreEncargado, @CorreoElectronicoEncargado, @TelefonoEncargado, @PuestoEncargado)", parametrosDeEncargado);
-            }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al guardar Encardago: " + encargado.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeEncargado.GUARDAR_ENCARGADO, parametrosDeEncargado);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al guardar Encardago: " + encargado.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, encargado);
 			}
 			if (filasAfectadas <= 0)
             {
@@ -284,21 +263,21 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeEncargados = AccesoADatos.EjecutarSelect("SELECT IDEncargado,Nombre,IDOrganizacion FROM Encargados");
+                tablaDeEncargados = AccesoADatos.EjecutarSelect(QuerysDeEncargado.CARGAR_ENARGADOS_CON_ID_NOMBRE_Y_ORGANIZACION);
             }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al CargarEncargadosConIDYNombre", e);
-            }
+			catch (SqlException e)
+			{
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
+			}
 
-            List<Encargado> ListaEncargados = new List<Encargado>();
+			List<Encargado> ListaEncargados = new List<Encargado>();
             try
             {
                 ListaEncargados = ConvertirDataTableAListaDeEncargadosConIDNombreYOrganizacion(tablaDeEncargados);
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir datatable a lista de Encargados en cargar encargados con id y nombre", e);
+                throw new AccesoADatosException("Error al convertir datatable a lista de Encargados en cargar encargados con id y nombre", e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return ListaEncargados;
         }

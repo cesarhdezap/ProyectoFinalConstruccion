@@ -6,6 +6,7 @@ using System.Data;
 using LogicaDeNegocios.Excepciones;
 using System.Data.SqlClient;
 using System.Linq;
+using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -22,16 +23,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("UPDATE Asignaciones SET EstadoAsignacion = @EstadoAsignacion, FechaDeFinal = @FechaDeFinalAsignacion, IDLiberacion = @IDLiberacionAsignacion WHERE IDAsignacion = @IDAsignacion ", parametrosDeAsignacion);
-            }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-
-			{
-                throw new AccesoADatosException("Error al actualizar Asignacion: " + asignacion.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeAsignacion.ACTUALIZAR_ASIGNACION, parametrosDeAsignacion);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al actualizar Asignacion: " + asignacion.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, asignacion);
 			}
 
 			if (filasAfectadas <= 0)
@@ -57,15 +53,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeAsignacion = AccesoADatos.EjecutarSelect("SELECT * FROM Asignaciones WHERE IDAsignacion = @IDAsignacion", parametroIDAsignacion);
-            }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-            {
-                throw new AccesoADatosException("Error al cargar Asignacion con IDAsigncion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeAsignacion = AccesoADatos.EjecutarSelect(QuerysDeAsignacion.CARGAR_ASIGNACION_POR_ID, parametroIDAsignacion);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar Asignacion con IDAsigncion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDAsignacion);
 			}
 
 			Asignacion asignacion = new Asignacion();
@@ -80,6 +72,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return asignacion;
 
 		}
+
         public Asignacion CargarIDPorMatriculaDeAlumno(string matricula)
 		{
             DataTable tablaDeAsignacion = new DataTable();
@@ -92,15 +85,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeAsignacion = AccesoADatos.EjecutarSelect("SELECT IDAsignacion FROM Asignaciones WHERE Matricula = @Matricula", parametroMatricula);
-            }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-                throw new AccesoADatosException("Error al cargar IDAsignacion con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeAsignacion = AccesoADatos.EjecutarSelect(QuerysDeAsignacion.CARGAR_ID_POR_MATRICULA_DE_ALUMNO, parametroMatricula);
             }
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al cargar IDAsignacion con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, matricula);
 			}
 
 			Asignacion asignacion = new Asignacion();
@@ -115,7 +104,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return asignacion;
         }
 
-
 		private Asignacion ConvertirDataTableAAsignacion(DataTable tablaDeAsignaciones)
 		{
 			AlumnoDAO alumnoDAO = new AlumnoDAO();
@@ -129,7 +117,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 				asignacion.EstadoAsignacion = (EstadoAsignacion)fila["Estado"];
 				asignacion.FechaDeInicio = DateTime.Parse(fila["FechaDeInicio"].ToString());
 				asignacion.Alumno = alumnoDAO.CargarMatriculaPorIDAsignacion((int)fila["IDAsignacion"]);
-				asignacion.Proyecto = proyectoDAO.CargarIDProyectoPorIDAsignacion((int)fila["IDAsignacion"]);
+				asignacion.Proyecto = proyectoDAO.CargarIDPorIDAsignacion((int)fila["IDAsignacion"]);
 				asignacion.DocumentosDeEntregaUnica = documentoDeEntregaUnicaDAO.CargarIDsPorIDAsignacion((int)fila["IDAsignacion"]);
 				asignacion.ReportesMensuales = reporteMensualDAO.CargarIDsPorIDAsignacion((int)fila["IDAsignacion"]);
 
@@ -191,17 +179,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeAsignaciones = AccesoADatos.EjecutarSelect("SELECT IDAsignacion FROM Asignaciones WHERE IDProyecto = @IDProyecto", parametroIDProyecto);
-            }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				
-                throw new AccesoADatosException("Error al cargar IDsAsignacion con IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+                tablaDeAsignaciones = AccesoADatos.EjecutarSelect(QuerysDeAsignacion.CARGAR_IDS_POR_IDPROYECTO, parametroIDProyecto);
             }
 			catch (SqlException e)
 			{
-
-				throw new AccesoADatosException("Error al cargar IDsAsignacion con IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDProyecto);
 			}
 
 			List<Asignacion> listaDeAsignaciones = new List<Asignacion>();
@@ -215,25 +197,21 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             return listaDeAsignaciones;
         }
+
         public void GuardarAsignacion(Asignacion asignacion)
 		{
             SqlParameter[] parametrosDeAsignacion = InicializarParametrosDeSql(asignacion);
             int filasAfectadas = 0;
             try
             {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto("INSERT INTO Asignaciones(Estado, FechaDeInicio, Matricula, IDProyecto, IDSolicitud) VALUES(@EstadoAsignacion, @FechaDeInicioAsignacion, @MatriculaDeAlumnoAsignacion, @IDProyectoAsignacion, @IDSolicitudAsignacion)", parametrosDeAsignacion);
+                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeAsignacion.GUARDAR_ASIGNACION, parametrosDeAsignacion);
             }
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-
-				throw new AccesoADatosException("Error al guardar Asignacion:" + asignacion.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-			}
 			catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al guardar Asignacion:" + asignacion.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
-            }
+			{
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, asignacion);
+			}
 
-            if (filasAfectadas <= 0)
+			if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("Asignacion: " + asignacion.ToString() + " no fue guardada.", TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }

@@ -8,7 +8,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static AccesoABaseDeDatos.AccesoADatos;
+using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
@@ -16,21 +16,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
     {
         public List<string> CargarCorreosDeUsuarios()
         {
-            DataTable tablaDeCorreos;
+			DataTable tablaDeCorreos = new DataTable();
             try
             {
-                tablaDeCorreos = EjecutarSelect("SELECT CorreoElectronico FROM Alumnos UNION SELECT CorreoElectronico FROM DocentesAcademicos UNION SELECT CorreoElectronico FROM Directores");
+                tablaDeCorreos = AccesoADatos.EjecutarSelect(QuerysDeServiciosDeValidacion.CARGAR_CORREOS_DE_USUARIOS);
             }
-            catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-            {
-                throw new AccesoADatosException("Error al Cargar Correos De Usuarios ServiciosDeValidacionDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
-            }
-            catch (SqlException e)
-            {
-                throw new AccesoADatosException("Error al Cargar Correos De Usuarios ServiciosDeValidacionDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
-            }
+			catch (SqlException e)
+			{
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
+			}
 
-            List<string> correosElectronicos;
+			List<string> correosElectronicos;
             try
             {
                 correosElectronicos = ConvertirDataTableAListaDeCadenasDeCorreo(tablaDeCorreos);
@@ -56,15 +52,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			try
 			{
-				numeroDeOcurrencias = EjecutarOperacionEscalar("SELECT (SELECT COUNT(*) FROM Alumnos WHERE CorreoElectronico = @CorreoElectronico) + (SELECT COUNT(*) FROM Directores WHERE CorreoElectronico = @CorreoElectronico) + (SELECT COUNT(*) FROM DocentesAcademicos WHERE CorreoElectronico = @CorreoElectronico)", parametroCorreoElectronico);
-			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al Cargar Correos De Usuarios ServiciosDeValidacionDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+				numeroDeOcurrencias = AccesoADatos.EjecutarOperacionEscalar(QuerysDeServiciosDeValidacion.CONTAR_OCURRENCIAS_DE_CORREO, parametroCorreoElectronico);
 			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al Cargar Correos De Usuarios ServiciosDeValidacionDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, correo);
 			}
 
 			return numeroDeOcurrencias;
@@ -83,20 +75,15 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			try
 			{
-				numeroDeOcurrencias = EjecutarOperacionEscalar("SELECT COUNT(*) FROM Alumnos WHERE Matricula = @Matricula", parametroMatricula);
-			}
-			catch (SqlException e) when (e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado)
-			{
-				throw new AccesoADatosException("Error al Cargar Correos De Usuarios ServiciosDeValidacionDAO", e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
+				numeroDeOcurrencias = AccesoADatos.EjecutarOperacionEscalar(QuerysDeServiciosDeValidacion.CONTAR_OCURRENCIAS_DE_MATRICULA, parametroMatricula);
 			}
 			catch (SqlException e)
 			{
-				throw new AccesoADatosException("Error al Cargar Correos De Usuarios ServiciosDeValidacionDAO", e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, matricula);
 			}
 
 			return numeroDeOcurrencias;
 		}
-
 
 		private List<string> ConvertirDataTableAListaDeCadenasDeCorreo(DataTable tablaDeCorreos)
         {
