@@ -12,10 +12,7 @@ namespace LogicaDeNegocios.Excepciones
 	{
 		public static void EncadenarExcepcionDeSql(SqlException e, object objetoAsociado)
 		{
-			if (e.Number == (int)CodigoDeErrorDeSqlException.ConexionAServidorFallida 
-			 || e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado 
-			 || e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoRespondio 
-			 || e.Number == (int)CodigoDeErrorDeSqlException.TiempoDeEsperaExpirado)
+			if (ErrorDeConexion(e.Number))
 			{
 				throw new AccesoADatosException(e.Message + System.Environment.NewLine + "Objeto asociado: " + objetoAsociado.ToString(), e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
 			}
@@ -24,17 +21,15 @@ namespace LogicaDeNegocios.Excepciones
 				throw new AccesoADatosException(e.Message + System.Environment.NewLine + "Objeto asociado: " + objetoAsociado.ToString(), e, TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada);
 			}
 			else
+
 			{
-				throw new AccesoADatosException(e.Message, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				throw new AccesoADatosException(e.Message + e.Number + System.Environment.NewLine + "Objeto asociado: " + objetoAsociado.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
 		}
 
 		public static void EncadenarExcepcionDeSql(SqlException e)
 		{
-			if (e.Number == (int)CodigoDeErrorDeSqlException.ConexionAServidorFallida
-			 || e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado
-			 || e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoRespondio
-			 || e.Number == (int)CodigoDeErrorDeSqlException.TiempoDeEsperaExpirado)
+			if (ErrorDeConexion(e.Number))
 			{
 				throw new AccesoADatosException(e.Message, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
 			}
@@ -50,10 +45,7 @@ namespace LogicaDeNegocios.Excepciones
 
 		public static void EncadenarExcepcionDeSql(SqlException e, object objetoAsociado, int IDAsociada)
 		{
-			if (e.Number == (int)CodigoDeErrorDeSqlException.ConexionAServidorFallida
-			 || e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado
-			 || e.Number == (int)CodigoDeErrorDeSqlException.ServidorNoRespondio
-			 || e.Number == (int)CodigoDeErrorDeSqlException.TiempoDeEsperaExpirado)
+			if (ErrorDeConexion(e.Number))
 			{
 				throw new AccesoADatosException(e.Message + System.Environment.NewLine + "Objeto asociado: " + objetoAsociado.ToString() + System.Environment.NewLine + "IDAsociada: " + IDAsociada, e, TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida);
 			}
@@ -63,8 +55,26 @@ namespace LogicaDeNegocios.Excepciones
 			}
 			else
 			{
-				throw new AccesoADatosException(e.Message, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
+				throw new AccesoADatosException(e.Message + System.Environment.NewLine + "Objeto asociado: " + objetoAsociado.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
+		}
+
+		private static bool ErrorDeConexion(int numeroDeError)
+		{
+			bool esErrorDeConexion = false;
+
+			if (numeroDeError == (int)CodigoDeErrorDeSqlException.ConexionAServidorFallida
+			 || numeroDeError == (int)CodigoDeErrorDeSqlException.ServidorNoEncontrado
+			 || numeroDeError == (int)CodigoDeErrorDeSqlException.ServidorNoRespondio
+			 || numeroDeError == (int)CodigoDeErrorDeSqlException.TiempoDeEsperaExpirado
+			 || numeroDeError == (int)CodigoDeErrorDeSqlException.ConexionRemotaFallida
+			 || numeroDeError == (int)CodigoDeErrorDeSqlException.TiempoDeEsperaExpirado
+			 || numeroDeError == (int)CodigoDeErrorDeSqlException.LoginFallido)
+			{
+				esErrorDeConexion = true;
+			}
+
+			return esErrorDeConexion;
 		}
 	}
 }
