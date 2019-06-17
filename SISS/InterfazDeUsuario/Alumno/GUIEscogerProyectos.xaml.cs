@@ -29,6 +29,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
         public GUIEscogerProyectos(Alumno alumno)
         {
             InitializeComponent();
+            LabelNombreDeUsuario.Content = alumno.Nombre;
             AdministradorDeProyectos = new AdministradorDeProyectos();
             Alumno = alumno;
             Solicitud = new Solicitud(Alumno);
@@ -105,6 +106,11 @@ namespace InterfazDeUsuario.GUIsDeAlumno
             {
                 MessageBox.Show(CANTIDAD_INVALIDA_DE_PROYECTOS_SELECCIONANDOS_MENSAJE, CANTIDAD_INVALIDA_DE_PROYECTOS_SELECCIONANDOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

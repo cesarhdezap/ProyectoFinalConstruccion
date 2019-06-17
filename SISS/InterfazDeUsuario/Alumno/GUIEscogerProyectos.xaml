@@ -15,7 +15,7 @@
 		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="508,36,0,0" FontSize="14" RenderTransformOrigin="-0.025,1.293" HorizontalContentAlignment="Right" Width="222"/>
 		<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="730,36,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
 		<Label x:Name="LabelEscogerProyectoDeServicioSocial" Content="Escoger proyecto de servicio social" HorizontalAlignment="Left" Margin="38,89,0,0" VerticalAlignment="Top" FontSize="24"/>
-		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="235,516,0,0" VerticalAlignment="Top" Width="75" FontSize="14"/>
+		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="235,516,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Click="ButtonCancelar_Click"/>
 		<Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" Margin="562,516,0,0" VerticalAlignment="Top" Width="75" FontSize="14" Click="ButtonAceptar_Click"/>
 		<Label Content="Escoja 3 proyectos en los que desee participar." HorizontalAlignment="Left" Margin="288,453,0,0" VerticalAlignment="Top" FontSize="14"/>
 		<DataGrid x:Name="DataGridProyectos" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="false" CanUserDeleteRows="False" SelectionUnit="FullRow" HorizontalAlignment="Left" Height="312" Margin="38,136,0,0" VerticalAlignment="Top" Width="794" FontSize="14">
