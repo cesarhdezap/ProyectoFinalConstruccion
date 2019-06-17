@@ -5,10 +5,19 @@ using System;
 
 namespace LogicaDeNegocios.Servicios
 {
+   /// <summary>
+   /// Clase para identificar el tipo de sesión.
+   /// Contiene métodos para cargar la sesión
+   /// </summary>
     public class ServiciosDeSesion
     {
         private const int ID_NO_ASIGNADA = 0;
 
+        /// <summary>
+        /// Carga el tipo Sesion por correo electrónico.
+        /// </summary>
+        /// <param name="correo">Correo del usuario en cadena de carácteres.</param>
+        /// <returns>Objeto Sesion del correo.</returns>
         public static Sesion CargarSesion(string correo)
         {
             Sesion sesion = new Sesion();
