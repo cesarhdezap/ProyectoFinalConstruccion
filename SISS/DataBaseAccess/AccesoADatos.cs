@@ -6,11 +6,21 @@ using System.IO;
 
 namespace AccesoABaseDeDatos
 {
+    /// <summary>
+    /// Clase para acceso a la base de datos.
+    /// Contiene metodos para insertar y seleccionar tablas de la base de datos.
+    /// </summary>
     public static class AccesoADatos
 	{
 		private const int PRIMERA_POSICION_EN_DATATABLE = 0;
         public static readonly string CadenaDeConexion = ConfigurationManager.ConnectionStrings["myConection"].ConnectionString.ToString();
 
+        /// <summary>
+        /// Ejecuta una consulta de selección en la base de datos.
+        /// </summary>
+        /// <param name="consulta">Una cadena con una consulta de SQL.</param>
+        /// <param name="parametros">Parametros utilizados en la consulta.</param>
+        /// <returns>Una DataTable con la tabla recuperada de la base de datos.</returns>
 		public static DataTable EjecutarSelect(String consulta, SqlParameter[] parametros = null)
 		{
             using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
@@ -49,6 +59,10 @@ namespace AccesoABaseDeDatos
             }
         }
 
+        /// <summary>
+        /// Cierra la conexión con la base de datos.
+        /// </summary>
+        /// <param name="conexion">Una conexión de SQL.</param>
 		public static void CerrarConexion(SqlConnection conexion)
 		{
 			if (conexion != null)
@@ -59,7 +73,13 @@ namespace AccesoABaseDeDatos
 				}
 			}
 		}
-	
+	    
+        /// <summary>
+        /// Ejecuta una consulta de inserción en la base de datos.
+        /// </summary>
+        /// <param name="consulta">Una consulta de SQL.</param>
+        /// <param name="parametros">Parametros utilizados en la consulta.</param>
+        /// <returns></returns>
 		public static int EjecutarInsertInto(string consulta, SqlParameter[] parametros = null)
 		{
 			using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
@@ -85,6 +105,12 @@ namespace AccesoABaseDeDatos
             }
 		}
 
+        /// <summary>
+        /// Ejecuta una consulta de solo un campo en la base de datos.
+        /// </summary>
+        /// <param name="consulta">Una consulta de SQL</param>
+        /// <param name="parametros">Parametros utilizados en la consulta</param>
+        /// <returns>Un numero del campo seleccionado</returns>
         public static int EjecutarOperacionEscalar(string consulta, SqlParameter[] parametros = null)
         {
             using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))

@@ -1,16 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.IO;
 
 namespace LogicaDeNegocios.Servicios
 {
+    /// <summary>
+    /// Clase de utilidad para procesar imagenes.
+    /// Contiene la conversión de una dirección y un arreglo de Bytes a BitmapImage
+    /// y la conversión de BitMapImage a arreglo de Bytes
+    /// </summary>
     public static class ServiciosDeManejoDeImagenes
     {
-
+        /// <summary>
+        /// Convierte <paramref name="datosDeImagen"/> con una imagen a un objeto BitMapImage.
+        /// </summary>
+        /// <param name="datosDeImagen">Datos de la imagen en arreglo de Byte.</param>
+        /// <returns>BitmapImage con los datos de <paramref name="datosDeImagen"/></returns>
         public static BitmapImage ConvertirArregloDeBytesAImagen(Byte[] datosDeImagen)
         {
             using (MemoryStream memoryStream = new MemoryStream(datosDeImagen))
@@ -24,6 +29,11 @@ namespace LogicaDeNegocios.Servicios
             }
         }
 
+        /// <summary>
+        /// Convierte <paramref name="imagen"/> a un arreglo de Byte.
+        /// </summary>
+        /// <param name="imagen">BitmapImage con datos de una imagen.</param>
+        /// <returns>Arreglo de Byte con los datos de <paramref name="imagen"/></returns>
         public static byte[] ConvertirImagenAArregloDeBytes(BitmapImage imagen)
         {
             byte[] datosDeimagen;
@@ -37,6 +47,11 @@ namespace LogicaDeNegocios.Servicios
             return datosDeimagen;
         }
 
+        /// <summary>
+        /// Convierte <paramref name="direccion"/> a un objeto BitmapImage.
+        /// </summary>
+        /// <param name="direccion">Dirreción de los datos de una imagen local.</param>
+        /// <returns>BitmapImage con los datos de <paramref name="direccion"/></returns>
         public static BitmapImage CargarImagenPorDireccion(string direccion)
         {
             BitmapImage imagen = new BitmapImage();
