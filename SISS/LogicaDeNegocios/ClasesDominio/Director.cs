@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LogicaDeNegocios.ClasesDominio
+﻿namespace LogicaDeNegocios.ClasesDominio
 {
+    /// <summary>
+    /// Clase Director.
+    /// Contiene los atributos del Director.
+    /// </summary>
     public class Director
     {
         public int IDPersonal { get; set; }

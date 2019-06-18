@@ -4,6 +4,11 @@ using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
 
 namespace LogicaDeNegocios
 {
+    /// <summary>
+    /// Clase DocenteAcademico.
+    /// Contiene todos los métodos para realizar operaciones con la base de datos.
+    /// <para>Hereda de <see cref="Persona"/>.</para>
+    /// </summary>
 	public class DocenteAcademico : Persona
 	{
 		public int IDPersonal { get; set; }
@@ -14,6 +19,11 @@ namespace LogicaDeNegocios
 		public DocenteAcademico Coordinador { get; set; }
 		public Rol Rol { get; set; }
 
+        /// <summary>
+        /// Convierte los atributos del <see cref="DocenteAcademico"/>
+        /// a una cadena con espacios para debugging.
+        /// </summary>
+        /// <returns>Cadena con los datos de los atributos.</returns>
         public override string ToString()
         {
             string docenteAcademico = System.Environment.NewLine +
@@ -27,15 +37,13 @@ namespace LogicaDeNegocios
 
             return docenteAcademico;
         }
-        public void Desactivar()
-		{
-            EsActivo = false;
-            DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
-            docenteAcademicoDAO.ActualizarDocenteAcademicoPorIDPersonal(IDPersonal, this);
 
-            EsActivo = false;
-        }
-
+        /// <summary>
+        /// Carga el primer <see cref="DocenteAcademico"/> de la base de datos
+        /// con el <see cref="Rol.Coordinador"/> de la <paramref name="carrera"/>.
+        /// </summary>
+        /// <param name="carrera">Cadena con la carrera a buscar.</param>
+        /// <returns>DocenteAcademico con <see cref="Rol.Coordinador"/> de la <paramref name="carrera"/></returns>
 		public DocenteAcademico CargarCoordinadorPorCarrera(string carrera)
 		{
 			DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
@@ -45,6 +53,10 @@ namespace LogicaDeNegocios
 			return docenteAcademico;
 		}
 
+        /// <summary>
+        /// Guarda el <see cref="DocenteAcademico"/> en la base
+        /// de datos.
+        /// </summary>
 		public void Guardar()
 		{
 			DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
@@ -53,6 +65,11 @@ namespace LogicaDeNegocios
             docenteAcademicoDAO.GuardarDocenteAcademico(this);
 		}
 
+        /// <summary>
+        /// Valida si los atributos del <see cref="DocenteAcademico"/> 
+        /// son correctos para la inserción a base de datos.
+        /// </summary>
+        /// <returns>Si sus atributos son válidos.</returns>
 		public bool Validar()
 		{
 			bool resultadoDeValidacion = false;
@@ -69,6 +86,9 @@ namespace LogicaDeNegocios
 		}
 	}
 	
+    /// <summary>
+    /// Enumerador con los roles del DocenteAcademico.
+    /// </summary>
 	public enum Rol
 	{
         Coordinador,
