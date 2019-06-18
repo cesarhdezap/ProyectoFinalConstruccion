@@ -62,7 +62,7 @@ namespace AccesoABaseDeDatos
         /// <summary>
         /// Cierra la conexión con la base de datos.
         /// </summary>
-        /// <param name="conexion">Una conexión de SQL.</param>
+        /// <param name="conexion">La conexión de SQL a cerrar.</param>
 		public static void CerrarConexion(SqlConnection conexion)
 		{
 			if (conexion != null)

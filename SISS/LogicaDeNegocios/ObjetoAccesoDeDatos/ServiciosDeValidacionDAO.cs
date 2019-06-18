@@ -12,33 +12,17 @@ using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-    public class ServiciosDeValidacionDAO : IServiciosDeValidacionDAO
-    {
-        public List<string> CargarCorreosDeUsuarios()
-        {
-			DataTable tablaDeCorreos = new DataTable();
-            try
-            {
-                tablaDeCorreos = AccesoADatos.EjecutarSelect(QuerysDeServiciosDeValidacion.CARGAR_CORREOS_DE_USUARIOS);
-            }
-			catch (SqlException e)
-			{
-				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
-			}
-
-			List<string> correosElectronicos;
-            try
-            {
-                correosElectronicos = ConvertirDataTableAListaDeCadenasDeCorreo(tablaDeCorreos);
-            }
-            catch (FormatException e)
-            {
-                throw new AccesoADatosException("Error al convertir datatable a lista cadenas de correo electronico", e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
-            }
-
-            return correosElectronicos;
-        }
-
+	/// <summary>
+	/// Clase de abstraccion para acceso a objetos en la base de datos por motivos de validación.
+	/// </summary>
+	public class ServiciosDeValidacionDAO : IServiciosDeValidacionDAO
+	{
+		/// <summary>
+		/// Cuenta las veces que el correo electrónico dado aparece en la base de datos.
+		/// </summary>
+		/// <param name="correo">Correo electrónico para contar ocurrencias.</param>
+		/// <returns>Numero de veces que el correo electrónico dado aparece en la base de datos.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public int ContarOcurrenciasDeCorreo(string correo)
 		{
 			int numeroDeOcurrencias = 0;
@@ -62,6 +46,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			return numeroDeOcurrencias;
 		}
 
+		/// <summary>
+		/// Cuenta las veces que la matrícula dada aparece en la base de datos.
+		/// </summary>
+		/// <param name="correo">Matrícula para contar ocurrencias.</param>
+		/// <returns>Numero de veces que la Matrícula dada aparece en la base de datos.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public int ContarOcurrenciasDeMatricula(string matricula)
 		{
 			int numeroDeOcurrencias = 0;
@@ -83,16 +73,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			return numeroDeOcurrencias;
-		}
-
-		private List<string> ConvertirDataTableAListaDeCadenasDeCorreo(DataTable tablaDeCorreos)
-        {
-            List<string> correosElectronicos = new List<string>();
-            foreach (DataRow fila in tablaDeCorreos.Rows)
-            {
-                correosElectronicos.Add(fila["CorreoElectronico"].ToString());
-            }
-            return correosElectronicos;
-        }
+		}	
     }
 }

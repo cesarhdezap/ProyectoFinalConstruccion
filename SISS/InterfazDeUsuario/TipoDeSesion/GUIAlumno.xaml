@@ -11,8 +11,8 @@
 		<Button x:Name="ButtonVerExpediente" Content="Ver expediente" HorizontalAlignment="Left" Margin="359,249,0,0" VerticalAlignment="Top" Width="182" Height="102" BorderBrush="#FF151111" FontSize="20" Click="ButtonVerExpediente_Click"/>
 		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontSize="48" BorderThickness="2" Margin="0,0,-12,0" FontFamily="Gill Sans MT" Height="64"/>
 		<Label x:Name="LabelSISS" Content="Sistema Informático de Servicio Social" HorizontalAlignment="Left" Margin="260,108,0,0" VerticalAlignment="Top" Height="34" Width="392" FontSize="22" BorderBrush="#FF1B1414"/>
-		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="560,23,0,0" FontSize="14"/>
-		<Label x:Name="LabelCerrarSesión" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="742,23,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
+		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="508,23,0,0" FontSize="14" HorizontalContentAlignment="Right" Width="255"/>
+		<Label x:Name="LabelCerrarSesión" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="763,23,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
 		<Label x:Name="LabelEsperandoAsignacion" Content="Esperando asignación por el coordinador." HorizontalAlignment="Left" Margin="275,161,0,0" VerticalAlignment="Top" FontSize="20"/>
 		<Label x:Name="LabelEsperandoAceptacion" Content="Esperando aceptación al sistema por el coordinador" HorizontalAlignment="Left" Margin="224,161,0,0" VerticalAlignment="Top" FontSize="20"/>
 		<Label x:Name="LabelDadoDeBaja" Content="Ha sido dado de baja del sistema, consulte a su coordinador" HorizontalAlignment="Left" Margin="181,161,0,0" VerticalAlignment="Top" FontSize="20"/>
