@@ -8,8 +8,8 @@ namespace LogicaDeNegocios.Interfaces
 {
     interface IServiciosDeValidacionDAO
     {
-		public int ContarOcurrenciasDeCorreo(string correo);
+		int ContarOcurrenciasDeCorreo(string correo);
 
-		public int ContarOcurrenciasDeMatricula(string matricula);
+		int ContarOcurrenciasDeMatricula(string matricula);
 	}
 }
