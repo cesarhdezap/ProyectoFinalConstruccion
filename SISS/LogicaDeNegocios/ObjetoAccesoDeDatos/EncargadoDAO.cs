@@ -12,16 +12,16 @@ using LogicaDeNegocios.Querys;
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
 	/// <summary>
-	/// Clase de abstraccion para acceso a objetos Encargado en la base de datos.
-	/// Contiene metodos para cargar, insertar y actualizar objetos Encargado.
+	/// Clase de abstraccion para acceso a objetos <see cref="Encargado"/> en la base de datos.
+	/// Contiene metodos para cargar, insertar y actualizar objetos <see cref="Encargado"/>.
 	/// </summary>
 	public class EncargadoDAO : IEncargadoDAO
 	{
 		/// <summary>
-		/// Actualiza un Encargado dada su ID.
+		/// Actualiza un <see cref="Encargado"/> dado su <see cref="Encargado.IDEncargado"/>.
 		/// </summary>
-		/// <param name="IDEncargado">La ID del Encargado a actualizar.</param>
-		/// <param name="encargado">El Encargado a actualizar.</param>
+		/// <param name="IDEncargado"><see cref="Encargado.IDEncargado"/> del Enc<see cref="Encargado"/>argado a actualizar.</param>
+		/// <param name="encargado">El <see cref="Encargado"/> a actualizar.</param>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public void ActualizarEncargadoPorID(int IDEncargado, Encargado encargado)
 		{
@@ -47,10 +47,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Carga al Encargado con la ID dada.
+		/// Carga al <see cref="Encargado"/> con la <see cref="Encargado.IDEncargado"/> dada.
 		/// </summary>
-		/// <param name="IDEncargado">La ID del Encargado a cargar.</param>
-		/// <returns>El Encargado con la ID dada.</returns>
+		/// <param name="IDEncargado"><see cref="Encargado.IDEncargado"/> del <see cref="Encargado"/> a cargar.</param>
+		/// <returns>El <see cref="Encargado"/> con <see cref="Encargado.IDEncargado"/> dado.</returns>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public Encargado CargarEncargadoPorID(int IDEncargado)
 		{
@@ -87,9 +87,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Carga a todos los Encargado en la base de datos.
+		/// Carga a todos los <see cref="Encargado"/> en la base de datos.
 		/// </summary>
-		/// <returns>Una lista con todos los Encargado.</returns>
+		/// <returns>Una <see cref="List{Encargado}"/> con todos los <see cref="Encargado"/>.</returns>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public List<Encargado> CargarEncargadosTodos()
 		{
@@ -115,10 +115,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		}
 
 		/// <summary>
-		/// Carga una lista de Encargado con solo sus ID incializadas y sus demas atributos como null basado en la ID de Organizacion relacionada.
+		/// Carga una <see cref="List{Encargado}"/> de <see cref="Encargado"/> con solo <see cref="Encargado.IDEncargado"/> inicializado y sus demas atributos como null basado en <see cref="Organizacion.IDOrganizacion"/> de la <see cref="Organizacion"/> relacionada.
 		/// </summary>
-		/// <param name="IDOrganizacion">La ID de la Organizacion relacionada a las ID de Encargado a cargar.</param>
-		/// <returns>Una lista de Encargado con solo sus ID inicializadas</returns>
+		/// <param name="IDOrganizacion">La <see cref="Organizacion.IDOrganizacion"/> de la <see cref="Organizacion"/> relacionada a <see cref="Encargado.IDEncargado"/> del <see cref="Encargado"/> a cargar.</param>
+		/// <returns>Una <see cref="List{Encargado}"/> de <see cref="Encargado"/> con solo <see cref="Encargado.IDEncargado"/> inicializado</returns>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si la ID es invalida o si el cliente de SQL tiro una excepción.</exception>
 		public List<Encargado> CargarIDsPorIDOrganizacion(int IDOrganizacion)
 		{
@@ -154,10 +154,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Carga un Encargado con solo su ID inicializada y sus demas atributos en como null basado en la ID de Proyecto dada.
+		/// Carga un <see cref="Encargado"/> con solo <see cref="Encargado.IDEncargado"/> inicializado y sus demas atributos en como null basado en <see cref="Proyecto.IDProyecto"/> de <see cref="Proyecto"/> dada.
 		/// </summary>
-		/// <param name="IDProyecto">La ID del Proyecto relacionada a la ID a cargar.</param>
-		/// <returns>Un Encargado con solo su ID inicializada.</returns>
+		/// <param name="IDProyecto"><see cref="Proyecto.IDProyecto"/> del <see cref="Proyecto"/> relacionada a los <see cref="Encargado.IDEncargado"/> a cargar.</param>
+		/// <returns>Un <see cref="Encargado"/> con solo <see cref="Encargado.IDEncargado"/> inicializado.</returns>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public Encargado CargarIDPorIDProyecto(int IDProyecto)
         {
@@ -193,10 +193,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Convierte una DataTable a un Encargado.
+		/// Convierte una <see cref="DataTable"/> a un <see cref="Encargado"/>.
 		/// </summary>
-		/// <param name="tablaDeEncargado">La DataTable que contiene datos del Encargado<./param>
-		/// <returns>El Encargado contenido en la DataTable.</returns>
+		/// <param name="tablaDeEncargado">La <see cref="DataTable"/> que contiene datos del <see cref="Encargado"/>.</param>
+		/// <returns>El <see cref="Encargado"/> contenido en la <see cref="DataTable|"/>.</returns>
 		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		private Encargado ConvertirDataTableAEncargado(DataTable tablaDeEncargado)
 		{
@@ -215,10 +215,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		}
 
 		/// <summary>
-		/// Convierte una DataTable a un Encargado con solo su ID inicializada y sus demas atributos como null.
+		/// Convierte una <see cref="DataTable"/> a un <see cref="Encargado"/> con solo <see cref="Encargado.IDEncargado"/> inicializado y sus demas atributos como null.
 		/// </summary>
-		/// <param name="tablaDeEncargado">La DataTable que contiene datos del Encargado.</param>
-		/// <returns>El Encargado con solo su ID inicializada contenido en la DataTable.</returns>
+		/// <param name="tablaDeEncargado">La <see cref="DataTable"/> que contiene datos del <see cref="Encargado"/>.</param>
+		/// <returns>El <see cref="Encargado"/> con solo <see cref="Encargado.IDEncargado"/> inicializado contenido en la <see cref="DataTable"/>.</returns>
 		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		private Encargado ConvertirDataTableAEncargadoConSoloID(DataTable tablaDeEncargado)
         {
@@ -232,10 +232,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Convierte una DataTable a una lista de Encargado.
+		/// Convierte una <see cref="DataTable"/> a una <see cref="List{T}"/> de <see cref="Encargado"/>.
 		/// </summary>
-		/// <param name="tablaDeEncargados">La DataTable que contiene datos de los Encargado.</param>
-		/// <returns>La lista de Encargado contenido en la DataTable.</returns>
+		/// <param name="tablaDeEncargados">La <see cref="DataTable"/> que contiene datos de los <see cref="Encargado"/>.</param>
+		/// <returns>La <see cref="List{T}"/> de <see cref="Encargado"/> contenido en la <see cref="DataTable"/>.</returns>
 		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		private List<Encargado> ConvertirDataTableAListaDeEncargados(DataTable tablaDeEncargados)
 		{
@@ -258,10 +258,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Convierte una DataTable a una lista de Encargado con solo sus ID, nombre y organizacion inicializados y sus demas atributos como null.
+		/// Convierte una <see cref="DataTable"/> a una <see cref="List{T}"/> de <see cref="Encargado"/> con solo <see cref="Encargado.IDEncargado"/>, nombre y <see cref="Encargado.Organizacion"/> inicializados y sus demas atributos como null.
 		/// </summary>
-		/// <param name="tablaDeEncargados">La DataTable que contiene datos de los Encargado.</param>
-		/// <returns>La lista de Encargado con solo sus ID, nombre y organizacion inicializados contenido en la DataTable.</returns>
+		/// <param name="tablaDeEncargados">La <see cref="DataTable"/> que contiene datos de los <see cref="Encargado"/>.</param>
+		/// <returns>La <see cref="List{T}"/> de <see cref="Encargado"/> con solo <see cref="Encargado.IDEncargado"/>, nombre y <see cref="Encargado.Organizacion"/> inicializados contenido en la <see cref="DataTable"/>.</returns>
 		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		private List<Encargado> ConvertirDataTableAListaDeEncargadosConIDNombreYOrganizacion (DataTable tablaDeEncargados)
         {
@@ -282,10 +282,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Convierte una DataTable a una lista de Encargado con solo sus ID inicializadas y sus demas atributos como null.
+		/// Convierte una <see cref="DataTable"/> a una <see cref="List{T}"/> de <see cref="Encargado"/> con solo <see cref="Encargado.IDEncargado"/> inicializado y sus demas atributos como null.
 		/// </summary>
-		/// <param name="tablaDeEncargados">La DataTable que contiene datos de los Encargado.</param>
-		/// <returns>La lista de Encargado con solo sus ID inicializadas contenido en la DataTable.</returns>
+		/// <param name="tablaDeEncargados">La <see cref="DataTable"/> que contiene datos de los <see cref="Encargado"/>.</param>
+		/// <returns>La lista de <see cref="Encargado"/> con solo <see cref="Encargado.IDEncargado"/> inicializado contenido en la <see cref="DataTable"/>.</returns>
 		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		private List<Encargado> ConvertirDataTableAListaDeEncargadosConSoloID(DataTable tablaDeEncargados)
         {
@@ -303,9 +303,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Guarda un Encargado en la base de datos.
+		/// Guarda un <see cref="Encargado"/> en la base de datos.
 		/// </summary>
-		/// <param name="encargado">El Encargado a guardar.</param>
+		/// <param name="encargado">El <see cref="Encargado"/> a guardar.</param>
 		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiro una excepción.</exception>
 		public void GuardarEncargado(Encargado encargado)
 		{
@@ -326,9 +326,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Carga una lista de Encargado con solo sus ID, nombre y organizacion inicializados y sus demas atributos como null.
+		/// Carga una lista de <see cref="Encargado"/> con solo <see cref="Encargado.IDEncargado"/>, nombre y <see cref="Encargado.Organizacion"/> inicializados y sus demas atributos como null.
 		/// </summary>
-		/// <returns>Un Encargado con solo sus ID, nombre y organizacion inicializados contenido en la DataTable.</returns>
+		/// <returns>Un <see cref="Encargado"/> con solo <see cref="Encargado.IDEncargado"/>, nombre y <see cref="Encargado.IDEncargado"/> inicializados contenido en la <see cref="DataTable"/>.</returns>
 		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		public List<Encargado> CargarEncargadosConIDNombreYOrganizacion()
         {
@@ -356,10 +356,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Inicializa un arreglo de SqlParameter basado en un Encargado.
+		/// Inicializa un arreglo de <see cref="SqlParameter"/> basado en un <see cref="Encargado"/>.
 		/// </summary>
-		/// <param name="encargado">El Encargado para inicializar los parametros.</param>
-		/// <returns>Un arreglo de SqlParameter donde cada posición es uno de los atributos del Encargado.</returns>
+		/// <param name="encargado">El <see cref="Encargado"/> para inicializar los parametros.</param>
+		/// <returns>Un arreglo de <see cref="SqlParameter"/> donde cada posición es uno de los atributos del <see cref="Encargado"/>.</returns>
 		private SqlParameter[] InicializarParametrosDeSql(Encargado encargado)
         {
             SqlParameter[] parametrosDeEncargado = new SqlParameter[5];

@@ -12,18 +12,18 @@ using LogicaDeNegocios.Querys;
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
 	/// <summary>
-	/// Clase de abstraccion para acceso a objetos DocumentoDeEntregaUnica en la base de datos.
-	/// Contiene metodos para cargar, insertar y actualizar objetos DocumentoDeEntregaUnica.
+	/// Clase de abstraccion para acceso a objetos <see cref="DocumentoDeEntregaUnica"/> en la base de datos.
+	/// Contiene metodos para cargar, insertar y actualizar objetos <see cref="DocumentoDeEntregaUnica"/>.
 	/// </summary>
 	public class DocumentoDeEntregaUnicaDAO : IDocumentoDeEntregaUnicaDAO
 	{
 		/// <summary>
-		/// Carga un DocumentoDeEntregaUnica dado su ID/>.
+		/// Carga un <see cref="DocumentoDeEntregaUnica"/> dado <see cref="DocumentoDeEntregaUnica.IDDocumento"/>/>.
 		/// </summary>
-		/// <param name="IDDocumento">El ID del DocumentoDeEntregaUnica a cargar.</param>
-		/// <returns>El DocumentoDeEntregaUnica con la ID dada.</returns>
+		/// <param name="IDDocumento"><see cref="DocumentoDeEntregaUnica.IDDocumento"/> del <see cref="DocumentoDeEntregaUnica"/> a cargar.</param>
+		/// <returns>El <see cref="DocumentoDeEntregaUnica"/> con <see cref="DocumentoDeEntregaUnica.IDDocumento"/> dado.</returns>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si la ID es invalida o si el cliente de SQL tiro una excepción.</exception>
-        public DocumentoDeEntregaUnica CargarDocumentoDeEntregaUnicaPorID(int IDDocumento)
+		public DocumentoDeEntregaUnica CargarDocumentoDeEntregaUnicaPorID(int IDDocumento)
         {
             if (IDDocumento <= 0)
             {
@@ -60,10 +60,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Carga una lista de DocumentoDeEntregaUnica con solo sus ID cargados y sus demas atributos como null basado en la ID de Asignacion.
+		/// Carga una lista de <see cref="DocumentoDeEntregaUnica"/> con solo <see cref="DocumentoDeEntregaUnica.IDDocumento"/> inicializado y sus demas atributos como null basado en <see cref="Asignacion.IDAsignacion"/> de la <see cref="Asignacion"/> relacionada al <see cref="DocumentoDeEntregaUnica"/>.
 		/// </summary>
-		/// <param name="IDAsignacion">La ID de la Asignacion relacionada a las ID de DocumentoDeEntregaUnica a cargar.</param>
-		/// <returns>Una lista de DocumentoDeEntregaUnica con solo sus ID</returns>
+		/// <param name="IDAsignacion"><see cref="Asignacion.IDAsignacion"/> de la <see cref="DocumentoDeEntregaUnica"/> relacionada a <see cref="DocumentoDeEntregaUnica.IDDocumento"/> de <see cref="DocumentoDeEntregaUnica"/> a cargar.</param>
+		/// <returns>Una <see cref="List{T}"/> de <see cref="DocumentoDeEntregaUnica"/> con solo <see cref="DocumentoDeEntregaUnica.IDDocumento"/></returns>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si la ID es invalida o si el cliente de SQL tiro una excepción.</exception>
 		public List<DocumentoDeEntregaUnica> CargarIDsPorIDAsignacion(int IDAsignacion)
         {
@@ -102,10 +102,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Guarda un DocumentoDeEntregaUnica en la base de datos.
+		/// Guarda un <see cref="DocumentoDeEntregaUnica"/> en la base de datos.
 		/// </summary>
-		/// <param name="documentoDeEntregaUnica">El DocumentoDeEntregaUnica a guardar.</param>
-		/// <param name="IDAsignacion">La ID de la Asignacion asociada al DocumentoDeEntregaUnica.</param>
+		/// <param name="documentoDeEntregaUnica">El <see cref="DocumentoDeEntregaUnica"/> a guardar.</param>
+		/// <param name="IDAsignacion"><see cref="Asignacion.IDAsignacion"/> de la <see cref="Asignacion"/> asociada al <see cref="DocumentoDeEntregaUnica"/>.</param>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si la ID es invalida o si el cliente de SQL tiro una excepción.</exception>
 		public void GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion)
         {
@@ -132,10 +132,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Convierte una DataTable a una lista de DocumentoDeEntregaUnica con solo el ID del DocumentoDeEntregaUnica inicializado y sus demas atributos como null.
+		/// Convierte una <see cref="DataTable"/> a una <see cref="List{DocumentoDeEntregaUnica}"/> de <see cref="DocumentoDeEntregaUnica"/> con solo <see cref="DocumentoDeEntregaUnica.IDDocumento"/> inicializado y sus demas atributos como null.
 		/// </summary>
-		/// <param name="tablaDeDocumentosDeEntregaUnica">La DataTable que contiene datos del DocumentoDeEntregaUnica</param>
-		/// <returns>Una lista de DocumentoDeEntregaUnica con solo sus ID</returns>
+		/// <param name="tablaDeDocumentosDeEntregaUnica">La <see cref="DataTable"/> que contiene datos del <see cref="DocumentoDeEntregaUnica"/></param>
+		/// <returns>Una <see cref="List{DocumentoDeEntregaUnica}"/> de <see cref="DocumentoDeEntregaUnica"/> con solo <see cref="DocumentoDeEntregaUnica.IDDocumento"/> inicizalizado.</returns>
 		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		private List<DocumentoDeEntregaUnica> ConvertirDataTableAListaDeDocumentosDeEntregaUnicaConSoloIDDocumento(DataTable tablaDeDocumentosDeEntregaUnica)
         {
@@ -154,10 +154,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		///  Convierte una DataTable a un DocumentoDeEntregaUnica.
+		///  Convierte una <see cref="DataTable"/> a un <see cref="DocumentoDeEntregaUnica"/>.
 		/// </summary>
-		/// <param name="tablaDeDocumentoDeEntregaUnica">La DataTable que contiene datos del DocumentoDeEntregaUnica.</param>
-		/// <returns>El DocumentoDeEntregaUnica en la tabla.</returns>
+		/// <param name="tablaDeDocumentoDeEntregaUnica">La <see cref="DataTable"/> que contiene datos del <see cref="DocumentoDeEntregaUnica"/>.</param>
+		/// <returns>El <see cref="DocumentoDeEntregaUnica"/> en la <see cref="DataTable"/>.</returns>
 		/// /// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		private DocumentoDeEntregaUnica ConvertirDataTableADocumentoDeEntregaUnica(DataTable tablaDeDocumentoDeEntregaUnica)
         {
@@ -176,11 +176,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Inicializa un arreglo de SqlParameter basado en un DocumentoDeEntregaUnica.
+		/// Inicializa un arreglo de <see cref="SqlParameter"/> basado en un <see cref="DocumentoDeEntregaUnica"/>.
 		/// </summary>
-		/// <param name="documentoDeEntregaUnica">El DocumentoDeEntregaUnica para inicializar los parametros.</param>
-		/// <param name="IDAsignacion">La ID de la Asignacion asociada al DocumenoDeEntregaUnica.</param>
-		/// <returns>Un arreglo de SqlParameter donde cada posición es uno de los atributoss del DocumentoDeEntregaunica.</returns>
+		/// <param name="documentoDeEntregaUnica">El <see cref="DocumentoDeEntregaUnica"/> para inicializar los parametros.</param>
+		/// <param name="IDAsignacion"><see cref="Asignacion.IDAsignacion"/> de la <see cref="Asignacion"/> asociada al <see cref="DocumentoDeEntregaUnica"/>.</param>
+		/// <returns>Un arreglo de <see cref="SqlParameter"/> donde cada posición es uno de los atributoss del <see cref="DocumentoDeEntregaUnica"/>.</returns>
 		private SqlParameter[] InicializarParametrosDeSQL(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion)
         {
             SqlParameter[] parametrosDeDocumentoDeEntregaUnica = new SqlParameter[5];
@@ -204,9 +204,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Obtiene el ultimo ID insertado en la tabla de DocumentoDeEntregaUnica en la base de datos.
+		/// Obtiene el ultimo <see cref="DocumentoDeEntregaUnica.IDDocumento"/> insertado en la tabla de <see cref="DocumentoDeEntregaUnica"/> en la base de datos.
 		/// </summary>
-		/// <returns>El ultimo ID insertado en la tabla de DocumentoDeEntregaUnica</returns>
+		/// <returns>El ultimo <see cref="DocumentoDeEntregaUnica.IDDocumento"/> insertado en la tabla de <see cref="DocumentoDeEntregaUnica"/></returns>
 		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiró una excepción. </exception>
 		/// <exception cref="InvalidCastException">Tira esta excepción si la base de datos no regresa un valor entero.</exception>
 		public int ObtenerUltimoIDInsertado()

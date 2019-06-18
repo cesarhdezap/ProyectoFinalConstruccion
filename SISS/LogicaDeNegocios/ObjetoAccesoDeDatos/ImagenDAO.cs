@@ -16,15 +16,15 @@ using LogicaDeNegocios.Querys;
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
 	/// <summary>
-	/// Clase de abstraccion para acceso a objetos Imagen en la base de datos.
-	/// Contiene metodos para cargar, insertar y actualizar objetos Imagen.
+	/// Clase de abstraccion para acceso a objetos <see cref="Imagen"/> en la base de datos.
+	/// Contiene metodos para cargar, insertar y actualizar objetos <see cref="Imagen"/>.
 	/// </summary>
 	public class ImagenDAO : IImagenDAO
     {
 		/// <summary>
-		/// Actualiza una Imagen dada la ID del Documento relacionado a ella.
+		/// Actualiza una <see cref="Imagen"/> dada la ID del Documento relacionado a ella.
 		/// </summary>
-		/// <param name="imagen">La Imagen a actualizar.</param>
+		/// <param name="imagen">La <see cref="Imagen"/> a actualizar.</param>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public void ActualizarImagenPorIDDocumentno(Imagen imagen)
         {
@@ -45,11 +45,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Carga una Imagen dada la ID del Documento relacionado a ella y el tipo de documento contenido en la imagen.
+		/// Carga una <see cref="Imagen"/> dada la ID del Documento relacionado a ella y el <see cref="TipoDeDocumentoEnImagen"/> de la imagen.
 		/// </summary>
-		/// <param name="IDDocumento">La ID del Documento relcionado a la Imagen a cargar.</param>
-		/// <param name="tipoDeDocumentoEnImagen">El tipo de documento contenido en la Imagen</param>
-		/// <returns>La Imagen relacionada a la ID del Documento relacionado a ella.</returns>
+		/// <param name="IDDocumento">La ID del Documento relcionado a la <see cref="Imagen"/> a cargar.</param>
+		/// <param name="tipoDeDocumentoEnImagen">El <see cref="TipoDeDocumentoEnImagen"/> de la Imagen</param>
+		/// <returns>La <see cref="Imagen"/> relacionada a la ID de Documento dada.</returns>
 		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		public BitmapImage CargarImagenPorIDDocumentoYTipoDeDocumentoEnImagen(int IDDocumento, TipoDeDocumentoEnImagen tipoDeDocumentoEnImagen)
         {
@@ -91,9 +91,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Guarda una Imagen en la base de datos.
+		/// Guarda una <see cref="Imagen"/> en la base de datos.
 		/// </summary>
-		/// <param name="imagen">La Imagen a guardar.</param>
+		/// <param name="imagen">La <see cref="Imagen"/> a guardar.</param>
 		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiro una excepción.</exception>
 		public void GuardarImagen(Imagen imagen)
         {
@@ -114,10 +114,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Inicializa un arreglo de SqlParameter basado en una Imagen.
+		/// Inicializa un arreglo de <see cref="SqlParameter"/> basado en una <see cref="Imagen"/>.
 		/// </summary>
-		/// <param name="imagen">La Imagen para inicializar los parametros.</param>
-		/// <returns>Un arreglo de SqlParameter donde cada posición es uno de los atributos del Alumno.</returns>
+		/// <param name="imagen">La <see cref="Imagen"/> para inicializar los parametros.</param>
+		/// <returns>Un arreglo de <see cref="SqlParameter"/> donde cada posición es uno de los atributos del <see cref="Imagen"/>.</returns>
 		private static SqlParameter[] InicializarParametrosDeSql(Imagen imagen)
         {
             SqlParameter[] parametrosDeImagen = new SqlParameter[3];
@@ -142,10 +142,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Convierte una DataTable a una Imagen.
+		/// Convierte una <see cref="DataTable"/> a una <see cref="Imagen"/>.
 		/// </summary>
-		/// <param name="tablaDeImagen">La DataTable que contiene datos de la Imagen.</param>
-		/// <returns>La Imagen contenida en la DataTable.</returns>
+		/// <param name="tablaDeImagen">La <see cref="DataTable"/> que contiene datos de la <see cref="Imagen"/>.</param>
+		/// <returns>La <see cref="Imagen"/> contenida en la <see cref="DataTable"/>.</returns>
 		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		private BitmapImage ConvertirDataTableAImagen(DataTable tablaDeImagen)
         {

@@ -11,18 +11,18 @@ using LogicaDeNegocios.Querys;
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
 	/// <summary>
-	/// Clase de abstracción para acceso a objetos DocenteAcademico en la base de datos.
-	/// Contiene metodos para cargar, insertar y actualizar objetos DocenteAcademico.
+	/// Clase de abstracción para acceso a objetos <see cref="DocenteAcademico"/> en la base de datos.
+	/// Contiene metodos para cargar, insertar y actualizar objetos <see cref="DocenteAcademico"/>.
 	/// </summary>
 	public class DocenteAcademicoDAO : IDocenteAcademicoDAO
     {
 		/// <summary>
-		/// Actualiza un DocenteAcademico dada su ID.
+		/// Actualiza un <see cref="DocenteAcademico"/> dado <see cref="DocenteAcademico.IDPersonal"/>.
 		/// </summary>
-		/// <param name="IDPersonal">La ID del DocenteAcademico a actualizar.</param>
-		/// <param name="docenteAcademico">El DocenteAcademico a actualizar.</param>
+		/// <param name="IDPersonal"><see cref="DocenteAcademico.IDPersonal"/> del <see cref="DocenteAcademico"/> a actualizar.</param>
+		/// <param name="docenteAcademico">El <see cref="DocenteAcademico"/> a actualizar.</param>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
-        public void ActualizarDocenteAcademicoPorIDPersonal(int IDPersonal, DocenteAcademico docenteAcademico)
+		public void ActualizarDocenteAcademicoPorIDPersonal(int IDPersonal, DocenteAcademico docenteAcademico)
         {
             if (IDPersonal <= 0)
             {
@@ -47,10 +47,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		}
 
 		/// <summary>
-		/// Carga un DocenteAcademico con solo su ID inicializada y sus demas atributos como null con el rol Coordinador dada su carrera.
+		/// Carga un <see cref="DocenteAcademico"/> con solo <see cref="DocenteAcademico.IDPersonal"/> inicializado y sus demas atributos como null con <see cref="DocenteAcademico.Rol"/> = <see cref="Rol.Coordinador"/> dado <see cref="DocenteAcademico.Carrera"/>.
 		/// </summary>
-		/// <param name="carrera">La carrera del DocenteAcademico a cargar.</param>
-		/// <returns>Un DocenteAcademico con solo su ID inicializada.</returns>
+		/// <param name="carrera"><see cref="DocenteAcademico.Carrera"/> del <see cref="DocenteAcademico"/> a cargar.</param>
+		/// <returns>Un <see cref="DocenteAcademico"/> con solo <see cref="DocenteAcademico.IDPersonal"/> inicializado.</returns>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public DocenteAcademico CargarIDCoordinadorPorCarrera(string carrera)
         {
@@ -84,11 +84,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Carga un DocenteAcademico con solo su ID inicializada y sus demas atributos como null dado su correo electrónico y su rol.
+		/// Carga un <see cref="DocenteAcademico"/> con solo <see cref="DocenteAcademico.IDPersonal"/> inicializado y sus demas atributos como null dado su correo electrónico y <see cref="DocenteAcademico.Rol"/>.
 		/// </summary>
-		/// <param name="correoElectronico">El correo electrónico del DocenteAcademico a cargar.</param>
-		/// <param name="rol">El rol del DocenteAcademico a cargar.</param>
-		/// <returns>Un DocenteAcademico con solo su ID inicializada.</returns>
+		/// <param name="correoElectronico">El correo electrónico del <see cref="DocenteAcademico"/> a cargar.</param>
+		/// <param name="rol"><see cref="DocenteAcademico.Rol"/> del <see cref="DocenteAcademico"/> a cargar.</param>
+		/// <returns>Un <see cref="DocenteAcademico"/> con solo <see cref="DocenteAcademico.IDPersonal"/> inicializado.</returns>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public string CargarIDPorCorreoYRol(string correoElectronico, Rol rol)
         {
@@ -127,12 +127,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Carga un DocenteAcademico dada su ID
+		/// Carga un <see cref="DocenteAcademico"/> dado <see cref="DocenteAcademico.IDPersonal"/>.
 		/// </summary>
-		/// <param name="IDPersonal">La ID del DocenteAcademico a cargar.</param>
-		/// <returns>Un DocenteAcedmico con la ID dada.</returns>
+		/// <param name="IDPersonal"><see cref="DocenteAcademico.IDPersonal"/> del <see cref="DocenteAcademico"/> a cargar.</param>
+		/// <returns>Un <see cref="DocenteAcademico"/> con la <see cref="DocenteAcademico.IDPersonal"/> dada.</returns>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
-        public DocenteAcademico CargarDocenteAcademicoPorIDPersonal(int IDPersonal)
+		public DocenteAcademico CargarDocenteAcademicoPorIDPersonal(int IDPersonal)
         {
 
             if (IDPersonal <= 0)
@@ -170,12 +170,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Carga un DocenteAcademico con solo su ID inicializada y sus demas atributos como null dada la ID de un Documento relacionado.
+		/// Carga un <see cref="DocenteAcademico"/> con solo <see cref="DocenteAcademico.IDPersonal"/> inicializada y sus demas atributos como null dado <see cref="ReporteMensual.IDDocumento"/> de un <see cref="ReporteMensual"/> relacionado.
 		/// </summary>
-		/// <param name="IDDocumento">La ID del Documento relacionado al DocenteAcademico a cargar.</param>
-		/// <returns>Un DocenteAcademico con solo su ID inicializada</returns>
+		/// <param name="IDDocumento"><see cref="ReporteMensual.IDDocumento"/> del <see cref="ReporteMensual"/> relacionado al <see cref="DocenteAcademico"/> a cargar.</param>
+		/// <returns>Un <see cref="DocenteAcademico"/> con solo <see cref="DocenteAcademico.IDPersonal"/> inicializado.</returns>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
-		public DocenteAcademico CargarIDPorIDDocumento(int IDDocumento)
+		public DocenteAcademico CargarIDPorIDReporteMensual(int IDDocumento)
         {
             if (IDDocumento <= 0)
             {
@@ -212,19 +212,19 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Carga una lista de todos los DocenteAcademico que tengan el estado dado.
+		/// Carga una <see cref="List{T}"/> de todos los <see cref="DocenteAcademico"/> que tengan el <see cref="DocenteAcademico.EsActivo"/> dado.
 		/// </summary>
-		/// <param name="isActivo">El estado de los DocenteAcademico a cargar.</param>
-		/// <returns>Una lista de todos los DocenteAcademico con el estado dado.</returns>
+		/// <param name="esActivo"><see cref="DocenteAcademico.EsActivo"/> de los <see cref="DocenteAcademico"/> a cargar.</param>
+		/// <returns>Una <see cref="List{T}"/> de todos los <see cref="DocenteAcademico"/> con el <see cref="DocenteAcademico.EsActivo"/> dado.</returns>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
-		public List<DocenteAcademico> CargarDocentesAcademicosPorEstado(bool isActivo)
+		public List<DocenteAcademico> CargarDocentesAcademicosPorEstado(bool esActivo)
         {
             DataTable tablaDeDocenteAcademico = new DataTable();
             SqlParameter[] parametroEsActivo = new SqlParameter[1];
             parametroEsActivo[0] = new SqlParameter
             {
                 ParameterName = "@EsActivo",
-                Value = isActivo
+                Value = esActivo
             };
 
             try
@@ -233,7 +233,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
 			catch (SqlException e)
 			{
-				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, isActivo);
+				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, esActivo);
 			}
 
 			List<DocenteAcademico> listaDeDocentesAcademicos = new List<DocenteAcademico>();
@@ -243,16 +243,16 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
             catch (FormatException e)
             {
-                throw new AccesoADatosException("Error al convertir data table a lista de DocentesAcademicos en cargar DocentesAcademicos por estado isActivo: " + isActivo.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
+                throw new AccesoADatosException("Error al convertir data table a lista de DocentesAcademicos en cargar DocentesAcademicos por estado isActivo: " + esActivo.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
             return listaDeDocentesAcademicos;
         }
 
 		/// <summary>
-		/// Carga una lista de todos los DocenteAcademico que tengan el rol dado.
+		/// Carga una <see cref="List{T}"/> de todos los <see cref="DocenteAcademico"/> que tengan el <see cref="DocenteAcademico.Rol"/> dado.
 		/// </summary>
-		/// <param name="rol">El rol de los DocenteAcademico a cargar.</param>
-		/// <returns>Una lista de todos los DocenteAcademico con el rol dado.</returns>
+		/// <param name="rol"><see cref="DocenteAcademico.Rol"/> de los <see cref="DocenteAcademico"/> a cargar.</param>
+		/// <returns>Una <see cref="List{T}"/> de todos los <see cref="DocenteAcademico"/> con el <see cref="DocenteAcademico.Rol"/> dado.</returns>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public List<DocenteAcademico> CargarDocentesAcademicosPorRol(Rol rol)
         {
@@ -286,10 +286,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Convierte una DataTable a un DocenteAcademico.
+		/// Convierte una <see cref="DataTable"/> a un <see cref="DocenteAcademico"/>.
 		/// </summary>
-		/// <param name="tablaDocenteAcademico">La DataTable que contiene datos del DocenteAcademico<./param>
-		/// <returns>El DocenteAcademico contenido en la DataTable.</returns>
+		/// <param name="tablaDocenteAcademico">La <see cref="DataTable"/> que contiene datos del <see cref="DocenteAcademico"/><./param>
+		/// <returns>El <see cref="DocenteAcademico"/> contenido en la <see cref="DataTable"/>.</returns>
 		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		private DocenteAcademico ConvertirDataTableADocenteAcademico(DataTable tablaDocenteAcademico)
         {
@@ -320,10 +320,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Convierte una DataTable a un DocenteAcademico con solo su ID inicializada y sus demas atributos como null.
+		/// Convierte una <see cref="DataTable"/> a un <see cref="DocenteAcademico"/> con solo <see cref="DocenteAcademico.IDPersonal"/> inicializado y sus demas atributos como null.
 		/// </summary>
-		/// <param name="tablaDocenteAcademico">La DataTable que contiene datos del DocenteAcademico.</param>
-		/// <returns>El DocenteAcademico con solo su ID inicializada contenido en la DataTable.</returns>
+		/// <param name="tablaDocenteAcademico">La <see cref="DataTable"/> que contiene datos del <see cref="DocenteAcademico"/>.</param>
+		/// <returns>El <see cref="DocenteAcademico"/> con solo <see cref="DocenteAcademico.IDPersonal"/> inicializado contenido en la <see cref="DataTable"/>.</returns>
 		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		private DocenteAcademico ConvertirDataTableADocenteAcademicoConSoloID(DataTable tablaDocenteAcademico)
         {
@@ -336,10 +336,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Convierte una DataTable a una lista de DocenteAcademico.
+		/// Convierte una <see cref="DataTable"/> a una <see cref="List{T}"/> de <see cref="DocenteAcademico"/>.
 		/// </summary>
-		/// <param name="tablaDocenteAcademico">La DataTable que contiene datos de los DocenteAcademico.</param>
-		/// <returns>La lista de DocenteAcademico contenido en la DataTable.</returns>
+		/// <param name="tablaDocenteAcademico">La <see cref="DataTable"/> que contiene datos de los <see cref="DocenteAcademico"/>.</param>
+		/// <returns>La <see cref="List{T}"/> de <see cref="DocenteAcademico"/> contenido en la <see cref="DataTable"/>.</returns>
 		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		private List<DocenteAcademico> ConvertirDataTableAListaDeDocentesAcademicos(DataTable tablaDocenteAcademico)
         {
@@ -377,9 +377,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Guarda un DocenteAcademico en la base de datos.
+		/// Guarda un <see cref="DocenteAcademico"/> en la base de datos.
 		/// </summary>
-		/// <param name="docenteAcademico">El DocenteAcademico a guardar.</param>
+		/// <param name="docenteAcademico">El <see cref="DocenteAcademico"/> a guardar.</param>
 		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiro una excepción.</exception>
 		public void GuardarDocenteAcademico(DocenteAcademico docenteAcademico)
         {
@@ -401,10 +401,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Inicializa un arreglo de SqlParameter basado en un DocenteAcademico.
+		/// Inicializa un arreglo de <see cref="SqlParameter"/> basado en un <see cref="DocenteAcademico"/>.
 		/// </summary>
-		/// <param name="docenteAcademico">El DocenteAcademico para inicializar los parametros.</param>
-		/// <returns>Un arreglo de SqlParameter donde cada posición es uno de los atributos del DocenteAcademico.</returns>
+		/// <param name="docenteAcademico">El <see cref="DocenteAcademico"/> para inicializar los parametros.</param>
+		/// <returns>Un arreglo de <see cref="SqlParameter"/> donde cada posición es uno de los atributos del <see cref="DocenteAcademico"/>.</returns>
 		private SqlParameter[] InicializarParametrosDeSql(DocenteAcademico docenteAcademico)
         {
             SqlParameter[] parametrosDeDocenteAcademico = new SqlParameter[9];
