@@ -11,8 +11,18 @@ using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
+	/// <summary>
+	/// Clase de abstraccion para acceso a objetos Encargado en la base de datos.
+	/// Contiene metodos para cargar, insertar y actualizar objetos Encargado.
+	/// </summary>
 	public class EncargadoDAO : IEncargadoDAO
 	{
+		/// <summary>
+		/// Actualiza un Encargado dada su ID.
+		/// </summary>
+		/// <param name="IDEncargado">La ID del Encargado a actualizar.</param>
+		/// <param name="encargado">El Encargado a actualizar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public void ActualizarEncargadoPorID(int IDEncargado, Encargado encargado)
 		{
             if (IDEncargado <= 0)
@@ -36,6 +46,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
+		/// <summary>
+		/// Carga al Encargado con la ID dada.
+		/// </summary>
+		/// <param name="IDEncargado">La ID del Encargado a cargar.</param>
+		/// <returns>El Encargado con la ID dada.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public Encargado CargarEncargadoPorID(int IDEncargado)
 		{
             if (IDEncargado <= 0)
@@ -70,6 +86,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return encargado;
         }
 
+		/// <summary>
+		/// Carga a todos los Encargado en la base de datos.
+		/// </summary>
+		/// <returns>Una lista con todos los Encargado.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public List<Encargado> CargarEncargadosTodos()
 		{
 			DataTable tablaDeEncargados = new DataTable();
@@ -93,6 +114,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return ListaEncargados;
 		}
 
+		/// <summary>
+		/// Carga una lista de Encargado con solo sus ID incializadas y sus demas atributos como null basado en la ID de Organizacion relacionada.
+		/// </summary>
+		/// <param name="IDOrganizacion">La ID de la Organizacion relacionada a las ID de Encargado a cargar.</param>
+		/// <returns>Una lista de Encargado con solo sus ID inicializadas</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si la ID es invalida o si el cliente de SQL tiro una excepción.</exception>
 		public List<Encargado> CargarIDsPorIDOrganizacion(int IDOrganizacion)
 		{
             if (IDOrganizacion <= 0)
@@ -126,7 +153,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeEncargados;
         }
 
-        public Encargado CargarIDPorIDProyecto(int IDProyecto)
+		/// <summary>
+		/// Carga un Encargado con solo su ID inicializada y sus demas atributos en como null basado en la ID de Proyecto dada.
+		/// </summary>
+		/// <param name="IDProyecto">La ID del Proyecto relacionada a la ID a cargar.</param>
+		/// <returns>Un Encargado con solo su ID inicializada.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public Encargado CargarIDPorIDProyecto(int IDProyecto)
         {
             if (IDProyecto <= 0)
             {
@@ -159,7 +192,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return encargado;
         }
 
-        private Encargado ConvertirDataTableAEncargado(DataTable tablaDeEncargado)
+		/// <summary>
+		/// Convierte una DataTable a un Encargado.
+		/// </summary>
+		/// <param name="tablaDeEncargado">La DataTable que contiene datos del Encargado<./param>
+		/// <returns>El Encargado contenido en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private Encargado ConvertirDataTableAEncargado(DataTable tablaDeEncargado)
 		{
             ProyectoDAO proyectoDAO = new ProyectoDAO();
             Encargado encargado = new Encargado();
@@ -175,7 +214,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return encargado;
 		}
 
-        private Encargado ConvertirDataTableAEncargadoConSoloID(DataTable tablaDeEncargado)
+		/// <summary>
+		/// Convierte una DataTable a un Encargado con solo su ID inicializada y sus demas atributos como null.
+		/// </summary>
+		/// <param name="tablaDeEncargado">La DataTable que contiene datos del Encargado.</param>
+		/// <returns>El Encargado con solo su ID inicializada contenido en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private Encargado ConvertirDataTableAEncargadoConSoloID(DataTable tablaDeEncargado)
         {
             ProyectoDAO proyectoDAO = new ProyectoDAO();
             Encargado encargado = new Encargado();
@@ -186,7 +231,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return encargado;
         }
 
-        private List<Encargado> ConvertirDataTableAListaDeEncargados(DataTable tablaDeEncargados)
+		/// <summary>
+		/// Convierte una DataTable a una lista de Encargado.
+		/// </summary>
+		/// <param name="tablaDeEncargados">La DataTable que contiene datos de los Encargado.</param>
+		/// <returns>La lista de Encargado contenido en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private List<Encargado> ConvertirDataTableAListaDeEncargados(DataTable tablaDeEncargados)
 		{
             ProyectoDAO proyectoDAO = new ProyectoDAO();
             List<Encargado> encargados = new List<Encargado>();
@@ -206,7 +257,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return encargados;
         }
 
-        private List<Encargado> ConvertirDataTableAListaDeEncargadosConIDNombreYOrganizacion (DataTable tablaDeEncargados)
+		/// <summary>
+		/// Convierte una DataTable a una lista de Encargado con solo sus ID, nombre y organizacion inicializados y sus demas atributos como null.
+		/// </summary>
+		/// <param name="tablaDeEncargados">La DataTable que contiene datos de los Encargado.</param>
+		/// <returns>La lista de Encargado con solo sus ID, nombre y organizacion inicializados contenido en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private List<Encargado> ConvertirDataTableAListaDeEncargadosConIDNombreYOrganizacion (DataTable tablaDeEncargados)
         {
             List<Encargado> encargados = new List<Encargado>();
             OrganizacionDAO organizacionDAO = new OrganizacionDAO();
@@ -224,7 +281,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return encargados;
         }
 
-        private List<Encargado> ConvertirDataTableAListaDeEncargadosConSoloID(DataTable tablaDeEncargados)
+		/// <summary>
+		/// Convierte una DataTable a una lista de Encargado con solo sus ID inicializadas y sus demas atributos como null.
+		/// </summary>
+		/// <param name="tablaDeEncargados">La DataTable que contiene datos de los Encargado.</param>
+		/// <returns>La lista de Encargado con solo sus ID inicializadas contenido en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private List<Encargado> ConvertirDataTableAListaDeEncargadosConSoloID(DataTable tablaDeEncargados)
         {
             ProyectoDAO proyectoDAO = new ProyectoDAO();
             List<Encargado> encargados = new List<Encargado>();
@@ -239,7 +302,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return encargados;
         }
 
-        public void GuardarEncargado(Encargado encargado)
+		/// <summary>
+		/// Guarda un Encargado en la base de datos.
+		/// </summary>
+		/// <param name="encargado">El Encargado a guardar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiro una excepción.</exception>
+		public void GuardarEncargado(Encargado encargado)
 		{
             SqlParameter[] parametrosDeEncargado = InicializarParametrosDeSql(encargado);
             int filasAfectadas = 0;
@@ -257,7 +325,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        public List<Encargado> CargarEncargadosConIDNombreYOrganizacion()
+		/// <summary>
+		/// Carga una lista de Encargado con solo sus ID, nombre y organizacion inicializados y sus demas atributos como null.
+		/// </summary>
+		/// <returns>Un Encargado con solo sus ID, nombre y organizacion inicializados contenido en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		public List<Encargado> CargarEncargadosConIDNombreYOrganizacion()
         {
             DataTable tablaDeEncargados = new DataTable();
 
@@ -282,7 +355,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return ListaEncargados;
         }
 
-        private SqlParameter[] InicializarParametrosDeSql(Encargado encargado)
+		/// <summary>
+		/// Inicializa un arreglo de SqlParameter basado en un Encargado.
+		/// </summary>
+		/// <param name="encargado">El Encargado para inicializar los parametros.</param>
+		/// <returns>Un arreglo de SqlParameter donde cada posición es uno de los atributos del Encargado.</returns>
+		private SqlParameter[] InicializarParametrosDeSql(Encargado encargado)
         {
             SqlParameter[] parametrosDeEncargado = new SqlParameter[5];
             for (int i = 0; i < parametrosDeEncargado.Length; i++)

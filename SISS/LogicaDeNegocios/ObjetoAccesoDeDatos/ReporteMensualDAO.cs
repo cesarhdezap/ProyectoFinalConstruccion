@@ -11,10 +11,20 @@ using LogicaDeNegocios.Querys;
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 {
+	/// <summary>
+	/// Clase de abstraccion para acceso a objetos ReporteMensual en la base de datos.
+	/// Contiene metodos para cargar, insertar y actualizar objetos ReporteMensual.
+	/// </summary>
 	public class ReporteMensualDAO : IReporteMensualDAO
 	{
-		
-        public List<ReporteMensual> CargarIDsPorIDAsignacion(int IDAsignacion)
+
+		/// <summary>
+		/// Carga una lista de ReporteMensual con solo sus ID incializadas y sus demas atributos como null basado en la ID de Asignacion relacionada.
+		/// </summary>
+		/// <param name="IDAsignacion">La ID de la Asignacion relacionada a las ID de ReporteMensual a cargar.</param>
+		/// <returns>Una lista de ReporteMensual con solo sus ID inicializadas</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si la ID es invalida o si el cliente de SQL tiro una excepción.</exception>
+		public List<ReporteMensual> CargarIDsPorIDAsignacion(int IDAsignacion)
 		{
             if (IDAsignacion <= 0)
             {
@@ -49,7 +59,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeReportesMensuales;
         }
 
-        public ReporteMensual CargarReporteMensualPorID(int IDDocumento)
+		/// <summary>
+		/// Carga al ReporteMensual con la ID dada.
+		/// </summary>
+		/// <param name="IDDocumento">La ID del ReporteMensual a cargar.</param>
+		/// <returns>El ReporteMensual con la ID dada.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public ReporteMensual CargarReporteMensualPorID(int IDDocumento)
 		{
             if (IDDocumento <= 0)
             {
@@ -82,7 +98,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return reporteMensual;
         }
 
-        private List<ReporteMensual> ConvertirDataTableAListaDeReportesMensualesConSoloID(DataTable tablaDeReportesMensuales)
+		/// <summary>
+		/// Convierte una DataTable a una lista de ReporteMensual con solo sus ID inicializadas y sus demas atributos como null.
+		/// </summary>
+		/// <param name="tablaDeReportesMensuales">La DataTable que contiene datos de los Encargado.</param>
+		/// <returns>La lista de ReporteMensual con solo sus ID inicializadas contenido en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private List<ReporteMensual> ConvertirDataTableAListaDeReportesMensualesConSoloID(DataTable tablaDeReportesMensuales)
         {
             List<ReporteMensual> listaDeReportesMensuales = new List<ReporteMensual>();
             foreach (DataRow fila in tablaDeReportesMensuales.Rows)
@@ -96,7 +118,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeReportesMensuales;
         }
 
-        private ReporteMensual ConvertirDataTableAReporteMensual (DataTable tablaDeReportesMensuales)
+		/// <summary>
+		/// Convierte una DataTable a un ReporteMensual.
+		/// </summary>
+		/// <param name="tablaDeReportesMensuales">La DataTable que contiene datos del ReporteMensual<./param>
+		/// <returns>El ReporteMensual contenido en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private ReporteMensual ConvertirDataTableAReporteMensual (DataTable tablaDeReportesMensuales)
 		{
             DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
             ImagenDAO imagenDAO = new ImagenDAO();
@@ -115,7 +143,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return reporteMensual;
 		}
 
-        public void GuardarReporteMensual(ReporteMensual reporteMensual, int IDAsignacion)
+		/// <summary>
+		/// Guarda un ReporteMensual en la base de datos.
+		/// </summary>
+		/// <param name="reporteMensual">El ReporteMensual a guardar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiro una excepción.</exception>
+		public void GuardarReporteMensual(ReporteMensual reporteMensual, int IDAsignacion)
         {
             if (IDAsignacion <= 0)
             {
@@ -138,7 +171,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        private SqlParameter[] InicializarParametrosDeSql(ReporteMensual reporteMensual, int IDAsignacion = 0)
+		/// <summary>
+		/// Inicializa un arreglo de SqlParameter basado en un ReporteMensual.
+		/// </summary>
+		/// <param name="reporteMensual">El ReporteMensual para inicializar los parametros.</param>
+		/// <returns>Un arreglo de SqlParameter donde cada posición es uno de los atributos del ReporteMensual.</returns>
+		private SqlParameter[] InicializarParametrosDeSql(ReporteMensual reporteMensual, int IDAsignacion = 0)
         {
             SqlParameter[] parametrosDeReporteMensual = new SqlParameter[7];
 
@@ -165,7 +203,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return parametrosDeReporteMensual;
         }
 
-        public void ActualizarReporteMensualPorID(int IDDocumento, ReporteMensual reporteMensual)
+		/// <summary>
+		/// Actualiza un ReporteMensual dada su ID.
+		/// </summary>
+		/// <param name="IDDocumento">La ID del ReporteMensual a actualizar.</param>
+		/// <param name="reporteMensual">El ReporteMensual a actualizar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public void ActualizarReporteMensualPorID(int IDDocumento, ReporteMensual reporteMensual)
         {
 			if (IDDocumento <= 0)
 			{
@@ -188,7 +232,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 		}
 
-        public int ObtenerUltimoIDInsertado()
+		/// <summary>
+		/// Obtiene el ultimo ID insertado en la tabla de ReporteMensual en la base de datos.
+		/// </summary>
+		/// <returns>El ultimo ID insertado en la tabla de ReporteMensual</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiró una excepción. </exception>
+		/// <exception cref="InvalidCastException">Tira esta excepción si la base de datos no regresa un valor entero.</exception>
+		public int ObtenerUltimoIDInsertado()
         {
 			int ultimoIDInsertado = 0;
 			try

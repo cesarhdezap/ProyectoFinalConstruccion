@@ -15,9 +15,18 @@ using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-    public class ImagenDAO : IImagenDAO
+	/// <summary>
+	/// Clase de abstraccion para acceso a objetos Imagen en la base de datos.
+	/// Contiene metodos para cargar, insertar y actualizar objetos Imagen.
+	/// </summary>
+	public class ImagenDAO : IImagenDAO
     {
-        public void ActualizarImagenPorIDDocumentno(Imagen imagen)
+		/// <summary>
+		/// Actualiza una Imagen dada la ID del Documento relacionado a ella.
+		/// </summary>
+		/// <param name="imagen">La Imagen a actualizar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public void ActualizarImagenPorIDDocumentno(Imagen imagen)
         {
             SqlParameter[] parametrosDeImagen = InicializarParametrosDeSql(imagen);
             int filasAfectadas = 0;
@@ -35,7 +44,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        public BitmapImage CargarImagenPorIDDocumentoYTipoDeDocumentoEnImagen(int IDDocumento, TipoDeDocumentoEnImagen tipoDeDocumentoEnImagen)
+		/// <summary>
+		/// Carga una Imagen dada la ID del Documento relacionado a ella y el tipo de documento contenido en la imagen.
+		/// </summary>
+		/// <param name="IDDocumento">La ID del Documento relcionado a la Imagen a cargar.</param>
+		/// <param name="tipoDeDocumentoEnImagen">El tipo de documento contenido en la Imagen</param>
+		/// <returns>La Imagen relacionada a la ID del Documento relacionado a ella.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		public BitmapImage CargarImagenPorIDDocumentoYTipoDeDocumentoEnImagen(int IDDocumento, TipoDeDocumentoEnImagen tipoDeDocumentoEnImagen)
         {
             if (IDDocumento <= 0)
             {
@@ -74,7 +90,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return imagen;
         }
 
-        public void GuardarImagen(Imagen imagen)
+		/// <summary>
+		/// Guarda una Imagen en la base de datos.
+		/// </summary>
+		/// <param name="imagen">La Imagen a guardar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiro una excepción.</exception>
+		public void GuardarImagen(Imagen imagen)
         {
             SqlParameter[] parametroIDDocumento = InicializarParametrosDeSql(imagen);
             int filasAfectadas = 0;
@@ -92,7 +113,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        private static SqlParameter[] InicializarParametrosDeSql(Imagen imagen)
+		/// <summary>
+		/// Inicializa un arreglo de SqlParameter basado en una Imagen.
+		/// </summary>
+		/// <param name="imagen">La Imagen para inicializar los parametros.</param>
+		/// <returns>Un arreglo de SqlParameter donde cada posición es uno de los atributos del Alumno.</returns>
+		private static SqlParameter[] InicializarParametrosDeSql(Imagen imagen)
         {
             SqlParameter[] parametrosDeImagen = new SqlParameter[3];
 
@@ -115,7 +141,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return parametrosDeImagen;
         }
 
-        private BitmapImage ConvertirDataTableAImagen(DataTable tablaDeImagen)
+		/// <summary>
+		/// Convierte una DataTable a una Imagen.
+		/// </summary>
+		/// <param name="tablaDeImagen">La DataTable que contiene datos de la Imagen.</param>
+		/// <returns>La Imagen contenida en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private BitmapImage ConvertirDataTableAImagen(DataTable tablaDeImagen)
         {
             BitmapImage imagen = new BitmapImage();
             foreach (DataRow fila in tablaDeImagen.Rows)

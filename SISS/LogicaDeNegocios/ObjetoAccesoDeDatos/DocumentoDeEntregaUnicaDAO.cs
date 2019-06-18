@@ -11,8 +11,18 @@ using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
+	/// <summary>
+	/// Clase de abstraccion para acceso a objetos DocumentoDeEntregaUnica en la base de datos.
+	/// Contiene metodos para cargar, insertar y actualizar objetos DocumentoDeEntregaUnica.
+	/// </summary>
 	public class DocumentoDeEntregaUnicaDAO : IDocumentoDeEntregaUnicaDAO
 	{
+		/// <summary>
+		/// Carga un DocumentoDeEntregaUnica dado su ID/>.
+		/// </summary>
+		/// <param name="IDDocumento">El ID del DocumentoDeEntregaUnica a cargar.</param>
+		/// <returns>El DocumentoDeEntregaUnica con la ID dada.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si la ID es invalida o si el cliente de SQL tiro una excepción.</exception>
         public DocumentoDeEntregaUnica CargarDocumentoDeEntregaUnicaPorID(int IDDocumento)
         {
             if (IDDocumento <= 0)
@@ -49,7 +59,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return documentoDeEntregaUnica;
         }
 
-        public List<DocumentoDeEntregaUnica> CargarIDsPorIDAsignacion(int IDAsignacion)
+		/// <summary>
+		/// Carga una lista de DocumentoDeEntregaUnica con solo sus ID cargados y sus demas atributos como null basado en la ID de Asignacion.
+		/// </summary>
+		/// <param name="IDAsignacion">La ID de la Asignacion relacionada a las ID de DocumentoDeEntregaUnica a cargar.</param>
+		/// <returns>Una lista de DocumentoDeEntregaUnica con solo sus ID</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si la ID es invalida o si el cliente de SQL tiro una excepción.</exception>
+		public List<DocumentoDeEntregaUnica> CargarIDsPorIDAsignacion(int IDAsignacion)
         {
             if (IDAsignacion <= 0)
             {
@@ -85,7 +101,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeDocumentosDeEntregaUnica;
         }
 
-        public void GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion)
+		/// <summary>
+		/// Guarda un DocumentoDeEntregaUnica en la base de datos.
+		/// </summary>
+		/// <param name="documentoDeEntregaUnica">El DocumentoDeEntregaUnica a guardar.</param>
+		/// <param name="IDAsignacion">La ID de la Asignacion asociada al DocumentoDeEntregaUnica.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si la ID es invalida o si el cliente de SQL tiro una excepción.</exception>
+		public void GuardarDocumentoDeEntregaUnica(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion)
         {
             if (IDAsignacion <= 0)
             {
@@ -109,7 +131,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        private List<DocumentoDeEntregaUnica> ConvertirDataTableAListaDeDocumentosDeEntregaUnicaConSoloIDDocumento(DataTable tablaDeDocumentosDeEntregaUnica)
+		/// <summary>
+		/// Convierte una DataTable a una lista de DocumentoDeEntregaUnica con solo el ID del DocumentoDeEntregaUnica inicializado y sus demas atributos como null.
+		/// </summary>
+		/// <param name="tablaDeDocumentosDeEntregaUnica">La DataTable que contiene datos del DocumentoDeEntregaUnica</param>
+		/// <returns>Una lista de DocumentoDeEntregaUnica con solo sus ID</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private List<DocumentoDeEntregaUnica> ConvertirDataTableAListaDeDocumentosDeEntregaUnicaConSoloIDDocumento(DataTable tablaDeDocumentosDeEntregaUnica)
         {
             ImagenDAO imagenDAO = new ImagenDAO();
             DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
@@ -125,7 +153,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeDocumentosDeEntregaUnica;
         }
 
-        private DocumentoDeEntregaUnica ConvertirDataTableADocumentoDeEntregaUnica(DataTable tablaDeDocumentoDeEntregaUnica)
+		/// <summary>
+		///  Convierte una DataTable a un DocumentoDeEntregaUnica.
+		/// </summary>
+		/// <param name="tablaDeDocumentoDeEntregaUnica">La DataTable que contiene datos del DocumentoDeEntregaUnica.</param>
+		/// <returns>El DocumentoDeEntregaUnica en la tabla.</returns>
+		/// /// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private DocumentoDeEntregaUnica ConvertirDataTableADocumentoDeEntregaUnica(DataTable tablaDeDocumentoDeEntregaUnica)
         {
             ImagenDAO imagenDAO = new ImagenDAO();
             DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
@@ -141,7 +175,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return documentoDeEntregaUnica;
         }
 
-        private SqlParameter[] InicializarParametrosDeSQL(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion)
+		/// <summary>
+		/// Inicializa un arreglo de SqlParameter basado en un DocumentoDeEntregaUnica.
+		/// </summary>
+		/// <param name="documentoDeEntregaUnica">El DocumentoDeEntregaUnica para inicializar los parametros.</param>
+		/// <param name="IDAsignacion">La ID de la Asignacion asociada al DocumenoDeEntregaUnica.</param>
+		/// <returns>Un arreglo de SqlParameter donde cada posición es uno de los atributoss del DocumentoDeEntregaunica.</returns>
+		private SqlParameter[] InicializarParametrosDeSQL(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion)
         {
             SqlParameter[] parametrosDeDocumentoDeEntregaUnica = new SqlParameter[5];
             for (int i = 0; i < parametrosDeDocumentoDeEntregaUnica.Length; i++)
@@ -163,6 +203,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return parametrosDeDocumentoDeEntregaUnica;
         }
 
+		/// <summary>
+		/// Obtiene el ultimo ID insertado en la tabla de DocumentoDeEntregaUnica en la base de datos.
+		/// </summary>
+		/// <returns>El ultimo ID insertado en la tabla de DocumentoDeEntregaUnica</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiró una excepción. </exception>
+		/// <exception cref="InvalidCastException">Tira esta excepción si la base de datos no regresa un valor entero.</exception>
 		public int ObtenerUltimoIDInsertado()
 		{
 			int ultimoIDInsertado = 0;
@@ -176,7 +222,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 			catch (InvalidCastException e)
 			{
-				throw new AccesoADatosException("Error al obetner Ultimo ID Insertado en DocumentoDeEntregaUnicaDAO", e, TipoDeErrorDeAccesoADatos.IDInvalida);
+				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en DocumentoDeEntregaUnicaDAO", e, TipoDeErrorDeAccesoADatos.IDInvalida);
 			}
 			return ultimoIDInsertado;
 		}

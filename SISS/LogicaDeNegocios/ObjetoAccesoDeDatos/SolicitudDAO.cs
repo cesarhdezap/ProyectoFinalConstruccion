@@ -12,6 +12,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
 	public class SolicitudDAO : ISolicitudDAO
 	{
+		/// <summary>
+		/// Carga la Solicitud con la ID dada.
+		/// </summary>
+		/// <param name="IDSolicitud">La ID de la Solicitud a cargar.</param>
+		/// <returns>La Solicitud con la ID dada.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public Solicitud CargarSolicitudPorID(int IDSolicitud)
 		{
             if (IDSolicitud <= 0)
@@ -46,7 +52,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return solicitud;
         }
 
-        private Solicitud ConvertirDataTableASolicutud(DataTable tablaDeSolicitud)
+		/// <summary>
+		/// Convierte una DataTabla a una Solicitud.
+		/// </summary>
+		/// <param name="tablaDeSolicitud">La DataTable que contiene datos de la Solicitud</param>
+		/// <returns>La Solicitud contenida en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepcion si hay algún error de casteo en la conversión.</exception>
+		private Solicitud ConvertirDataTableASolicutud(DataTable tablaDeSolicitud)
 		{
             ProyectoDAO proyectoDAO = new ProyectoDAO();
             Solicitud solicitud = new Solicitud();
@@ -59,7 +71,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return solicitud;
         }
 
-        private Solicitud ConvertirDataTableASolicutudConSoloID(DataTable tablaDeSolicitud)
+		/// <summary>
+		/// Convierte una DataTable a una Solicitud con solo su ID inicializada y sus demas atributos como null.
+		/// </summary>
+		/// <param name="tablaDeSolicitud">La DataTable que contiene datos de la Solicitud.</param>
+		/// <returns>La Solicitud con solo su ID inicializada contenida en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepcion si hay algún error de casteo en la conversión.</exception>
+		private Solicitud ConvertirDataTableASolicutudConSoloID(DataTable tablaDeSolicitud)
         {
             ProyectoDAO proyectoDAO = new ProyectoDAO();
             Solicitud solicitud = new Solicitud();
@@ -70,7 +88,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return solicitud;
         }
 
-        public void GuardarSolicitud(Solicitud solicitud)
+		/// <summary>
+		/// Guarda una Solicitud a la base de datos.
+		/// </summary>
+		/// <param name="solicitud">La Solicitud a guardar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public void GuardarSolicitud(Solicitud solicitud)
         {
             SqlParameter[] parametrosDeSolicitud = InicializarParametrosDeSql(solicitud);
             int filasAfectadas = 0;
@@ -106,7 +129,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        private static SqlParameter[] InicializarParametrosDeSql(Solicitud solicitud)
+		/// <summary>
+		/// Inicializa un arreglo de SqlParameter basado en una Solicitud.
+		/// </summary>
+		/// <param name="solicitud">La Solicitud para inicializar los parametros.</param>
+		/// <returns>Un arreglo de SqlParameter donde cada posición es uno de los atributos de la Solicitud.</returns>
+		private static SqlParameter[] InicializarParametrosDeSql(Solicitud solicitud)
         {
             SqlParameter[] parametrosDeSolicitud = new SqlParameter[4];
             for (int i = 0; i < parametrosDeSolicitud.Length; i++)
@@ -126,6 +154,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return parametrosDeSolicitud;
         }
 
+		/// <summary>
+		/// Carga una Solicitud con solo su ID inicializada y sus demas atributos como null dada la matrícula del Alumno relacionado a la Asignacion.
+		/// </summary>
+		/// <param name="matriculaAlumno">La matrícula del Alumno relacionado a la Solicitud a cargar.</param>
+		/// <returns>Una Solicitud con solo su ID inicializada.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public Solicitud CargarIDPorMatricula(string matriculaAlumno)
 		{
 			DataTable tablaDeSolicitud = new DataTable();
@@ -163,6 +197,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			return solicitud;
 		}
 
+		/// <summary>
+		/// Obtiene el ultimo ID insertado en la tabla de Solicitud en la base de datos.
+		/// </summary>
+		/// <returns>El ultimo ID insertado en la tabla de Solicitud</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiró una excepción. </exception>
+		/// <exception cref="InvalidCastException">Tira esta excepción si la base de datos no regresa un valor entero.</exception>
 		public int ObtenerUltimoIDInsertado()
         {
             int ultimoIDInsertado = 0;

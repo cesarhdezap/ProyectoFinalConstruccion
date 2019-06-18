@@ -9,9 +9,19 @@ using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
+	/// <summary>
+	/// Clase de abstraccion para acceso a objetos Alumno en la base de datos.
+	/// Contiene metodos para cargar, insertar y actualizar objetos Alumno.
+	/// </summary>
 	class LiberacionDAO : ILiberacionDAO
 	{
-        private Liberacion ConvertirDataTableALiberacion (DataTable tablaDeLiberacion)
+		/// <summary>
+		/// Convierte una DataTable a una Liberacion.
+		/// </summary>
+		/// <param name="tablaDeLiberacion">La DataTable que contiene datos de la Liberacion<./param>
+		/// <returns>La Liberacion contenido en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private Liberacion ConvertirDataTableALiberacion (DataTable tablaDeLiberacion)
         {
             DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
             Liberacion liberacion = new Liberacion();
@@ -23,7 +33,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return liberacion;
         }
 
-        public void GuardarLiberacion(Liberacion liberacion)
+		/// <summary>
+		/// Guarda una Liberacion en la base de datos.
+		/// </summary>
+		/// <param name="liberacion">La Liberacion a guardar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiro una excepción.</exception>
+		public void GuardarLiberacion(Liberacion liberacion)
         {
             SqlParameter[] parametrosDeLiberacion = InicializarParametrosDeSql(liberacion);
             int filasAfectadas = 0;
@@ -41,7 +56,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        public Liberacion CargarLiberacionPorID(int IDLiberacion)
+		/// <summary>
+		/// Carga a la Liberacion con la ID dada.
+		/// </summary>
+		/// <param name="IDLiberacion">La ID de la Liberacion a cargar.</param>
+		/// <returns>La Liberacion con la ID dada.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public Liberacion CargarLiberacionPorID(int IDLiberacion)
         {
             DataTable tablaDeLiberacion = new DataTable();
             SqlParameter[] parametroIDLiberacion = new SqlParameter[1];
@@ -72,7 +93,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return liberacion;
         }
 
-        private SqlParameter[] InicializarParametrosDeSql(Liberacion liberacion)
+		/// <summary>
+		/// Inicializa un arreglo de SqlParameter basado en una Liberacion.
+		/// </summary>
+		/// <param name="liberacion">La Liberacion para inicializar los parametros.</param>
+		/// <returns>Un arreglo de SqlParameter donde cada posición es uno de los atributos de la Liberacion.</returns>
+		private SqlParameter[] InicializarParametrosDeSql(Liberacion liberacion)
         {
             SqlParameter[] parametrosDeLiberacion = new SqlParameter[3];
 
@@ -91,6 +117,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return parametrosDeLiberacion;
         }
 
+		/// <summary>
+		/// Obtiene el ultimo ID insertado en la tabla de Liberacion en la base de datos.
+		/// </summary>
+		/// <returns>El ultimo ID insertado en la tabla de Liberacion</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiró una excepción. </exception>
+		/// <exception cref="InvalidCastException">Tira esta excepción si la base de datos no regresa un valor entero.</exception>
 		public int ObtenerUltimoIDInsertado()
 		{
 			int ultimoIDInsertado = 0;
