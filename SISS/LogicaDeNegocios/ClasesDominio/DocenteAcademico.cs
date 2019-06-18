@@ -5,7 +5,7 @@ using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
 namespace LogicaDeNegocios
 {
     /// <summary>
-    /// Clase DocenteAcademico.
+    /// Clase <see cref="DocenteAcademico"/>.
     /// Contiene todos los métodos para realizar operaciones con la base de datos.
     /// <para>Hereda de <see cref="Persona"/>.</para>
     /// </summary>
@@ -87,7 +87,7 @@ namespace LogicaDeNegocios
 	}
 	
     /// <summary>
-    /// Enumerador con los roles del DocenteAcademico.
+    /// Enumerador con los roles del <see cref="DocenteAcademico"/>.
     /// </summary>
 	public enum Rol
 	{

@@ -69,7 +69,8 @@ namespace LogicaDeNegocios.Excepciones
 			 || numeroDeError == (int)CodigoDeErrorDeSqlException.TiempoDeEsperaExpirado
 			 || numeroDeError == (int)CodigoDeErrorDeSqlException.ConexionRemotaFallida
 			 || numeroDeError == (int)CodigoDeErrorDeSqlException.TiempoDeEsperaExpirado
-			 || numeroDeError == (int)CodigoDeErrorDeSqlException.LoginFallido)
+			 || numeroDeError == (int)CodigoDeErrorDeSqlException.LoginFallido
+             || numeroDeError == (int)CodigoDeErrorDeSqlException.ServicioSQLPausado)
 			{
 				esErrorDeConexion = true;
 			}
