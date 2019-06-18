@@ -21,6 +21,8 @@ namespace AccesoABaseDeDatos
         /// <param name="consulta">Una cadena con una consulta de SQL.</param>
         /// <param name="parametros">Parametros utilizados en la consulta.</param>
         /// <returns>Una DataTable con la tabla recuperada de la base de datos.</returns>
+        /// <exception cref="IOException">Tira esta excepción cuando no puede establecer conexión con la base de datos.</exception>
+        /// <exception cref="SqlException">Tira esta excepción con un código de error según la causa de la falla.</exception>
 		public static DataTable EjecutarSelect(String consulta, SqlParameter[] parametros = null)
 		{
             using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
@@ -49,11 +51,6 @@ namespace AccesoABaseDeDatos
                 {
                     CerrarConexion(conexion);
                 }
-
-                if (filasAfectadas == 0)
-                {
-                    throw new NotImplementedException("Debe implementarse una excepcion personalizada");
-                }
                 
                 return dataTable;
             }
@@ -63,6 +60,7 @@ namespace AccesoABaseDeDatos
         /// Cierra la conexión con la base de datos.
         /// </summary>
         /// <param name="conexion">Una conexión de SQL.</param>
+        /// <exception cref="SqlException">Tira esta excepción con un código de error según la causa de la falla.</exception>
 		public static void CerrarConexion(SqlConnection conexion)
 		{
 			if (conexion != null)
@@ -73,14 +71,15 @@ namespace AccesoABaseDeDatos
 				}
 			}
 		}
-	    
+
         /// <summary>
         /// Ejecuta una consulta de inserción en la base de datos.
         /// </summary>
         /// <param name="consulta">Una consulta de SQL.</param>
         /// <param name="parametros">Parametros utilizados en la consulta.</param>
-        /// <returns></returns>
-		public static int EjecutarInsertInto(string consulta, SqlParameter[] parametros = null)
+        /// <returns>Un entero con las filas afectadas por la consulta.</returns>
+        /// <exception cref="SqlException">Tira esta excepción con un código de error según la causa de la falla.</exception>
+        public static int EjecutarInsertInto(string consulta, SqlParameter[] parametros = null)
 		{
 			using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
 			{
@@ -111,6 +110,7 @@ namespace AccesoABaseDeDatos
         /// <param name="consulta">Una consulta de SQL</param>
         /// <param name="parametros">Parametros utilizados en la consulta</param>
         /// <returns>Un numero del campo seleccionado</returns>
+        /// <exception cref="SqlException">Tira esta excepción con un código de error según la causa de la falla.</exception>
         public static int EjecutarOperacionEscalar(string consulta, SqlParameter[] parametros = null)
         {
             using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))

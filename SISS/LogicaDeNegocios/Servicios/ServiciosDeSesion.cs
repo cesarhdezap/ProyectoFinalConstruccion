@@ -79,7 +79,6 @@ namespace LogicaDeNegocios.Servicios
                     Console.WriteLine("No se encontro la ID del correo {0} en CargarIDPorCorreoYRol. Stacktrace: {1}", e.Message, e);
                     sesion.IDUsuario = string.Empty;
                     sesion.TipoDeUsuario = TipoDeSesion.NoValido;
-                    throw new AccesoADatosException("Error: ServiciosDeSesion.CargarTipoDeSesion No se encontro la id del correo: " + correo);
                 }
             }
 

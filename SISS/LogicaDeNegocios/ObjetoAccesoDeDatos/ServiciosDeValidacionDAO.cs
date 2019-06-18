@@ -14,30 +14,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
     public class ServiciosDeValidacionDAO : IServiciosDeValidacionDAO
     {
-        public List<string> CargarCorreosDeUsuarios()
-        {
-			DataTable tablaDeCorreos = new DataTable();
-            try
-            {
-                tablaDeCorreos = AccesoADatos.EjecutarSelect(QuerysDeServiciosDeValidacion.CARGAR_CORREOS_DE_USUARIOS);
-            }
-			catch (SqlException e)
-			{
-				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
-			}
-
-			List<string> correosElectronicos;
-            try
-            {
-                correosElectronicos = ConvertirDataTableAListaDeCadenasDeCorreo(tablaDeCorreos);
-            }
-            catch (FormatException e)
-            {
-                throw new AccesoADatosException("Error al convertir datatable a lista cadenas de correo electronico", e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
-            }
-
-            return correosElectronicos;
-        }
 
 		public int ContarOcurrenciasDeCorreo(string correo)
 		{
@@ -84,15 +60,5 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			return numeroDeOcurrencias;
 		}
-
-		private List<string> ConvertirDataTableAListaDeCadenasDeCorreo(DataTable tablaDeCorreos)
-        {
-            List<string> correosElectronicos = new List<string>();
-            foreach (DataRow fila in tablaDeCorreos.Rows)
-            {
-                correosElectronicos.Add(fila["CorreoElectronico"].ToString());
-            }
-            return correosElectronicos;
-        }
     }
 }

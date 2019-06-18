@@ -11,10 +11,27 @@ namespace LogicaDeNegocios.Servicios
     /// </summary>
     public class ServiciosDeValidacion
     {
+        /// <summary>
+        /// Expresión regular que valida que la cadena sea un entero de 10 de longitud
+        /// que puede utilizar paréntesis para los primeros tres digitos.
+        /// </summary>
         private static readonly Regex RegexTelefono = new Regex(@"^(1\s*[-\/\.]?)?(\((\d{3})\)|(\d{3}))\s*[-\/\.]?\s*(\d{3})\s*[-\/\.]?\s*(\d{4})\s*(([xX]|[eE][xX][tT])\.?\s*(\d+))*$");
+        /// <summary>
+        /// Expresión regular que valida que la cadena tenga al menos una letra seguida
+        /// de un arroba, al menos otras dos letras, un punto y al menos otras dos letras.
+        /// </summary>
         private static readonly Regex RegexCorreoElectronico = new Regex(@"^(\D)+(\w)*((\.(\w)+)?)+@(\D)+(\w)*((\.(\D)+(\w)*)+)?(\.)[a-z]{2,}$");
+        /// <summary>
+        /// Expresión regular que valida que la cadena sean solo letras y letras modificadas.
+        /// </summary>
         private static readonly Regex RegexNombre = new Regex(@"^[a-zA-Z àáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð,.'-]+$");
+        /// <summary>
+        /// Expresión regular que valida que la cadena empiece con s seguido de ocho dígitos.
+        /// </summary>
         private static readonly Regex RegexMatricula = new Regex(@"^s[0-9]{8}$");
+        /// <summary>
+        /// Expresión regular que valida que la cadena no tenga espacios en blanco y sea de 6 a 255 de longitud.
+        /// </summary>
         private static readonly Regex RegexContraseña = new Regex(@"^\S{6,255}$");
         public const int TAMAÑO_MAXIMO_VARCHAR = 255;
 		public const int VALOR_ENTERO_MINIMO_PERMITIDO = 0;
