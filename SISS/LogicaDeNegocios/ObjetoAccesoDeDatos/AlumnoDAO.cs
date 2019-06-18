@@ -10,9 +10,19 @@ using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
+	/// <summary>
+	/// Clase de abstraccion para acceso a objetos <see cref="Alumno"/> en la base de datos.
+	/// Contiene metodos para cargar, insertar y actualizar objetos <see cref="Alumno"/>.
+	/// </summary>
 	public class AlumnoDAO : IAlumnoDAO
 	{
-        public void ActualizarAlumnoPorMatricula(string matricula, Alumno alumno)
+		/// <summary>
+		/// Actualiza un <see cref="Alumno"/> dada su <see cref="Alumno.Matricula"/>.
+		/// </summary>
+		/// <param name="matricula"><see cref="Alumno.Matricula"/> del <see cref="Alumno"/> a actualizar.</param>
+		/// <param name="alumno">El <see cref="Alumno"/> a actualizar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public void ActualizarAlumnoPorMatricula(string matricula, Alumno alumno)
 		{
             SqlParameter[] parametrosDeAlumno = InicializarParametrosDeSql(alumno);
             int filasAfectadas = 0;
@@ -30,7 +40,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        public string CargarMatriculaPorCorreoElectronico(string correoElectronico)
+		/// <summary>
+		/// Carga un <see cref="Alumno"/> con solo <see cref="Alumno.Matricula"/> inicializado dado su correo electrónico.
+		/// </summary>
+		/// <param name="correoElectronico">El correo electrónico del <see cref="Alumno"/> a cargar.</param>
+		/// <returns>Un <see cref="Alumno"/> con solo <see cref="Alumno.Matricula"/> inicializado.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public string CargarMatriculaPorCorreoElectronico(string correoElectronico)
         {
             
             DataTable tablaDeMatricula = new DataTable();
@@ -61,7 +77,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return matricula;
         }
 
-        public List<Alumno> CargarAlumnosPorEstado(EstadoAlumno estadoDeAlumno)
+		/// <summary>
+		/// Carga una <see cref="List{Alumno}"/> de todos los <see cref="Alumno"/> que tengan el <see cref="EstadoAlumno"/> dado.
+		/// </summary>
+		/// <param name="estadoDeAlumno">El <see cref="EstadoAlumno"/> de los <see cref="Alumno"/> a cargar.</param>
+		/// <returns>Una <see cref="List{Alumno}"/> de todos los <see cref="Alumno"/> con el <see cref="EstadoAlumno"/> dado.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public List<Alumno> CargarAlumnosPorEstado(EstadoAlumno estadoDeAlumno)
 
 		{
 			DataTable tablaDeAlumnos = new DataTable();
@@ -93,7 +115,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return alumnos;
         }
 
-        public List<Alumno> CargarAlumnosPorCarrera(string carrera)
+		/// <summary>
+		/// Carga una <see cref="List{Alumno}"/> de todos los <see cref="Alumno"/> que tengan la <see cref="Alumno.Carrera"/> dada.
+		/// </summary>
+		/// <param name="carrera"><see cref="Alumno.Carrera"/> de los <see cref="Alumno"/> a cargar.</param>
+		/// <returns>Una <see cref="List{Alumno}"/> de todos los <see cref="Alumno"/> con la <see cref="Alumno.Carrera"/> dada.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public List<Alumno> CargarAlumnosPorCarrera(string carrera)
 
         {
             DataTable tablaDeAlumnos = new DataTable();
@@ -125,7 +153,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeAlumnos;
         }
 
-        public Alumno CargarAlumnoPorMatricula(string matricula)
+		/// <summary>
+		/// Carga al <see cref="Alumno"/> con la <see cref="Alumno.Matricula"/> dada.
+		/// </summary>
+		/// <param name="matricula"><see cref="Alumno.Matricula"/> del <see cref="Alumno"/> a cargar.</param>
+		/// <returns>El <see cref="Alumno"/> con la <see cref="Alumno.Matricula"/> dada.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public Alumno CargarAlumnoPorMatricula(string matricula)
 		{
             DataTable tablaDeAlumno = new DataTable();
 			SqlParameter[] parametroMatricula = new SqlParameter[1];
@@ -157,7 +191,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return alumno;
 		}
 
-        public List<Alumno> CargarAlumnosTodos()
+		/// <summary>
+		/// Carga a todos los <see cref="Alumno"/> en la base de datos.
+		/// </summary>
+		/// <returns>Una <see cref="List{Alumno}"/> con todos los <see cref="Alumno"/>.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public List<Alumno> CargarAlumnosTodos()
 		{
 			DataTable tablaDeAlumnos = new DataTable();
 			try
@@ -181,7 +220,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeAlumnos;
 		}
 
-        public Alumno CargarMatriculaPorIDAsignacion(int IDAsignacion)
+		/// <summary>
+		/// Carga un <see cref="Alumno"/> con solo <see cref="Alumno.Matricula"/> inicializado y sus demas atributos como null basado en <see cref="Asignacion.IDAsignacion"/>
+		/// </summary>
+		/// <param name="IDAsignacion"><see cref="Asignacion.IDAsignacion"/> de la <see cref="Asignacion"/> relacionada a la matrícula a cargar.</param>
+		/// <returns>Un <see cref="Alumno"/> con solo <see cref="Alumno.Matricula"/> inicializado.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public Alumno CargarMatriculaPorIDAsignacion(int IDAsignacion)
         {
             if (IDAsignacion <= 0)
             {
@@ -217,7 +262,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return alumno;
         }
 
-        private Alumno ConvertirDataTableAAlumno(DataTable tablaDeAlumno)
+		/// <summary>
+		/// Convierte una <see cref="DataTable"/> a un <see cref="Alumno"/>.
+		/// </summary>
+		/// <param name="tablaDeAlumno">La <see cref="DataTable"/> que contiene datos del <see cref="Alumno"/><./param>
+		/// <returns>El <see cref="Alumno"/> contenido en la <see cref="DataTable"/>.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private Alumno ConvertirDataTableAAlumno(DataTable tablaDeAlumno)
 		{
             AsignacionDAO asignacionDAO = new AsignacionDAO();
             Alumno alumno = new Alumno();
@@ -235,7 +286,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return alumno;
         }
 
-        private Alumno ConvertirDataTableAAlumnoConSoloMatricula(DataTable tablaDeAlumno)
+		/// <summary>
+		/// Convierte una <see cref="DataTable"/> a un <see cref="Alumno"/> con solo <see cref="Alumno.Matricula"/> inicializado y sus demas atributos como null.
+		/// </summary>
+		/// <param name="tablaDeAlumno">La <see cref="DataTable"/> que contiene datos del <see cref="Alumno"/>.</param>
+		/// <returns>El <see cref="Alumno"/> con solo su <see cref="Alumno.Matricula"/> inicializada contenido en la <see cref="DataTable"/>.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private Alumno ConvertirDataTableAAlumnoConSoloMatricula(DataTable tablaDeAlumno)
         {
             AsignacionDAO asignacionDAO = new AsignacionDAO();
             Alumno alumno = new Alumno();
@@ -246,7 +303,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return alumno;
         }
 
-        private List<Alumno> ConvertirDataTableAListaDeAlumnos(DataTable tablaDeAlumnos)
+		/// <summary>
+		/// Convierte una <see cref="DataTable"/> a una <see cref="List{Alumno}"/>.
+		/// </summary>
+		/// <param name="tablaDeAlumnos">La <see cref="DataTable"/> que contiene datos de los <see cref="Alumno"/>.</param>
+		/// <returns>La <see cref="List{Alumno}"/> de <see cref="Alumno"/> contenido en la <see cref="DataTable"/>.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private List<Alumno> ConvertirDataTableAListaDeAlumnos(DataTable tablaDeAlumnos)
 		{
 			AsignacionDAO asignacionDAO = new AsignacionDAO();
             List<Alumno> listaDeAlumnos = new List<Alumno>();
@@ -268,7 +331,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeAlumnos;
 		}
 
-        public void GuardarAlumno(Alumno alumno)
+		/// <summary>
+		/// Guarda un <see cref="DataTable"/> en la base de datos.
+		/// </summary>
+		/// <param name="alumno">El <see cref="DataTable"/> a guardar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiro una excepción.</exception>
+		public void GuardarAlumno(Alumno alumno)
         {
             SqlParameter[] parametrosDeAlumno = InicializarParametrosDeSql(alumno);
             int filasAfectadas = 0;
@@ -285,8 +353,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 throw new AccesoADatosException("Alumno: " + alumno.ToString() + "no fue guardado.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
             }
         }
-         
-        private SqlParameter[] InicializarParametrosDeSql(Alumno alumno)
+
+		/// <summary>
+		/// Inicializa un arreglo de <see cref="SqlParameter"/> basado en un <see cref="DataTable"/>.
+		/// </summary>
+		/// <param name="alumno">El <see cref="Alumno"/> para inicializar los parametros.</param>
+		/// <returns>Un arreglo de <see cref="SqlParameter"/> donde cada posición es uno de los atributos del <see cref="Alumno"/>.</returns>
+		private SqlParameter[] InicializarParametrosDeSql(Alumno alumno)
         { 
             SqlParameter[] parametrosDeAlumno = new SqlParameter[7];
 

@@ -1,4 +1,4 @@
-﻿using AccesoABaseDeDatos;
+using AccesoABaseDeDatos;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.Interfaces;
 using System;
@@ -14,7 +14,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
     public class ServiciosDeValidacionDAO : IServiciosDeValidacionDAO
     {
-
+	public class ServiciosDeValidacionDAO : IServiciosDeValidacionDAO
+	{
+		/// <summary>
+		/// Cuenta las veces que el correo electrónico dado aparece en la base de datos.
+		/// </summary>
+		/// <param name="correo">Correo electrónico para contar ocurrencias.</param>
+		/// <returns>Numero de veces que el correo electrónico dado aparece en la base de datos.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public int ContarOcurrenciasDeCorreo(string correo)
 		{
 			int numeroDeOcurrencias = 0;
@@ -38,6 +45,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			return numeroDeOcurrencias;
 		}
 
+		/// <summary>
+		/// Cuenta las veces que la matrícula dada aparece en la base de datos.
+		/// </summary>
+		/// <param name="correo">Matrícula para contar ocurrencias.</param>
+		/// <returns>Numero de veces que la Matrícula dada aparece en la base de datos.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public int ContarOcurrenciasDeMatricula(string matricula)
 		{
 			int numeroDeOcurrencias = 0;

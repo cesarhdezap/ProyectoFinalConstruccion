@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace LogicaDeNegocios.Querys
 {
+
 	public static class QuerysDeAlumno
 	{
 		public const string ACTUALIZAR_ALUMNO = "UPDATE Alumnos SET Nombre = @NombreAlumno, Estado = @EstadoAlumno, Telefono = @TelefonoAlumno, CorreoElectronico = @CorreoElectronicoAlumno WHERE Matricula = @MatriculaAlumno";
