@@ -1,30 +1,21 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System.Collections.Generic;
-using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace LogicaDeNegocios.ObjetosAdministrador
 {
+    /// <summary>
+    /// Clase para administrar Alumnos en una lista.
+    /// Contiene un método para cargar los alumnos por carrera y estado.
+    /// </summary>
 	public class AdministradorDeAlumnos
 	{
 		public List<Alumno> Alumnos { get; set; }
 
-
-		public void CargarAlumnosTodos()
-		{
-			AlumnoDAO alumnoDAO = new AlumnoDAO();
-            Alumnos = alumnoDAO.CargarAlumnosTodos();
-		}
-
-		public void CargarAlumnosPorEstado(EstadoAlumno estadoAlumno)
-		{
-			AlumnoDAO alumnoDAO = new AlumnoDAO();
-            Alumnos = alumnoDAO.CargarAlumnosPorEstado(estadoAlumno);
-		}
-        public void CargarAlumnosPorCarrera(string carrera)
-        {
-            AlumnoDAO alumnoDAO = new AlumnoDAO();
-            Alumnos = alumnoDAO.CargarAlumnosPorCarrera(carrera);
-        }
+        /// <summary>
+        /// Carga los alumnos a la lista de <see cref="Alumnos"/> del objeto por carrera y estado.
+        /// </summary>
+        /// <param name="carrera">Carrera del Alumno.</param>
+        /// <param name="estadoAlumno">Estado del Alumno.</param>
 		public void CargarAlumnosPorCarreraYEstado(string carrera, EstadoAlumno estadoAlumno)
 		{
 			AlumnoDAO alumnoDAO = new AlumnoDAO();

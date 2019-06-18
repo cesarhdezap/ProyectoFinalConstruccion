@@ -1,4 +1,4 @@
-﻿using AccesoABaseDeDatos;
+using AccesoABaseDeDatos;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.Interfaces;
 using System;
@@ -12,9 +12,8 @@ using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-	/// <summary>
-	/// Clase de abstraccion para acceso a objetos en la base de datos por motivos de validación.
-	/// </summary>
+    public class ServiciosDeValidacionDAO : IServiciosDeValidacionDAO
+    {
 	public class ServiciosDeValidacionDAO : IServiciosDeValidacionDAO
 	{
 		/// <summary>
@@ -73,6 +72,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			return numeroDeOcurrencias;
-		}	
+		}
     }
 }

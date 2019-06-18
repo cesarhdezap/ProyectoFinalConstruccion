@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +8,7 @@ namespace LogicaDeNegocios.Interfaces
 {
     interface IServiciosDeValidacionDAO
     {
-		public int ContarOcurrenciasDeCorreo(string correo);
-
-		public int ContarOcurrenciasDeMatricula(string matricula);
-	}
+        int ContarOcurrenciasDeCorreo(string correo);
+        int ContarOcurrenciasDeMatricula(string matricula);
+    }
 }
