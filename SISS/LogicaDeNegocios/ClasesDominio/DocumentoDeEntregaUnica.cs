@@ -1,9 +1,11 @@
-﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
-using System;
+﻿using System;
 using System.Windows.Media.Imaging;
 
 namespace LogicaDeNegocios
 {
+    /// <summary>
+    /// Clase <see cref="DocumentoDeEntregaUnica"/>.
+    /// </summary>
 	public class DocumentoDeEntregaUnica
 	{
 		public int IDDocumento { get; set; }
@@ -13,6 +15,9 @@ namespace LogicaDeNegocios
 		public BitmapImage Imagen { get; set; }
 	}
     
+    /// <summary>
+    /// Enumerador con los tipos de documento de <see cref="DocumentoDeEntregaUnica"/>.
+    /// </summary>
 	public enum TipoDeDocumento
 	{
 		CartaDeSolicitud,

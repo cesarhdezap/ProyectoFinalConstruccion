@@ -84,10 +84,12 @@ namespace InterfazDeUsuario.GUIsDeAlumno
             {
                 Solicitud.Fecha = DateTime.Now;
                 Mouse.OverrideCursor = Cursors.Wait;
+                bool resultadoDeSolicitud = false;
 				try
 				{
 					Solicitud.Guardar();
 					Alumno.Solicitar();
+                    resultadoDeSolicitud = true;
 				}
 				catch (AccesoADatosException ex)
 				{
@@ -99,7 +101,11 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 				{
 					Mouse.OverrideCursor = null;
 				}
-				MessageBox.Show(SELECCION_DE_PROYECTOS_EXITOSA_MENSAJE, SELECCION_DE_PROYECTOS_EXITOSA_TITULO, MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
+
+                if (resultadoDeSolicitud)
+                {
+                    MessageBox.Show(SELECCION_DE_PROYECTOS_EXITOSA_MENSAJE, SELECCION_DE_PROYECTOS_EXITOSA_TITULO, MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
+                }
                 Close();
 			}
             else

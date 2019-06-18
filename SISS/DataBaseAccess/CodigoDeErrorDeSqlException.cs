@@ -10,6 +10,7 @@
 		ServidorNoEncontrado = 53,
 		ConexionRemotaFallida = 1326,
 		LoginFallido = 18456,
-        InsercionFallidaPorLlavePrimariaDuplicada = 2627
+        InsercionFallidaPorLlavePrimariaDuplicada = 2627,
+        ServicioSQLPausado = 17142
     }
 }

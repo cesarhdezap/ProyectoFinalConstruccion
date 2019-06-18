@@ -1,8 +1,8 @@
 ﻿namespace LogicaDeNegocios.ClasesDominio
 {
     /// <summary>
-    /// Clase Director.
-    /// Contiene los atributos del Director.
+    /// Clase <see cref="Director"/>.
+    /// Contiene los atributos del <see cref="Director"/>.
     /// </summary>
     public class Director
     {

@@ -1,11 +1,15 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.ObjetosAdministrador;
-using System;
 using System.Collections.Generic;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace LogicaDeNegocios
 {
+    /// <summary>
+    /// Clase <see cref="Encargado"/>.
+    /// Contiene todos los métodos para la comunicación con la base de datos y
+    /// la administración de sus objeto atributo internos.
+    /// </summary>
 	public class Encargado : Persona
 	{
 		public int IDEncargado { get; set; }
@@ -13,14 +17,10 @@ namespace LogicaDeNegocios
 		public List<Proyecto> Proyectos { get; set; }
         public Organizacion Organizacion { get; set; }
 
-		public void AñadirProyecto(Proyecto proyecto)
-		{
-            proyecto.Encargado = this;
-            Proyectos.Add(proyecto);
-            ProyectoDAO proyectoDAO = new ProyectoDAO();
-            proyectoDAO.GuardarProyecto(proyecto);
-        }
-
+        /// <summary>
+        /// Guarda un <see cref="Encargado"/> validado por <see cref="ValidarEncargado"/> 
+        /// en la base de datos.
+        /// </summary>
         public void Guardar()
         {
             AdministradorDeEncargados administradorDeEncargados = new AdministradorDeEncargados();
@@ -31,6 +31,11 @@ namespace LogicaDeNegocios
             }
         }
 
+        /// <summary>
+        /// Valida los atributos del <see cref="Encargado"/>
+        /// para la inserción a la base de datos.
+        /// </summary>
+        /// <returns></returns>
         private bool ValidarEncargado()
         {
             bool resultadoDeValidacion = false;
@@ -45,6 +50,10 @@ namespace LogicaDeNegocios
             return resultadoDeValidacion;
         }
 
+        /// <summary>
+        /// Carga la Organizacion del Encargado por <see cref="IDEncargado"/>.
+        /// </summary>
+        /// <returns>La <see cref="Organizacion"/> del Encargado.</returns>
 		public Organizacion CargarOrganizacion()
 		{
 			OrganizacionDAO organizacionDAO = new OrganizacionDAO();
