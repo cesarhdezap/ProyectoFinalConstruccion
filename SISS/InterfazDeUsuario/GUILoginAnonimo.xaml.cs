@@ -8,10 +8,14 @@ using InterfazDeUsuario.GUITipoDeSesion;
 using InterfazDeUsuario.GUIsDeAlumno;
 using LogicaDeNegocios.Excepciones;
 using System.Windows.Input;
-using System.Security;
 
 namespace InterfazDeUsuario
 {
+    /// <summary>
+    /// Login general para cada usuario.
+    /// Contiene metodos de autenticación para el correo y contraseña.
+    /// </summary>
+
     public partial class GUILoginAnonimo : Window
     {
         public GUILoginAnonimo()
@@ -22,8 +26,6 @@ namespace InterfazDeUsuario
             PasswordBoxContraseña.MaxLength = TAMAÑO_MAXIMO_VARCHAR;
             
         }
-
-
 
         private void ButtonIngresar_Click(object sender, RoutedEventArgs e)
         {
@@ -39,7 +41,8 @@ namespace InterfazDeUsuario
                 }
 				catch (AccesoADatosException ex)
 				{
-					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+                    resultadoDeAutenticacion = false;
+                    MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
 					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
 					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
 				}
@@ -68,6 +71,10 @@ namespace InterfazDeUsuario
             }
         }
 
+        /// <summary>
+        /// Declara e instancia la interfaz de usuario segun el tipo de sesión.
+        /// </summary>
+        /// <param name="sesion"> Un objeto tipo Sesion</param>
         private void InstanciarVentanaDeSesion(Sesion sesion)
         {
             if (sesion.TipoDeUsuario == TipoDeSesion.Alumno)
