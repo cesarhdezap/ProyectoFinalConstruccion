@@ -15,16 +15,16 @@ using LogicaDeNegocios.Querys;
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
 	/// <summary>
-	/// Clase de abstraccion para acceso a objetos Director en la base de datos.
-	/// Contiene metodos para cargar objetos Director.
+	/// Clase de abstraccion para acceso a objetos <see cref="Director"/> en la base de datos.
+	/// Contiene metodos para cargar objetos <see cref="Director"/>.
 	/// </summary>
-    public class DirectorDAO : IDirectorDAO
+	public class DirectorDAO : IDirectorDAO
     {
 		/// <summary>
-		/// Cargar el ID de un Director dado su correo electrónico.
+		/// Carga <see cref="Director.IDPersonal"/> de un <see cref="Director"/> dado su correo electrónico.
 		/// </summary>
-		/// <param name="correoElectronico">El correo electrónico del Director con la ID a cargar.</param>
-		/// <returns>La ID del Director con el correo electrónico dado.</returns>
+		/// <param name="correoElectronico">El correo electrónico del <see cref="Director"/> con <see cref="Director.IDPersonal"/> a cargar.</param>
+		/// <returns><see cref="Director.IDPersonal"/> del <see cref="Director"/> con el correo electrónico dado.</returns>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public string CargarIDPorCorreo(string correoElectronico)
         {
@@ -61,10 +61,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Convierte una DataTable a un Director con solo su ID inicializada y sus demas atributos como null.
+		/// Convierte una <see cref="DataTable"/> a un <see cref="Director"/> con solo <see cref="Director.IDPersonal"/> inicializado y sus demas atributos como null.
 		/// </summary>
-		/// <param name="tablaDeID">La DataTable que contiene datos del Director.</param>
-		/// <returns>El Direcotr con solo su ID inicializada contenido en la DataTable</returns>
+		/// <param name="tablaDeID">La <see cref="DataTable"/> que contiene datos del Director.</param>
+		/// <returns>El <see cref="Director"/> con solo <see cref="Director.IDPersonal"/> inicializado contenido en la <see cref="DataTable"/></returns>
 		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		private Director ConvertirDataTableADirectorConSoloID(DataTable tablaDeID)
         {
@@ -77,10 +77,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Cargar un Director dada su ID.
+		/// Carga un <see cref="Director"/> dada <see cref="Director.IDPersonal"/>.
 		/// </summary>
-		/// <param name="IDPersonal">La ID del Director a cargar.</param>
-		/// <returns>El Director con la ID dada.</returns>
+		/// <param name="IDPersonal"><see cref="Director.IDPersonal"/> del <see cref="Director"/> a cargar.</param>
+		/// <returns>El <see cref="Director"/> con la <see cref="Director.IDPersonal"/> dada.</returns>
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public Director CargarDirectorPorIDPersonal(int IDPersonal)
         {
@@ -119,10 +119,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         }
 
 		/// <summary>
-		/// Convierte una DataTable a un Director.
+		/// Convierte una <see cref="DataTable"/> a un <see cref="Director"/>.
 		/// </summary>
-		/// <param name="tablaDirector">La DataTable que contiene datos del Director.</param>
-		/// <returns>El Director contenido en la DataTable.</returns>
+		/// <param name="tablaDirector">La <see cref="DataTable"/> que contiene datos del <see cref="Director"/>.</param>
+		/// <returns>El <see cref="Director"/> contenido en la <see cref="DataTable"/>.</returns>
 		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		private Director ConvertirDataTableADirector(DataTable tablaDirector)
         {
