@@ -5,21 +5,20 @@
         xmlns:l="clr-namespace:InterfazDeUsuario"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Coordinadores" Height="558.058" Width="888.875" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Coordinadores" Height="543.058" Width="888.875" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
 	<Window.Resources>
 		<l:ConvertidorIDPersonalADetallesDeDocenteAcademico x:Key="ConvertidorIDPersonalADetallesDeDocenteAcademico" />
 	</Window.Resources>
 	<Grid>
 		<Label x:Name="LabelCoordinadores" Content="Coordinadores" HorizontalAlignment="Left" Margin="42,90,0,0" VerticalAlignment="Top" FontSize="24"/>
-		<TextBox x:Name="TextBoxBuscarCoordinadorPorNombre" Height="23" Margin="661,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" TextChanged="TextBoxBuscarCoordinadorPorNombre_TextChanged" HorizontalAlignment="Left" Width="175"/>
+		<TextBox x:Name="TextBoxBuscarCoordinadorPorNombre" Height="23" Margin="682,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14" TextChanged="TextBoxBuscarCoordinadorPorNombre_TextChanged" HorizontalAlignment="Left" Width="175"/>
 		<Button x:Name="ButtonRegistrarNuevoCoordinador" Content="Registrar nuevo coordinador" HorizontalAlignment="Left" Margin="472,179,0,0" VerticalAlignment="Top" Width="186" Height="22" FontSize="14"/>
-		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="396,492,0,0" VerticalAlignment="Top" Width="82" Height="25" FontSize="14" Click="ButtonCancelar_Click"/>
-		<Label x:Name="LabelBuscarCoordinadorPorNombre" Content="Buscar coordinador por nombre:" HorizontalAlignment="Left" Margin="447,101,0,0" VerticalAlignment="Top" FontSize="14"/>
+		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="398,474,0,0" VerticalAlignment="Top" Width="82" Height="25" FontSize="14" Click="ButtonCancelar_Click"/>
+		<Label x:Name="LabelBuscarCoordinadorPorNombre" Content="Buscar coordinador por nombre:" HorizontalAlignment="Left" Margin="466,101,0,0" VerticalAlignment="Top" FontSize="14"/>
 		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="10,10,0,0"/>
-		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="520,23,0,0" FontSize="14"/>
-		<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="741,23,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
-		<DataGrid x:Name="DataGridCoordinadores" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="false" CanUserDeleteRows="False" SelectionUnit="FullRow" HorizontalAlignment="Left" Height="312" Margin="42,137,0,0" VerticalAlignment="Top" Width="794" FontSize="14">
+		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="412,32,0,0" FontSize="14" Width="445" HorizontalContentAlignment="Right"/>
+		<DataGrid x:Name="DataGridCoordinadores" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="false" CanUserDeleteRows="False" SelectionUnit="FullRow" HorizontalAlignment="Left" Height="312" Margin="25,137,0,0" VerticalAlignment="Top" Width="832" FontSize="14" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserSortColumns="False">
 			<DataGrid.CellStyle>
 				<Style TargetType="DataGridCell">
 					<Setter Property="BorderThickness" Value="0"/>
@@ -32,7 +31,7 @@
 				</DataTemplate>
 			</DataGrid.RowHeaderTemplate>
 			<DataGrid.Columns>
-				<DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="794" Binding="{Binding Nombre}"/>
+				<DataGridTextColumn Header="Nombre" IsReadOnly="True" Width="797" Binding="{Binding Nombre}"/>
 			</DataGrid.Columns>
 			<DataGrid.RowDetailsTemplate>
 				<DataTemplate>

@@ -42,5 +42,10 @@ namespace InterfazDeUsuario.GUITipoDeSesion
             GUIBuscarAlumnoPorTecnicoAcademico buscarAlumnoPorTecnicoAcademico = new GUIBuscarAlumnoPorTecnicoAcademico(TecnicoAdministrativo);
             buscarAlumnoPorTecnicoAcademico.ShowDialog();
         }
-    }
+
+		private void LabelCerrarSesion_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			Close();
+		}
+	}
 }

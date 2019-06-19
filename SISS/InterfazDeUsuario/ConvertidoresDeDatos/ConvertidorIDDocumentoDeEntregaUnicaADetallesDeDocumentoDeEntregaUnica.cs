@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using LogicaDeNegocios;
+using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 
 namespace InterfazDeUsuario
@@ -16,10 +17,20 @@ namespace InterfazDeUsuario
         {
             DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
             DocumentoDeEntregaUnica documentoDeEntregaUnica = new DocumentoDeEntregaUnica();
-            documentoDeEntregaUnica = documentoDeEntregaUnicaDAO.CargarDocumentoDeEntregaUnicaPorID((int)IDDocumento);
+			string cadenaResultado = string.Empty;
 
-			string cadenaResultado = documentoDeEntregaUnica.TipoDeDocumento.ToString() + System.Environment.NewLine +
-                                     "Entregado: " + documentoDeEntregaUnica.FechaDeEntrega.ToString();
+			try
+			{
+				documentoDeEntregaUnica = documentoDeEntregaUnicaDAO.CargarDocumentoDeEntregaUnicaPorID((int)IDDocumento);
+				cadenaResultado = documentoDeEntregaUnica.TipoDeDocumento.ToString() + System.Environment.NewLine +
+                                     "- Entregado: " + documentoDeEntregaUnica.FechaDeEntrega.ToString();
+			}
+			catch (AccesoADatosException e)
+			{
+				MensajeDeErrorParaMessageBox mensaje;
+				mensaje = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(e);
+				cadenaResultado = mensaje.Mensaje;
+			}
 
             return cadenaResultado;
         }

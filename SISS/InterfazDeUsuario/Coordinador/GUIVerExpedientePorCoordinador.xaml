@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeCoordinador"
         xmlns:InterfazDeUsuario="clr-namespace:InterfazDeUsuario" x:Class="InterfazDeUsuario.GUIsDeCoordinador.GUIVerExpedientePorCoordinador"
         mc:Ignorable="d"
-        Title="GUIVerExpedientePorCoordinador" Height="559.334" Width="1225.464">
+        Title="ver expediente" Height="559.334" Width="1225.464" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 	<Window.Resources>
 		<InterfazDeUsuario:ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual x:Key="ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual"/>
 		<InterfazDeUsuario:ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica x:Key="ConvertidorIDDocumentoDeEntregaUnicaADetallesDeDocumentoDeEntregaUnica"/>
@@ -20,8 +20,7 @@
 			<Button x:Name="ButtonDarAlumnoDeBaja" Content="Dar alumno de baja" HorizontalAlignment="Left" Margin="1032,82,0,0" VerticalAlignment="Top" Width="134" Click="ButtonDarAlumnoDeBaja_Click" FontSize="14"/>
 			<Button x:Name="ButtonActualizarExpediente" Content="Actualizar expediente" HorizontalAlignment="Left" Margin="862,82,0,0" VerticalAlignment="Top" Width="147" Click="ButtonActualizarExpediente_Click" FontSize="14"/>
 			<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="10,10,0,0"/>
-			<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="688,22,0,0" FontSize="14" Width="378" HorizontalContentAlignment="Right"/>
-			<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1071,22,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
+			<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="412,32,0,0" FontSize="14" Width="754" HorizontalContentAlignment="Right"/>
 			<Button x:Name="ButtonRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="25,82,0,0" VerticalAlignment="Top" Width="94" Click="ButtonRegresar_Click" FontSize="14"/>
 			<ListBox  Name="GridReportesMensuales" Margin="10,146,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="378" Width="1181">
 				<ListBox.ItemsPanel>

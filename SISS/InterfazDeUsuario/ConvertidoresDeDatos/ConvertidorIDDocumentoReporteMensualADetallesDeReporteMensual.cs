@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using LogicaDeNegocios;
+using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 
 namespace InterfazDeUsuario
@@ -16,13 +17,24 @@ namespace InterfazDeUsuario
         {
             ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
             ReporteMensual reporteMensual = new ReporteMensual();
-            reporteMensual = reporteMensualDAO.CargarReporteMensualPorID((int)IDDocumento);
+			string cadenaResultado = string.Empty;
 
-			string cadenaResultado = "Mes: " + reporteMensual.Mes.ToString() + System.Environment.NewLine +
-									 "Horas reportadas: " + reporteMensual.HorasReportadas + System.Environment.NewLine +
-									 "Reporte Mensual: " + reporteMensual.NumeroDeReporte + System.Environment.NewLine +
-									 "Entregado: " + reporteMensual.FechaDeEntrega.ToString();
-            return cadenaResultado;
+			try
+			{
+				reporteMensual = reporteMensualDAO.CargarReporteMensualPorID((int)IDDocumento);
+				cadenaResultado = "- Mes: " + reporteMensual.Mes.ToString() + System.Environment.NewLine +
+								  "- Horas reportadas: " + reporteMensual.HorasReportadas + System.Environment.NewLine +
+							   	  "- Reporte Mensual: " + reporteMensual.NumeroDeReporte + System.Environment.NewLine +
+								  "- Entregado: " + reporteMensual.FechaDeEntrega.ToString();
+			}
+			catch (AccesoADatosException e)
+			{
+				MensajeDeErrorParaMessageBox mensaje;
+				mensaje = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(e);
+				cadenaResultado = mensaje.Mensaje;
+			}
+
+			return cadenaResultado;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

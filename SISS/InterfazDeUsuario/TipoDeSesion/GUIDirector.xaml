@@ -9,8 +9,8 @@
 	<Grid Margin="0,0,2,0">
 		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Gill Sans MT" FontSize="48" BorderThickness="2" Margin="10,10,0,0" Foreground="Black" Background="{x:Null}"/>
 		<Label Content="Sistema Informático de Servicio Social" HorizontalAlignment="Left" Margin="266,114,0,0" VerticalAlignment="Top" FontSize="20" BorderBrush="#FF1B1414"/>
-		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="576,36,0,0" FontSize="14"/>
-		<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="752,36,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
+		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="508,36,0,0" FontSize="14" Width="244" HorizontalContentAlignment="Right"/>
+		<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="752,36,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14" Cursor="Hand" MouseDown="LabelCerrarSesion_MouseDown"/>
 		<Button x:Name="BtnBuscarCoordinador" Content="Buscar coordinador" HorizontalAlignment="Left" Margin="137,196,0,0" VerticalAlignment="Top" FontSize="24" Height="93" Width="260" Click="ButtonBuscarCoordinador_Click"/>
 		<Button x:Name="RegistrarCoordinador" Content="Registrar coordinador" HorizontalAlignment="Left" Margin="485,196,0,0" VerticalAlignment="Top" FontSize="24" Height="93" Width="260" Click="RegistrarCoordinador_Click"/>
 

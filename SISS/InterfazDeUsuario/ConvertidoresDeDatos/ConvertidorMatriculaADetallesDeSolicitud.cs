@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using LogicaDeNegocios;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using LogicaDeNegocios.Excepciones;
 
 namespace InterfazDeUsuario
 {
@@ -20,28 +21,35 @@ namespace InterfazDeUsuario
 			SolicitudDAO solicitudDAO = new SolicitudDAO();
 			Solicitud solicitud = new Solicitud();
 			string cadenaResultado = "Proyectos solicitados: " + System.Environment.NewLine;
-			solicitud = solicitudDAO.CargarIDPorMatricula((string)matricula);
-			if (solicitud != null) {
-				proyectosSolicitados = proyectoDAO.CargarIDsPorIDSolicitud(solicitud.IDSolicitud);
-
-				for (int i = 0; i < proyectosSolicitados.Count; i++)
+			try
+			{
+				solicitud = solicitudDAO.CargarIDPorMatricula((string)matricula);
+				if (solicitud != null)
 				{
-					proyectosSolicitados[i] = proyectoDAO.CargarProyectoPorID(proyectosSolicitados[i].IDProyecto);
+					proyectosSolicitados = proyectoDAO.CargarIDsPorIDSolicitud(solicitud.IDSolicitud);
+
+					for (int i = 0; i < proyectosSolicitados.Count; i++)
+					{
+						proyectosSolicitados[i] = proyectoDAO.CargarProyectoPorID(proyectosSolicitados[i].IDProyecto);
+					}
+					foreach (Proyecto proyecto in proyectosSolicitados)
+					{
+						cadenaResultado = cadenaResultado + "- Nombre: " + proyecto.Nombre + System.Environment.NewLine
+														  + "- Descripción general: " + proyecto.DescripcionGeneral + System.Environment.NewLine
+														  + "- Cupo: " + proyecto.ObtenerDisponibilidad() + System.Environment.NewLine
+														  + System.Environment.NewLine;
+					}
 				}
-
-				;
-
-				foreach (Proyecto proyecto in proyectosSolicitados)
+				else
 				{
-					cadenaResultado = cadenaResultado + "Nombre: " + proyecto.Nombre + System.Environment.NewLine
-													  + "Descripción general: " + proyecto.DescripcionGeneral + System.Environment.NewLine
-													  + "Cupo: " + proyecto.ObtenerDisponibilidad() + System.Environment.NewLine
-													  + System.Environment.NewLine;
+					cadenaResultado = "El alumno no solicito proyectos.";
 				}
 			}
-			else
+			catch (AccesoADatosException e)
 			{
-				cadenaResultado = "El alumno no solicito proyectos.";
+				MensajeDeErrorParaMessageBox mensaje;
+				mensaje = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(e);
+				cadenaResultado = mensaje.Mensaje;
 			}
 			return cadenaResultado;
 		}

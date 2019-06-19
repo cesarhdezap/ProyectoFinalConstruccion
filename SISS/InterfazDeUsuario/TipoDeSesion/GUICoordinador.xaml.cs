@@ -97,5 +97,10 @@ namespace InterfazDeUsuario.GUITipoDeSesion
 			GUIBuscarAlumnoCoordinador buscarAlumnoCoordinador = new GUIBuscarAlumnoCoordinador(Coordinador);
 			buscarAlumnoCoordinador.ShowDialog();
 		}
+
+		private void LabelCerrarSesion_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			Close();
+		}
 	}
 }
