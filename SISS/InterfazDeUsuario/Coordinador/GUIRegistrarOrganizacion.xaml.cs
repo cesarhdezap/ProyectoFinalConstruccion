@@ -29,69 +29,56 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             Mouse.OverrideCursor = Cursors.Wait;
             if (organizacion.Validar() && organizacion.CorreoElectronico == TextBoxConfirmarCorreoElectronico.Text)
             {
+				Mouse.OverrideCursor = Cursors.Wait;
+				bool resultadoDeCreacion = false;
 				try
 				{
 					organizacion.Guardar();
+					resultadoDeCreacion = true;
                 }
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
+				catch (AccesoADatosException ex)
 				{
-					MessageBox.Show(this, CONEXION_FALLIDA_MENSAJE, CONEXION_FALLIDA_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
-				{
-					MessageBox.Show(this, ERROR_OBJETO_NO_EXISTE_MENSAJE, ERROR_OBJETO_NO_EXISTE_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
-				{
-					MessageBox.Show(this, ERROR_GUARDAR_REGISTRO, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
-				{
-					MessageBox.Show(this, ERROR_PETICION_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
-				{
-					MessageBox.Show(this, ERROR_PETICION_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-				{
-					MessageBox.Show(this, ERROR_DESCONOCIDO_MENSAJE, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
+					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
 				}
 				finally
 				{
 					Mouse.OverrideCursor = null;
 				}
-
-				MessageBox.Show(REGISTRO_EXITOSO_ORGANIZACION, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
-                Close();
+				if (resultadoDeCreacion)
+				{
+					MessageBox.Show(REGISTRO_EXITOSO_ORGANIZACION, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+				}
+				Close();
 			}
 			else
 			{
 				MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                MostrarEstadoDeValidacionCadena(TextBoxNombre);
-                MostrarEstadoDeValidacionCadena(TextBoxDireccion);
-                MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
-                MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
-                try
-                {
-                    MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
-                }
-                catch (AccesoADatosException ex)
-                {
-                    MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-                    mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-                    MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                Mouse.OverrideCursor = null;
-            }
+				MostrarEstadoDeValidacionCampos();
+				Mouse.OverrideCursor = null;
+			}
 		}
 
-        private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)
+		private void MostrarEstadoDeValidacionCampos()
+		{
+			MostrarEstadoDeValidacionCadena(TextBoxNombre);
+			MostrarEstadoDeValidacionCadena(TextBoxDireccion);
+			MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
+			MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
+			try
+			{
+				MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
+			}
+			catch (AccesoADatosException ex)
+			{
+				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+		}
+
+		private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
 			MostrarEstadoDeValidacionCadena(TextBoxNombre);
         }

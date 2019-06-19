@@ -15,6 +15,8 @@ using LogicaDeNegocios;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.ObjetosAdministrador;
 using LogicaDeNegocios.Excepciones;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
+using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
 {
@@ -31,30 +33,11 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			{
 				AdministradorDeProyectos.CargarProyectosPorEstado(EstadoProyecto.Activo);
 			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
+			catch (AccesoADatosException ex)
 			{
-				MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
-			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
-			{
-				MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
-			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
-			{
-				MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
-			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
-			{
-				MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
-			}
-			catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-			{
-				MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                Close();
+				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 			finally
 			{
@@ -66,42 +49,13 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 		private void Expander_Expanded(object sender, RoutedEventArgs e)
 		{
 			Mouse.OverrideCursor = Cursors.Wait;
-
-			for (Visual elementoVisual = sender as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
-			{
-				if (elementoVisual is DataGridRow fila)
-				{
-					if (fila.DetailsVisibility == Visibility.Visible)
-					{
-						fila.DetailsVisibility = Visibility.Collapsed;
-					}
-					else
-					{
-						fila.DetailsVisibility = Visibility.Visible;
-					}
-					break;
-				}
-			}
+			CambiarEstadoDeExpander(sender);
 			Mouse.OverrideCursor = null;
 		}
 
 		private void Expander_Collapsed(object sender, RoutedEventArgs e)
 		{
-			for (var elementoVisual = sender as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
-			{
-				if (elementoVisual is DataGridRow fila)
-				{
-					if (fila.DetailsVisibility == Visibility.Visible)
-					{
-						fila.DetailsVisibility = Visibility.Collapsed;
-					}
-					else
-					{
-						fila.DetailsVisibility = Visibility.Visible;
-					}
-					break;
-				}
-			}
+			CambiarEstadoDeExpander(sender);
 		}
 
 		private void TextBoxBuscarProyecto_TextChanged(object sender, TextChangedEventArgs e)
@@ -123,7 +77,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 		private void ButtonDarDeBaja_Click(object sender, RoutedEventArgs e)
 		{
 			Proyecto proyectoSeleccionado = ((FrameworkElement)sender).DataContext as Proyecto;
-			MessageBoxResult resultado = MessageBox.Show("¿Esta seguro que desea dar de baja el proyecto seleccionado? Este cambio no puede deshacerse.", "Advertencia", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
+			MessageBoxResult resultado = MessageBox.Show(CONFIRMACION_BAJA_DE_PROYECTO_MENSAJE, ADVERTENCIA_TITULO, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
 			if (resultado == MessageBoxResult.Yes)
 			{
 				bool proyectoDadoDeBaja = false;
@@ -133,30 +87,11 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 					proyectoSeleccionado.DarDeBaja();
 					proyectoDadoDeBaja = true;
 				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
+				catch (AccesoADatosException ex)
 				{
-					MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
-				{
-					MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
-				{
-					MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
-				{
-					MessageBox.Show(this, "Hubo un error al completar el registro. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-				{
-					MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
+					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
 				}
 				finally
 				{
@@ -164,7 +99,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				}
 				if (proyectoDadoDeBaja)
 				{
-					MessageBox.Show("El proyecto fue dado de baja exitosamente.", "Exito", MessageBoxButton.OK, MessageBoxImage.Information);
+					MessageBox.Show(BAJA_DE_PROYECTO_EXITOSA_MENSAJE, OPERACION_EXITOSA_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
 					AdministradorDeProyectos.Proyectos.Remove(proyectoSeleccionado);
 					DataGridProyectos.ItemsSource = null;
 					DataGridProyectos.ItemsSource = AdministradorDeProyectos.Proyectos;

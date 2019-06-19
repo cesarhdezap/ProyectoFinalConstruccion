@@ -6,6 +6,7 @@ using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ClasesDominio;
 using Microsoft.Win32;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
+using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 
 namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 {
@@ -65,30 +66,11 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 					Imagen.Guardar();
 					reporteGuardado = true;
 				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
+				catch (AccesoADatosException ex)
 				{
-					MessageBox.Show(this, "No se pudo establecer conexion al servidor. Porfavor, verfique su conexion e intentelo de nuevo.", "Conexion fallida", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
-				{
-					MessageBox.Show(this, "Hubo un error al completar el registro. Intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
-				{
-					MessageBox.Show(this, "Hubo un error al completar el la carga, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
-				{
-					MessageBox.Show(this, "Hubo un error al completar el la carga. Recarge la pagina e intentelo nuevamente, si el problema persiste, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
-				}
-				catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-				{
-					MessageBox.Show(this, "No se pudo accesar a la base de datos por motivos desconocidos, contacte a su administrador.", "Error desconocido", MessageBoxButton.OK, MessageBoxImage.Error);
-                    Close();
+					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
 				}
 				finally
 				{
@@ -96,7 +78,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 				}
 				if (reporteGuardado)
 				{
-					MessageBox.Show("El reporte mensual fue registrado exitosamente.", "¡Registro exitoso!", MessageBoxButton.OK, MessageBoxImage.Information);
+					MessageBox.Show(REGISTRO_EXITOSO_REPORTE_MENSUAL, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
                     Close();
 				}
 			}
@@ -115,17 +97,17 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 					}
 					else
 					{
-						MessageBox.Show("Un reporte mensual con el mes " + ComboBoxMes.SelectedItem.ToString() + " ya fue entregado.", "Mes duplicado", MessageBoxButton.OK, MessageBoxImage.Error);
+						MessageBox.Show(MES_DUPLICADO_MENSAJE, MES_DUPLICADO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 					}
 				}
 				else
 				{
-					MessageBox.Show("El número de horas reportadas debe ser un valor entero mayor a 0.", "Número de horas invalido", MessageBoxButton.OK, MessageBoxImage.Error);
+					MessageBox.Show(NUMERO_DE_HORAS_INVALIDO_MENSAJE, NUMERO_DE_HORAS_INVALIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 				}
 			}
 			else
 			{
-				MessageBox.Show("Debe seleccionar un archivo para continuar.", "Archivo no seleccionado", MessageBoxButton.OK, MessageBoxImage.Error);
+				MessageBox.Show(ARCHIVO_NO_SLECCIONADO_MENSAJE, ARCHIVO_NO_SLECCIONADO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 			return resultadoDeValidacion;
 		}

@@ -23,15 +23,11 @@ namespace LogicaDeNegocios
 
         public void Guardar()
         {
-            AdministradorDeEncargados administradorDeEncargados = new AdministradorDeEncargados();
-            if (ValidarEncargado() && ValidarDisponibilidadDeCorreo(CorreoElectronico))
-            {
-                EncargadoDAO encargadoDAO = new EncargadoDAO();
-                encargadoDAO.GuardarEncargado(this);
-            }
+			EncargadoDAO encargadoDAO = new EncargadoDAO();
+			encargadoDAO.GuardarEncargado(this);
         }
 
-        private bool ValidarEncargado()
+        public bool Validar()
         {
             bool resultadoDeValidacion = false;
             if (ValidarNombre(Nombre)

@@ -21,14 +21,27 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
         {
             InitializeComponent();
             LabelNombreDeUsuario.Content = coordinador.Nombre;
-
             AdministradorDeOrganizaciones = new AdministradorDeOrganizaciones();
-            AdministradorDeOrganizaciones.CargarOrganizaciones();
-
             AdministradorDeEncargados = new AdministradorDeEncargados();
-            AdministradorDeEncargados.CargarEncargadosTodos();
+			Mouse.OverrideCursor = Cursors.Wait;
 
-            if (AdministradorDeOrganizaciones.Organizaciones.Count > 0)
+			try
+			{
+				AdministradorDeOrganizaciones.CargarOrganizaciones();
+				AdministradorDeEncargados.CargarEncargadosTodos();
+			}
+			catch (AccesoADatosException ex)
+			{
+				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+			finally
+			{
+				Mouse.OverrideCursor = null;
+			}
+
+			if (AdministradorDeOrganizaciones.Organizaciones.Count > 0)
             {
                 ComboBoxOrganizacionAsociada.DisplayMemberPath = "Nombre";
                 ComboBoxOrganizacionAsociada.ItemsSource = AdministradorDeOrganizaciones.Organizaciones;
@@ -43,96 +56,63 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             ComboBoxEncargadoAsociado.DisplayMemberPath = "Nombre";
         }
 
-        private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
-        {
-            Proyecto proyecto = new Proyecto()
-            {
-                Estado = EstadoProyecto.Activo,
-                Nombre = TextBoxNombre.Text,
-                ObjetivoGeneral = TextBoxObjetivoGeneral.Text,
-                DescripcionGeneral = TextBoxDescripcionGeneral.Text,
-
-            };
-
-            if (ValidarSeleccionComboBox(ComboBoxEncargadoAsociado))
+		private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
+		{
+			Proyecto proyecto = new Proyecto()
 			{
-                proyecto.Encargado = ComboBoxEncargadoAsociado.SelectedItem as Encargado;
+				Estado = EstadoProyecto.Activo,
+				Nombre = TextBoxNombre.Text,
+				ObjetivoGeneral = TextBoxObjetivoGeneral.Text,
+				DescripcionGeneral = TextBoxDescripcionGeneral.Text,
 
-                if (ValidarEntero(TextBoxEstudiantesSolicitados.Text))
-                {
-					proyecto.Cupo = Int32.Parse(TextBoxEstudiantesSolicitados.Text);
-                }
-                else
+			};
+
+			proyecto.Encargado = ComboBoxEncargadoAsociado.SelectedItem as Encargado;
+			Mouse.OverrideCursor = Cursors.Wait;
+			if (proyecto.Validar() && ValidarSeleccionComboBox(ComboBoxEncargadoAsociado) && ValidarEntero(TextBoxEstudiantesSolicitados.Text))
+			{
+				bool resultadoDeCreacion = false;
+
+				try
 				{
-                    proyecto.Cupo = VALOR_ENTERO_MINIMO_PERMITIDO;
+					proyecto.Guardar();
+					resultadoDeCreacion = true;
+				}
+				catch (AccesoADatosException ex)
+				{
+					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				}
+				finally
+				{
+					Mouse.OverrideCursor = null;
 				}
 
-                Mouse.OverrideCursor = Cursors.Wait;
-                if (proyecto.Validar())
-                {
-                    bool resultadoDeCreacion = false;
-                    try
-                    {
-                        proyecto.Guardar();
-                        resultadoDeCreacion = true;
-                    }
-                    catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
-                    {
-                        MessageBox.Show(this, CONEXION_FALLIDA_MENSAJE, CONEXION_FALLIDA_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ObjetoNoExiste)
-                    {
-                        MessageBox.Show(this, "El objeto especificado no se encontro en la base de datos.", "Objeto no encontrado", MessageBoxButton.OK, MessageBoxImage.Error);
-                        Close();
-                    }
-                    catch(AccesoADatosException ex) when(ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
-                    {
-                        MessageBox.Show(this, ERROR_GUARDAR_REGISTRO, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                        Close();
-                    }
-                    catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
-                    {
-                        MessageBox.Show(this, ERROR_AL_CONVERTIR_OBJETO, "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                        Close();
-                    }
-                    catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
-                    {
-                        MessageBox.Show(this, ERROR_PETICION_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                        Close();
-                    }
-                    catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-                    {
-                        MessageBox.Show(this, ERROR_DESCONOCIDO_MENSAJE, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                        Close();
-                    }
-                    finally
-                    {
-                        Mouse.OverrideCursor = null;
-                    }
-
-                    if (resultadoDeCreacion)
-                    {
-                        MessageBox.Show(this, "Proyecto guardado exitosamente.", "¡Registro exitoso!", MessageBoxButton.OK, MessageBoxImage.Information);
-                        Close();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                    MostrarEstadoDeValidacionCadena(TextBoxNombre);
-                    MostrarEstadoDeValidacionCadena(TextBoxObjetivoGeneral);
-                    MostrarEstadoDeValidacionCadena(TextBoxDescripcionGeneral);
-                    MostrarEstadoDeValidacionCampoNumerico(TextBoxEstudiantesSolicitados);
-                    Mouse.OverrideCursor = null;
-                }
-            }
+				if (resultadoDeCreacion)
+				{
+					MessageBox.Show(this, REGISTRO_EXITOSO_PROYECTO, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+					Close();
+				}
+			}
 			else
 			{
-                MostrarEstadoDeValidacionComboBox(ComboBoxEncargadoAsociado);
-            }
+				MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarEstadoDeValidacionCampos();
+				Mouse.OverrideCursor = null;
+			}
 		}
 
-        private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)
+		private void MostrarEstadoDeValidacionCampos()
+		{
+			MostrarEstadoDeValidacionCadena(TextBoxNombre);
+			MostrarEstadoDeValidacionCadena(TextBoxObjetivoGeneral);
+			MostrarEstadoDeValidacionCadena(TextBoxDescripcionGeneral);
+			MostrarEstadoDeValidacionCampoNumerico(TextBoxEstudiantesSolicitados);
+			MostrarEstadoDeValidacionComboBox(ComboBoxEncargadoAsociado);
+		}
+
+		private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
             MostrarEstadoDeValidacionCadena(TextBoxNombre);
         }

@@ -89,8 +89,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
                 coordinador.Cubiculo = VALOR_ENTERO_MINIMO_PERMITIDO;
             }
 
-            if (coordinador.Validar()
-                && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text
+            if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text
                 && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text
                 && ValidarSeleccionComboBox(ComboBoxCarrera))
 			{	
@@ -105,7 +104,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
                     }
                     else
                     {
-                        ActualizarInformacionDeCamposConError();
+                        MostrarEstadoDeValidacionCampos();
                     }
 				}
                 catch (AccesoADatosException ex)
@@ -128,12 +127,12 @@ namespace InterfazDeUsuario.GUIsDeDirector
 
             {
                 Mouse.OverrideCursor = null;
-                ActualizarInformacionDeCamposConError();
+                MostrarEstadoDeValidacionCampos();
             }
 
         }
 
-        private void ActualizarInformacionDeCamposConError()
+        private void MostrarEstadoDeValidacionCampos()
         {
             MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
             MostrarEstadoDeValidacionNombre(TextBoxNombre);
@@ -141,6 +140,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
             MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
             MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
             MostrarEstadoDeValidacionCampoNumerico(TextBoxCubiculo);
+			Mouse.OverrideCursor = Cursors.Wait;
             try
             {
                 MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
@@ -151,8 +151,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
                 mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
                 MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-
+			Mouse.OverrideCursor = null;
             MostrarEstadoDeValidacionComboBox(ComboBoxCarrera);
         }
 
