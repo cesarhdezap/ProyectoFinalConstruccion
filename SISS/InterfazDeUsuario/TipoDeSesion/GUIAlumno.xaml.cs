@@ -72,6 +72,7 @@ namespace InterfazDeUsuario.GUITipoDeSesion
             Hide();
             GUIEscogerProyectos escogerProyectos = new GUIEscogerProyectos(Alumno);
             escogerProyectos.ShowDialog();
+			ShowDialog();
             Mouse.OverrideCursor = Cursors.Wait;
 			AlumnoDAO alumnoDAO = new AlumnoDAO();
 			try
@@ -93,7 +94,7 @@ namespace InterfazDeUsuario.GUITipoDeSesion
                 LabelEsperandoAsignacion.Visibility = Visibility.Visible;
                 ButtonEscogerProyecto.Visibility = Visibility.Hidden;
             }
-            ShowDialog();
+            
         }
 
         private void ButtonVerExpediente_Click(object sender, RoutedEventArgs e)
