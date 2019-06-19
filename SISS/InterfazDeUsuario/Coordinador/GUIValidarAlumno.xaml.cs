@@ -8,6 +8,8 @@ using System.Windows.Input;
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Controls;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
+using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
 {
@@ -35,13 +37,13 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			{
 				AdministradorDeAlumnos.CargarAlumnosPorCarreraYEstado(Coordinador.Carrera, EstadoAlumno.EsperandoAceptacion);
 			}
-            catch (AccesoADatosException ex)
-            {
-                MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-                mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-                MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
+			catch (AccesoADatosException ex)
+			{
+				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
@@ -51,41 +53,13 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 		private void Expander_Expanded(object sender, RoutedEventArgs e)
 		{
 			Mouse.OverrideCursor = Cursors.Wait;
-			for (Visual elementoVisual = sender as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
-			{
-				if (elementoVisual is DataGridRow fila)
-				{
-					if (fila.DetailsVisibility == Visibility.Visible)
-					{
-						fila.DetailsVisibility = Visibility.Collapsed;
-					}
-					else
-					{
-						fila.DetailsVisibility = Visibility.Visible;
-					}
-					break;
-				}
-			}
+			CambiarEstadoDeExpander(sender);
 			Mouse.OverrideCursor = null;
 		}
 
 		private void Expander_Collapsed(object sender, RoutedEventArgs e)
 		{
-			for (var elementoVisual = sender as Visual; elementoVisual != null; elementoVisual = VisualTreeHelper.GetParent(elementoVisual) as Visual)
-			{
-				if (elementoVisual is DataGridRow fila)
-				{
-					if (fila.DetailsVisibility == Visibility.Visible)
-					{
-						fila.DetailsVisibility = Visibility.Collapsed;
-					}
-					else
-					{
-						fila.DetailsVisibility = Visibility.Visible;
-					}
-					break;
-				}
-			}
+			CambiarEstadoDeExpander(sender);
 		}
 
 		private void CheckBox_Checked(object sender, RoutedEventArgs e)
@@ -102,7 +76,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
 		private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
 		{
-			MessageBoxResult confirmacion = MessageBox.Show("Los alumnos seleccionados seran aceptados, mientras que los demas seran rechazados. ¿Seguro que desea continuar?", "Advertencia", MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel);
+			MessageBoxResult confirmacion = MessageBox.Show(ADVERTENCIA_ACEPTACION_MENSAJE, ADVERTENCIA_TITULO, MessageBoxButton.OKCancel, MessageBoxImage.Information, MessageBoxResult.Cancel);
 			if (confirmacion == MessageBoxResult.OK)
 			{
 				Mouse.OverrideCursor = Cursors.Wait;
@@ -113,16 +87,12 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 					{
 						alumno.Aceptar();
 					}
-                    catch (AccesoADatosException ex)
-                    {
-                        MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-                        mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-                        MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    finally
-                    {
-                        Mouse.OverrideCursor = null;
-                    }
+					catch (AccesoADatosException ex)
+					{
+						MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+						mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+						MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+					}
 					alumnosRechazados.Remove(alumno);
 				}
 
@@ -132,19 +102,18 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 					{
 						alumno.Rechazar();
 					}
-                    catch (AccesoADatosException ex)
-                    {
-                        MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-                        mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-                        MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    finally
+					catch (AccesoADatosException ex)
+					{
+						MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+						mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+						MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+					}
+					finally
 					{
 						Mouse.OverrideCursor = null;
 					}
 				}
-				MessageBox.Show("Los alumnos fueron aceptados exitosamente.", "Aceptación exitosa", MessageBoxButton.OK, MessageBoxImage.Information);
-                Mouse.OverrideCursor = null;
+				MessageBox.Show(ACEPTACION_EXITOSA_MENSAJE, ACEPTACION_EXITOSA_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
                 Close();
 			}
 		}

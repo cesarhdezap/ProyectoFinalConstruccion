@@ -91,7 +91,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 					}
 					else
 					{
-						ActualizarInformacionDeCamposConError();
+						MostrarEstadoDeValidacionCampos();
 					}
 				}
 				catch (AccesoADatosException ex) 
@@ -112,11 +112,11 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 			}
 			else
 			{
-				ActualizarInformacionDeCamposConError();
+				MostrarEstadoDeValidacionCampos();
 			}
 		}
 
-		private void ActualizarInformacionDeCamposConError()
+		private void MostrarEstadoDeValidacionCampos()
 		{
 			MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 			MostrarEstadoDeValidacionMatricula(TextBoxMatricula);

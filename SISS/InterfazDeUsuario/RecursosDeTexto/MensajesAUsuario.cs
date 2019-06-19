@@ -35,9 +35,9 @@ namespace InterfazDeUsuario.RecursosDeTexto
 		public const string ERROR_OBJETO_NO_EXISTE_MENSAJE = "El objeto especificado no se encontro en la base de datos.";
 		public const string ERROR_OBJETO_NO_EXISTE_TITULO = "Objeto no encontrado";
 		public const string COMBO_BOX_INVALIDO = "Porfavor, elija un elemento.";
-		public const string REGISTRO_EXITOSO_ENCARGADO = "Encargado registrado correctamente.";
+		public const string REGISTRO_EXITOSO_ENCARGADO = "El encargado ha sido registrado exitosamente.";
 		public const string ERROR_AL_CONVERTIR_OBJETO = "Error al cargar datos del servidor.";
-		public const string REGISTRO_EXITOSO_ORGANIZACION = "Organización registrada correctamente.";
+		public const string REGISTRO_EXITOSO_ORGANIZACION = "La organización ha sido registrada exitosamente.";
 		public const string TIPO_DE_SESION_INVALIDO_MENSAJE = "Tipo de sesion no valida. Contacte a su administrador.";
 		public const string CREDENCIALES_INVALIDAS_MENSAJE = "Correo o contraseña no validos.";
 		public const string CREDENCIALES_INVALIDAS_TITULO = "Credenciales no validas";
@@ -51,5 +51,27 @@ namespace InterfazDeUsuario.RecursosDeTexto
 		public const string ACTUALIZACION_DE_REPORTE_MENSUAL_EXITOSA_MENSAJE = "El reporte mensual fue actualizado exitosamente.";
 		public const string ARCHIVO_NO_SLECCIONADO_MENSAJE = "Debe seleccionar un archivo para continuar.";
 		public const string ARCHIVO_NO_SLECCIONADO_TITULO = "Archivo no seleccionado";
+		public const string ADVERTENCIA_TITULO = "Advertencia";
+		public const string CONFIRMACION_BAJA_DE_PROYECTO_MENSAJE = "¿Esta seguro que desea dar de baja el proyecto seleccionado? Este cambio no puede deshacerse.";
+		public const string BAJA_DE_PROYECTO_EXITOSA_MENSAJE = "El proyecto fue dado de baja exitosamente.";
+		public const string BAJA_DE_ALUMNO_EXITOSA_MENSAJE = "El alumno fue dado de baja exitosamente.";
+		public const string OPERACION_EXITOSA_TITULO = "Operacion exitosa.";
+		public const string REGISTRO_EXITOSO_PROYECTO = "El proyecto ha sido registrado exitosamente";
+		public const string REGISTRO_EXITOSO_TECNICO_ACADEMICO = "El técnico académico ha sido registrado exitosamente.";
+		public const string ACEPTACION_EXITOSA_TITULO = "Aceptación exitosa";
+		public const string ACEPTACION_EXITOSA_MENSAJE = "Los alumnos fueron aceptados exitosamente.";
+		public const string ADVERTENCIA_ACEPTACION_MENSAJE = "Los alumnos seleccionados seran aceptados, mientras que los demas seran rechazados. ¿Seguro que desea continuar?";
+		public const string ADVERTENCIA_BAJA_ALUMNO_MENSAJE = "¿Esta seguro que desea dar de baja al alumno seleccionado? Este cambio no puede deshacerse.";
+		public const string REPORTE_NO_SELECCIONADO_MENSAJE = "Debe seleccionar un reporte mensual para actualizar.";
+		public const string REPORTE_NO_SELECCIONADO_TITULO = "Ningun reporte seleccionado";
+		public const string REGISTRO_EXITOSO_DOCUMENTO = "El documento fue registrado exitosamente.";
+		public const string DOCUMENTO_YA_ENTREGAOD_TITULO = "Documento ya entregado";
+		public const string DOCUMENTO_YA_ENTREGAOD_MENSAJE = "El documento ya fue entregado.";
+		public const string REGISTRO_EXITOSO_REPORTE_MENSUAL = "El reporte mensual fue registrado exitosamente.";
+		public const string MES_DUPLICADO_TITULO = "Mes duplicado";
+		public const string MES_DUPLICADO_MENSAJE = "Un reporte mensual con el mes seleccionado ya fue entregado.";
+		public const string NUMERO_DE_HORAS_INVALIDO_TITULO = "Número de horas invalido";
+		public const string NUMERO_DE_HORAS_INVALIDO_MENSAJE = "El número de horas reportadas debe ser un valor entero mayor a 0.";
+		public const string MAXIMO_DE_REPORTES_MENSUALES_ENTREGADO = "El numero maximo de reportes ha sido entregado.";
 	}
 }

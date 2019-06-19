@@ -6,6 +6,8 @@ using System.Windows.Input;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
+using LogicaDeNegocios.ClasesDominio;
+using System;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
 {
@@ -18,9 +20,10 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             InitializeComponent();
             Coordinador = coordinador;
 			LabelNombreDeUsuario.Content = Coordinador.Nombre;
-			ComboBoxCarrera.Items.Add("LIS");
-			ComboBoxCarrera.Items.Add("RYSC");
-			ComboBoxCarrera.Items.Add("TC");
+			foreach (var carrera in Enum.GetValues(typeof(Carrera)))
+			{
+				ComboBoxCarrera.Items.Add(carrera).ToString();
+			}
 			ComboBoxCarrera.SelectedIndex = 0;
 		}
 
@@ -39,85 +42,76 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			};
 
 			Mouse.OverrideCursor = Cursors.Wait;
-            if (ValidarEntero(TextBoxCubiculo.Text))
-            {
-                tecnicoAcademico.Cubiculo = int.Parse(TextBoxCubiculo.Text);
-            }
-            else
-            {
-                tecnicoAcademico.Cubiculo = VALOR_ENTERO_MINIMO_PERMITIDO;
-            }
 
-            if (tecnicoAcademico.Validar()
-                && TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text
-                && TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text
-                && ComboBoxCarrera.SelectedIndex >= VALOR_ENTERO_MINIMO_PERMITIDO)
-            {
-                if (ValidarDisponibilidadDeCorreo(tecnicoAcademico.CorreoElectronico))
-                {
-                    bool registroExitoso = false;
-                    try
-                    {
-                        tecnicoAcademico.Guardar();
-                        registroExitoso = true;
-                    }
-                    catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada)
-                    {
-                        MessageBox.Show(this, MATRICULA_DUPLICADA_MENSAJE, MATRICULA_DUPLICADA_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ConexionABaseDeDatosFallida)
-                    {
-                        MessageBox.Show(this, CONEXION_FALLIDA_MENSAJE, CONEXION_FALLIDA_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto)
-                    {
-                        MessageBox.Show(this, "Hubo un error al completar el registro, contacte a su administrador.", "Error interno", MessageBoxButton.OK, MessageBoxImage.Error);
-                        Close();
-                    }
-                    catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto)
-                    {
-                        MessageBox.Show(this, ERROR_GUARDAR_REGISTRO, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                        Close();
-                    }
-                    catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.IDInvalida)
-                    {
-                        MessageBox.Show(this, ERROR_PETICION_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                        Close();
-                    }
-                    catch (AccesoADatosException ex) when (ex.TipoDeError == TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos)
-                    {
-                        MessageBox.Show(this, ERROR_DESCONOCIDO_MENSAJE, ERROR_DESCONOCIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                        Close();
-                    }
-                    finally
-                    {
-                        Mouse.OverrideCursor = null;
-                    }
+			if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text
+				&& TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text
+				&& ValidarSeleccionComboBox(ComboBoxCarrera)
+				&& ValidarEntero(TextBoxCubiculo.Text))
+			{
+				tecnicoAcademico.Cubiculo = int.Parse(TextBoxCubiculo.Text);
+				bool registroExitoso = false;
+				try
+				{
+					if (tecnicoAcademico.Validar())
+					{
+						tecnicoAcademico.Guardar();
+						registroExitoso = true;
+					}
+					else
+					{
 
-                    if (registroExitoso)
-                    {
-                        MessageBox.Show("El técnico académico ha sido registrado exitosamente.", "¡Registro Exitoso!", MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
-                        Close();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(this, "Ya existe un tecnico con ese correo.");
-                }
-            }
-            else
-            {
-                Mouse.OverrideCursor = null;
-                MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-                MostrarEstadoDeValidacionNombre(TextBoxNombre);
-                MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
-                MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
-                MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
-            }
-        }
+					}
+				}
+				catch (AccesoADatosException ex)
+				{
+					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				}
+				finally
+				{
+					Mouse.OverrideCursor = null;
+				}
 
+				if (registroExitoso)
+				{
+					MessageBox.Show(REGISTRO_EXITOSO_TECNICO_ACADEMICO, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
+					Close();
+				}
 
-        private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)
+			}
+			else
+			{
+				Mouse.OverrideCursor = null;
+				MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarEstadoDeValidacionCampos();
+			}
+		}
+
+		private void MostrarEstadoDeValidacionCampos()
+		{
+			MostrarEstadoDeValidacionNombre(TextBoxNombre);
+			MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
+			MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
+			MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
+			Mouse.OverrideCursor = Cursors.Wait;
+			try
+			{
+				MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
+			}
+			catch (AccesoADatosException ex)
+			{
+				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+			finally
+			{
+				Mouse.OverrideCursor = null;
+			}
+		}
+
+		private void TextBoxNombre_TextChanged(object sender, TextChangedEventArgs e)
         {
             MostrarEstadoDeValidacionNombre(TextBoxNombre);
         }
