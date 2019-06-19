@@ -17,26 +17,22 @@ namespace LogicaDeNegocios
 		public List<Proyecto> Proyectos { get; set; }
         public Organizacion Organizacion { get; set; }
 
-        /// <summary>
-        /// Guarda un <see cref="Encargado"/> validado por <see cref="ValidarEncargado"/> 
-        /// en la base de datos.
-        /// </summary>
-        public void Guardar()
-        {
-            AdministradorDeEncargados administradorDeEncargados = new AdministradorDeEncargados();
-            if (ValidarEncargado() && ValidarDisponibilidadDeCorreo(CorreoElectronico))
-            {
-                EncargadoDAO encargadoDAO = new EncargadoDAO();
-                encargadoDAO.GuardarEncargado(this);
-            }
-        }
+		/// <summary>
+		/// Guarda un <see cref="Encargado"/> validado por <see cref="ValidarEncargado"/> 
+		/// en la base de datos.
+		/// </summary>
+		public void Guardar()
+		{
+			EncargadoDAO encargadoDAO = new EncargadoDAO();
+			encargadoDAO.GuardarEncargado(this);
+		}
 
         /// <summary>
         /// Valida los atributos del <see cref="Encargado"/>
         /// para la inserción a la base de datos.
         /// </summary>
         /// <returns></returns>
-        private bool ValidarEncargado()
+        public bool Validar()
         {
             bool resultadoDeValidacion = false;
             if (ValidarNombre(Nombre)
