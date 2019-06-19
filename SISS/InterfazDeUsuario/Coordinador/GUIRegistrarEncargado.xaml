@@ -20,8 +20,7 @@
 		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="248,326,0,0" VerticalAlignment="Top" Width="92" FontSize="14" Click="ButtonCancelar_Click"/>
 		<Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="92" Margin="404,326,0,0" FontSize="14" Click="ButtonAceptar_Click"/>
 		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="10,10,0,0"/>
-		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="433,32,0,0" FontSize="14"/>
-		<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="603,32,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
+		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="407,32,0,0" FontSize="14" Width="307" HorizontalContentAlignment="Right"/>
 		<ComboBox x:Name="ComboBoxOrganizacion" HorizontalAlignment="Left" Margin="248,196,0,0" VerticalAlignment="Top" Width="248" FontSize="14" SelectionChanged="ComboBoxOrganizacion_SelectionChanged"/>
 		<TextBox x:Name="TextBoxTelefono" HorizontalAlignment="Left" Height="23" Margin="248,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" TextChanged="TextBoxTelefono_TextChanged" FontSize="14"/>
 		<Label x:Name="LabelTelefono" Content="Telefono:" HorizontalAlignment="Left" Margin="177,276,0,0" VerticalAlignment="Top" FontSize="14"/>
