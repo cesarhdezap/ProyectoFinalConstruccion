@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using LogicaDeNegocios;
+using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 
 namespace InterfazDeUsuario
@@ -16,14 +17,24 @@ namespace InterfazDeUsuario
         {
             AlumnoDAO alumnoDAO = new AlumnoDAO();
             Alumno alumno = new Alumno();
-            alumno = alumnoDAO.CargarAlumnoPorMatricula((string)matricula);
+			string cadenaResultado = string.Empty;
+			try
+			{
 
-            string cadenaResultado = "Carrera: " + alumno.Carrera + System.Environment.NewLine +
-                                     "Correo Electronico: " + alumno.CorreoElectronico + System.Environment.NewLine +
-                                     "Matrícula: " + alumno.Matricula + System.Environment.NewLine +
-                                     "Teléfono: " + alumno.Telefono;
+				alumno = alumnoDAO.CargarAlumnoPorMatricula((string)matricula);
 
-            return cadenaResultado;
+				cadenaResultado = "- Carrera: " + alumno.Carrera + System.Environment.NewLine +
+										 "- Correo Electronico: " + alumno.CorreoElectronico + System.Environment.NewLine +
+										 "- Matrícula: " + alumno.Matricula + System.Environment.NewLine +
+										 "- Teléfono: " + alumno.Telefono;
+			}
+			catch (AccesoADatosException e)
+			{
+				MensajeDeErrorParaMessageBox mensaje;
+				mensaje = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(e);
+				cadenaResultado = mensaje.Mensaje;
+			}
+			return cadenaResultado;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

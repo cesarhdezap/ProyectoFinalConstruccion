@@ -19,8 +19,8 @@
 		<Button x:Name="ButtonRegistrarProyecto" Content="Registrar proyecto" HorizontalAlignment="Left" Margin="462,296,0,0" VerticalAlignment="Top" Width="204" Height="30" Foreground="#FF343333" BorderBrush="#FF191B17" FontSize="14" Click="ButtonRegistrarProyecto_Click"/>
 		<Button x:Name="ButtonBuscarProyecto" Content="Buscar proyecto" HorizontalAlignment="Left" Margin="689,296,0,0" VerticalAlignment="Top" Width="216" Height="30" BorderBrush="#FF080707" FontSize="14" Click="ButtonBuscarProyecto_Click"/>
 		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="51,10,0,0"/>
-		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="657,26,0,0" FontSize="14"/>
-		<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="860,26,0,0" Foreground="#FF18529D" FontWeight="Bold" FontSize="14"/>
+		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="453,26,0,0" FontSize="14" Width="407" HorizontalContentAlignment="Right"/>
+		<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="860,26,0,0" Foreground="#FF18529D" FontWeight="Bold" FontSize="14" Cursor="Hand" MouseDown="LabelCerrarSesion_MouseDown"/>
 
 	</Grid>
 </Window>

@@ -18,8 +18,7 @@
 			<Button x:Name="ButtonVerProyectoActual" Content="Ver proyecto actual" HorizontalAlignment="Left" Margin="986,83,0,0" VerticalAlignment="Top" Width="159" Click="ButtonVerProyectoActual_Click" FontSize="14" RenderTransformOrigin="0.491,-0.087"/>
 			<Button x:Name="ButtonRegresar" Content="&lt;- Regresar" HorizontalAlignment="Left" Margin="25,83,0,0" VerticalAlignment="Top" Width="94" Click="ButtonRegresar_Click" FontSize="14"/>
 			<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Height="64" Width="491" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="25,11,0,0" RenderTransformOrigin="0.063,0.641"/>
-			<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="898,24,0,0" FontSize="14"/>
-			<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1050,24,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
+			<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="432,33,0,0" FontSize="14" Width="713" HorizontalContentAlignment="Right"/>
 			<Label x:Name="LabelHorasCubiertas" Content="[Horas cubiertas]" HorizontalAlignment="Left" Margin="241,81,0,0" VerticalAlignment="Top" FontSize="14"/>
 			<ListBox  Name="GridReportesMensuales" Margin="10,146,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="378" Width="1181">
 				<ListBox.ItemsPanel>

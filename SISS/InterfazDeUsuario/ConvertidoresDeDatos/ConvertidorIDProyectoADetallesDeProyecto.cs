@@ -21,8 +21,8 @@ namespace InterfazDeUsuario
             Proyecto proyecto = new Proyecto();
             Encargado encargado = new Encargado();
             Organizacion organizacion = new Organizacion();
-
             string cadenaResultado = string.Empty;
+
             try
             {
                 proyecto = proyectoDAO.CargarProyectoPorID((int)IDProyecto);
@@ -30,18 +30,17 @@ namespace InterfazDeUsuario
                 organizacion = organizacionDAO.CargarIDPorIDEncargado(encargado.IDEncargado);
                 encargado = encargadoDAO.CargarEncargadoPorID(encargado.IDEncargado);
                 organizacion = organizacionDAO.CargarOrganizacionPorID(organizacion.IDOrganizacion);
-
-                cadenaResultado = "-Dependencia: " + organizacion.Nombre + System.Environment.NewLine +
-                                     "- Direccion: " + organizacion.Direccion + System.Environment.NewLine +
-                                     "- Encargado: " + encargado.Nombre + System.Environment.NewLine +
-                                     "- Correo Electronico: " + encargado.CorreoElectronico + System.Environment.NewLine +
-                                     "- Cupo: " + proyecto.ObtenerDisponibilidad() + System.Environment.NewLine +
-                                     "- Descripcion general: " + proyecto.DescripcionGeneral;
+                cadenaResultado = "- Dependencia: " + organizacion.Nombre + System.Environment.NewLine +
+                                  "- Direccion: " + organizacion.Direccion + System.Environment.NewLine +
+                                  "- Encargado: " + encargado.Nombre + System.Environment.NewLine +
+                                  "- Correo Electronico: " + encargado.CorreoElectronico + System.Environment.NewLine +
+                                  "- Cupo: " + proyecto.ObtenerDisponibilidad() + System.Environment.NewLine +
+                                  "- Descripcion general: " + proyecto.DescripcionGeneral;
             }
-            catch (AccesoADatosException ex)
+            catch (AccesoADatosException e)
             {
                 MensajeDeErrorParaMessageBox mensaje;
-                mensaje = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+                mensaje = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(e);
                 cadenaResultado = mensaje.Mensaje;
             }
 

@@ -32,7 +32,6 @@
 		<Label x:Name="LabelCorreoDelCoordinador" Content="[CorreoDelCoordinador]" HorizontalAlignment="Left" Margin="775,181,0,0" VerticalAlignment="Top"/>
 		<Label x:Name="LabelTelefonoDelCoordinador" Content="[TelefonoDelCoordinador]" HorizontalAlignment="Left" Margin="775,210,0,0" VerticalAlignment="Top"/>
 		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="58,0,0,0"/>
-		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="540,9,0,0" FontSize="14" HorizontalContentAlignment="Right" Width="380"/>
-		<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="926,10,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14"/>
+		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="455,10,0,0" FontSize="14" HorizontalContentAlignment="Right" Width="566"/>
 	</Grid>
 </Window>

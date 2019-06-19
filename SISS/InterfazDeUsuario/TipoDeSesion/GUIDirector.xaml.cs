@@ -57,5 +57,10 @@ namespace InterfazDeUsuario.GUITipoDeSesion
             GUIsDeDirector.GUIRegistrarCoordinador registrarCoordinador = new GUIsDeDirector.GUIRegistrarCoordinador(Director);
             registrarCoordinador.ShowDialog();
         }
-    }
+
+		private void LabelCerrarSesion_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			Close();
+		}
+	}
 }

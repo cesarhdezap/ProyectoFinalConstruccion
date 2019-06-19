@@ -104,5 +104,10 @@ namespace InterfazDeUsuario.GUITipoDeSesion
             verExpediente.ShowDialog();
             ShowDialog();
         }
-    }
+
+		private void LabelCerrarSesión_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			Close();
+		}
+	}
 }

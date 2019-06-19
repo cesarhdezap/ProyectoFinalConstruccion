@@ -6,19 +6,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfazDeUsuario.GUIsDeCoordinador"
         mc:Ignorable="d"
-        Title="GUIBuscarProyecto" Height="522" Width="890">
+        Title="Buscar proyecto" Height="522" Width="890" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 	<Window.Resources>
 		<l:ConvertidorIDProyectoADetallesDeProyecto x:Key="ConvertidorIDProyectoADetallesDeProyecto" />
 	</Window.Resources>
 	<Grid>
-		<Label x:Name="LabelBuscarProyecto" Content="Buscar proyecto" HorizontalAlignment="Left" Margin="38,89,0,0" VerticalAlignment="Top" FontSize="24" BorderBrush="#FF1B1414"/>
-		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="375,382,0,0" VerticalAlignment="Top" Width="117" FontSize="14"/>
-		<TextBox x:Name="TextBoxBuscarProyecto" HorizontalAlignment="Left" Height="23" Margin="627,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" FontSize="14" TextChanged="TextBoxBuscarProyecto_TextChanged"/>
-		<Label x:Name="LabrlBuscarProyectoPorNombre" Content="Buscar proyecto por nombre:" HorizontalAlignment="Left" Margin="430,111,0,0" VerticalAlignment="Top" Width="192" FontSize="14"/>
+		<Label x:Name="LabelBuscarProyecto" Content="Buscar proyecto" HorizontalAlignment="Left" Margin="27,72,0,0" VerticalAlignment="Top" FontSize="24" BorderBrush="#FF1B1414"/>
+		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="372,445,0,0" VerticalAlignment="Top" Width="117" FontSize="14"/>
+		<TextBox x:Name="TextBoxBuscarProyecto" HorizontalAlignment="Left" Height="23" Margin="627,86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="230" FontSize="14" TextChanged="TextBoxBuscarProyecto_TextChanged"/>
+		<Label x:Name="LabrlBuscarProyectoPorNombre" Content="Buscar proyecto por nombre:" HorizontalAlignment="Left" Margin="430,83,0,0" VerticalAlignment="Top" Width="192" FontSize="14"/>
 		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="10,10,0,0"/>
-		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="567,32,0,0" FontSize="14"/>
-		<Label x:Name="LabelCerrarSesion" Content="Cerrar sesión" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="762,32,0,0" Foreground="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" FontWeight="Bold" FontSize="14" RenderTransformOrigin="0.326,0.862"/>
-		<DataGrid x:Name="DataGridProyectos" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="false" CanUserDeleteRows="False" SelectionUnit="FullRow" HorizontalAlignment="Left" Height="312" Margin="38,148,0,0" VerticalAlignment="Top" Width="819">
+		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="412,23,0,0" FontSize="14" HorizontalContentAlignment="Right" Width="445"/>
+		<DataGrid x:Name="DataGridProyectos" AutoGenerateColumns="False" SelectionMode="Single" CanUserAddRows="false" CanUserDeleteRows="False" SelectionUnit="FullRow" HorizontalAlignment="Left" Height="312" Margin="27,119,0,0" VerticalAlignment="Top" Width="830">
 			<DataGrid.CellStyle>
 				<Style TargetType="DataGridCell">
 					<Setter Property="BorderThickness" Value="0"/>
