@@ -9,7 +9,7 @@ namespace LogicaDeNegocios.Interfaces
 		DocenteAcademico CargarIDCoordinadorPorCarrera(string carrera);
 		string CargarIDPorCorreoYRol(string correoElectronico, Rol rol);
 		DocenteAcademico CargarDocenteAcademicoPorIDPersonal(int IDpersonal);
-		DocenteAcademico CargarIDPorIDDocumento(int IDDocumento);
+		DocenteAcademico CargarIDPorIDReporteMensual(int IDDocumento);
 		List<DocenteAcademico> CargarDocentesAcademicosPorEstado(bool isActivo);
 		List<DocenteAcademico> CargarDocentesAcademicosPorRol(Rol rol);
         void GuardarDocenteAcademico(DocenteAcademico docenteAcademico);

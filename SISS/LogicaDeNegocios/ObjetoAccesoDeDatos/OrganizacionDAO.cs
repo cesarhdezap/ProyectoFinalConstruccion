@@ -10,9 +10,20 @@ using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
+	/// <summary>
+	/// Clase de abstraccion para acceso a objetos Organizacion en la base de datos.
+	/// Contiene metodos para cargar, insertar y actualizar objetos Organizacion.
+	/// </summary>
 	public class OrganizacionDAO : IOrganizacionDAO
 	{
-        public void ActualizarOrganizacionPorID(int IDOrganizacion, Organizacion organizacion)
+
+		/// <summary>
+		/// Actualiza una Organizacion dada su ID.
+		/// </summary>
+		/// <param name="IDOrganizacion">La ID de la Organizacion a actualizar.</param>
+		/// <param name="organizacion">La Organizacion a actualizar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public void ActualizarOrganizacionPorID(int IDOrganizacion, Organizacion organizacion)
         {
             if (IDOrganizacion <= 0)
             {
@@ -34,7 +45,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        public List<Organizacion> CargarOrganizacionesTodas()
+		/// <summary>
+		/// Carga a todas las Organizacion en la base de datos.
+		/// </summary>
+		/// <returns>Una lista con todas las Organizacion.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public List<Organizacion> CargarOrganizacionesTodas()
         {
             DataTable tablaDeOrganizaciones = new DataTable();
             try
@@ -58,7 +74,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeOrganizaciones;
         }
 
-        public List<Organizacion> CargarIDYNombreDeOrganizaciones()
+		/// <summary>
+		/// Carga una lista de Organizacion con solo sus ID y nombre inicializados y sus demas atributos como null.
+		/// </summary>
+		/// <returns>Una Organizacion con solo sus ID y nombre inicializados contenida en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		public List<Organizacion> CargarIDYNombreDeOrganizaciones()
         {
             DataTable tablaDeOrganizaciones = new DataTable();
             try
@@ -82,7 +103,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeOrganizaciones;
         }
 
-        public Organizacion CargarOrganizacionPorID(int IDOrganizacion)
+		/// <summary>
+		/// Carga a la Organizacion con la ID dada.
+		/// </summary>
+		/// <param name="IDOrganizacion">La ID de la Organizacion a cargar.</param>
+		/// <returns>La Organizacion con la ID dada.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public Organizacion CargarOrganizacionPorID(int IDOrganizacion)
         {
             DataTable tablaDeOrganizacion = new DataTable();
             SqlParameter[] parametroIDOrganizacion = new SqlParameter[1];
@@ -113,7 +140,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return organizacion;
         }
 
-        public Organizacion CargarIDPorIDEncargado(int IDEncargado)
+		/// <summary>
+		/// Carga una Organizacion con solo su ID inicializada y sus demas atributos en como null basado en la ID de Encargado dada.
+		/// </summary>
+		/// <param name="IDEncargado">La ID del Encargado relacionada a la ID a cargar.</param>
+		/// <returns>Una Organizacion con solo su ID inicializada.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public Organizacion CargarIDPorIDEncargado(int IDEncargado)
         {
             if (IDEncargado <= 0)
             {
@@ -146,7 +179,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return organizacion;
         }
 
-        private List<Organizacion> ConvertirDataTableAListaDeOrganizaciones(DataTable tablaDeOrganizaciones)
+		/// <summary>
+		/// Convierte una DataTable a una lista de Organizacion.
+		/// </summary>
+		/// <param name="tablaDeOrganizaciones">La DataTable que contiene datos de las Organizacion.</param>
+		/// <returns>La lista de Organizacion contenida en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private List<Organizacion> ConvertirDataTableAListaDeOrganizaciones(DataTable tablaDeOrganizaciones)
         {
             EncargadoDAO encargadoDAO = new EncargadoDAO();
             List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
@@ -165,7 +204,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeOrganizaciones;
         }
 
-        private Organizacion ConvertirDataTableAOrganizacion(DataTable tablaDeOrganizacion)
+		/// <summary>
+		/// Convierte una DataTable a una Organizacion.
+		/// </summary>
+		/// <param name="tablaDeOrganizacion">La DataTable que contiene datos de la Organizacion<./param>
+		/// <returns>La Organizacion contenida en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private Organizacion ConvertirDataTableAOrganizacion(DataTable tablaDeOrganizacion)
         {
             EncargadoDAO encargadoDAO = new EncargadoDAO();
             Organizacion organizacion = new Organizacion();
@@ -182,7 +227,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return organizacion;
         }
 
-        private Organizacion ConvertirDataTableAOrganizacionConSoloID(DataTable tablaDeOrganizacion)
+		/// <summary>
+		/// Convierte una DataTable a una Organizacion con solo su ID inicializada y sus demas atributos como null.
+		/// </summary>
+		/// <param name="tablaDeOrganizacion">La DataTable que contiene datos de la Organizacion.</param>
+		/// <returns>La Organizacion con solo su ID inicializada contenida en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception
+		private Organizacion ConvertirDataTableAOrganizacionConSoloID(DataTable tablaDeOrganizacion)
         {
             EncargadoDAO encargadoDAO = new EncargadoDAO();
             Organizacion organizacion = new Organizacion();
@@ -195,7 +246,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return organizacion;
         }
 
-        private List<Organizacion> ConvertirDataTableAListaDeOrganizacionesConIDYNombre(DataTable tablaDeOrganizaciones)
+		/// <summary>
+		/// Convierte una DataTable a una lista de Organizacion con solo sus ID y nombre inicializados y sus demas atributos como null.
+		/// </summary>
+		/// <param name="tablaDeOrganizaciones">La DataTable que contiene datos de las Organizacion.</param>
+		/// <returns>La lista de Organizacion con solo sus ID y nombre inicializados contenida en la DataTable.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private List<Organizacion> ConvertirDataTableAListaDeOrganizacionesConIDYNombre(DataTable tablaDeOrganizaciones)
         {
             List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
             foreach (DataRow fila in tablaDeOrganizaciones.Rows)
@@ -211,7 +268,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return listaDeOrganizaciones;
         }
 
-        public void GuardarOrganizacion(Organizacion organizacion)
+		/// <summary>
+		/// Guarda una Organizacion en la base de datos.
+		/// </summary>
+		/// <param name="organizacion">La Organizacion a guardar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiro una excepción.</exception>
+		public void GuardarOrganizacion(Organizacion organizacion)
         {
             SqlParameter[] parametrosDeOrganizacion = InicializarParametrosDeSql(organizacion);
             int filasAfectadas = 0;
@@ -229,7 +291,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        private SqlParameter[] InicializarParametrosDeSql(Organizacion organizacion)
+		/// <summary>
+		/// Inicializa un arreglo de SqlParameter basado en una Organizacion.
+		/// </summary>
+		/// <param name="organizacion">La Organizacion para inicializar los parametros.</param>
+		/// <returns>Un arreglo de SqlParameter donde cada posición es uno de los atributos de la Organizacion.</returns>
+		private SqlParameter[] InicializarParametrosDeSql(Organizacion organizacion)
         {
             SqlParameter[] parametrosDeOrganizacion = new SqlParameter[4];
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AccesoABaseDeDatos
+﻿namespace AccesoABaseDeDatos
 {
     public enum CodigoDeErrorDeSqlException
     {
@@ -14,8 +8,9 @@ namespace AccesoABaseDeDatos
 		ColumnaInvalida = 207,
 		ObjetoInvalido = 208,
 		ServidorNoEncontrado = 53,
-		ConexionRemotaFallida = 1326, //misma red que server pero no fun
+		ConexionRemotaFallida = 1326,
 		LoginFallido = 18456,
-        InsercionFallidaPorLlavePrimariaDuplicada = 2627
+        InsercionFallidaPorLlavePrimariaDuplicada = 2627,
+        ServicioSQLPausado = 17142
     }
 }

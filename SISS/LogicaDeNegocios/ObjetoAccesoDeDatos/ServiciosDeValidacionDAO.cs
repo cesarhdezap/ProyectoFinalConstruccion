@@ -1,4 +1,4 @@
-﻿using AccesoABaseDeDatos;
+using AccesoABaseDeDatos;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.Interfaces;
 using System;
@@ -14,85 +14,62 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
     public class ServiciosDeValidacionDAO : IServiciosDeValidacionDAO
     {
-        public List<string> CargarCorreosDeUsuarios()
+        /// <summary>
+        /// Cuenta las veces que el correo electrónico dado aparece en la base de datos.
+        /// </summary>
+        /// <param name="correo">Correo electrónico para contar ocurrencias.</param>
+        /// <returns>Numero de veces que el correo electrónico dado aparece en la base de datos.</returns>
+        /// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+        public int ContarOcurrenciasDeCorreo(string correo)
         {
-			DataTable tablaDeCorreos = new DataTable();
+            int numeroDeOcurrencias = 0;
+
+            SqlParameter[] parametroCorreoElectronico = new SqlParameter[1];
+            parametroCorreoElectronico[0] = new SqlParameter
+            {
+                ParameterName = "@CorreoElectronico",
+                Value = correo
+            };
+
             try
             {
-                tablaDeCorreos = AccesoADatos.EjecutarSelect(QuerysDeServiciosDeValidacion.CARGAR_CORREOS_DE_USUARIOS);
+                numeroDeOcurrencias = AccesoADatos.EjecutarOperacionEscalar(QuerysDeServiciosDeValidacion.CONTAR_OCURRENCIAS_DE_CORREO, parametroCorreoElectronico);
             }
-			catch (SqlException e)
-			{
-				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
-			}
-
-			List<string> correosElectronicos;
-            try
+            catch (SqlException e)
             {
-                correosElectronicos = ConvertirDataTableAListaDeCadenasDeCorreo(tablaDeCorreos);
-            }
-            catch (FormatException e)
-            {
-                throw new AccesoADatosException("Error al convertir datatable a lista cadenas de correo electronico", e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
+                EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, correo);
             }
 
-            return correosElectronicos;
+            return numeroDeOcurrencias;
         }
 
-		public int ContarOcurrenciasDeCorreo(string correo)
-		{
-			int numeroDeOcurrencias = 0;
-
-			SqlParameter[] parametroCorreoElectronico = new SqlParameter[1];
-			parametroCorreoElectronico[0] = new SqlParameter
-			{
-				ParameterName = "@CorreoElectronico",
-				Value = correo
-			};
-
-			try
-			{
-				numeroDeOcurrencias = AccesoADatos.EjecutarOperacionEscalar(QuerysDeServiciosDeValidacion.CONTAR_OCURRENCIAS_DE_CORREO, parametroCorreoElectronico);
-			}
-			catch (SqlException e)
-			{
-				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, correo);
-			}
-
-			return numeroDeOcurrencias;
-		}
-
-		public int ContarOcurrenciasDeMatricula(string matricula)
-		{
-			int numeroDeOcurrencias = 0;
-
-			SqlParameter[] parametroMatricula = new SqlParameter[1];
-			parametroMatricula[0] = new SqlParameter
-			{
-				ParameterName = "@Matricula",
-				Value = matricula
-			};
-
-			try
-			{
-				numeroDeOcurrencias = AccesoADatos.EjecutarOperacionEscalar(QuerysDeServiciosDeValidacion.CONTAR_OCURRENCIAS_DE_MATRICULA, parametroMatricula);
-			}
-			catch (SqlException e)
-			{
-				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, matricula);
-			}
-
-			return numeroDeOcurrencias;
-		}
-
-		private List<string> ConvertirDataTableAListaDeCadenasDeCorreo(DataTable tablaDeCorreos)
+        /// <summary>
+        /// Cuenta las veces que la matrícula dada aparece en la base de datos.
+        /// </summary>
+        /// <param name="correo">Matrícula para contar ocurrencias.</param>
+        /// <returns>Numero de veces que la Matrícula dada aparece en la base de datos.</returns>
+        /// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+        public int ContarOcurrenciasDeMatricula(string matricula)
         {
-            List<string> correosElectronicos = new List<string>();
-            foreach (DataRow fila in tablaDeCorreos.Rows)
+            int numeroDeOcurrencias = 0;
+
+            SqlParameter[] parametroMatricula = new SqlParameter[1];
+            parametroMatricula[0] = new SqlParameter
             {
-                correosElectronicos.Add(fila["CorreoElectronico"].ToString());
+                ParameterName = "@Matricula",
+                Value = matricula
+            };
+
+            try
+            {
+                numeroDeOcurrencias = AccesoADatos.EjecutarOperacionEscalar(QuerysDeServiciosDeValidacion.CONTAR_OCURRENCIAS_DE_MATRICULA, parametroMatricula);
             }
-            return correosElectronicos;
+            catch (SqlException e)
+            {
+                EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, matricula);
+            }
+
+            return numeroDeOcurrencias;
         }
     }
 }

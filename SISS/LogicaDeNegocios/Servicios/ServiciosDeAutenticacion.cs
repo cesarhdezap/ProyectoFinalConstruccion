@@ -7,8 +7,18 @@ using System.Text;
 
 namespace LogicaDeNegocios.Servicios
 {
+    /// <summary>
+    /// Clase para autententicar credenciales.
+    /// Contiene los metodos para autenticar credenciales y encriptar contraseña.
+    /// </summary>
 	public class ServiciosDeAutenticacion
     {
+        /// <summary>
+        /// Valida el correo electronico y contraseña.
+        /// </summary>
+        /// <param name="correoElectronico">Correo del usuario en cadena de carácteres.</param>
+        /// <param name="contraseña">Contraseña del usuario en cadena de carácteres.</param>
+        /// <returns>Si las credenciales son validas.</returns>
         public static bool AutenticarCredenciales(string correoElectronico, string contraseña)
         {
             bool resultadoDeAutenticacion = false;
@@ -35,6 +45,11 @@ namespace LogicaDeNegocios.Servicios
             return resultadoDeAutenticacion;
         }
 
+        /// <summary>
+        /// Encripta con hash 256 la contraseña del usuario.
+        /// </summary>
+        /// <param name="contraseña">Contraseña en cadena de carácteres.</param>
+        /// <returns>Cadena con la contraseña en SHA256.</returns>
         public static string EncriptarContraseña(string contraseña)
         {
             StringBuilder cadenaFinal = new StringBuilder();

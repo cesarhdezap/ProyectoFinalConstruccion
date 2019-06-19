@@ -10,100 +10,128 @@ using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
+	/// <summary>
+	/// Clase de abstraccion para acceso a objetos <see cref="Asignacion"/> en la base de datos.
+	/// Contiene metodos para cargar, insertar y actualizar objetos <see cref="Asignacion"/>.
+	/// </summary>
 	public class AsignacionDAO : IAsignacionDAO
 	{
+		/// <summary>
+		/// Actualiza una <see cref="Asignacion"/> dada su <see cref="Asignacion.IDAsignacion"/>.
+		/// </summary>
+		/// <param name="IDAsignacion"><see cref="Asignacion.IDAsignacion"/> de la <see cref="Asignacion"/> a actualizar.</param>
+		/// <param name="asignacion">La <see cref="Asignacion"/> a actuliazar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public void ActualizarAsignacionPorID(int IDAsignacion, Asignacion asignacion)
 		{
-            if (IDAsignacion <= 0)
-            {
-                throw new AccesoADatosException("Error al Actualizar Asignacion Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
-            }
+			if (IDAsignacion <= 0)
+			{
+				throw new AccesoADatosException("Error al Actualizar Asignacion Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
+			}
 
-            SqlParameter[] parametrosDeAsignacion = InicializarParametrosDeSql(asignacion);
-            int filasAfectadas = 0;
-            try
-            {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeAsignacion.ACTUALIZAR_ASIGNACION, parametrosDeAsignacion);
-            }
+			SqlParameter[] parametrosDeAsignacion = InicializarParametrosDeSql(asignacion);
+			int filasAfectadas = 0;
+			try
+			{
+				filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeAsignacion.ACTUALIZAR_ASIGNACION, parametrosDeAsignacion);
+			}
 			catch (SqlException e)
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, asignacion);
 			}
 
 			if (filasAfectadas <= 0)
-            {
-                throw new AccesoADatosException("La Asignacion con IDAsignacion: " + IDAsignacion + " no existe.", TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
-            }
-        }
+			{
+				throw new AccesoADatosException("La Asignacion con IDAsignacion: " + IDAsignacion + " no existe.", TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
+			}
+		}
 
+		/// <summary>
+		/// Carga la <see cref="Asignacion"/> con la <see cref="Asignacion.IDAsignacion"/> dada.
+		/// </summary>
+		/// <param name="IDAsignacion"><see cref="Asignacion.IDAsignacion"/> de la <see cref="Asignacion"/> a cargar.</param>
+		/// <returns>La <see cref="Asignacion"/> con la <see cref="Asignacion.IDAsignacion"/> dada</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public Asignacion CargarAsignacionPorID(int IDAsignacion)
 		{
-            if (IDAsignacion <= 0)
-            {
-                throw new AccesoADatosException("Error al cargar Asignacion Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
-            }
+			if (IDAsignacion <= 0)
+			{
+				throw new AccesoADatosException("Error al cargar Asignacion Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
+			}
 
-            DataTable tablaDeAsignacion = new DataTable();
-            SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
-            parametroIDAsignacion[0] = new SqlParameter
-            {
-                ParameterName = "@IDAsignacion",
-                Value = IDAsignacion
-            };
+			DataTable tablaDeAsignacion = new DataTable();
+			SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
+			parametroIDAsignacion[0] = new SqlParameter
+			{
+				ParameterName = "@IDAsignacion",
+				Value = IDAsignacion
+			};
 
-            try
-            {
-                tablaDeAsignacion = AccesoADatos.EjecutarSelect(QuerysDeAsignacion.CARGAR_ASIGNACION_POR_ID, parametroIDAsignacion);
-            }
+			try
+			{
+				tablaDeAsignacion = AccesoADatos.EjecutarSelect(QuerysDeAsignacion.CARGAR_ASIGNACION_POR_ID, parametroIDAsignacion);
+			}
 			catch (SqlException e)
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDAsignacion);
 			}
 
 			Asignacion asignacion = new Asignacion();
-            try
-            {
-                asignacion = ConvertirDataTableAAsignacion(tablaDeAsignacion);
-            }
-            catch (FormatException e)
-            {
-                throw new AccesoADatosException("Error al convertir datatable a Asignacion en cargar Asignacion con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
-            }
-            return asignacion;
+			try
+			{
+				asignacion = ConvertirDataTableAAsignacion(tablaDeAsignacion);
+			}
+			catch (FormatException e)
+			{
+				throw new AccesoADatosException("Error al convertir datatable a Asignacion en cargar Asignacion con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
+			}
+			return asignacion;
 
 		}
 
-        public Asignacion CargarIDPorMatriculaDeAlumno(string matricula)
+		/// <summary>
+		/// Carga una <see cref="Asignacion"/> con solo <see cref="Asignacion.IDAsignacion"/> inicializado y sus demas atributos como null dado <see cref="Alumno.Matricula"/> del <see cref="Alumno"/> relacionado a la <see cref="Asignacion"/>.
+		/// </summary>
+		/// <param name="matricula"><see cref="Alumno.Matricula"/> del <see cref="Alumno"/> relacionado a la <see cref="Asignacion"/> a cargar.</param>
+		/// <returns>Una <see cref="Asignacion"/> con solo <see cref="Asignacion.IDAsignacion"/> inicializado.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public Asignacion CargarIDPorMatriculaDeAlumno(string matricula)
 		{
-            DataTable tablaDeAsignacion = new DataTable();
-            SqlParameter[] parametroMatricula = new SqlParameter[1];
-            parametroMatricula[0] = new SqlParameter
-            {
-                ParameterName = "@Matricula",
-                Value = matricula
-            };
+			DataTable tablaDeAsignacion = new DataTable();
+			SqlParameter[] parametroMatricula = new SqlParameter[1];
+			parametroMatricula[0] = new SqlParameter
+			{
+				ParameterName = "@Matricula",
+				Value = matricula
+			};
 
-            try
-            {
-                tablaDeAsignacion = AccesoADatos.EjecutarSelect(QuerysDeAsignacion.CARGAR_ID_POR_MATRICULA_DE_ALUMNO, parametroMatricula);
-            }
+			try
+			{
+				tablaDeAsignacion = AccesoADatos.EjecutarSelect(QuerysDeAsignacion.CARGAR_ID_POR_MATRICULA_DE_ALUMNO, parametroMatricula);
+			}
 			catch (SqlException e)
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, matricula);
 			}
 
 			Asignacion asignacion = new Asignacion();
-            try
-            {
-                asignacion = ConvertirDataTableAAsignacionConSoloID(tablaDeAsignacion);
-            }
-            catch (FormatException e)
-            {
-                throw new AccesoADatosException("Error al convertir datatable a lista de Asignaciones en cargar Asignacion con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
-            }
-            return asignacion;
-        }
+			try
+			{
+				asignacion = ConvertirDataTableAAsignacionConSoloID(tablaDeAsignacion);
+			}
+			catch (FormatException e)
+			{
+				throw new AccesoADatosException("Error al convertir datatable a lista de Asignaciones en cargar Asignacion con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
+			}
+			return asignacion;
+		}
 
+		/// <summary>
+		/// Convierte una <see cref="DataTable"/> a una <see cref="Asignacion"/>.
+		/// </summary>
+		/// <param name="tablaDeAsignaciones">La <see cref="DataTable"/> que contiene datos de la <see cref="Asignacion"/></param>
+		/// <returns>La <see cref="Asignacion"/> contenida en la <see cref="DataTable"/>.</returns>
+		/// <exception cref="FormatException">Tira esta excepcion si hay algún error de casteo en la conversión.</exception>
 		private Asignacion ConvertirDataTableAAsignacion(DataTable tablaDeAsignaciones)
 		{
 			AlumnoDAO alumnoDAO = new AlumnoDAO();
@@ -135,8 +163,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 				}
 			}
 			return asignacion;
-        }
+		}
 
+		/// <summary>
+		/// Convierte una <see cref="DataTable"/> a una <see cref="Asignacion"/> con solo <see cref="Asignacion.IDAsignacion"/> inicializado y sus demas atributos como null.
+		/// </summary>
+		/// <param name="tablaDeAsignaciones">La <see cref="DataTable"/> que contiene datos de la <see cref="Asignacion"/>.</param>
+		/// <returns>La <see cref="Asignacion"/> con solo <see cref="Asignacion.IDAsignacion"/> inicializado contenida en la <see cref="DataTable"/>.</returns>
+		/// <exception cref="FormatException">Tira esta excepcion si hay algún error de casteo en la conversión.</exception>
 		private Asignacion ConvertirDataTableAAsignacionConSoloID(DataTable tablaDeAsignaciones)
 		{
 			Asignacion asignacion = new Asignacion();
@@ -148,76 +182,98 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			return asignacion;
 		}
 
+		/// <summary>
+		/// Convierte una <see cref="DataTable"/> a una <see cref="List{Asignacion}"/> de <see cref="Asignacion"/> con solo <see cref="Asignacion.IDAsignacion"/> inicializado y sus demas atributos como null.
+		/// </summary>
+		/// <param name="tablaDeAsignaciones">La <see cref="DataTable"/> que contiene datos de las <see cref="Asignacion"/>.</param>
+		/// <returns>Una <see cref="List{Asignacion}"/> de <see cref="Asignacion"/> con solo <see cref="Asignacion.IDAsignacion"/> inicializado contenida en la <see cref="DataTable"/>.</returns>
+		/// <exception cref="FormatException">Tira esta excepcion si hay algún error de casteo en la conversión.</exception>
 		private List<Asignacion> ConvertirDataTableAListaDeAsignacionesConSoloID(DataTable dataTableAsignaciones)
-        {
-            List<Asignacion> listaDeAsignaciones = new List<Asignacion>();
-            foreach (DataRow fila in dataTableAsignaciones.Rows)
-            {
-                Asignacion asignacion = new Asignacion
-                {
-                    IDAsignacion = (int)fila["IDAsignacion"],
-                };
-                listaDeAsignaciones.Add(asignacion);
-            }
-            return listaDeAsignaciones;
-        }
+		{
+			List<Asignacion> listaDeAsignaciones = new List<Asignacion>();
+			foreach (DataRow fila in dataTableAsignaciones.Rows)
+			{
+				Asignacion asignacion = new Asignacion
+				{
+					IDAsignacion = (int)fila["IDAsignacion"],
+				};
+				listaDeAsignaciones.Add(asignacion);
+			}
+			return listaDeAsignaciones;
+		}
 
-        public List<Asignacion> CargarIDsPorIDProyecto(int IDProyecto)
-        {
-            if (IDProyecto <= 0)
-            {
-                throw new AccesoADatosException("Error al cargar IDAsignacion Por IDProyecto: " + IDProyecto + ". IDProyecto no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
-            }
+		/// <summary>
+		/// Carga una <see cref="Asignacion"/> con solo <see cref="Asignacion.IDAsignacion"/> inicializado y sus demas atributos como null dado <see cref="Proyecto.IDProyecto"/> del <see cref="Proyecto"/> relacionado a la <see cref="Asignacion"/>.
+		/// </summary>
+		/// <param name="IDProyecto"><see cref="Proyecto.IDProyecto"/> del <see cref="Proyecto"/> relacionado a la <see cref="Asignacion"/> a cargar.</param>
+		/// <returns>Una <see cref="Asignacion"/> con solo <see cref="Asignacion.IDAsignacion"/> inicializado.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public List<Asignacion> CargarIDsPorIDProyecto(int IDProyecto)
+		{
+			if (IDProyecto <= 0)
+			{
+				throw new AccesoADatosException("Error al cargar IDAsignacion Por IDProyecto: " + IDProyecto + ". IDProyecto no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
+			}
 
-            DataTable tablaDeAsignaciones = new DataTable();
-            SqlParameter[] parametroIDProyecto = new SqlParameter[1];
-            parametroIDProyecto[0] = new SqlParameter
-            {
-                ParameterName = "@IDProyecto",
-                Value = IDProyecto
-            };
+			DataTable tablaDeAsignaciones = new DataTable();
+			SqlParameter[] parametroIDProyecto = new SqlParameter[1];
+			parametroIDProyecto[0] = new SqlParameter
+			{
+				ParameterName = "@IDProyecto",
+				Value = IDProyecto
+			};
 
-            try
-            {
-                tablaDeAsignaciones = AccesoADatos.EjecutarSelect(QuerysDeAsignacion.CARGAR_IDS_POR_IDPROYECTO, parametroIDProyecto);
-            }
+			try
+			{
+				tablaDeAsignaciones = AccesoADatos.EjecutarSelect(QuerysDeAsignacion.CARGAR_IDS_POR_IDPROYECTO, parametroIDProyecto);
+			}
 			catch (SqlException e)
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDProyecto);
 			}
 
 			List<Asignacion> listaDeAsignaciones = new List<Asignacion>();
-            try
-            {
-                listaDeAsignaciones = ConvertirDataTableAListaDeAsignacionesConSoloID(tablaDeAsignaciones);
-            }
-            catch (FormatException e)
-            { 
-                throw new AccesoADatosException("Error al convertir datatable a lista de Asignaciones en cargar IDsAsignacion con IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
-            }
-            return listaDeAsignaciones;
-        }
+			try
+			{
+				listaDeAsignaciones = ConvertirDataTableAListaDeAsignacionesConSoloID(tablaDeAsignaciones);
+			}
+			catch (FormatException e)
+			{
+				throw new AccesoADatosException("Error al convertir datatable a lista de Asignaciones en cargar IDsAsignacion con IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
+			}
+			return listaDeAsignaciones;
+		}
 
-        public void GuardarAsignacion(Asignacion asignacion)
+		/// <summary>
+		/// Guarda una <see cref="Asignacion"/> a la base de datos.
+		/// </summary>
+		/// <param name="asignacion">La <see cref="Asignacion"/> a guardar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public void GuardarAsignacion(Asignacion asignacion)
 		{
-            SqlParameter[] parametrosDeAsignacion = InicializarParametrosDeSql(asignacion);
-            int filasAfectadas = 0;
-            try
-            {
-                filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeAsignacion.GUARDAR_ASIGNACION, parametrosDeAsignacion);
-            }
+			SqlParameter[] parametrosDeAsignacion = InicializarParametrosDeSql(asignacion);
+			int filasAfectadas = 0;
+			try
+			{
+				filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeAsignacion.GUARDAR_ASIGNACION, parametrosDeAsignacion);
+			}
 			catch (SqlException e)
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, asignacion);
 			}
 
 			if (filasAfectadas <= 0)
-            {
-                throw new AccesoADatosException("Asignacion: " + asignacion.ToString() + " no fue guardada.", TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
-            }
+			{
+				throw new AccesoADatosException("Asignacion: " + asignacion.ToString() + " no fue guardada.", TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
+			}
 		}
-        
-        private SqlParameter[] InicializarParametrosDeSql(Asignacion asignacion)
+
+		/// <summary>
+		/// Inicializa un arreglo de <see cref="SqlParameter"/> basado en una <see cref="Asignacion"/>.
+		/// </summary>
+		/// <param name="asignacion">La <see cref="Asignacion"/> para inicializar los parametros.</param>
+		/// <returns>Un arreglo de <see cref="SqlParameter"/> donde cada posición es uno de los atributos de la <see cref="Asignacion"/>.</returns>
+		private SqlParameter[] InicializarParametrosDeSql(Asignacion asignacion)
         {
             SqlParameter[] parametrosDeAsignacion = new SqlParameter[8];
 

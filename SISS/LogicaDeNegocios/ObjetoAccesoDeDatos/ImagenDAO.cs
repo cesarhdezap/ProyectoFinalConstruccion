@@ -15,9 +15,18 @@ using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-    public class ImagenDAO : IImagenDAO
+	/// <summary>
+	/// Clase de abstraccion para acceso a objetos <see cref="Imagen"/> en la base de datos.
+	/// Contiene metodos para cargar, insertar y actualizar objetos <see cref="Imagen"/>.
+	/// </summary>
+	public class ImagenDAO : IImagenDAO
     {
-        public void ActualizarImagenPorIDDocumentno(Imagen imagen)
+		/// <summary>
+		/// Actualiza una <see cref="Imagen"/> dada la ID del Documento relacionado a ella.
+		/// </summary>
+		/// <param name="imagen">La <see cref="Imagen"/> a actualizar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public void ActualizarImagenPorIDDocumentno(Imagen imagen)
         {
             SqlParameter[] parametrosDeImagen = InicializarParametrosDeSql(imagen);
             int filasAfectadas = 0;
@@ -35,7 +44,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        public BitmapImage CargarImagenPorIDDocumentoYTipoDeDocumentoEnImagen(int IDDocumento, TipoDeDocumentoEnImagen tipoDeDocumentoEnImagen)
+		/// <summary>
+		/// Carga una <see cref="Imagen"/> dada la ID del Documento relacionado a ella y el <see cref="TipoDeDocumentoEnImagen"/> de la imagen.
+		/// </summary>
+		/// <param name="IDDocumento">La ID del Documento relcionado a la <see cref="Imagen"/> a cargar.</param>
+		/// <param name="tipoDeDocumentoEnImagen">El <see cref="TipoDeDocumentoEnImagen"/> de la Imagen</param>
+		/// <returns>La <see cref="Imagen"/> relacionada a la ID de Documento dada.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		public BitmapImage CargarImagenPorIDDocumentoYTipoDeDocumentoEnImagen(int IDDocumento, TipoDeDocumentoEnImagen tipoDeDocumentoEnImagen)
         {
             if (IDDocumento <= 0)
             {
@@ -74,7 +90,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return imagen;
         }
 
-        public void GuardarImagen(Imagen imagen)
+		/// <summary>
+		/// Guarda una <see cref="Imagen"/> en la base de datos.
+		/// </summary>
+		/// <param name="imagen">La <see cref="Imagen"/> a guardar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiro una excepción.</exception>
+		public void GuardarImagen(Imagen imagen)
         {
             SqlParameter[] parametroIDDocumento = InicializarParametrosDeSql(imagen);
             int filasAfectadas = 0;
@@ -92,7 +113,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        private static SqlParameter[] InicializarParametrosDeSql(Imagen imagen)
+		/// <summary>
+		/// Inicializa un arreglo de <see cref="SqlParameter"/> basado en una <see cref="Imagen"/>.
+		/// </summary>
+		/// <param name="imagen">La <see cref="Imagen"/> para inicializar los parametros.</param>
+		/// <returns>Un arreglo de <see cref="SqlParameter"/> donde cada posición es uno de los atributos del <see cref="Imagen"/>.</returns>
+		private static SqlParameter[] InicializarParametrosDeSql(Imagen imagen)
         {
             SqlParameter[] parametrosDeImagen = new SqlParameter[3];
 
@@ -115,7 +141,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return parametrosDeImagen;
         }
 
-        private BitmapImage ConvertirDataTableAImagen(DataTable tablaDeImagen)
+		/// <summary>
+		/// Convierte una <see cref="DataTable"/> a una <see cref="Imagen"/>.
+		/// </summary>
+		/// <param name="tablaDeImagen">La <see cref="DataTable"/> que contiene datos de la <see cref="Imagen"/>.</param>
+		/// <returns>La <see cref="Imagen"/> contenida en la <see cref="DataTable"/>.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private BitmapImage ConvertirDataTableAImagen(DataTable tablaDeImagen)
         {
             BitmapImage imagen = new BitmapImage();
             foreach (DataRow fila in tablaDeImagen.Rows)

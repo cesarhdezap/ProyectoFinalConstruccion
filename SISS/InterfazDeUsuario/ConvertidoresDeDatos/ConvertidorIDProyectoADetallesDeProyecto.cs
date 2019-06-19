@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using LogicaDeNegocios;
+using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 
 namespace InterfazDeUsuario
@@ -20,18 +21,29 @@ namespace InterfazDeUsuario
             Proyecto proyecto = new Proyecto();
             Encargado encargado = new Encargado();
             Organizacion organizacion = new Organizacion();
-            proyecto = proyectoDAO.CargarProyectoPorID((int)IDProyecto);
-            encargado = encargadoDAO.CargarIDPorIDProyecto(proyecto.IDProyecto);
-            organizacion = organizacionDAO.CargarIDPorIDEncargado(encargado.IDEncargado);
-            encargado = encargadoDAO.CargarEncargadoPorID(encargado.IDEncargado);
-            organizacion = organizacionDAO.CargarOrganizacionPorID(organizacion.IDOrganizacion);
 
-            string cadenaResultado = "-Dependencia: " + organizacion.Nombre + System.Environment.NewLine +
+            string cadenaResultado = string.Empty;
+            try
+            {
+                proyecto = proyectoDAO.CargarProyectoPorID((int)IDProyecto);
+                encargado = encargadoDAO.CargarIDPorIDProyecto(proyecto.IDProyecto);
+                organizacion = organizacionDAO.CargarIDPorIDEncargado(encargado.IDEncargado);
+                encargado = encargadoDAO.CargarEncargadoPorID(encargado.IDEncargado);
+                organizacion = organizacionDAO.CargarOrganizacionPorID(organizacion.IDOrganizacion);
+
+                cadenaResultado = "-Dependencia: " + organizacion.Nombre + System.Environment.NewLine +
                                      "- Direccion: " + organizacion.Direccion + System.Environment.NewLine +
                                      "- Encargado: " + encargado.Nombre + System.Environment.NewLine +
                                      "- Correo Electronico: " + encargado.CorreoElectronico + System.Environment.NewLine +
                                      "- Cupo: " + proyecto.ObtenerDisponibilidad() + System.Environment.NewLine +
                                      "- Descripcion general: " + proyecto.DescripcionGeneral;
+            }
+            catch (AccesoADatosException ex)
+            {
+                MensajeDeErrorParaMessageBox mensaje;
+                mensaje = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
+                cadenaResultado = mensaje.Mensaje;
+            }
 
             return cadenaResultado;
         }

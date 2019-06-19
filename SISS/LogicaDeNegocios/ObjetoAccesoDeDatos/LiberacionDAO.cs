@@ -9,9 +9,19 @@ using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
+	/// <summary>
+	/// Clase de abstraccion para acceso a objetos <see cref="Liberacion"/> en la base de datos.
+	/// Contiene metodos para cargar, insertar y actualizar objetos <see cref="Liberacion"/>.
+	/// </summary>
 	class LiberacionDAO : ILiberacionDAO
 	{
-        private Liberacion ConvertirDataTableALiberacion (DataTable tablaDeLiberacion)
+		/// <summary>
+		/// Convierte una <see cref="DataTable"/> a una <see cref="Liberacion"/> .
+		/// </summary>
+		/// <param name="tablaDeLiberacion">La <see cref="DataTable"/>  que contiene datos de la <see cref="Liberacion"/>.</param>
+		/// <returns>La <see cref="Liberacion"/> contenido en la <see cref="DataTable"/>.</returns>
+		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
+		private Liberacion ConvertirDataTableALiberacion (DataTable tablaDeLiberacion)
         {
             DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
             Liberacion liberacion = new Liberacion();
@@ -23,7 +33,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return liberacion;
         }
 
-        public void GuardarLiberacion(Liberacion liberacion)
+		/// <summary>
+		/// Guarda una <see cref="Liberacion"/> en la base de datos.
+		/// </summary>
+		/// <param name="liberacion">La <see cref="Liberacion"/> a guardar.</param>
+		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiro una excepción.</exception>
+		public void GuardarLiberacion(Liberacion liberacion)
         {
             SqlParameter[] parametrosDeLiberacion = InicializarParametrosDeSql(liberacion);
             int filasAfectadas = 0;
@@ -41,7 +56,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             }
         }
 
-        public Liberacion CargarLiberacionPorID(int IDLiberacion)
+		/// <summary>
+		/// Carga a la <see cref="Liberacion"/> con la <see cref="Liberacion.IDLiberacion"/> dada.
+		/// </summary>
+		/// <param name="IDLiberacion"><see cref="Liberacion.IDLiberacion"/> de la <see cref="Liberacion"/> a cargar.</param>
+		/// <returns>La <see cref="Liberacion"/> con la <see cref="Liberacion.IDLiberacion"/> dada.</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
+		public Liberacion CargarLiberacionPorID(int IDLiberacion)
         {
             DataTable tablaDeLiberacion = new DataTable();
             SqlParameter[] parametroIDLiberacion = new SqlParameter[1];
@@ -72,7 +93,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return liberacion;
         }
 
-        private SqlParameter[] InicializarParametrosDeSql(Liberacion liberacion)
+		/// <summary>
+		/// Inicializa un arreglo de <see cref="SqlParameter"/> basado en una <see cref="Liberacion"/>.
+		/// </summary>
+		/// <param name="liberacion">La <see cref="Liberacion"/> para inicializar los parametros.</param>
+		/// <returns>Un arreglo de <see cref="SqlParameter"/> donde cada posición es uno de los atributos de la <see cref="Liberacion"/>.</returns>
+		private SqlParameter[] InicializarParametrosDeSql(Liberacion liberacion)
         {
             SqlParameter[] parametrosDeLiberacion = new SqlParameter[3];
 
@@ -91,6 +117,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             return parametrosDeLiberacion;
         }
 
+		/// <summary>
+		/// Obtiene el ultimo <see cref="Liberacion.IDLiberacion"/> insertado en la tabla de Liberacion en la base de datos.
+		/// </summary>
+		/// <returns>El ultimo <see cref="Liberacion.IDLiberacion"/> insertado en la tabla de Liberacion</returns>
+		/// <exception cref="AccesoADatosException">Tira esta excepción si el cliente de SQL tiró una excepción. </exception>
+		/// <exception cref="InvalidCastException">Tira esta excepción si la base de datos no regresa un valor entero.</exception>
 		public int ObtenerUltimoIDInsertado()
 		{
 			int ultimoIDInsertado = 0;
