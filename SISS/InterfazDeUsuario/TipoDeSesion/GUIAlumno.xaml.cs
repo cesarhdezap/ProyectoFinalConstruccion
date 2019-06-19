@@ -30,41 +30,9 @@ namespace InterfazDeUsuario.GUITipoDeSesion
 				Mouse.OverrideCursor = null;
 			}
 
-			if (Alumno.EstadoAlumno == EstadoAlumno.EsperandoAsignacion)
-            {
-                LabelEsperandoAsignacion.Visibility = Visibility.Visible;
-            }
             LabelNombreDeUsuario.Content = Alumno.Nombre;
-            LabelEsperandoAsignacion.Visibility = Visibility.Hidden;
-            LabelDadoDeBaja.Visibility = Visibility.Hidden;
-            LabelLiberado.Visibility = Visibility.Hidden;
-            LabelEsperandoAceptacion.Visibility = Visibility.Hidden;
-            ButtonEscogerProyecto.Visibility = Visibility.Hidden;
-            ButtonVerExpediente.Visibility = Visibility.Hidden;
-            switch (Alumno.EstadoAlumno)
-            {
-                case EstadoAlumno.EsperandoAceptacion:
-                    LabelEsperandoAceptacion.Visibility = Visibility.Visible;
-                break;
-                case EstadoAlumno.EsperandoAsignacion:
-                    LabelEsperandoAsignacion.Visibility = Visibility.Visible;
-                break;
-                case EstadoAlumno.Aceptado:
-                    ButtonEscogerProyecto.Visibility = Visibility.Visible;
-                break;
-                case EstadoAlumno.Asignado:
-                    ButtonVerExpediente.Visibility = Visibility.Visible;
-                break;
-                case EstadoAlumno.Liberado:
-                    LabelLiberado.Visibility = Visibility.Visible;
-                break;
-                case EstadoAlumno.DadoDeBaja:
-                    LabelDadoDeBaja.Visibility = Visibility.Visible;
-                break;
-                case EstadoAlumno.Rechazado:
-                    LabelDadoDeBaja.Visibility = Visibility.Visible;
-                break;
-            }
+            OcultarElementosGraficos();
+            MostrarElementosGraficosPorEstadoAlumno();
         }
 
         private void ButtonEscogerProyecto_Click(object sender, RoutedEventArgs e)
@@ -73,6 +41,7 @@ namespace InterfazDeUsuario.GUITipoDeSesion
             GUIEscogerProyectos escogerProyectos = new GUIEscogerProyectos(Alumno);
             escogerProyectos.ShowDialog();
 			ShowDialog();
+
             Mouse.OverrideCursor = Cursors.Wait;
 			AlumnoDAO alumnoDAO = new AlumnoDAO();
 			try
@@ -89,12 +58,47 @@ namespace InterfazDeUsuario.GUITipoDeSesion
 			{
 				Mouse.OverrideCursor = null;
 			}
-			if (Alumno.EstadoAlumno == EstadoAlumno.EsperandoAsignacion)
+            OcultarElementosGraficos();
+            MostrarElementosGraficosPorEstadoAlumno();
+             
+        }
+
+        private void OcultarElementosGraficos()
+        {
+            LabelEsperandoAsignacion.Visibility = Visibility.Hidden;
+            LabelDadoDeBaja.Visibility = Visibility.Hidden;
+            LabelLiberado.Visibility = Visibility.Hidden;
+            LabelEsperandoAceptacion.Visibility = Visibility.Hidden;
+            ButtonEscogerProyecto.Visibility = Visibility.Hidden;
+            ButtonVerExpediente.Visibility = Visibility.Hidden;
+        }
+
+        private void MostrarElementosGraficosPorEstadoAlumno()
+        {
+            switch (Alumno.EstadoAlumno)
             {
-                LabelEsperandoAsignacion.Visibility = Visibility.Visible;
-                ButtonEscogerProyecto.Visibility = Visibility.Hidden;
+                case EstadoAlumno.EsperandoAceptacion:
+                    LabelEsperandoAceptacion.Visibility = Visibility.Visible;
+                    break;
+                case EstadoAlumno.Aceptado:
+                    ButtonEscogerProyecto.Visibility = Visibility.Visible;
+                    break;
+                case EstadoAlumno.EsperandoAsignacion:
+                    LabelEsperandoAsignacion.Visibility = Visibility.Visible;
+                    break;
+                case EstadoAlumno.Asignado:
+                    ButtonVerExpediente.Visibility = Visibility.Visible;
+                    break;
+                case EstadoAlumno.Liberado:
+                    LabelLiberado.Visibility = Visibility.Visible;
+                    break;
+                case EstadoAlumno.DadoDeBaja:
+                    LabelDadoDeBaja.Visibility = Visibility.Visible;
+                    break;
+                case EstadoAlumno.Rechazado:
+                    LabelDadoDeBaja.Visibility = Visibility.Visible;
+                    break;
             }
-            
         }
 
         private void ButtonVerExpediente_Click(object sender, RoutedEventArgs e)
