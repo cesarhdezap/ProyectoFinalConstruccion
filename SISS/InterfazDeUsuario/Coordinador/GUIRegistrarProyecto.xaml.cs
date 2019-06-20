@@ -14,15 +14,23 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 {
     public partial class GUIRegistrarProyecto : Window
     {
-        private AdministradorDeOrganizaciones AdministradorDeOrganizaciones;
-        private AdministradorDeEncargados AdministradorDeEncargados;
+        private AdministradorDeOrganizaciones AdministradorDeOrganizaciones { get; set; }
+        private AdministradorDeEncargados AdministradorDeEncargados { get; set; }
+		private DocenteAcademico Coordinador { get; set; }
 
         public GUIRegistrarProyecto(DocenteAcademico coordinador)
-        {
-            InitializeComponent();
-            LabelNombreDeUsuario.Content = coordinador.Nombre;
-            AdministradorDeOrganizaciones = new AdministradorDeOrganizaciones();
-            AdministradorDeEncargados = new AdministradorDeEncargados();
+		{
+			InitializeComponent();
+			Coordinador = coordinador;
+			LabelNombreDeUsuario.Content = Coordinador.Nombre;
+			AdministradorDeOrganizaciones = new AdministradorDeOrganizaciones();
+			AdministradorDeEncargados = new AdministradorDeEncargados();
+			CargarOrganizacionesYEncargados();
+			ComboBoxEncargadoAsociado.DisplayMemberPath = "Nombre";
+		}
+
+		private void CargarOrganizacionesYEncargados()
+		{
 			Mouse.OverrideCursor = Cursors.Wait;
 
 			try
@@ -32,9 +40,8 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{
@@ -42,19 +49,18 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			}
 
 			if (AdministradorDeOrganizaciones.Organizaciones.Count > 0)
-            {
-                ComboBoxOrganizacionAsociada.DisplayMemberPath = "Nombre";
-                ComboBoxOrganizacionAsociada.ItemsSource = AdministradorDeOrganizaciones.Organizaciones;
-                ComboBoxOrganizacionAsociada.SelectedIndex = 0;
-            }
-            else
-            {
-                ComboBoxOrganizacionAsociada.IsEnabled = false;
-                ComboBoxEncargadoAsociado.IsEnabled = false;
-            }
-
-            ComboBoxEncargadoAsociado.DisplayMemberPath = "Nombre";
-        }
+			{
+				ComboBoxOrganizacionAsociada.DisplayMemberPath = "Nombre";
+				ComboBoxOrganizacionAsociada.ItemsSource = AdministradorDeOrganizaciones.Organizaciones;
+				ComboBoxOrganizacionAsociada.SelectedIndex = 0;
+				ComboBoxOrganizacionAsociada.IsEnabled = true;
+			}
+			else
+			{
+				ComboBoxOrganizacionAsociada.IsEnabled = false;
+				ComboBoxEncargadoAsociado.IsEnabled = false;
+			}
+		}
 
 		private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
 		{
@@ -69,6 +75,16 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
 			proyecto.Encargado = ComboBoxEncargadoAsociado.SelectedItem as Encargado;
 			Mouse.OverrideCursor = Cursors.Wait;
+
+			if (ValidarEntero(TextBoxEstudiantesSolicitados.Text))
+			{
+				proyecto.Cupo = int.Parse(TextBoxEstudiantesSolicitados.Text);
+			}
+			else
+			{
+				proyecto.Cupo = 0;
+			}
+
 			if (proyecto.Validar() && ValidarSeleccionComboBox(ComboBoxEncargadoAsociado) && ValidarEntero(TextBoxEstudiantesSolicitados.Text))
 			{
 				bool resultadoDeCreacion = false;
@@ -80,9 +96,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				}
 				catch (AccesoADatosException ex)
 				{
-					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+					MostrarMessageBoxDeExcepcion(this, ex);
 				}
 				finally
 				{
@@ -97,7 +111,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			}
 			else
 			{
-				MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+				MessageBox.Show(this, COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 				MostrarEstadoDeValidacionCampos();
 				Mouse.OverrideCursor = null;
 			}
@@ -131,16 +145,32 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
         {
             if (ValidarSeleccionComboBox(ComboBoxOrganizacionAsociada))
             {
-                Organizacion organizacion = ComboBoxOrganizacionAsociada.SelectedItem as Organizacion;
+                Organizacion organizacionSeleccionada = ComboBoxOrganizacionAsociada.SelectedItem as Organizacion;
+				List<Encargado> encargadosDeOrganizacion = new List<Encargado>();
+				Mouse.OverrideCursor = Cursors.Wait;
 
-                List<Encargado> encargadosPorOrganizacion = AdministradorDeEncargados.SeleccionarEncargadosPorIDOrganizacion(organizacion.IDOrganizacion);
-                if (encargadosPorOrganizacion.Count > 0)
+				try
+				{
+					encargadosDeOrganizacion = AdministradorDeEncargados.SeleccionarEncargadosPorIDOrganizacion(organizacionSeleccionada.IDOrganizacion);
+				}
+				catch (AccesoADatosException ex)
+				{
+					MostrarMessageBoxDeExcepcion(this, ex);
+				}
+				finally
+				{
+					Mouse.OverrideCursor = Cursors.Wait;
+				}
+
+				if (encargadosDeOrganizacion.Count > 0)
                 {
-                    ComboBoxEncargadoAsociado.ItemsSource = encargadosPorOrganizacion;
+                    ComboBoxEncargadoAsociado.ItemsSource = encargadosDeOrganizacion;
                     ComboBoxEncargadoAsociado.SelectedIndex = 0;
+					ComboBoxEncargadoAsociado.IsEnabled = true;
                 }
                 else
                 {
+					ComboBoxEncargadoAsociado.SelectedItem = null;
                     ComboBoxEncargadoAsociado.IsEnabled = false;
                 }
             }
@@ -155,5 +185,24 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
         {
             MostrarEstadoDeValidacionCadena(TextBoxDescripcionGeneral);
         }
-    }
+
+		private void ButtonRegistrarEncargado_Click(object sender, RoutedEventArgs e)
+		{
+			GUIRegistrarEncargado registrarEncargado = new GUIRegistrarEncargado(Coordinador);
+			registrarEncargado.ShowDialog();
+			CargarOrganizacionesYEncargados();
+		}
+
+		private void ButtonRegistrarOrganizacion_Click(object sender, RoutedEventArgs e)
+		{
+			GUIRegistrarOrganizacion registrarOrganizacion = new GUIRegistrarOrganizacion(Coordinador);
+			registrarOrganizacion.ShowDialog();
+			CargarOrganizacionesYEncargados();
+		}
+
+		private void ComboBoxEncargadoAsociado_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			MostrarEstadoDeValidacionComboBox(ComboBoxEncargadoAsociado);
+		}
+	}
 }

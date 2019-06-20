@@ -15,6 +15,7 @@ using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using LogicaDeNegocios.ObjetosAdministrador;
 
 namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
@@ -29,11 +30,14 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 		private Asignacion Asignacion{ get; set; }
         private DocenteAcademico TecnicoAdministrativo { get; set; }
         public GUIVerExpedienteDeAlumno(DocenteAcademico tecnicoAdministrativo, Asignacion asignacion)
-        {
-            InitializeComponent();
-            Asignacion = asignacion;
-            TecnicoAdministrativo = tecnicoAdministrativo;
+		{
+			Mouse.OverrideCursor = Cursors.Wait;
+			InitializeComponent();
+			Asignacion = asignacion;
+			TecnicoAdministrativo = tecnicoAdministrativo;
 			CargarDocumentos();
+			CargarHoras();
+
 			if (asignacion.ReportesMensuales.Count >= NUMERO_MAXIMO_DE_REPORTES_MENSUALES)
 			{
 				ButtonCapturarReporteMensual.IsEnabled = false;
@@ -42,15 +46,31 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 					Content = MAXIMO_DE_REPORTES_MENSUALES_ENTREGADO
 				};
 				ButtonCapturarReporteMensual.ToolTip = toolTip;
-
 			}
-			LabelHorasCubiertas.Content = Asignacion.ObtenerHorasCubiertas();
-            LabelNombreDeUsuario.Content = TecnicoAdministrativo.Nombre;
-            GridReportesMensuales.ItemsSource = Asignacion.ReportesMensuales;
-			GridDocumentosDeEntregaUnica.ItemsSource = Asignacion.DocumentosDeEntregaUnica;
-        }
 
-        private void ButtonCapturarOtroDocumento_Click(object sender, RoutedEventArgs e)
+			LabelNombreDeUsuario.Content = TecnicoAdministrativo.Nombre;
+			GridReportesMensuales.ItemsSource = Asignacion.ReportesMensuales;
+			GridDocumentosDeEntregaUnica.ItemsSource = Asignacion.DocumentosDeEntregaUnica;
+		}
+
+		private void CargarHoras()
+		{
+			try
+			{
+				LabelHorasCubiertas.Content = Asignacion.ObtenerHorasCubiertas();
+			}
+			catch (AccesoADatosException e)
+			{
+				MostrarMessageBoxDeExcepcion(this, e);
+				Close();
+			}
+			finally
+			{
+				Mouse.OverrideCursor = null;
+			}
+		}
+
+		private void ButtonCapturarOtroDocumento_Click(object sender, RoutedEventArgs e)
         {
 			GUICapturarOtroDocumento capturarOtroDocumento = new GUICapturarOtroDocumento(TecnicoAdministrativo, Asignacion);
 			capturarOtroDocumento.ShowDialog();
@@ -64,8 +84,9 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 			GUIEntregarReporteMensual entregarReporteMensual = new GUIEntregarReporteMensual(TecnicoAdministrativo, Asignacion);
 			entregarReporteMensual.ShowDialog();
 			CargarDocumentos();
+			CargarHoras();
 			GridReportesMensuales.ItemsSource = Asignacion.ReportesMensuales;
-			LabelHorasCubiertas.Content = Asignacion.ObtenerHorasCubiertas();
+			
         }
 
         private void ButtonRegresar_Click(object sender, RoutedEventArgs e)
@@ -76,15 +97,15 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 		private void CargarDocumentos()
 		{
 			Mouse.OverrideCursor = Cursors.Wait;
+
 			try
 			{
 				Asignacion.CargarDocumentos();
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{

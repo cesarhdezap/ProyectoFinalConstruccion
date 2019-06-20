@@ -16,17 +16,17 @@
 		<Label Content="Cubiculo:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="211,185,0,0" FontSize="14"/>
 		<Label Content="Contraseña:" HorizontalAlignment="Left" Margin="196,271,0,0" VerticalAlignment="Top" FontSize="14"/>
 		<Label Content="Confirmar contraseña:" HorizontalAlignment="Left" Margin="132,301,0,0" VerticalAlignment="Top" FontSize="14"/>
-		<TextBox x:Name="TextBoxNombre" HorizontalAlignment="Left" Height="24" Margin="294,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxNombre_TextChanged"/>
+		<TextBox x:Name="TextBoxNombre" HorizontalAlignment="Left" Height="24" Margin="294,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxNombre_TextChanged" MaxLength="255"/>
 		<ComboBox x:Name="ComboBoxCarrera" HorizontalAlignment="Left" Margin="294,160,0,0" VerticalAlignment="Top" Width="248" FontSize="14" />
-		<TextBox x:Name="TextBoxCubiculo" HorizontalAlignment="Left" Height="24" Margin="294,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxCubiculo_TextChanged"/>
-		<TextBox x:Name="TextBoxCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="294,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxCorreoElectronico_TextChanged" LostFocus="TextBoxCorreoElectronico_LostFocus"/>
-		<TextBox x:Name="TextBoxConfirmarCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="294,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxConfirmarCorreoElectronico_TextChanged"/>
-		<TextBox x:Name="TextBoxContraseña" HorizontalAlignment="Left" Height="24" Margin="294,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxContraseña_TextChanged"/>
-		<TextBox x:Name="TextBoxConfirmarContraseña" HorizontalAlignment="Left" Height="24" Margin="294,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxConfirmarContraseña_TextChanged"/>
-		<TextBox x:Name="TextBoxTelefono" HorizontalAlignment="Left" Height="24" Margin="294,336,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxTelefono_TextChanged"/>
+		<TextBox x:Name="TextBoxCubiculo" HorizontalAlignment="Left" Height="24" Margin="294,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxCubiculo_TextChanged" MaxLength="3"/>
+		<TextBox x:Name="TextBoxCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="294,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxCorreoElectronico_TextChanged" LostFocus="TextBoxCorreoElectronico_LostFocus" MaxLength="255"/>
+		<TextBox x:Name="TextBoxConfirmarCorreoElectronico" HorizontalAlignment="Left" Height="24" Margin="294,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxConfirmarCorreoElectronico_TextChanged" MaxLength="255"/>
+		<TextBox x:Name="TextBoxContraseña" HorizontalAlignment="Left" Height="24" Margin="294,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxContraseña_TextChanged" MaxLength="255"/>
+		<TextBox x:Name="TextBoxConfirmarContraseña" HorizontalAlignment="Left" Height="24" Margin="294,306,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxConfirmarContraseña_TextChanged" MaxLength="255"/>
+		<TextBox x:Name="TextBoxTelefono" HorizontalAlignment="Left" Height="24" Margin="294,336,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="248" FontSize="14" TextChanged="TextBoxTelefono_TextChanged" MaxLength="15"/>
 		<Button x:Name="ButtonAceptar" Content="Aceptar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="74" Margin="468,383,0,0" FontSize="14" Click="ButtonAceptar_Click"/>
 		<Button x:Name="ButtonCancelar" Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Top" Width="76" Margin="294,383,0,0" FontSize="14" Click="ButtonCancelar_Click"/>
 		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontFamily="Gill Sans MT" FontSize="38" BorderThickness="2" Margin="10,10,0,0"/>
-		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="412,32,0,0" FontSize="14" Width="388" HorizontalContentAlignment="Right"/>
+		<Label x:Name="LabelNombreDeUsuario" Content="[Nombre de usuario]" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="412,32,0,0" FontSize="14" Width="376" HorizontalContentAlignment="Right"/>
 	</Grid>
 </Window>

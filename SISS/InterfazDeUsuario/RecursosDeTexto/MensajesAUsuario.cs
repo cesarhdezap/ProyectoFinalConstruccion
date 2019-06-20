@@ -23,11 +23,11 @@ namespace InterfazDeUsuario.RecursosDeTexto
 		public const string CONEXION_FALLIDA_TITULO = "Conexion fallida";
 		public const string	ERROR_PETICION_MENSAJE = "Hubo un error al completar la petición. Recarge la página e intentelo nuevamente, si el problema persiste, contacte a su administrador.";
 		public const string ERROR_GUARDAR_REGISTRO = "Hubo un error al guardar su registro. Intentelo nuevamente, si el problema persiste, contacte a su administrador.";
-		public const string	CONTRASEÑA_INVALIDA = "Debe tener mínimo 6 caracteres o máximo 255.";
+		public const string	CONTRASEÑA_INVALIDA = "Debe tener entre 6 y 255 caracteres.";
 		public const string NOMBRE_INVALIDO = "Solo puede ser letras y signos de acentuación.";
 		public const string CORREOELECTRONICO_INVALIDO = "No es un correo electrónico valido.";
 		public const string MATRICULA_INVALIDA = "Debe tener el formato s12345678.";
-		public const string VALOR_ENTERO_INVALIDO = "Deber ser un valor numérico entre 1 y 255.";
+		public const string VALOR_ENTERO_INVALIDO = "Deber ser un valor entero entre 1 y 255.";
 		public const string TELEFONO_INVALIDO = "Deben ser 10 caracteres numéricos.";
 		public const string CONFIRMACION_INVALIDA = "Los valores no coinciden.";
 		public const string REGISTRO_EXITOSO_COORDINADOR = "El coordinador ha sido registrado exitosamente.";
@@ -66,12 +66,14 @@ namespace InterfazDeUsuario.RecursosDeTexto
 		public const string REPORTE_NO_SELECCIONADO_TITULO = "Ningun reporte seleccionado";
 		public const string REGISTRO_EXITOSO_DOCUMENTO = "El documento fue registrado exitosamente.";
 		public const string DOCUMENTO_YA_ENTREGAOD_TITULO = "Documento ya entregado";
-		public const string DOCUMENTO_YA_ENTREGAOD_MENSAJE = "El documento ya fue entregado.";
+		public const string DOCUMENTO_YA_ENTREGADO_MENSAJE = "El documento ya fue entregado.";
 		public const string REGISTRO_EXITOSO_REPORTE_MENSUAL = "El reporte mensual fue registrado exitosamente.";
 		public const string MES_DUPLICADO_TITULO = "Mes duplicado";
 		public const string MES_DUPLICADO_MENSAJE = "Un reporte mensual con el mes seleccionado ya fue entregado.";
 		public const string NUMERO_DE_HORAS_INVALIDO_TITULO = "Número de horas invalido";
-		public const string NUMERO_DE_HORAS_INVALIDO_MENSAJE = "El número de horas reportadas debe ser un valor entero mayor a 0.";
+		public const string NUMERO_DE_HORAS_INVALIDO_MENSAJE = "El número de horas reportadas debe ser un valor entero mayor a 0 y menor a 255.";
 		public const string MAXIMO_DE_REPORTES_MENSUALES_ENTREGADO = "El numero maximo de reportes ha sido entregado.";
+		public const string PROYECTO_NO_TIENE_CUPO_MENSAJE = "El proyecto al que intento asignar el alumno no tiene cupo.";
+		public const string PROYECTO_NO_TIENE_CUPO_TITULO = "Cupo lleno";
 	}
 }

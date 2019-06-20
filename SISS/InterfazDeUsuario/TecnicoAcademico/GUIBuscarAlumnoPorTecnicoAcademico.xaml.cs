@@ -16,25 +16,26 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
         private DocenteAcademico TecnicoAdministrativo { get; set; }
         public GUIBuscarAlumnoPorTecnicoAcademico(DocenteAcademico tecnicoAdministrativo)
         {
+			Mouse.OverrideCursor = Cursors.Wait;
             InitializeComponent();
             TecnicoAdministrativo = tecnicoAdministrativo;
 			LabelNombreDeUsuario.Content = TecnicoAdministrativo.Nombre;
             AdministradorDeAlumnos = new AdministradorDeAlumnos();
-            Mouse.OverrideCursor = Cursors.Wait;
+            
             try
             {
                 AdministradorDeAlumnos.CargarAlumnosPorCarreraYEstado(TecnicoAdministrativo.Carrera, EstadoAlumno.Asignado);
             }
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
+
 			DataGridAlumnos.ItemsSource = AdministradorDeAlumnos.Alumnos;
         }
 
@@ -42,7 +43,9 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
         {
 			Alumno alumnoSeleccionado = ((FrameworkElement)sender).DataContext as Alumno;
             GUIVerExpedienteDeAlumno verExpedienteDeAlumno = new GUIVerExpedienteDeAlumno(TecnicoAdministrativo, alumnoSeleccionado.CargarAsignacion());
+			Hide();
             verExpedienteDeAlumno.ShowDialog();
+			ShowDialog();
         }
 
         private void Expander_Expanded(object sender, RoutedEventArgs e)

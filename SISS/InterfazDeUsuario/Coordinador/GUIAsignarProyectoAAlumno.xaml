@@ -36,7 +36,7 @@
 			</DataGrid.RowHeaderTemplate>
 			<DataGrid.Columns>
 				<DataGridTextColumn Header="Nombre de Alumno" IsReadOnly="True" Width="565" Binding="{Binding Nombre}"/>
-				<DataGridTemplateColumn Width="150"  Header="Proyecto a asignar " CellEditingTemplate="{StaticResource ComboBoxDeProyectos}" CellTemplate="{StaticResource ComboBoxDeProyectos}"/>
+				<DataGridTemplateColumn Width="150"  Header="Proyecto a asignar" CellEditingTemplate="{StaticResource ComboBoxDeProyectos}" CellTemplate="{StaticResource ComboBoxDeProyectos}"/>
 				<DataGridTemplateColumn Width="120" CellEditingTemplate="{StaticResource BotonDeAsignacion}" CellTemplate="{StaticResource BotonDeAsignacion}"/>
 			</DataGrid.Columns>
 			<DataGrid.RowDetailsTemplate>

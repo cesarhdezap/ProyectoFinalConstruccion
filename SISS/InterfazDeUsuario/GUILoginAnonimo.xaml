@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfazDeUsuario"
         mc:Ignorable="d"
-        Title="SISS - Inicio de sesión" Height="376" Width="765" ResizeMode="NoResize" Topmost="True" Closed="Window_Closed">
+        Title="SISS - Inicio de sesión" Height="376" Width="765" ResizeMode="NoResize" Topmost="True" Closed="Window_Closed" WindowStartupLocation="CenterScreen">
 	<Grid>
 		<Label x:Name="LabelCorreo" Content="Correo: " HorizontalAlignment="Left" Margin="228,166,0,0" VerticalAlignment="Top" FontSize="14" Width="56" />
-		<TextBox x:Name="TextBoxCorreo" HorizontalAlignment="Center" Margin="236,170,226,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="192" KeyboardNavigation.TabIndex="0" FontSize="14" Height="24"/>
+		<TextBox x:Name="TextBoxCorreo" HorizontalAlignment="Center" Margin="236,170,226,0" VerticalAlignment="Top" Width="192" KeyboardNavigation.TabIndex="0" FontSize="14" Height="24" IsUndoEnabled="False" MaxLength="255"/>
 		<Label x:Name="LabelContraseña" Content="Contraseña:" HorizontalAlignment="Left" Margin="200,201,0,0" VerticalAlignment="Top" FontSize="14"/>
 		<Button x:Name="ButtonIngresar" Content="Ingresar" HorizontalAlignment="Center" Margin="292,246,286,0" VerticalAlignment="Top" Click="ButtonIngresar_Click" KeyboardNavigation.TabIndex="2" FontSize="14" Width="76"/>
 		<Label x:Name="LabelInicioDeSesion" Content="Inicio de sesión" HorizontalAlignment="Center" Margin="280,129,270,0" VerticalAlignment="Top" FontSize="14"/>
 		<Button x:Name="ButtonRegistrarseComoAlumno" Content="Registrarse como alumno" HorizontalAlignment="Left" Margin="288,274,0,0" VerticalAlignment="Top" Click="ButtonRegistrarseComoAlumno_Click" KeyboardNavigation.TabIndex="3" FontSize="14" Width="192"/>
-		<PasswordBox x:Name="PasswordBoxContraseña" HorizontalAlignment="Center" Margin="236,204,226,0" VerticalAlignment="Top" Width="192" KeyboardNavigation.TabIndex="1" FontSize="14" Height="24"/>
+		<PasswordBox x:Name="PasswordBoxContraseña" HorizontalAlignment="Center" Margin="236,204,226,0" VerticalAlignment="Top" Width="192" KeyboardNavigation.TabIndex="1" FontSize="14" Height="24" MaxLength="255"/>
 		<Label x:Name="LabelUniversidadVeracruzana" Content="Universidad Veracruzana" HorizontalAlignment="Center" Margin="134,20,124,0" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" FontSize="38" BorderThickness="2" FontFamily="Gill Sans MT" Background="Transparent"/>
 		<Image x:Name="ImageLogoUV" HorizontalAlignment="Left" Height="88" VerticalAlignment="Top" Width="66" Margin="115,0,0,0" RenderTransformOrigin="-2.291,0.557"/>
 		<Label x:Name="LabelSISS" Content="SISS" HorizontalAlignment="Center" Margin="309,70,299,0" VerticalAlignment="Top" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}" FontWeight="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}" FontSize="20" BorderThickness="2" FontFamily="Gill Sans MT" Background="Transparent"/>

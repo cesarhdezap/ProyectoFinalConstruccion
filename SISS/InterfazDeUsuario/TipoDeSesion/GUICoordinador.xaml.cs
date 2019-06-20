@@ -6,6 +6,7 @@ using System;
 using System.Windows;
 using InterfazDeUsuario.GUIsDeCoordinador;
 using System.Windows.Input;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
 namespace InterfazDeUsuario.GUITipoDeSesion
 {
@@ -19,83 +20,71 @@ namespace InterfazDeUsuario.GUITipoDeSesion
         {
             InitializeComponent();
             DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
+
             try
             {
                 Coordinador = docenteAcademicoDAO.CargarDocenteAcademicoPorIDPersonal(int.Parse(sesion.IDUsuario));
             }
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
+
 			LabelNombreDeUsuario.Content = Coordinador.Nombre;
         }
 
         private void ButtonValidarAlumno_Click(object sender, RoutedEventArgs e)
         {
             GUIValidarAlumno validarAlumno = new GUIValidarAlumno(Coordinador);
-            Hide();
-            validarAlumno.ShowDialog();
-            ShowDialog();
-        }
+			MostrarPantalla(this, validarAlumno);
+		}
 
         private void ButtonRegistrarEncargado_Click(object sender, RoutedEventArgs e)
         {
-            Hide();
             GUIRegistrarEncargado registrarEncargado = new GUIRegistrarEncargado(Coordinador);
-            registrarEncargado.ShowDialog();
-            ShowDialog();
-        }
+			MostrarPantalla(this, registrarEncargado);
+		}
 
         private void ButtonRegistrarOrganizacion_Click(object sender, RoutedEventArgs e)
         {
             GUIRegistrarOrganizacion registrarOrganizacion = new GUIRegistrarOrganizacion(Coordinador);
-            Hide();
-            registrarOrganizacion.ShowDialog();
-            ShowDialog();
+			MostrarPantalla(this, registrarOrganizacion);
         }
 
         private void ButtonRegistrarProyecto_Click(object sender, RoutedEventArgs e)
         {
             GUIRegistrarProyecto registrarProyecto = new GUIRegistrarProyecto(Coordinador);
-            Hide();
-            registrarProyecto.ShowDialog();
-            ShowDialog();
-        }
+			MostrarPantalla(this, registrarProyecto);
+		}
 
 		private void ButtonAsignarProyectosAAlumnos_Click(object sender, RoutedEventArgs e)
 		{
 			GUIAsignarProyectoAAlumno asignarProyectoAAlumno = new GUIAsignarProyectoAAlumno(Coordinador);
-			Hide();
-			asignarProyectoAAlumno.ShowDialog();
-			ShowDialog();
+			MostrarPantalla(this, asignarProyectoAAlumno);
 		}
 
 		private void ButtonBuscarProyecto_Click(object sender, RoutedEventArgs e)
 		{
 			GUIBuscarProyecto buscarProyecto = new GUIBuscarProyecto(Coordinador);
-			Hide();
-			buscarProyecto.ShowDialog();
-			ShowDialog();
+			MostrarPantalla(this, buscarProyecto);
 		}
 
 		private void ButtonRegistrarTecnicoAcademico_Click(object sender, RoutedEventArgs e)
 		{
 			GUIRegistrarTecnicoAcademico registrarTecnicoAcademico = new GUIRegistrarTecnicoAcademico(Coordinador);
-			Hide();
-			registrarTecnicoAcademico.ShowDialog();
-			ShowDialog();
+			MostrarPantalla(this, registrarTecnicoAcademico);
 		}
+
 
 		private void ButtonBuscarAlumno_Click(object sender, RoutedEventArgs e)
 		{
 			GUIBuscarAlumnoCoordinador buscarAlumnoCoordinador = new GUIBuscarAlumnoCoordinador(Coordinador);
-			buscarAlumnoCoordinador.ShowDialog();
+			MostrarPantalla(this, buscarAlumnoCoordinador);
 		}
 
 		private void LabelCerrarSesion_MouseDown(object sender, MouseButtonEventArgs e)

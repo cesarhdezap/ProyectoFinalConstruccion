@@ -21,25 +21,26 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 		
         public GUIBuscarAlumnoCoordinador(DocenteAcademico coordinador)
         {
+			Mouse.OverrideCursor = Cursors.Wait;
             InitializeComponent();
 			Coordinador = coordinador;
 			LabelNombreDeUsuario.Content = Coordinador.Nombre;
 			AdministradorDeAlumnos = new AdministradorDeAlumnos();
-			Mouse.OverrideCursor = Cursors.Wait;
+
 			try
 			{
 				AdministradorDeAlumnos.CargarAlumnosPorCarreraYEstado(Coordinador.Carrera, EstadoAlumno.Asignado);
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
+
 			DataGridAlumnos.ItemsSource = AdministradorDeAlumnos.Alumnos;
 		}
 
@@ -77,20 +78,21 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			GUIVerExpedientePorCoordinador verExpedientePorCoordinador = new GUIVerExpedientePorCoordinador(Coordinador, alumnoSeleccionado.CargarAsignacion());
 			verExpedientePorCoordinador.ShowDialog();
 			Mouse.OverrideCursor = Cursors.Wait;
+
 			try
 			{
 				AdministradorDeAlumnos.CargarAlumnosPorCarreraYEstado(Coordinador.Carrera, EstadoAlumno.Asignado);
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
+
 			DataGridAlumnos.ItemsSource = null;
 			DataGridAlumnos.ItemsSource = AdministradorDeAlumnos.Alumnos;
 		}

@@ -5,6 +5,7 @@ using LogicaDeNegocios.Excepciones;
 using System.Windows;
 using System.Windows.Input;
 using InterfazDeUsuario.GUIsDeAlumno;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
 namespace InterfazDeUsuario.GUITipoDeSesion
 {
@@ -13,17 +14,18 @@ namespace InterfazDeUsuario.GUITipoDeSesion
         private Alumno Alumno { get; set; }
         public GUIAlumno(Sesion sesion)
         {
-            InitializeComponent();
+			Mouse.OverrideCursor = Cursors.Wait;
+			InitializeComponent();
             AlumnoDAO alumnoDAO = new AlumnoDAO();
+
             try
             {
                 Alumno = alumnoDAO.CargarAlumnoPorMatricula(sesion.IDUsuario);
             }
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{
@@ -37,31 +39,13 @@ namespace InterfazDeUsuario.GUITipoDeSesion
 
         private void ButtonEscogerProyecto_Click(object sender, RoutedEventArgs e)
         {
-            Hide();
             GUIEscogerProyectos escogerProyectos = new GUIEscogerProyectos(Alumno);
+			Hide();
             escogerProyectos.ShowDialog();
-			ShowDialog();
-
-            Mouse.OverrideCursor = Cursors.Wait;
-			AlumnoDAO alumnoDAO = new AlumnoDAO();
-			try
-			{
-				Alumno = alumnoDAO.CargarAlumnoPorMatricula(Alumno.Matricula);
-			}
-			catch (AccesoADatosException ex)
-			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
-			}
-			finally
-			{
-				Mouse.OverrideCursor = null;
-			}
-            OcultarElementosGraficos();
+			OcultarElementosGraficos();
             MostrarElementosGraficosPorEstadoAlumno();
-             
-        }
+			ShowDialog();
+		}
 
         private void OcultarElementosGraficos()
         {

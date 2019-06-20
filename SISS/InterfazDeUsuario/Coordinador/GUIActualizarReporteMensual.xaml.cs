@@ -20,6 +20,7 @@ using System.IO;
 using Microsoft.Win32;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using InterfazDeUsuario.Utilerias;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
@@ -39,6 +40,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             ReporteMensual = reporteMensual;
             TextBoxHorasReportadas.Text = ReporteMensual.HorasReportadas.ToString();
             LabelMesEnReporte.Content = ReporteMensual.Mes.ToString();
+
             Imagen = new Imagen(TipoDeDocumentoEnImagen.ReporteMensual)
 			{
 				IDDocumento = ReporteMensual.IDDocumento
@@ -52,26 +54,19 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
 		private void ButtonBuscarDocumento_Click(object sender, RoutedEventArgs e)
 		{
-			OpenFileDialog ventanaDeSeleccionDeArchivo = new OpenFileDialog
-			{
-				Filter = "Imagenes (*.jpg)|*.jpg",
-				InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-			};
-			if (ventanaDeSeleccionDeArchivo.ShowDialog() == true)
-			{
-				LabelDirecciónDeArchivo.Content = ventanaDeSeleccionDeArchivo.FileName;
-                Imagen.DireccionDeImagen = ventanaDeSeleccionDeArchivo.FileName;
-			}
+			LabelDirecciónDeArchivo.Content = MostrarVentanaDeSeleccionDeArchivos(Imagen);
 		}
 
 		private void ButtonRegistrarReporte_Click(object sender, RoutedEventArgs e)
 		{
 			if (ValidarCampos())
 			{
+				Mouse.OverrideCursor = Cursors.Wait;
 				ReporteMensual.FechaDeEntrega = DateTime.Now;
 				ReporteMensual.DocenteAcademico = Coordinador;
-				ReporteMensual.HorasReportadas = Int32.Parse(TextBoxHorasReportadas.Text);
+				ReporteMensual.HorasReportadas = int.Parse(TextBoxHorasReportadas.Text);
 				bool reporteActualizado = false;
+
 				try
 				{
 					ReporteMensual.Actualizar();
@@ -80,22 +75,22 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				}
 				catch (AccesoADatosException ex)
 				{
-					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+					MostrarMessageBoxDeExcepcion(this, ex);
 				}
 				finally
 				{
 					Mouse.OverrideCursor = null;
 				}
+
 				if (reporteActualizado)
 				{
-					MessageBox.Show(ACTUALIZACION_DE_REPORTE_MENSUAL_EXITOSA_MENSAJE, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+					MessageBox.Show(this, ACTUALIZACION_DE_REPORTE_MENSUAL_EXITOSA_MENSAJE, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
                     Close();
 				}
-			} else
+			}
+			else
 			{
-				UtileriasDeElementosGraficos.MostrarEstadoDeValidacionCampoNumerico(TextBoxHorasReportadas);
+				MostrarEstadoDeValidacionCampoNumerico(TextBoxHorasReportadas);
 			}
 		}
 
@@ -105,9 +100,14 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
 			if (Imagen.DireccionDeImagen == string.Empty)
 			{
-				MessageBox.Show(ARCHIVO_NO_SLECCIONADO_MENSAJE, ARCHIVO_NO_SLECCIONADO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+				MessageBox.Show(this, ARCHIVO_NO_SLECCIONADO_MENSAJE, ARCHIVO_NO_SLECCIONADO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 				
-			} else if(ValidarEntero(TextBoxHorasReportadas.Text))
+			}
+			else if(!ValidarEntero(TextBoxHorasReportadas.Text))
+			{
+				MessageBox.Show(this, NUMERO_DE_HORAS_INVALIDO_MENSAJE, NUMERO_DE_HORAS_INVALIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+			else
 			{
 				resultadoDeValidacion = true;
 			}
@@ -117,7 +117,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
 		private void TextBoxHorasReportadas_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			UtileriasDeElementosGraficos.MostrarEstadoDeValidacionCampoNumerico(TextBoxHorasReportadas);
+			MostrarEstadoDeValidacionCampoNumerico(TextBoxHorasReportadas);
 		}
 	}
 }
