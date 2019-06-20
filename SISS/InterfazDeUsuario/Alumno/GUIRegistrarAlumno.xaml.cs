@@ -15,6 +15,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
         public GUIRegistrarAlumno()
         {
             InitializeComponent();
+
 			foreach (var carrera in Enum.GetValues(typeof(Carrera)))
 			{
 				ComboBoxCarrera.Items.Add(carrera).ToString();
@@ -67,6 +68,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
         private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
         {
             Mouse.OverrideCursor = Cursors.Wait;
+
             Alumno alumno = new Alumno
             {
                 Nombre = TextBoxNombre.Text,
@@ -82,6 +84,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 				&& TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text)
 			{
 				bool resultadoDeCreacion = false;
+
 				try
 				{
 					if (alumno.Validar())
@@ -96,17 +99,15 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 				}
 				catch (AccesoADatosException ex) 
 				{
-					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+					MostrarMessageBoxDeExcepcion(this, ex);
 				}
 				finally
 				{
 					Mouse.OverrideCursor = null;
 				}
+
 				if (resultadoDeCreacion)
 				{
-					MessageBox.Show(REGISTRO_EXITOSO_MENSAJE, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
                     Close();
 				}
 			}
@@ -118,12 +119,15 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
 		private void MostrarEstadoDeValidacionCampos()
 		{
-			MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+			MessageBox.Show(this, REGISTRO_EXITOSO_MENSAJE, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+			MessageBox.Show(this, COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 			MostrarEstadoDeValidacionMatricula(TextBoxMatricula);
 			MostrarEstadoDeValidacionNombre(TextBoxNombre);
 			MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
 			MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
 			MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
+			Mouse.OverrideCursor = Cursors.Wait;
+
 			try
 			{
 				MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
@@ -131,24 +135,28 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
 			}
-			Mouse.OverrideCursor = null;
+			finally
+			{
+				Mouse.OverrideCursor = null;
+			}
 		}
 
 		private void TextBoxCorreoElectronico_LostFocus(object sender, RoutedEventArgs e)
 		{
+			Mouse.OverrideCursor = Cursors.Wait;
 			try
 			{
 				MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+			}
+			finally
+			{
+				Mouse.OverrideCursor = null;
 			}
 		}
 
@@ -160,9 +168,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
 			}
 		}
 	}

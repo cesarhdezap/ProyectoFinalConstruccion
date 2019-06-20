@@ -6,6 +6,7 @@ using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using InterfazDeUsuario.GUIsDeTecnicoAcademico;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
 namespace InterfazDeUsuario.GUITipoDeSesion
 {
@@ -15,32 +16,32 @@ namespace InterfazDeUsuario.GUITipoDeSesion
 
         public GUITecnicoAcademico(Sesion sesion)
         {
+			Mouse.OverrideCursor = Cursors.Wait;
             InitializeComponent();
-
             DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
             TecnicoAdministrativo = new DocenteAcademico();
-            Mouse.OverrideCursor = Cursors.Wait;
+            
 			try
 			{
                 TecnicoAdministrativo = docenteAcademicoDAO.CargarDocenteAcademicoPorIDPersonal(Int32.Parse(sesion.IDUsuario));
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
+
 			LabelNombreDeUsuario.Content = TecnicoAdministrativo.Nombre;
         }
 
         private void ButtonBuscarAlumno_Click(object sender, RoutedEventArgs e)
         {
             GUIBuscarAlumnoPorTecnicoAcademico buscarAlumnoPorTecnicoAcademico = new GUIBuscarAlumnoPorTecnicoAcademico(TecnicoAdministrativo);
-            buscarAlumnoPorTecnicoAcademico.ShowDialog();
+			MostrarPantalla(this, buscarAlumnoPorTecnicoAcademico);
         }
 
 		private void LabelCerrarSesion_MouseDown(object sender, MouseButtonEventArgs e)

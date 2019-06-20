@@ -27,34 +27,41 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             };
 
             Mouse.OverrideCursor = Cursors.Wait;
-            if (organizacion.Validar() && organizacion.CorreoElectronico == TextBoxConfirmarCorreoElectronico.Text)
+
+            if (organizacion.CorreoElectronico == TextBoxConfirmarCorreoElectronico.Text)
             {
 				Mouse.OverrideCursor = Cursors.Wait;
 				bool resultadoDeCreacion = false;
+
 				try
 				{
-					organizacion.Guardar();
-					resultadoDeCreacion = true;
+					if (organizacion.Validar())
+					{
+						organizacion.Guardar();
+						resultadoDeCreacion = true;
+					}
+					else
+					{
+						MostrarEstadoDeValidacionCampos();
+					}
                 }
 				catch (AccesoADatosException ex)
 				{
-					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+					MostrarMessageBoxDeExcepcion(this, ex);
 				}
 				finally
 				{
 					Mouse.OverrideCursor = null;
 				}
+
 				if (resultadoDeCreacion)
 				{
-					MessageBox.Show(REGISTRO_EXITOSO_ORGANIZACION, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+					MessageBox.Show(this, REGISTRO_EXITOSO_ORGANIZACION, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+					Close();
 				}
-				Close();
 			}
 			else
 			{
-				MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 				MostrarEstadoDeValidacionCampos();
 				Mouse.OverrideCursor = null;
 			}
@@ -62,19 +69,24 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
 		private void MostrarEstadoDeValidacionCampos()
 		{
+			MessageBox.Show(this, COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 			MostrarEstadoDeValidacionCadena(TextBoxNombre);
 			MostrarEstadoDeValidacionCadena(TextBoxDireccion);
 			MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
 			MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
+			Mouse.OverrideCursor = Cursors.Wait;
+
 			try
 			{
 				MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+			}
+			finally
+			{
+				Mouse.OverrideCursor = null;
 			}
 		}
 
@@ -108,5 +120,22 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
         {
             Close();
         }
-    }
+
+		private void TextBoxCorreoElectronico_LostFocus(object sender, RoutedEventArgs e)
+		{
+			Mouse.OverrideCursor = Cursors.Wait;
+			try
+			{
+				MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
+			}
+			catch (AccesoADatosException ex)
+			{
+				MostrarMessageBoxDeExcepcion(this, ex);
+			}
+			finally
+			{
+				Mouse.OverrideCursor = null;
+			}
+		}
+	}
 }

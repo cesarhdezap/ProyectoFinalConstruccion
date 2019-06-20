@@ -1,11 +1,16 @@
-﻿using System.Windows.Controls;
+﻿using LogicaDeNegocios.ClasesDominio;
+using LogicaDeNegocios.Excepciones;
+using Microsoft.Win32;
+using System;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
-using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
+using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace InterfazDeUsuario.Utilerias
 {
-    public static class UtileriasDeElementosGraficos
+	public static class UtileriasDeElementosGraficos
     {
 		public static void MostrarEstadoDeValidacionContraseña(TextBox textBoxContraseña)
 		{
@@ -183,17 +188,49 @@ namespace InterfazDeUsuario.Utilerias
 			{
 				if (elementoVisual is DataGridRow fila)
 				{
-					if (fila.DetailsVisibility == System.Windows.Visibility.Visible)
+					if (fila.DetailsVisibility == Visibility.Visible)
 					{
-						fila.DetailsVisibility = System.Windows.Visibility.Collapsed;
+						fila.DetailsVisibility = Visibility.Collapsed;
 					}
 					else
 					{
-						fila.DetailsVisibility = System.Windows.Visibility.Visible;
+						fila.DetailsVisibility = Visibility.Visible;
 					}
 					break;
 				}	
 			}
+		}
+
+		public static void MostrarMessageBoxDeExcepcion(Window padre, AccesoADatosException e)
+		{
+			MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+			mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(e);
+			MessageBox.Show(padre, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+		}
+
+		public static string MostrarVentanaDeSeleccionDeArchivos(Imagen imagen)
+		{
+
+			string direccionDeArchivoSeleccionado = string.Empty;
+			OpenFileDialog ventanaDeSeleccionDeArchivo = new OpenFileDialog
+			{
+				Filter = "Imagenes (*.jpg)|*.jpg",
+				InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+			};
+			if (ventanaDeSeleccionDeArchivo.ShowDialog() == true)
+			{
+				direccionDeArchivoSeleccionado = ventanaDeSeleccionDeArchivo.FileName;
+				imagen.DireccionDeImagen = ventanaDeSeleccionDeArchivo.FileName;
+			}
+
+			return direccionDeArchivoSeleccionado;
+		}
+
+		public static void MostrarPantalla(Window padre, Window hijo)
+		{
+			padre.Hide();
+			hijo.ShowDialog();
+			padre.ShowDialog();
 		}
 
 		private static void MostrarToolTip(Control controlGrafico, string mensaje)

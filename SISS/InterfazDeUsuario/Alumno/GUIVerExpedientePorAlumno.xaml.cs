@@ -32,22 +32,24 @@ namespace InterfazDeUsuario.GUIsDeAlumno
         {
             InitializeComponent();
             Alumno = alumno;
+
             try
             {
                 Asignacion = Alumno.CargarAsignacion();
                 Asignacion.CargarDocumentos();
+				LabelHorasCubiertas.Content = Asignacion.ObtenerHorasCubiertas();
             }
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
-			LabelHorasCubiertas.Content = Asignacion.ObtenerHorasCubiertas();
+
+			
 			LabelNombreDeUsuario.Content = Alumno.Nombre;
 			GridReportesMensuales.ItemsSource = Asignacion.ReportesMensuales;
 			GridDocumentosDeEntregaUnica.ItemsSource = Asignacion.DocumentosDeEntregaUnica;
@@ -56,7 +58,9 @@ namespace InterfazDeUsuario.GUIsDeAlumno
         private void ButtonVerProyectoActual_Click(object sender, RoutedEventArgs e)
         {
             GUIVerProyectoActual verProyectoActual = new GUIVerProyectoActual(Alumno);
-            verProyectoActual.ShowDialog();
+			Hide();
+			verProyectoActual.ShowDialog();
+			ShowDialog();
         }
 
         private void ButtonRegresar_Click(object sender, RoutedEventArgs e)

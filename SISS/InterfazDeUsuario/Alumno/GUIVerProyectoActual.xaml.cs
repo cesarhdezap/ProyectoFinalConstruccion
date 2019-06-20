@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using LogicaDeNegocios;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.Excepciones;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
 namespace InterfazDeUsuario.GUIsDeAlumno
 {
@@ -27,16 +28,16 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 		private Encargado Encargado { get; set; }
 		private Organizacion Organizacion { get; set; }
 		private DocenteAcademico Coordinador { get; set; }
+		private Alumno Alumno { get; set; }
 
 		public GUIVerProyectoActual(Alumno alumno)
-        {
-            InitializeComponent();
-            Asignacion = new Asignacion();
-            Proyecto = new Proyecto();
-            Encargado = new Encargado();
-            Organizacion = new Organizacion();
-            Coordinador = new DocenteAcademico();
-            Mouse.OverrideCursor = Cursors.Wait;
+		{
+			InitializeComponent();
+			InicializarValoresLocales();
+			Alumno = alumno;
+			LabelNombreDeUsuario.Content = Alumno.Nombre;
+			Mouse.OverrideCursor = Cursors.Wait;
+
 			try
 			{
 				Asignacion = alumno.CargarAsignacion();
@@ -47,25 +48,35 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);	
+				Close();
 			}
 			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
+
 			AsignarValoresAInterfaz();
-        }
+		}
+
+		private void InicializarValoresLocales()
+		{
+			Asignacion = new Asignacion();
+			Proyecto = new Proyecto();
+			Encargado = new Encargado();
+			Organizacion = new Organizacion();
+			Coordinador = new DocenteAcademico();
+		}
 
 		public GUIVerProyectoActual(DocenteAcademico coordinador, Asignacion asignacion)
 		{
 			InitializeComponent();
+			InicializarValoresLocales();
 			Coordinador = coordinador;
 			Asignacion = asignacion;
-			Proyecto = new Proyecto();
-			Encargado = new Encargado();
-			Organizacion = new Organizacion();
+			LabelNombreDeUsuario.Content = Coordinador.Nombre;
+			Mouse.OverrideCursor = Cursors.Wait;
+
 			try
 			{
 				Proyecto = asignacion.CargarProyecto();
@@ -74,14 +85,14 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
+
 			AsignarValoresAInterfaz();
 		}
 
@@ -93,7 +104,6 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 			LabelNombreDelEncargado.Content = Encargado.Nombre;
 			LabelNombreDelProyecto.Content = Proyecto.Nombre;
 			LabelNombreDeOrganizacion.Content = Organizacion.Nombre;
-			LabelNombreDeUsuario.Content = Coordinador.Nombre;
 			LabelTelefonoDelCoordinador.Content = Coordinador.Telefono;
 			LabelTelefonoDelEncargado.Content = Encargado.Telefono;
 			TextBoxDescripcionGeneralDeProyecto.Text = Proyecto.DescripcionGeneral;

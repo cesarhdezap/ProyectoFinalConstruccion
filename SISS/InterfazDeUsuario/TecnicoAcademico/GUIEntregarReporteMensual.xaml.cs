@@ -6,6 +6,7 @@ using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ClasesDominio;
 using Microsoft.Win32;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 
 namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
@@ -33,22 +34,14 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 
 		private void ButtonBuscarDocumento_Click(object sender, RoutedEventArgs e)
 		{
-			OpenFileDialog ventanaDeSeleccionDeArchivo = new OpenFileDialog
-			{
-				Filter = "Imagenes (*.jpg)|*.jpg",
-				InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-			};
-			if (ventanaDeSeleccionDeArchivo.ShowDialog() == true)
-			{
-				LabelDirecciónDeArchivo.Content = ventanaDeSeleccionDeArchivo.FileName;
-                Imagen.DireccionDeImagen = ventanaDeSeleccionDeArchivo.FileName;
-			}
+			LabelDirecciónDeArchivo.Content = MostrarVentanaDeSeleccionDeArchivos(Imagen);
 		}
 
 		private void ButtonRegistrarReporte_Click(object sender, RoutedEventArgs e)
 		{
 			if (ValidarCampos())
 			{
+				Mouse.OverrideCursor = Cursors.Wait;
 				ReporteMensual reporteMensual = new ReporteMensual
 				{
 					FechaDeEntrega = DateTime.Now,
@@ -56,9 +49,10 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 					DocenteAcademico = TecnicoAdministrativo,
 					Mes = (Mes)ComboBoxMes.SelectedIndex
 				};
-				reporteMensual.HorasReportadas = Int32.Parse(TextBoxHorasReportadas.Text);
-				Mouse.OverrideCursor = Cursors.Wait;
+
+				reporteMensual.HorasReportadas = int.Parse(TextBoxHorasReportadas.Text);
 				bool reporteGuardado = false;
+
 				try
 				{
 					Asignacion.RegistrarReporteMensual(reporteMensual);
@@ -68,17 +62,17 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 				}
 				catch (AccesoADatosException ex)
 				{
-					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+					MostrarMessageBoxDeExcepcion(this, ex);
+					Close();
 				}
 				finally
 				{
 					Mouse.OverrideCursor = null;
 				}
+
 				if (reporteGuardado)
 				{
-					MessageBox.Show(REGISTRO_EXITOSO_REPORTE_MENSUAL, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+					MessageBox.Show(this, REGISTRO_EXITOSO_REPORTE_MENSUAL, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
                     Close();
 				}
 			}
@@ -87,39 +81,40 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 		private bool ValidarCampos()
 		{
 			bool resultadoDeValidacion = false;
-			if (Imagen.DireccionDeImagen != string.Empty)
+
+			if (Imagen.DireccionDeImagen == string.Empty)
 			{
-				if (ValidarEntero(TextBoxHorasReportadas.Text))
-				{
-					if (Asignacion.ReportesMensuales.TrueForAll(ComprobarMes))
-					{
-						resultadoDeValidacion = true;
-					}
-					else
-					{
-						MessageBox.Show(MES_DUPLICADO_MENSAJE, MES_DUPLICADO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-					}
-				}
-				else
-				{
-					MessageBox.Show(NUMERO_DE_HORAS_INVALIDO_MENSAJE, NUMERO_DE_HORAS_INVALIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
-				}
+				MessageBox.Show(this, ARCHIVO_NO_SLECCIONADO_MENSAJE, ARCHIVO_NO_SLECCIONADO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+			else if (!Asignacion.ReportesMensuales.TrueForAll(ComprobarMes))
+			{
+				MessageBox.Show(this, MES_DUPLICADO_MENSAJE, MES_DUPLICADO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+			else if (!ValidarEntero(TextBoxHorasReportadas.Text))
+			{
+				MessageBox.Show(this, NUMERO_DE_HORAS_INVALIDO_MENSAJE, NUMERO_DE_HORAS_INVALIDO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 			else
 			{
-				MessageBox.Show(ARCHIVO_NO_SLECCIONADO_MENSAJE, ARCHIVO_NO_SLECCIONADO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+				resultadoDeValidacion = true;
 			}
+
 			return resultadoDeValidacion;
 		}
 
 		private bool ComprobarMes(ReporteMensual reporteMensual)
 		{
-				bool resultado = true; 
-				if (reporteMensual.Mes == (Mes)ComboBoxMes.SelectedIndex)
-				{
-					resultado = false;
-				}
-				return resultado;
+			bool resultado = true;
+			if (reporteMensual.Mes == (Mes)ComboBoxMes.SelectedIndex)
+			{
+				resultado = false;
+			}
+			return resultado;
+		}
+
+		private void TextBoxHorasReportadas_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+		{
+			MostrarEstadoDeValidacionCampoNumerico(TextBoxHorasReportadas);
 		}
 	}
 }

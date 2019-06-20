@@ -14,7 +14,6 @@ namespace InterfazDeUsuario.GUIsDeDirector
     public partial class GUIRegistrarCoordinador : Window
     {
 		private const int VALOR_DE_INDICE_SELECCIONADO_INVALIDO = -1;
-
 		private Director Director { get; set; }
         public GUIRegistrarCoordinador(Director director)
         {
@@ -67,7 +66,8 @@ namespace InterfazDeUsuario.GUIsDeDirector
 
 		private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
         {
-            Mouse.OverrideCursor = Cursors.Wait;
+			Mouse.OverrideCursor = Cursors.Wait;
+
 			DocenteAcademico coordinador = new DocenteAcademico
 			{
 				Nombre = TextBoxNombre.Text,
@@ -82,7 +82,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
 
             if (ValidarEntero(TextBoxCubiculo.Text))
             {
-                coordinador.Cubiculo = Int32.Parse(TextBoxCubiculo.Text); 
+                coordinador.Cubiculo = int.Parse(TextBoxCubiculo.Text); 
             }
             else
             {
@@ -109,17 +109,16 @@ namespace InterfazDeUsuario.GUIsDeDirector
 				}
                 catch (AccesoADatosException ex)
                 {
-                    MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-                    mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-                    MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+					MostrarMessageBoxDeExcepcion(this, ex);
+				}
                 finally
 				{
 					Mouse.OverrideCursor = null;
 				}
+
 				if (registroExitoso)
 				{
-					MessageBox.Show(REGISTRO_EXITOSO_COORDINADOR, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
+					MessageBox.Show(this, REGISTRO_EXITOSO_COORDINADOR, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
 					Close();
 				}
 			}
@@ -134,24 +133,27 @@ namespace InterfazDeUsuario.GUIsDeDirector
 
         private void MostrarEstadoDeValidacionCampos()
         {
-            MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+			Mouse.OverrideCursor = Cursors.Wait;
+            MessageBox.Show(this, COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
             MostrarEstadoDeValidacionNombre(TextBoxNombre);
             MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
             MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
             MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
             MostrarEstadoDeValidacionCampoNumerico(TextBoxCubiculo);
-			Mouse.OverrideCursor = Cursors.Wait;
+			
             try
             {
                 MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
             }
             catch (AccesoADatosException ex)
             {
-                MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-                mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-                MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-			Mouse.OverrideCursor = null;
+				MostrarMessageBoxDeExcepcion(this, ex);
+			}
+			finally
+			{
+				Mouse.OverrideCursor = null;
+			}
+			
             MostrarEstadoDeValidacionComboBox(ComboBoxCarrera);
         }
 
@@ -162,8 +164,19 @@ namespace InterfazDeUsuario.GUIsDeDirector
 
 		private void TextBoxCorreoElectronico_LostFocus(object sender, RoutedEventArgs e)
 		{
-			MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
-		}
-			
+			Mouse.OverrideCursor = Cursors.Wait;
+			try
+			{
+				MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
+			}
+			catch (AccesoADatosException ex)
+			{
+				MostrarMessageBoxDeExcepcion(this, ex);
+			}
+			finally
+			{
+				Mouse.OverrideCursor = null;
+			}
+		}	
 	}
 }

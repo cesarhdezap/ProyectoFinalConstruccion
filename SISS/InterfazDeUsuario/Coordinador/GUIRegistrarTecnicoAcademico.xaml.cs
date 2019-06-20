@@ -29,6 +29,8 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
 		private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
 		{
+			Mouse.OverrideCursor = Cursors.Wait;
+
 			DocenteAcademico tecnicoAcademico = new DocenteAcademico
 			{
 				Nombre = TextBoxNombre.Text,
@@ -41,8 +43,6 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				Rol = Rol.TecnicoAcademico
 			};
 
-			Mouse.OverrideCursor = Cursors.Wait;
-
 			if (TextBoxCorreoElectronico.Text == TextBoxConfirmarCorreoElectronico.Text
 				&& TextBoxContraseña.Text == TextBoxConfirmarContraseña.Text
 				&& ValidarSeleccionComboBox(ComboBoxCarrera)
@@ -50,6 +50,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			{
 				tecnicoAcademico.Cubiculo = int.Parse(TextBoxCubiculo.Text);
 				bool registroExitoso = false;
+
 				try
 				{
 					if (tecnicoAcademico.Validar())
@@ -59,14 +60,12 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 					}
 					else
 					{
-
+						MostrarEstadoDeValidacionCampos();
 					}
 				}
 				catch (AccesoADatosException ex)
 				{
-					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+					MostrarMessageBoxDeExcepcion(this, ex);
 				}
 				finally
 				{
@@ -75,35 +74,34 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 
 				if (registroExitoso)
 				{
-					MessageBox.Show(REGISTRO_EXITOSO_TECNICO_ACADEMICO, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
+					MessageBox.Show(this, REGISTRO_EXITOSO_TECNICO_ACADEMICO, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
 					Close();
 				}
-
 			}
 			else
 			{
 				Mouse.OverrideCursor = null;
-				MessageBox.Show(COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 				MostrarEstadoDeValidacionCampos();
 			}
 		}
 
 		private void MostrarEstadoDeValidacionCampos()
 		{
+			Mouse.OverrideCursor = Cursors.Wait;
+			MessageBox.Show(this, COMPROBAR_CAMPOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
 			MostrarEstadoDeValidacionNombre(TextBoxNombre);
 			MostrarEstadoDeValidacionCorreoElectronico(TextBoxCorreoElectronico);
 			MostrarEstadoDeValidacionTelefono(TextBoxTelefono);
 			MostrarEstadoDeValidacionContraseña(TextBoxContraseña);
-			Mouse.OverrideCursor = Cursors.Wait;
+			MostrarEstadoDeValidacionCampoNumerico(TextBoxCubiculo);
+			
 			try
 			{
 				MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
 			}
 			finally
 			{
