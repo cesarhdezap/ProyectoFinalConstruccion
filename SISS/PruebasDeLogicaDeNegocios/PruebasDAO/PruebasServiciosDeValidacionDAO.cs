@@ -10,9 +10,9 @@ namespace Pruebas.PruebasDAO
 		public void ProbarContarOcurrenciasDeCorreo_Regresa2()
 		{
 			ServiciosDeValidacionDAO serviciosDeValidacionDAO = new ServiciosDeValidacionDAO();
-			int ocurrencias = serviciosDeValidacionDAO.ContarOcurrenciasDeCorreo("a@mia.mx");
+			int ocurrencias = serviciosDeValidacionDAO.ContarOcurrenciasDeCorreo("a@uv.mx");
 
-			Assert.AreEqual(3, ocurrencias);
+			Assert.AreEqual(2, ocurrencias);
 		}
 
 		[TestMethod]
