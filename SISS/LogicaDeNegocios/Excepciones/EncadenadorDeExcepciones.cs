@@ -20,9 +20,12 @@ namespace LogicaDeNegocios.Excepciones
 			{
 				throw new AccesoADatosException(e.Message + System.Environment.NewLine + "Objeto asociado: " + objetoAsociado.ToString(), e, TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada);
 			}
-			else
-
-			{
+            else if (e.Number == (int)CodigoDeErrorDeSqlException.ColumnaInvalida || e.Number == (int)CodigoDeErrorDeSqlException.ObjetoInvalido)
+            {
+                throw new AccesoADatosException(e.Message + System.Environment.NewLine + "Objeto asociado: " + objetoAsociado.ToString(), e, TipoDeErrorDeAccesoADatos.ObjetoNoExiste);
+            }
+            else
+            {
 				throw new AccesoADatosException(e.Message + e.Number + System.Environment.NewLine + "Objeto asociado: " + objetoAsociado.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
 		}
@@ -37,7 +40,11 @@ namespace LogicaDeNegocios.Excepciones
 			{
 				throw new AccesoADatosException(e.Message, e, TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada);
 			}
-			else
+            else if (e.Number == (int)CodigoDeErrorDeSqlException.ColumnaInvalida || e.Number == (int)CodigoDeErrorDeSqlException.ObjetoInvalido)
+            {
+                throw new AccesoADatosException(e.Message, e, TipoDeErrorDeAccesoADatos.ObjetoNoExiste);
+            }
+            else
 			{
 				throw new AccesoADatosException(e.Message, e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}
@@ -53,7 +60,11 @@ namespace LogicaDeNegocios.Excepciones
 			{
 				throw new AccesoADatosException(e.Message + System.Environment.NewLine + "Objeto asociado: " + objetoAsociado.ToString() + System.Environment.NewLine + "IDAsociada: " + IDAsociada, e, TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada);
 			}
-			else
+            else if (e.Number == (int)CodigoDeErrorDeSqlException.ColumnaInvalida || e.Number == (int)CodigoDeErrorDeSqlException.ObjetoInvalido)
+            {
+                throw new AccesoADatosException(e.Message + System.Environment.NewLine + "Objeto asociado: " + objetoAsociado.ToString() + System.Environment.NewLine + "IDAsociada: " + IDAsociada, e, TipoDeErrorDeAccesoADatos.ObjetoNoExiste);
+            }
+            else
 			{
 				throw new AccesoADatosException(e.Message + System.Environment.NewLine + "Objeto asociado: " + objetoAsociado.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}

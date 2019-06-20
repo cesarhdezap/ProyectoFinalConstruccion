@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AccesoABaseDeDatos;
 using System.Data;
 using System.Data.SqlClient;
-using LogicaDeNegocios.Querys;
 
 namespace Pruebas
 {
@@ -108,5 +107,31 @@ namespace Pruebas
             }
         }
 
+        [TestMethod]
+        public void ProbarEjecutarOperacionEscalar_CargarIDPersonalDirectorCorrecto_RegresaEntero ()
+        {
+            int estado;
+            estado = AccesoADatos.EjecutarOperacionEscalar("SELECT Estado FROM Alumnos WHERE Matricula = 's17012947'");
+            Assert.AreEqual(1, estado);
+        }
+
+        [TestMethod]
+        public void ProbarEjecutarOperacionEscalar_ColumnaInvalida_RegresaSqlException()
+        {
+            bool excepcionTirada = false;
+            try
+            {
+                AccesoADatos.EjecutarSelect("SELECT Matricula FROM Directores");
+            }
+            catch (SqlException ex) when (ex.Number == (int)CodigoDeErrorDeSqlException.ColumnaInvalida)
+            {
+                excepcionTirada = true;
+            }
+
+            if (!excepcionTirada)
+            {
+                throw new AssertFailedException("Se esperaba SqlException de error " + (int)CodigoDeErrorDeSqlException.ColumnaInvalida);
+            }
+        }
     }
 }

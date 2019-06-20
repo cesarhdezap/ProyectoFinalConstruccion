@@ -240,7 +240,7 @@ namespace InterfazDeUsuario.Utilerias
 				controlGrafico.ToolTip = new ToolTip()
 				{
 					Content = mensaje,
-					Placement = System.Windows.Controls.Primitives.PlacementMode.Left,
+					Placement = System.Windows.Controls.Primitives.PlacementMode.Right,
 				};
 			}
 			((ToolTip)controlGrafico.ToolTip).IsEnabled = true;

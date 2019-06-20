@@ -108,8 +108,11 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		/// <exception cref="FormatException">Tira esta excepción si hay algún error de casteo en la conversión.</exception>
 		private string ConvertirDataTableACadena(DataTable tablaDeContraseña)
         {
-            DataRow filaDeConstraseña = tablaDeContraseña.Select()[0];
-            string cadenaDeContraseña = (string)filaDeConstraseña["Contraseña"];
+            string cadenaDeContraseña = string.Empty;
+            foreach (DataRow fila in tablaDeContraseña.Rows)
+            {
+                cadenaDeContraseña = (string)fila["Contraseña"];
+            }
             return cadenaDeContraseña;
         }
     }
