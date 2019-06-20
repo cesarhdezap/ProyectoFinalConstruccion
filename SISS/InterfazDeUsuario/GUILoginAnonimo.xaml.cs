@@ -4,6 +4,7 @@ using static LogicaDeNegocios.Servicios.ServiciosDeSesion;
 using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using InterfazDeUsuario.GUITipoDeSesion;
 using InterfazDeUsuario.GUIsDeAlumno;
 using LogicaDeNegocios.Excepciones;
@@ -24,7 +25,6 @@ namespace InterfazDeUsuario
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             TextBoxCorreo.MaxLength = TAMAÑO_MAXIMO_VARCHAR;
             PasswordBoxContraseña.MaxLength = TAMAÑO_MAXIMO_VARCHAR;
-            
         }
 
         private void ButtonIngresar_Click(object sender, RoutedEventArgs e)
@@ -42,9 +42,7 @@ namespace InterfazDeUsuario
 				catch (AccesoADatosException ex)
 				{
                     resultadoDeAutenticacion = false;
-                    MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+					MostrarMessageBoxDeExcepcion(this, ex);
 				}
 				finally
 				{

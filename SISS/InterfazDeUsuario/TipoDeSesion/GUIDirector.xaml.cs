@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
 namespace InterfazDeUsuario.GUITipoDeSesion
 {
@@ -26,36 +27,37 @@ namespace InterfazDeUsuario.GUITipoDeSesion
         private Director Director { get; set; }
         public GUIDirector(Sesion sesion)
         {
+			Mouse.OverrideCursor = Cursors.Wait;
             InitializeComponent();
             DirectorDAO directorDAO = new DirectorDAO();
-            Mouse.OverrideCursor = Cursors.Wait;
+            
             try
             {
-                Director = directorDAO.CargarDirectorPorIDPersonal(Int32.Parse(sesion.IDUsuario));
+                Director = directorDAO.CargarDirectorPorIDPersonal(int.Parse(sesion.IDUsuario));
             }
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
+
 			LabelNombreDeUsuario.Content = Director.Nombre;
         }
 
         private void ButtonBuscarCoordinador_Click(object sender, RoutedEventArgs e)
         {
             GUIsDeDirector.GUIBuscarCoordinador buscarCoordinador = new GUIsDeDirector.GUIBuscarCoordinador(Director);
-            buscarCoordinador.ShowDialog();
-        }
+			MostrarPantalla(this, buscarCoordinador);
+		}
 
-        private void RegistrarCoordinador_Click(object sender, RoutedEventArgs e)
+		private void RegistrarCoordinador_Click(object sender, RoutedEventArgs e)
         {
             GUIsDeDirector.GUIRegistrarCoordinador registrarCoordinador = new GUIsDeDirector.GUIRegistrarCoordinador(Director);
-            registrarCoordinador.ShowDialog();
+			MostrarPantalla(this, registrarCoordinador);
         }
 
 		private void LabelCerrarSesion_MouseDown(object sender, MouseButtonEventArgs e)

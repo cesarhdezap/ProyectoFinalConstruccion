@@ -22,20 +22,21 @@ namespace InterfazDeUsuario.GUIsDeDirector
             Director = director;
 			AdministradorDeDocentesAcademicos = new AdministradorDeDocentesAcademicos();
 			Mouse.OverrideCursor = Cursors.Wait;
+
 			try
 			{
 				AdministradorDeDocentesAcademicos.CargarDocentesPorRol(Rol.Coordinador);
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
+
             LabelNombreDeUsuario.Content = director.Nombre;
             DataGridCoordinadores.ItemsSource = AdministradorDeDocentesAcademicos.DocentesAcademicos;
 		}
@@ -43,7 +44,6 @@ namespace InterfazDeUsuario.GUIsDeDirector
 		private void Expander_Expanded(object sender, RoutedEventArgs e)
 		{
 			Mouse.OverrideCursor = Cursors.Wait;
-
 			CambiarEstadoDeExpander(sender);
 			Mouse.OverrideCursor = null;
 		}

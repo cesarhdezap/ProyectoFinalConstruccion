@@ -25,24 +25,25 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 		private AdministradorDeProyectos AdministradorDeProyectos { get; set; }
         public GUIBuscarProyecto(DocenteAcademico coordinador)
         {
+			Mouse.OverrideCursor = Cursors.Wait;
             InitializeComponent();
 			LabelNombreDeUsuario.Content = coordinador.Nombre;
 			AdministradorDeProyectos = new AdministradorDeProyectos();
-			Mouse.OverrideCursor = Cursors.Wait;
+			
 			try
 			{
 				AdministradorDeProyectos.CargarProyectosPorEstado(EstadoProyecto.Activo);
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
+
             DataGridProyectos.ItemsSource = AdministradorDeProyectos.Proyectos;
         }
 
@@ -77,11 +78,13 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 		private void ButtonDarDeBaja_Click(object sender, RoutedEventArgs e)
 		{
 			Proyecto proyectoSeleccionado = ((FrameworkElement)sender).DataContext as Proyecto;
-			MessageBoxResult resultado = MessageBox.Show(CONFIRMACION_BAJA_DE_PROYECTO_MENSAJE, ADVERTENCIA_TITULO, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
+			MessageBoxResult resultado = MessageBox.Show(this, CONFIRMACION_BAJA_DE_PROYECTO_MENSAJE, ADVERTENCIA_TITULO, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
+
 			if (resultado == MessageBoxResult.Yes)
 			{
 				bool proyectoDadoDeBaja = false;
 				Mouse.OverrideCursor = Cursors.Wait;
+
 				try
 				{
 					proyectoSeleccionado.DarDeBaja();
@@ -89,22 +92,26 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				}
 				catch (AccesoADatosException ex)
 				{
-					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+					MostrarMessageBoxDeExcepcion(this, ex);
 				}
 				finally
 				{
 					Mouse.OverrideCursor = null;
 				}
+
 				if (proyectoDadoDeBaja)
 				{
-					MessageBox.Show(BAJA_DE_PROYECTO_EXITOSA_MENSAJE, OPERACION_EXITOSA_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+					MessageBox.Show(this, BAJA_DE_PROYECTO_EXITOSA_MENSAJE, OPERACION_EXITOSA_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
 					AdministradorDeProyectos.Proyectos.Remove(proyectoSeleccionado);
 					DataGridProyectos.ItemsSource = null;
 					DataGridProyectos.ItemsSource = AdministradorDeProyectos.Proyectos;
 				}
 			}
+		}
+
+		private void ButtonCancelar_Click(object sender, RoutedEventArgs e)
+		{
+			Close();
 		}
 	}
 }

@@ -6,6 +6,7 @@ using LogicaDeNegocios.ClasesDominio;
 using LogicaDeNegocios.Excepciones;
 using Microsoft.Win32;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
 namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 {
@@ -27,16 +28,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 
 		private void ButtonSeleccionarArchivo_Click(object sender, RoutedEventArgs e)
 		{
-			OpenFileDialog ventanaDeSeleccionDeArchivo = new OpenFileDialog
-			{
-				Filter = "Imagenes (*.jpg)|*.jpg",
-				InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-			};
-			if (ventanaDeSeleccionDeArchivo.ShowDialog() == true)
-			{
-				LabelDireccionDeArchivo.Content = ventanaDeSeleccionDeArchivo.FileName;
-                Imagen.DireccionDeImagen = ventanaDeSeleccionDeArchivo.FileName;
-			}
+			LabelDireccionDeArchivo.Content = MostrarVentanaDeSeleccionDeArchivos(Imagen);
 		}
 
 		private void ButtonRegresar_Click(object sender, RoutedEventArgs e)
@@ -46,44 +38,54 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 
 		private void ButtonRegistrarDocumento_Click(object sender, RoutedEventArgs e)
 		{
-			if (Imagen.DireccionDeImagen != string.Empty)
+			if (ValidarCampos())
 			{
-				if (Asignacion.DocumentosDeEntregaUnica.TrueForAll(ComprobarTipoDeDocumento))
+				DocumentoDeEntregaUnica documentoDeEntregaUnica = new DocumentoDeEntregaUnica
 				{
-					DocumentoDeEntregaUnica documentoDeEntregaUnica = new DocumentoDeEntregaUnica
-					{
-						FechaDeEntrega = DateTime.Now,
-						TipoDeDocumento = (TipoDeDocumento)ComboBoxTipoDeDocumento.SelectedIndex,
-						DocenteAcademico = TecnicoAdministrativo,
-					};
-					try
-					{
-						Asignacion.RegistrarDocumentoDeEntregaUnica(documentoDeEntregaUnica);
-						Imagen.IDDocumento = documentoDeEntregaUnica.IDDocumento;
-						Imagen.Guardar();
-					}
-					catch (AccesoADatosException ex)
-					{
-						MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-						mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-						MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
-					}
-					finally
-					{
-						Mouse.OverrideCursor = null;
-					}
-					MessageBox.Show(REGISTRO_EXITOSO_DOCUMENTO, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
-                    Close();
-				}
-				else
+					FechaDeEntrega = DateTime.Now,
+					TipoDeDocumento = (TipoDeDocumento)ComboBoxTipoDeDocumento.SelectedIndex,
+					DocenteAcademico = TecnicoAdministrativo,
+				};
+
+				try
 				{
-					MessageBox.Show(DOCUMENTO_YA_ENTREGAOD_MENSAJE, DOCUMENTO_YA_ENTREGAOD_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+					Asignacion.RegistrarDocumentoDeEntregaUnica(documentoDeEntregaUnica);
+					Imagen.IDDocumento = documentoDeEntregaUnica.IDDocumento;
+					Imagen.Guardar();
 				}
-			} 
+				catch (AccesoADatosException ex)
+				{
+					MostrarMessageBoxDeExcepcion(this, ex);
+					Close();
+				}
+				finally
+				{
+					Mouse.OverrideCursor = null;
+				}
+
+				MessageBox.Show(this, REGISTRO_EXITOSO_DOCUMENTO, REGISTRO_EXITOSO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+				Close();
+			}
+		}
+
+		private bool ValidarCampos()
+		{
+			bool resultadoDeValidacion = false;
+
+			if (Imagen.DireccionDeImagen == string.Empty)
+			{
+				MessageBox.Show(this, ARCHIVO_NO_SLECCIONADO_MENSAJE, ARCHIVO_NO_SLECCIONADO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+			}
+			else if (!Asignacion.DocumentosDeEntregaUnica.TrueForAll(ComprobarTipoDeDocumento))
+			{
+				MessageBox.Show(this, DOCUMENTO_YA_ENTREGADO_MENSAJE, DOCUMENTO_YA_ENTREGAOD_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+			}
 			else
 			{
-				MessageBox.Show(ARCHIVO_NO_SLECCIONADO_MENSAJE, ARCHIVO_NO_SLECCIONADO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+				resultadoDeValidacion = true;
 			}
+
+			return resultadoDeValidacion;
 		}
 
 		private bool ComprobarTipoDeDocumento(DocumentoDeEntregaUnica documentoDeEntregaUnica)

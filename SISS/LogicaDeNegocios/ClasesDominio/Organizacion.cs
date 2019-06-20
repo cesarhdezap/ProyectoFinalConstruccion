@@ -21,14 +21,11 @@ namespace LogicaDeNegocios
             encargadoDAO.GuardarEncargado(encargado);
         }
 
-        public void Guardar()
-        {
-            if (Validar() && ValidarDisponibilidadDeCorreo(CorreoElectronico))
-            {
-                OrganizacionDAO organizacionDAO = new OrganizacionDAO();
-                organizacionDAO.GuardarOrganizacion(this);
-            }
-        }
+		public void Guardar()
+		{
+			OrganizacionDAO organizacionDAO = new OrganizacionDAO();
+			organizacionDAO.GuardarOrganizacion(this);
+		}
 
         public bool Validar()
         {
@@ -36,8 +33,7 @@ namespace LogicaDeNegocios
             if (ValidarCadena(Nombre)
                 && ValidarCadena(Direccion)
                 && ValidarTelefono(Telefono)
-                && ValidarCorreoElectronico(CorreoElectronico)
-                && ValidarDisponibilidadDeCorreo(CorreoElectronico))
+                && ValidarCorreoElectronico(CorreoElectronico))
             {
                 resultadoDeValidacion = true;
             }

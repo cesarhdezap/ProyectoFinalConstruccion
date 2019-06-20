@@ -15,7 +15,7 @@
 		<Grid>
 			<Label Content="Horas cubiertas: " HorizontalAlignment="Left" Margin="141,79,0,0" VerticalAlignment="Top" FontSize="14"/>
 			<Label x:Name="LabelHorasCubiertas" Content="[Horas cubiertas]" HorizontalAlignment="Left" Margin="243,79,0,0" VerticalAlignment="Top" FontSize="14"/>
-			<Label x:Name="LabelNombreDelAlumno" Content="[Nombre del alumno]" HorizontalAlignment="Left" Margin="396,79,0,0" VerticalAlignment="Top" FontSize="14"/>
+			<Label x:Name="LabelNombreDelAlumno" Content="[Nombre del alumno]" HorizontalAlignment="Left" Margin="322,79,0,0" VerticalAlignment="Top" FontSize="14" Width="377" MaxWidth="377"/>
 			<Button x:Name="ButtonVerProyecto" Content="Ver proyecto" HorizontalAlignment="Left" Margin="704,82,0,0" VerticalAlignment="Top" Width="134" Click="ButtonVerProyecto_Click" FontSize="14"/>
 			<Button x:Name="ButtonDarAlumnoDeBaja" Content="Dar alumno de baja" HorizontalAlignment="Left" Margin="1032,82,0,0" VerticalAlignment="Top" Width="134" Click="ButtonDarAlumnoDeBaja_Click" FontSize="14"/>
 			<Button x:Name="ButtonActualizarExpediente" Content="Actualizar expediente" HorizontalAlignment="Left" Margin="862,82,0,0" VerticalAlignment="Top" Width="147" Click="ButtonActualizarExpediente_Click" FontSize="14"/>

@@ -30,11 +30,12 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 		private DocenteAcademico Coordinador { get; set; }
 		private AdministradorDeAlumnos AdministradorDeAlumnos { get; set; }
 		private AdministradorDeProyectos AdministradorDeProyectos { get; set; }
-		private List<Asignacion> Asignaciones;
+		private List<Asignacion> Asignaciones { get; set; }
 		public List<string> NombresDeProyectos { get; set; } 
 
 		public GUIAsignarProyectoAAlumno(DocenteAcademico coordinador)
 		{
+			Mouse.OverrideCursor = Cursors.Wait;
             DataContext = this;
 			InitializeComponent();
             Coordinador = coordinador;
@@ -42,7 +43,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			AdministradorDeAlumnos = new AdministradorDeAlumnos();
 			AdministradorDeProyectos = new AdministradorDeProyectos();
 			Asignaciones = new List<Asignacion>();
-			Mouse.OverrideCursor = Cursors.Wait;
+
 			try
 			{
 				AdministradorDeAlumnos.CargarAlumnosPorCarreraYEstado(Coordinador.Carrera, EstadoAlumno.EsperandoAsignacion);
@@ -50,14 +51,14 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
+
 			foreach (Alumno alumno in AdministradorDeAlumnos.Alumnos)
 			{
 				Asignacion asignacion = new Asignacion
@@ -66,37 +67,67 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				};
 				Asignaciones.Add(asignacion);
 			}
+
 			DataGridAlumnos.ItemsSource = AdministradorDeAlumnos.Alumnos;
             NombresDeProyectos = AdministradorDeProyectos.ObtenerNombresDeProyectos();
 		}
 
 		private void ButtonAsignar_Click(object sender, RoutedEventArgs e)
 		{
+			Mouse.OverrideCursor = Cursors.Wait;
 			Alumno alumnoAAsignar = ((FrameworkElement)sender).DataContext as Alumno;
 			int indiceDeAlumnoAAsignar = AdministradorDeAlumnos.Alumnos.IndexOf(alumnoAAsignar);
-			Asignaciones.ElementAt(indiceDeAlumnoAAsignar).FechaDeInicio = DateTime.Now;
-			Asignaciones.ElementAt(indiceDeAlumnoAAsignar).HorasCubiertas = 0;
-			Asignaciones.ElementAt(indiceDeAlumnoAAsignar).EstadoAsignacion = EstadoAsignacion.Activo;
-			Mouse.OverrideCursor = Cursors.Wait;
+			int cupoDeProyectoIntentandoAsignar = 0;
+
 			try
 			{
-				Asignaciones.ElementAt(indiceDeAlumnoAAsignar).Guardar();
+				cupoDeProyectoIntentandoAsignar = Asignaciones.ElementAt(indiceDeAlumnoAAsignar).Proyecto.ObtenerDisponibilidad();
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{
 				Mouse.OverrideCursor = null;
 			}
-			MessageBox.Show(this, ASIGNACION_EXITOSA_MENSAJE, ASIGNACION_EXITOSA_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
-			AdministradorDeAlumnos.Alumnos.Remove(alumnoAAsignar);
-			Asignaciones.RemoveAt(indiceDeAlumnoAAsignar);
-			DataGridAlumnos.ItemsSource = null;
-			DataGridAlumnos.ItemsSource = AdministradorDeAlumnos.Alumnos;
+
+			if (cupoDeProyectoIntentandoAsignar > 0)
+			{
+				Mouse.OverrideCursor = Cursors.Wait;
+				Asignaciones.ElementAt(indiceDeAlumnoAAsignar).FechaDeInicio = DateTime.Now;
+				Asignaciones.ElementAt(indiceDeAlumnoAAsignar).HorasCubiertas = 0;
+				Asignaciones.ElementAt(indiceDeAlumnoAAsignar).EstadoAsignacion = EstadoAsignacion.Activo;
+				bool alumnoAsignado = false;
+
+				try
+				{
+					Asignaciones.ElementAt(indiceDeAlumnoAAsignar).Guardar();
+					alumnoAsignado = true;
+				}
+				catch (AccesoADatosException ex)
+				{
+					MostrarMessageBoxDeExcepcion(this, ex);
+				}
+				finally
+				{
+					Mouse.OverrideCursor = null;
+				}
+
+				if (alumnoAsignado)
+				{
+					MessageBox.Show(this, ASIGNACION_EXITOSA_MENSAJE, ASIGNACION_EXITOSA_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+					AdministradorDeAlumnos.Alumnos.Remove(alumnoAAsignar);
+					Asignaciones.RemoveAt(indiceDeAlumnoAAsignar);
+					DataGridAlumnos.ItemsSource = null;
+					DataGridAlumnos.ItemsSource = AdministradorDeAlumnos.Alumnos;
+				}
+			}
+			else
+			{
+				MessageBox.Show(this, PROYECTO_NO_TIENE_CUPO_MENSAJE, PROYECTO_NO_TIENE_CUPO_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+			}
 		}
 
 		private void Expander_Expanded(object sender, RoutedEventArgs e)

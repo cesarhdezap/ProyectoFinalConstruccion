@@ -29,20 +29,19 @@ namespace InterfazDeUsuario.GUIsDeAlumno
         public GUIEscogerProyectos(Alumno alumno)
         {
             InitializeComponent();
-            LabelNombreDeUsuario.Content = alumno.Nombre;
+			Alumno = alumno;
+            LabelNombreDeUsuario.Content = Alumno.Nombre;
             AdministradorDeProyectos = new AdministradorDeProyectos();
-            Alumno = alumno;
-            Solicitud = new Solicitud(Alumno);
 			Mouse.OverrideCursor = Cursors.Wait;
+
 			try
 			{
 				AdministradorDeProyectos.CargarProyectosPorEstado(EstadoProyecto.Activo);
 			}
 			catch (AccesoADatosException ex)
 			{
-				MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-				mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-				MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+				MostrarMessageBoxDeExcepcion(this, ex);
+				Close();
 			}
 			finally
 			{
@@ -50,9 +49,13 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 			}
 			
 			DataGridProyectos.ItemsSource = AdministradorDeProyectos.Proyectos;
-            DataGridProyectos.UpdateLayout();
-			Solicitud.Proyectos = new List<Proyecto>();
-        }
+            DataGridProyectos.UpdateLayout();//???
+
+			Solicitud = new Solicitud(Alumno)
+			{
+				Proyectos = new List<Proyecto>()
+			};
+		}
 
         private void Expander_Expanded(object sender, RoutedEventArgs e)
         {
@@ -85,6 +88,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
                 Solicitud.Fecha = DateTime.Now;
                 Mouse.OverrideCursor = Cursors.Wait;
                 bool resultadoDeSolicitud = false;
+
 				try
 				{
 					Solicitud.Guardar();
@@ -93,9 +97,8 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 				}
 				catch (AccesoADatosException ex)
 				{
-					MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
-					mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(ex);
-					MessageBox.Show(this, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+					MostrarMessageBoxDeExcepcion(this, ex);
+					Close();
 				}
 				finally
 				{
@@ -104,13 +107,14 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 
                 if (resultadoDeSolicitud)
                 {
-                    MessageBox.Show(SELECCION_DE_PROYECTOS_EXITOSA_MENSAJE, SELECCION_DE_PROYECTOS_EXITOSA_TITULO, MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
+                    MessageBox.Show(this, SELECCION_DE_PROYECTOS_EXITOSA_MENSAJE, SELECCION_DE_PROYECTOS_EXITOSA_TITULO, MessageBoxButton.OK, MessageBoxImage.Asterisk, MessageBoxResult.OK, MessageBoxOptions.None);
                 }
+
                 Close();
 			}
             else
             {
-                MessageBox.Show(CANTIDAD_INVALIDA_DE_PROYECTOS_SELECCIONANDOS_MENSAJE, CANTIDAD_INVALIDA_DE_PROYECTOS_SELECCIONANDOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(this, CANTIDAD_INVALIDA_DE_PROYECTOS_SELECCIONANDOS_MENSAJE, CANTIDAD_INVALIDA_DE_PROYECTOS_SELECCIONANDOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
