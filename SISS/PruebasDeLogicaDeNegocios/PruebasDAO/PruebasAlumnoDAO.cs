@@ -194,7 +194,7 @@ namespace Pruebas.PruebasDAO
         }
 
         [DataTestMethod]
-        [DataRow(3, "s16012931")]
+        [DataRow(4, "s16012931")]
         public void ProbarCargarMatriculaPorIDAsignacion_SinExcepciones_RegresaString(int IDAsignacion, string matriculaEsperada)
         {
             AlumnoDAO alumnoDAO = new AlumnoDAO();

@@ -16,9 +16,10 @@ namespace Pruebas.PruebasDeServicios
             Sesion sesionActual = new Sesion();
             sesionActual = CargarSesion(correo);
 
+            string mensaje;
             if (sesionActual.IDUsuario != IDEsperada)
             {
-                string mensaje = "IDActual: " + sesionActual.IDUsuario + " IDEsperada: " + IDEsperada;
+                mensaje = "IDActual: " + sesionActual.IDUsuario + " IDEsperada: " + IDEsperada;
                 if (sesionActual.TipoDeUsuario != tipoDeSesionEsperada)
                 {
                     mensaje += "\nTipoDeUsuarioActual: " + sesionActual.TipoDeUsuario + " TipoDeUsuarioEsperado: " + tipoDeSesionEsperada;
@@ -30,7 +31,7 @@ namespace Pruebas.PruebasDeServicios
                 
                 if (sesionActual.TipoDeUsuario != tipoDeSesionEsperada)
                 {
-                    string mensaje = "TipoDeUsuarioActual: " + sesionActual.TipoDeUsuario + " TipoDeUsuarioEsperado: " + tipoDeSesionEsperada;
+                    mensaje = "TipoDeUsuarioActual: " + sesionActual.TipoDeUsuario + " TipoDeUsuarioEsperado: " + tipoDeSesionEsperada;
                     Assert.Fail(mensaje);
                 }
             }

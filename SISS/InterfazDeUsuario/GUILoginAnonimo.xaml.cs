@@ -36,7 +36,7 @@ namespace InterfazDeUsuario
             {
 				Mouse.OverrideCursor = Cursors.Wait;
                 bool resultadoDeAutenticacion = false;
-
+                bool excepcionTirada = false;
                 try
                 {
                     resultadoDeAutenticacion = AutenticarCredenciales(correo, PasswordBoxContraseña.Password);
@@ -44,6 +44,7 @@ namespace InterfazDeUsuario
 				catch (AccesoADatosException ex)
 				{
                     resultadoDeAutenticacion = false;
+                    excepcionTirada = true;
 					MostrarMessageBoxDeExcepcion(this, ex);
 				}
 				finally
@@ -51,28 +52,31 @@ namespace InterfazDeUsuario
 					Mouse.OverrideCursor = null;
 				}
 
-                if (resultadoDeAutenticacion)
+                if (!excepcionTirada)
                 {
-					Sesion sesion = new Sesion();
+                    if (resultadoDeAutenticacion)
+                    {
+                        Sesion sesion = new Sesion();
 
-					try
-					{
-						sesion = CargarSesion(correo);
-					}
-					catch (AccesoADatosException ex)
-					{
-						MostrarMessageBoxDeExcepcion(this, ex);
-					}
+                        try
+                        {
+                            sesion = CargarSesion(correo);
+                        }
+                        catch (AccesoADatosException ex)
+                        {
+                            MostrarMessageBoxDeExcepcion(this, ex);
+                        }
 
-                    Hide();
-                    InstanciarVentanaDeSesion(sesion);
-                    Show();
-					TextBoxCorreo.Clear();
-					PasswordBoxContraseña.Clear();
-                }
-                else 
-                {
-                    MessageBox.Show(this, CREDENCIALES_INVALIDAS_MENSAJE, CREDENCIALES_INVALIDAS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+                        Hide();
+                        InstanciarVentanaDeSesion(sesion);
+                        Show();
+                        TextBoxCorreo.Clear();
+                        PasswordBoxContraseña.Clear();
+                    }
+                    else
+                    {
+                        MessageBox.Show(this, CREDENCIALES_INVALIDAS_MENSAJE, CREDENCIALES_INVALIDAS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
             }
             else
