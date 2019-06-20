@@ -1,23 +1,23 @@
+using InterfazDeUsuario.GUIsDeAlumno;
+using InterfazDeUsuario.GUITipoDeSesion;
 using LogicaDeNegocios.ClasesDominio;
+using LogicaDeNegocios.Excepciones;
 using System.Windows;
-using static LogicaDeNegocios.Servicios.ServiciosDeSesion;
-using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
-using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
+using System.Windows.Input;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
-using InterfazDeUsuario.GUITipoDeSesion;
-using InterfazDeUsuario.GUIsDeAlumno;
-using LogicaDeNegocios.Excepciones;
-using System.Windows.Input;
+using static LogicaDeNegocios.Servicios.ServiciosDeAutenticacion;
+using static LogicaDeNegocios.Servicios.ServiciosDeSesion;
+using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace InterfazDeUsuario
 {
-    /// <summary>
-    /// Login general para cada usuario.
-    /// Contiene metodos de autenticación para el correo y contraseña.
-    /// </summary>
+	/// <summary>
+	/// Login general para cada usuario.
+	/// Contiene metodos de autenticación para el correo y contraseña.
+	/// </summary>
 
-    public partial class GUILoginAnonimo : Window
+	public partial class GUILoginAnonimo : Window
     {
         public GUILoginAnonimo()
         {
@@ -31,10 +31,12 @@ namespace InterfazDeUsuario
         {
             string correo = TextBoxCorreo.Text;
 			string contraseña = PasswordBoxContraseña.Password;
+
 			if (!string.IsNullOrEmpty(correo) && !string.IsNullOrEmpty(contraseña))
             {
 				Mouse.OverrideCursor = Cursors.Wait;
                 bool resultadoDeAutenticacion = false;
+
                 try
                 {
                     resultadoDeAutenticacion = AutenticarCredenciales(correo, PasswordBoxContraseña.Password);
@@ -51,7 +53,17 @@ namespace InterfazDeUsuario
 
                 if (resultadoDeAutenticacion)
                 {
-                    Sesion sesion = CargarSesion(correo);
+					Sesion sesion = new Sesion();
+
+					try
+					{
+						sesion = CargarSesion(correo);
+					}
+					catch (AccesoADatosException ex)
+					{
+						MostrarMessageBoxDeExcepcion(this, ex);
+					}
+
                     Hide();
                     InstanciarVentanaDeSesion(sesion);
                     Show();
@@ -60,12 +72,12 @@ namespace InterfazDeUsuario
                 }
                 else 
                 {
-                    MessageBox.Show(CREDENCIALES_INVALIDAS_MENSAJE, CREDENCIALES_INVALIDAS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(this, CREDENCIALES_INVALIDAS_MENSAJE, CREDENCIALES_INVALIDAS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             else
             {
-                MessageBox.Show(CAMPOS_LOGIN_VACIOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(this, CAMPOS_LOGIN_VACIOS_MENSAJE, COMPROBAR_CAMPOS_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -97,16 +109,14 @@ namespace InterfazDeUsuario
             }
             else
             {
-                MessageBox.Show(TIPO_DE_SESION_INVALIDO_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(this, TIPO_DE_SESION_INVALIDO_MENSAJE, ERROR_INTERNO_TITULO, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void ButtonRegistrarseComoAlumno_Click(object sender, RoutedEventArgs e)
         {
             GUIRegistrarAlumno registrarAlumno = new GUIRegistrarAlumno();
-            Hide();
-            registrarAlumno.ShowDialog();
-            Show();
+			MostrarPantalla(this, registrarAlumno);
 			TextBoxCorreo.Clear();
 			PasswordBoxContraseña.Clear();
 		}
