@@ -176,7 +176,10 @@ namespace Pruebas.PruebasDAO
         [TestMethod]
         public void ProbarCargarAsignacionPorID_AsignacionNoEncontrada_RegresaAsignacion()
         {
-
+            int IDAsignacion = 9999;
+            AsignacionDAO asignacionDAO = new AsignacionDAO();
+            Asignacion asignacion = asignacionDAO.CargarAsignacionPorID(IDAsignacion);
+            Assert.AreNotEqual(IDAsignacion, asignacion.IDAsignacion);
         }
 
         [DataTestMethod]
