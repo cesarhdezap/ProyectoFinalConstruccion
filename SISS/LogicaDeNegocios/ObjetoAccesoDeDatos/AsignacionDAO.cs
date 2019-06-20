@@ -42,7 +42,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			if (filasAfectadas <= 0)
 			{
-				throw new AccesoADatosException("La Asignacion con IDAsignacion: " + IDAsignacion + " no existe.", TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
+				throw new AccesoADatosException("La Asignacion con IDAsignacion: " + IDAsignacion + " no existe.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
 			}
 		}
 
@@ -266,7 +266,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public void GuardarAsignacion(Asignacion asignacion)
 		{
-			SqlParameter[] parametrosDeAsignacion = InicializarParametrosDeSql(asignacion);
+            if (asignacion.Proyecto.IDProyecto <= 0)
+            {
+                throw new AccesoADatosException("Error al guardar Asignacion Por IDProyecto: " + asignacion.Proyecto.IDProyecto + ". IDProyecto no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
+            }
+
+            SqlParameter[] parametrosDeAsignacion = InicializarParametrosDeSql(asignacion);
 			int filasAfectadas = 0;
 
 			try
@@ -280,7 +285,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			if (filasAfectadas <= 0)
 			{
-				throw new AccesoADatosException("Asignacion: " + asignacion.ToString() + " no fue guardada.", TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
+				throw new AccesoADatosException("Asignacion: " + asignacion.ToString() + " no fue guardada.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
 			}
 		}
 

@@ -17,6 +17,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 	{
 		/// <summary>
 		/// Actualiza un <see cref="Alumno"/> dada su <see cref="Alumno.Matricula"/>.
+        /// Actualiza Nombre, Estado, Telefono y CorreoElectronico.
 		/// </summary>
 		/// <param name="matricula"><see cref="Alumno.Matricula"/> del <see cref="Alumno"/> a actualizar.</param>
 		/// <param name="alumno">El <see cref="Alumno"/> a actualizar.</param>
@@ -100,7 +101,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             try
             {
-                tablaDeAlumnos = AccesoADatos.EjecutarSelect(QuerysDeAlumno.CARGAR_MATRICULA_ALUMNO, parametroEstadoAlumno);
+                tablaDeAlumnos = AccesoADatos.EjecutarSelect(QuerysDeAlumno.CARGAR_ALUMNOS_POR_ESTADO, parametroEstadoAlumno);
             }
 			catch (SqlException e)
 			{

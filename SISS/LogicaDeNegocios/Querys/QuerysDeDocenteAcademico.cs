@@ -2,8 +2,8 @@
 {
 	public static class QuerysDeDocenteAcademico
 	{
-		public const string ACTUALIZAR_DOCENTE_ACADEMICO_POR_IDPERSONAL = "UPDATE DocentesAcademicos SET (Nombre = @NombreDocenteAcademico, CorreoElectronico = @CorreoElectronicoDocenteAcademico, Telefono = @TelefonoDocenteAcademico, EsActivo = @EsActivoDocenteAcademico)";
-		public const string CARGAR_ID_COORDINADOR_POR_CARRERA = "SELECT IDPersonal FROM DocentesAcademicos WHERE Carrera = @Carrera AND Rol = 0 AND EsActivo = 1";
+public const string CARGAR_ID_COORDINADOR_POR_CARRERA = "SELECT IDPersonal FROM DocentesAcademicos WHERE Carrera = @Carrera AND Rol = 0 AND EsActivo = 1";
+		public const string ACTUALIZAR_DOCENTE_ACADEMICO_POR_IDPERSONAL = "UPDATE DocentesAcademicos SET Nombre = @NombreDocenteAcademico, CorreoElectronico = @CorreoElectronicoDocenteAcademico, Telefono = @TelefonoDocenteAcademico, EsActivo = @EsActivoDocenteAcademico";
 		public const string CARGAR_ID_POR_CORREO_Y_ROL = "SELECT IDPersonal FROM DocentesAcademicos WHERE CorreoElectronico = @CorreoElectronico AND Rol = @Rol";
 		public const string CARGAR_DOCENTE_ACADEMICO_POR_IDPERSONAL = "SELECT * FROM DocentesAcademicos WHERE IDPersonal = @IDPersonal";
 		public const string CARGAR_ID_POR_IDDOCUMENTO = "SELECT IDDocenteAcademico FROM ReportesMensuales WHERE IDDocumento = @IDDocumento";
