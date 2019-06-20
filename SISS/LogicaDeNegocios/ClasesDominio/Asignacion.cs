@@ -78,6 +78,7 @@ namespace LogicaDeNegocios
             DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
             ReportesMensuales = reporteMensualDAO.CargarIDsPorIDAsignacion(IDAsignacion);
             DocumentosDeEntregaUnica = documentoDeEntregaUnicaDAO.CargarIDsPorIDAsignacion(IDAsignacion);
+
             for (int i = 0; i< DocumentosDeEntregaUnica.Count; i++)
             {
                 DocumentosDeEntregaUnica[i] = documentoDeEntregaUnicaDAO.CargarDocumentoDeEntregaUnicaPorID(DocumentosDeEntregaUnica[i].IDDocumento);
@@ -98,10 +99,12 @@ namespace LogicaDeNegocios
         {
 			
             ReporteMensualDAO reporteMensualDAO = new ReporteMensualDAO();
+
             for (int i = 0; i < ReportesMensuales.Count; i++)
             {
                 ReportesMensuales[i] = reporteMensualDAO.CargarReporteMensualPorID(ReportesMensuales[i].IDDocumento);
             }
+
             ActualizarHorasCubiertas();
             return HorasCubiertas;
         }
@@ -170,6 +173,7 @@ namespace LogicaDeNegocios
             bool fueLiberado = false;
             Liberacion liberacion = new Liberacion();
             LiberacionDAO liberacionDAO = new LiberacionDAO();
+
             if (EsLiberable())
             {
                 liberacion.Fecha = DateTime.Now;
@@ -180,6 +184,7 @@ namespace LogicaDeNegocios
                 Liberacion = liberacion;
                 fueLiberado = true;
             }
+
             return fueLiberado;
         }
 

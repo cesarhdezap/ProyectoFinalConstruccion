@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
+
 namespace LogicaDeNegocios
 {
 	public class Solicitud
@@ -10,6 +11,7 @@ namespace LogicaDeNegocios
 		public List<Proyecto> Proyectos { get; set; }
 		public Alumno Alumno { get; set; }
         public DocumentoDeEntregaUnica CartaDeSolicitud { get; set; }
+
 		public Solicitud()
 		{
 
@@ -24,7 +26,6 @@ namespace LogicaDeNegocios
         {
             string solicitud = "IDSolicitud: " + IDSolicitud + System.Environment.NewLine +
                                "Fecha: " + Fecha.ToString();
-
             return solicitud;
         }
 

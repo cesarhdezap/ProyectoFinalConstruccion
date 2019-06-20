@@ -142,10 +142,12 @@ namespace InterfazDeUsuario.Utilerias
 		{
 
 			bool resultadoDeValidacion = false;
+
 			if (comboBox.SelectedIndex > -1 && comboBox.SelectedIndex < comboBox.Items.Count)
 			{
 				resultadoDeValidacion = true;
 			}
+
 			return resultadoDeValidacion;
 		}
 
@@ -196,6 +198,7 @@ namespace InterfazDeUsuario.Utilerias
 					{
 						fila.DetailsVisibility = Visibility.Visible;
 					}
+
 					break;
 				}	
 			}
@@ -208,15 +211,24 @@ namespace InterfazDeUsuario.Utilerias
 			MessageBox.Show(padre, mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
 		}
 
+		public static void MostrarMessageBoxDeExcepcion(AccesoADatosException e)
+		{
+			MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+			mensajeDeErrorParaMessageBox = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(e);
+			MessageBox.Show(mensajeDeErrorParaMessageBox.Mensaje, mensajeDeErrorParaMessageBox.Titulo, MessageBoxButton.OK, MessageBoxImage.Error);
+		}
+
 		public static string MostrarVentanaDeSeleccionDeArchivos(Imagen imagen)
 		{
 
 			string direccionDeArchivoSeleccionado = string.Empty;
+
 			OpenFileDialog ventanaDeSeleccionDeArchivo = new OpenFileDialog
 			{
 				Filter = "Imagenes (*.jpg)|*.jpg",
 				InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
 			};
+
 			if (ventanaDeSeleccionDeArchivo.ShowDialog() == true)
 			{
 				direccionDeArchivoSeleccionado = ventanaDeSeleccionDeArchivo.FileName;
@@ -243,6 +255,7 @@ namespace InterfazDeUsuario.Utilerias
 					Placement = System.Windows.Controls.Primitives.PlacementMode.Right,
 				};
 			}
+
 			((ToolTip)controlGrafico.ToolTip).IsEnabled = true;
 			ToolTipService.SetPlacementTarget((ToolTip)controlGrafico.ToolTip, controlGrafico);	
 			((ToolTip)controlGrafico.ToolTip).IsOpen = true;

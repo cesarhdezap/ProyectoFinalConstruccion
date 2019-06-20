@@ -9,7 +9,6 @@ using AccesoABaseDeDatos;
 using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
-
 {
 	/// <summary>
 	/// Clase de abstraccion para acceso a objetos ReporteMensual en la base de datos.
@@ -33,6 +32,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             DataTable tablaDeReportesMensuales = new DataTable();
             SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
+
             parametroIDAsignacion[0] = new SqlParameter
             {
                 ParameterName = "@IDAsignacion",
@@ -47,7 +47,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDAsignacion);
 			}
+
 			List<ReporteMensual> listaDeReportesMensuales = new List<ReporteMensual>();
+
             try
             {
                 listaDeReportesMensuales = ConvertirDataTableAListaDeReportesMensualesConSoloID(tablaDeReportesMensuales);
@@ -56,6 +58,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al convertir datatable a ListaDeReportesMensuales en cargar IDs con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
+
             return listaDeReportesMensuales;
         }
 
@@ -71,13 +74,16 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar ReporteMensual Por IDDocumento: " + IDDocumento + ". IDDocumento no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
+
             DataTable tablaDeReporteMensual = new DataTable();
             SqlParameter[] parametroIDDocumento = new SqlParameter[1];
+
             parametroIDDocumento[0] = new SqlParameter
             {
                 ParameterName = "@IDDocumento",
                 Value = IDDocumento
             };
+
             try
             {
                 tablaDeReporteMensual = AccesoADatos.EjecutarSelect(QuerysDeReporteMensual.CARGAR_REPORTE_MENSUAL_POR_ID, parametroIDDocumento);
@@ -86,7 +92,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDDocumento);
 			}
+
 			ReporteMensual reporteMensual = new ReporteMensual();
+
             try
             {
                 reporteMensual = ConvertirDataTableAReporteMensual(tablaDeReporteMensual);
@@ -95,6 +103,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al convertir DocumentoDeEntregaUnica al en cargar DocumentoDeEntregaUnica con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
+
             return reporteMensual;
         }
 
@@ -107,14 +116,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		private List<ReporteMensual> ConvertirDataTableAListaDeReportesMensualesConSoloID(DataTable tablaDeReportesMensuales)
         {
             List<ReporteMensual> listaDeReportesMensuales = new List<ReporteMensual>();
+
             foreach (DataRow fila in tablaDeReportesMensuales.Rows)
             {
                 ReporteMensual reporteMensual = new ReporteMensual
                 {
                     IDDocumento = (int)fila["IDDocumento"],
                 };
+
                 listaDeReportesMensuales.Add(reporteMensual);
             }
+
             return listaDeReportesMensuales;
         }
 
@@ -140,6 +152,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 reporteMensual.Mes = (Mes)fila["Mes"];
 				reporteMensual.FechaDeEntrega = DateTime.Parse(fila["FechaDeEntrega"].ToString());
 			}
+
             return reporteMensual;
 		}
 
@@ -154,9 +167,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al guardar ReporteMensual Por IDAsignacion: " + IDAsignacion + ". IDAsignacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
-            SqlParameter[] parametrosDocumentoDeEntregaUnica = InicializarParametrosDeSql(reporteMensual, IDAsignacion);
 
+            SqlParameter[] parametrosDocumentoDeEntregaUnica = InicializarParametrosDeSql(reporteMensual, IDAsignacion);
             int filasAfectadas = 0;
+
             try
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeReporteMensual.GUARDAR_REPORTE_MENSUAL, parametrosDocumentoDeEntregaUnica);
@@ -165,6 +179,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDAsignacion);
 			}
+
 			if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("El ReporteMensual: " + reporteMensual.ToString() + " no fue guardado.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
@@ -215,8 +230,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al Actualizar ReporteMensual Por IDDocumento: " + IDDocumento + ". IDDocumento no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
 			}
+
 			SqlParameter[] parametrosDrProyecto = InicializarParametrosDeSql(reporteMensual);
 			int filasAfectadas = 0;
+
 			try
 			{
 				filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeReporteMensual.ACTUALIZAR_REPORTE_MENSUAL, parametrosDrProyecto);
@@ -241,6 +258,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		public int ObtenerUltimoIDInsertado()
         {
 			int ultimoIDInsertado = 0;
+
 			try
 			{
 				ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar(QuerysDeReporteMensual.OBTENER_ULTIMO_IDINSERTADO);
@@ -249,6 +267,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
 			}
+
 			return ultimoIDInsertado;
 		}
     }

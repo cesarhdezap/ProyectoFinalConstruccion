@@ -1,15 +1,14 @@
-using System.Text.RegularExpressions;
-using System;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using System.Text.RegularExpressions;
 
 namespace LogicaDeNegocios.Servicios
 {
-    /// <summary>
-    /// Clase para validar campos.
-    /// Contiene métods para validar correo, telefono, nombre, matrícula, contraseña, cadena, entero,
-    /// disponibilidad del correo y disponibilidad de la matrícula.
-    /// </summary>
-    public class ServiciosDeValidacion
+	/// <summary>
+	/// Clase para validar campos.
+	/// Contiene métods para validar correo, telefono, nombre, matrícula, contraseña, cadena, entero,
+	/// disponibilidad del correo y disponibilidad de la matrícula.
+	/// </summary>
+	public class ServiciosDeValidacion
     {
         /// <summary>
         /// Expresión regular que valida que la cadena sea un entero de 10 de longitud
@@ -70,8 +69,8 @@ namespace LogicaDeNegocios.Servicios
 			{
                 resultadoDeValidacion = true;
 			}
+
             return resultadoDeValidacion;
-			
 		}
 
         /// <summary>
@@ -82,6 +81,7 @@ namespace LogicaDeNegocios.Servicios
 		public static bool ValidarNombre(string nombre)
 		{
             bool resultadoDeValidacion = false;
+
 			if (nombre.Length <= TAMAÑO_MAXIMO_VARCHAR)
 			{
 				if (RegexNombre.IsMatch(nombre))
@@ -89,6 +89,7 @@ namespace LogicaDeNegocios.Servicios
 					resultadoDeValidacion = true;
 				}
 			}
+
 			return resultadoDeValidacion;
 		}
 
@@ -151,7 +152,6 @@ namespace LogicaDeNegocios.Servicios
         public static bool ValidarDisponibilidadDeCorreo(string correoElectronico)
         {
 			ServiciosDeValidacionDAO serviciosDeValidacionDAO = new ServiciosDeValidacionDAO();
-
 			bool resultadoDeValidacion = false;
 
 			if (serviciosDeValidacionDAO.ContarOcurrenciasDeCorreo(correoElectronico) == 0)
@@ -170,7 +170,6 @@ namespace LogicaDeNegocios.Servicios
 		public static bool ValidarDisponibilidadDeMatricula(string matricula)
 		{
 			ServiciosDeValidacionDAO serviciosDeValidacionDAO = new ServiciosDeValidacionDAO();
-
 			bool resultadoDeValidacion = false;
 
 			if (serviciosDeValidacionDAO.ContarOcurrenciasDeMatricula(matricula) == 0)
@@ -181,16 +180,16 @@ namespace LogicaDeNegocios.Servicios
 			return resultadoDeValidacion;
 		}
 
-        /// <summary>
-        /// Valida si la cadena es convertible a entero y tiene la estructura para insertar a la base de datos.
-        /// </summary>
-        /// <param name="numeroEntero">Cadena con un numero.</param>
-        /// <returns>Si la cadena es convertiblea entero.</returns>
+		/// <summary>
+		/// Valida si la cadena es convertible a entero y tiene la estructura para insertar a la base de datos.
+		/// </summary>
+		/// <param name="numeroEntero">Cadena con un numero.</param>
+		/// <returns>Si la cadena es convertiblea entero.</returns>
 		public static bool ValidarEntero(string numeroEntero)
-        {
-            bool resultadoDeValidacion = false;
+		{
+			bool resultadoDeValidacion = false;
 
-            if(Int32.TryParse(numeroEntero, out int numeroConvertido) && numeroConvertido > VALOR_ENTERO_MINIMO_PERMITIDO && numeroConvertido <= VALOR_ENTERO_MAXIMO_PERMITIDO)
+            if(int.TryParse(numeroEntero, out int numeroConvertido) && numeroConvertido > VALOR_ENTERO_MINIMO_PERMITIDO && numeroConvertido <= VALOR_ENTERO_MAXIMO_PERMITIDO)
             {
                 resultadoDeValidacion = true;
             }

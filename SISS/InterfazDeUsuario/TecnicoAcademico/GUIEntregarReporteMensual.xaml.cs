@@ -4,14 +4,13 @@ using System.Windows.Input;
 using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ClasesDominio;
-using Microsoft.Win32;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 
 namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 {
-    public partial class GUIEntregarReporteMensual : Window
+	public partial class GUIEntregarReporteMensual : Window
 	{
 		private DocenteAcademico TecnicoAdministrativo { get; set; }
 		private Imagen Imagen { get; set; }
@@ -42,6 +41,7 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 			if (ValidarCampos())
 			{
 				Mouse.OverrideCursor = Cursors.Wait;
+
 				ReporteMensual reporteMensual = new ReporteMensual
 				{
 					FechaDeEntrega = DateTime.Now,
@@ -105,10 +105,12 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 		private bool ComprobarMes(ReporteMensual reporteMensual)
 		{
 			bool resultado = true;
+
 			if (reporteMensual.Mes == (Mes)ComboBoxMes.SelectedIndex)
 			{
 				resultado = false;
 			}
+
 			return resultado;
 		}
 

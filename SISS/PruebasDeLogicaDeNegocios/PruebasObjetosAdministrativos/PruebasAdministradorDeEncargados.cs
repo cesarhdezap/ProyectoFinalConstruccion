@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using LogicaDeNegocios;
 using LogicaDeNegocios.ObjetosAdministrador;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Pruebas.PruebasObjetosAdministrativos
 {
-    [TestClass]
+	[TestClass]
     public class PruebasAdministradorDeEncargados
     {
         [TestMethod]

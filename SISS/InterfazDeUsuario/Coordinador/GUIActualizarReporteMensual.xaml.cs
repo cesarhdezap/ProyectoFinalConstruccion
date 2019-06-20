@@ -1,38 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
-using LogicaDeNegocios.ObjetosAdministrador;
 using LogicaDeNegocios.ClasesDominio;
-using System.IO;
-using Microsoft.Win32;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
-using InterfazDeUsuario.Utilerias;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
 {
-    /// <summary>
-    /// Interaction logic for GUIActualizarReporteMensual.xaml
-    /// </summary>
-    public partial class GUIActualizarReporteMensual : Window
+	/// <summary>
+	/// Interaction logic for GUIActualizarReporteMensual.xaml
+	/// </summary>
+	public partial class GUIActualizarReporteMensual : Window
     {
 		private DocenteAcademico Coordinador { get; set; }
 		private Imagen Imagen { get; set; }
 		private ReporteMensual ReporteMensual { get; set; }
+
 		public GUIActualizarReporteMensual(ReporteMensual reporteMensual, DocenteAcademico coordinador)
         {
             InitializeComponent();

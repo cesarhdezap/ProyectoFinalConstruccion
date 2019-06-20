@@ -1,13 +1,8 @@
 ﻿using AccesoABaseDeDatos;
 using LogicaDeNegocios.Interfaces;
-using LogicaDeNegocios;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LogicaDeNegocios.ClasesDominio;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.Querys;
@@ -30,6 +25,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             DataTable tablaDeID = new DataTable();
             SqlParameter[] parametroCorreo = new SqlParameter[1];
+
             parametroCorreo[0] = new SqlParameter
             {
                 ParameterName = "@CorreoElectronico",
@@ -46,6 +42,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			string IDDirector = string.Empty;
+
             try
             {
                 IDDirector = ConvertirDataTableADirectorConSoloID(tablaDeID).IDPersonal.ToString();
@@ -55,7 +52,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 IDDirector = string.Empty;
                 throw new AccesoADatosException("Error al convertir datatable a Director en cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
-
 
             return IDDirector;
         }
@@ -69,10 +65,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		private Director ConvertirDataTableADirectorConSoloID(DataTable tablaDeID)
         {
             Director director = new Director();
+
             foreach (DataRow fila in tablaDeID.Rows)
             {
                 director.IDPersonal = (int)fila["IDPersonal"];
             }
+
             return director;
         }
 
@@ -91,6 +89,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             DataTable tablaDeDirector = new DataTable();
             SqlParameter[] parametroIDPersonal = new SqlParameter[1];
+
             parametroIDPersonal[0] = new SqlParameter()
             {
                 ParameterName = "@IDpersonal",
@@ -107,6 +106,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			Director director = new Director();
+
             try
             {
                 director = ConvertirDataTableADirector(tablaDeDirector);
@@ -115,6 +115,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al convertir datatable a Director en cargar Director por IDPersonal: " + IDPersonal, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
+
             return director;
         }
 
@@ -127,12 +128,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		private Director ConvertirDataTableADirector(DataTable tablaDirector)
         {
             Director director = new Director();
+
             foreach (DataRow fila in tablaDirector.Rows)
             {
                 director.IDPersonal = (int)fila["IDPersonal"];
                 director.Nombre = fila["Nombre"].ToString();
                 director.CorreoElectronico = fila["CorreoElectronico"].ToString();
             }
+
             return director;
         }
     }

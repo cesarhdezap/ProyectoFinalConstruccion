@@ -34,7 +34,6 @@ namespace LogicaDeNegocios
                                       "Cubiculo: " + Cubiculo + System.Environment.NewLine +
                                       "EsActivo: " + EsActivo + System.Environment.NewLine +
                                       "Rol: " + Rol.ToString() + System.Environment.NewLine;
-
             return docenteAcademico;
         }
 
@@ -73,6 +72,7 @@ namespace LogicaDeNegocios
 		public bool Validar()
 		{
 			bool resultadoDeValidacion = false;
+
 			if (ValidarContraseña(Contraseña)
 				&& ValidarCorreoElectronico(CorreoElectronico)
 				&& ValidarNombre(Nombre)
@@ -82,6 +82,7 @@ namespace LogicaDeNegocios
             {
 				resultadoDeValidacion = true;
 			}
+
 			return resultadoDeValidacion;
 		}
 	}

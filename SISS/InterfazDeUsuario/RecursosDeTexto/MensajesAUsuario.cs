@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InterfazDeUsuario.RecursosDeTexto
+﻿namespace InterfazDeUsuario.RecursosDeTexto
 {
-    public static class MensajesAUsuario
+	public static class MensajesAUsuario
     {
 		public const string COMPROBAR_CAMPOS_MENSAJE = "Porfavor compruebe los campos remarcados en rojo.";
 		public const string COMPROBAR_CAMPOS_TITULO = "Campos invalidos";

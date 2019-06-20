@@ -1,38 +1,32 @@
+using LogicaDeNegocios;
+using LogicaDeNegocios.Excepciones;
+using LogicaDeNegocios.ObjetosAdministrador;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using LogicaDeNegocios;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
-using LogicaDeNegocios.ObjetosAdministrador;
-using LogicaDeNegocios.Excepciones;
-using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
-
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
 namespace InterfazDeUsuario.GUIsDeAlumno
 {
-    /// <summary>
-    /// Interaction logic for GUIEscogerProyectos.xaml
-    /// </summary>
-    public partial class GUIEscogerProyectos : Window
+	/// <summary>
+	/// Interaction logic for GUIEscogerProyectos.xaml
+	/// </summary>
+	public partial class GUIEscogerProyectos : Window
     {
 		private const int CANTIDAD_DE_PROYECTOS_NECESARIOS = 3;
-
 		private AdministradorDeProyectos AdministradorDeProyectos { get; set; }
         private Solicitud Solicitud { get; set; }
         private Alumno Alumno { get; set; }
 
         public GUIEscogerProyectos(Alumno alumno)
         {
+			Mouse.OverrideCursor = Cursors.Wait;
             InitializeComponent();
 			Alumno = alumno;
             LabelNombreDeUsuario.Content = Alumno.Nombre;
             AdministradorDeProyectos = new AdministradorDeProyectos();
-			Mouse.OverrideCursor = Cursors.Wait;
 
 			try
 			{
@@ -49,7 +43,6 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 			}
 			
 			DataGridProyectos.ItemsSource = AdministradorDeProyectos.Proyectos;
-            DataGridProyectos.UpdateLayout();//???
 
 			Solicitud = new Solicitud(Alumno)
 			{

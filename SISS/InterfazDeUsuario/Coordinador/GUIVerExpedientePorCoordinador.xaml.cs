@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
-	using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 
 
@@ -84,6 +84,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
         private void ButtonDarAlumnoDeBaja_Click(object sender, RoutedEventArgs e)
         {
 			MessageBoxResult resultado = MessageBox.Show(this, ADVERTENCIA_BAJA_ALUMNO_MENSAJE, ADVERTENCIA_TITULO, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
+
 			if (resultado == MessageBoxResult.Yes)
 			{
 				Alumno alumnoSeleccionado = Asignacion.Alumno;

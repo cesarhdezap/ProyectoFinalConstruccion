@@ -1,7 +1,6 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System;
 using System.Collections.Generic;
-using LogicaDeNegocios.ObjetosAdministrador;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace LogicaDeNegocios
@@ -16,7 +15,6 @@ namespace LogicaDeNegocios
 		public int Cupo { get; set; }
 		public List<Asignacion> Asignaciones { get; set; }
         public Encargado Encargado { get; set; }
-
 
 		public int ObtenerDisponibilidad()
 		{
@@ -58,6 +56,7 @@ namespace LogicaDeNegocios
 		public bool Validar()
         {
             bool resultadoDeValidacion = false;
+
             if (ValidarCadena(Nombre)
                 && ValidarCadena(DescripcionGeneral)
                 && ValidarCadena(ObjetivoGeneral)

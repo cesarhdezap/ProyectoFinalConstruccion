@@ -23,37 +23,26 @@ namespace AccesoABaseDeDatos
         /// <returns>Una DataTable con la tabla recuperada de la base de datos.</returns>
         /// <exception cref="IOException">Tira esta excepción cuando no puede establecer conexión con la base de datos.</exception>
         /// <exception cref="SqlException">Tira esta excepción con un código de error según la causa de la falla.</exception>
-		public static DataTable EjecutarSelect(String consulta, SqlParameter[] parametros = null)
+		public static DataTable EjecutarSelect(string consulta, SqlParameter[] parametros = null)
 		{
-            using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
-            {
-                SqlCommand comando = new SqlCommand(consulta, conexion);
+			using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
+			{
+				SqlCommand comando = new SqlCommand(consulta, conexion);
 
-                if (parametros != null)
-                {
-                    comando.Parameters.AddRange(parametros);
-                }
+				if (parametros != null)
+				{
+					comando.Parameters.AddRange(parametros);
+				}
 
-                SqlDataAdapter dataAdapter = new SqlDataAdapter(comando);
-                DataTable dataTable = new DataTable();
-                int filasAfectadas = 0;
-                try
-                {
-                    conexion.Open();
-                    filasAfectadas = comando.ExecuteNonQuery();
-                    dataAdapter.Fill(dataTable);
-                }
-                catch(IOException e)
-                {
-                    throw new IOException("Error al intentar conectarse a la base de datos ",e);
-                }
-                finally
-                {
-                    CerrarConexion(conexion);
-                }
-                
-                return dataTable;
-            }
+				SqlDataAdapter dataAdapter = new SqlDataAdapter(comando);
+				DataTable dataTable = new DataTable();
+				int filasAfectadas = 0;
+				conexion.Open();
+				filasAfectadas = comando.ExecuteNonQuery();
+				dataAdapter.Fill(dataTable);
+				CerrarConexion(conexion);
+				return dataTable;
+			}
         }
 
         /// <summary>
@@ -83,25 +72,19 @@ namespace AccesoABaseDeDatos
 		{
 			using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
 			{
-                const int VALOR_DE_ERROR_POR_DEFECTO = -1;
+				const int VALOR_DE_ERROR_POR_DEFECTO = -1;
 				SqlCommand comando = new SqlCommand(consulta, conexion);
-                if (parametros != null)
-                {
-                    comando.Parameters.AddRange(parametros);
-                }
 
-                int numeroDeFilasAfectadas = VALOR_DE_ERROR_POR_DEFECTO;
-				try
+				if (parametros != null)
 				{
-					conexion.Open();
-					numeroDeFilasAfectadas = comando.ExecuteNonQuery();
+					comando.Parameters.AddRange(parametros);
 				}
-				finally
-				{
-					CerrarConexion(conexion);
-				}
-                return numeroDeFilasAfectadas;
-            }
+
+				int numeroDeFilasAfectadas = VALOR_DE_ERROR_POR_DEFECTO;
+				conexion.Open();
+				numeroDeFilasAfectadas = comando.ExecuteNonQuery();
+				return numeroDeFilasAfectadas;
+			}
 		}
 
         /// <summary>
@@ -113,26 +96,20 @@ namespace AccesoABaseDeDatos
         /// <exception cref="SqlException">Tira esta excepción con un código de error según la causa de la falla.</exception>
         public static int EjecutarOperacionEscalar(string consulta, SqlParameter[] parametros = null)
         {
-            using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
-            {
-                SqlCommand comando = new SqlCommand(consulta, conexion);
-                if (parametros != null)
-                {
-                    comando.Parameters.AddRange(parametros);
-                }
+			using (SqlConnection conexion = new SqlConnection(CadenaDeConexion))
+			{
+				SqlCommand comando = new SqlCommand(consulta, conexion);
 
-                int resultadoEscalar = 0;
-                try
-                {
-                    conexion.Open();
-                    resultadoEscalar = Convert.ToInt32(comando.ExecuteScalar());
-                }
-                finally
-                {
-                    CerrarConexion(conexion);
-                }
-                return resultadoEscalar;
-            }
+				if (parametros != null)
+				{
+					comando.Parameters.AddRange(parametros);
+				}
+
+				int resultadoEscalar = 0;
+				conexion.Open();
+				resultadoEscalar = Convert.ToInt32(comando.ExecuteScalar());
+				return resultadoEscalar;
+			}
         }
     }
 }

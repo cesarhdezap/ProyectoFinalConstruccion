@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LogicaDeNegocios.Excepciones;
+﻿using LogicaDeNegocios.Excepciones;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 
 namespace InterfazDeUsuario
@@ -16,7 +11,6 @@ namespace InterfazDeUsuario
 			LogearExcepcion(e);
 			MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = ObtenerMensajeDeErrorParaMessageBox(e);
 			return mensajeDeErrorParaMessageBox;
-
 		}
 
 		private static void LogearExcepcion(AccesoADatosException e)
@@ -27,6 +21,7 @@ namespace InterfazDeUsuario
 		private static MensajeDeErrorParaMessageBox ObtenerMensajeDeErrorParaMessageBox(AccesoADatosException e)
 		{
 			MensajeDeErrorParaMessageBox mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox();
+
 			if (e.TipoDeError == TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada)
 			{
 				mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox(MATRICULA_DUPLICADA_MENSAJE, MATRICULA_DUPLICADA_TITULO);
@@ -59,6 +54,7 @@ namespace InterfazDeUsuario
 			{
 				mensajeDeErrorParaMessageBox = new MensajeDeErrorParaMessageBox(ERROR_DESCONOCIDO_MENSAJE, ERROR_DESCONOCIDO_TITULO);
 			}
+
 			return mensajeDeErrorParaMessageBox;
 		}
 	}

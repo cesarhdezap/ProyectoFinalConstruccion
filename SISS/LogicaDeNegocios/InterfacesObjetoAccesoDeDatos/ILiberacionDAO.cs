@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data;
-
-namespace LogicaDeNegocios.Interfaces
+﻿namespace LogicaDeNegocios.Interfaces
 {
 	interface ILiberacionDAO
 	{
