@@ -30,7 +30,7 @@ namespace Pruebas.PruebasDAO
 		public void ProbarContarOcurrenciasDeMatricula_Regresa1()
 		{
 			ServiciosDeValidacionDAO serviciosDeValidacionDAO = new ServiciosDeValidacionDAO();
-			int ocurrencias = serviciosDeValidacionDAO.ContarOcurrenciasDeMatricula("s17012931");
+			int ocurrencias = serviciosDeValidacionDAO.ContarOcurrenciasDeMatricula("s17012947");
 
 			Assert.AreEqual(1, ocurrencias);
 		}

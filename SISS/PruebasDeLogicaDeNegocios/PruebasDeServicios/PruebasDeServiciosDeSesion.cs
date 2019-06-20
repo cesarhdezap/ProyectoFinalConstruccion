@@ -10,9 +10,8 @@ namespace Pruebas.PruebasDeServicios
     {
         [DataTestMethod]
         [DataRow("cesarhdez@gmail.com", "s17012947", TipoDeSesion.Alumno)]
-        [DataRow("raul@correo.com", "1", TipoDeSesion.Director)]
-        [DataRow("julio@correo.com", "1", TipoDeSesion.Coordinador)]
-        [DataRow("joseph@correo.com", "4",TipoDeSesion.Tecnico)]
+        [DataRow("juanj@correo.com", "2", TipoDeSesion.Director)]
+        [DataRow("coordinadorDePrueba@correo.com", "8", TipoDeSesion.Coordinador)]
         public void ProbarCargarSesion_Limites_RegresaSesion(string correo, string IDEsperada, TipoDeSesion tipoDeSesionEsperada)
         {
             Sesion sesionActual = new Sesion();

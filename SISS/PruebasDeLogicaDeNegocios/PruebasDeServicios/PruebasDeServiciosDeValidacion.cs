@@ -46,12 +46,12 @@ namespace Pruebas.PruebasDeServicios
         {
             Assert.IsTrue(ValidarNombre(Nombre));
         }
-        [DataRow("z17012931")]
-        [DataRow("z17012932")]
-        [DataRow("z12345678")]
-        [DataRow("z15345589")]
-        [DataRow("z16548739")]
-        [DataRow("z17013831")]
+        [DataRow("s17012931")]
+        [DataRow("s17012932")]
+        [DataRow("s12345678")]
+        [DataRow("s15345589")]
+        [DataRow("s16548739")]
+        [DataRow("s17013831")]
         [DataTestMethod]
         public void ProbarValidarMatriculaValida_RegresaValido(string Matricula)
         {
@@ -122,16 +122,16 @@ namespace Pruebas.PruebasDeServicios
         {
             Assert.IsTrue(ValidarNombre(Nombre));
         }
-        [DataRow("z00000000")]
-        [DataRow("z11111111")]
-        [DataRow("z22222222")]
-        [DataRow("z33333333")]
-        [DataRow("z44444444")]
-        [DataRow("z55555555")]
-        [DataRow("z66666666")]
-        [DataRow("z77777777")]
-        [DataRow("z88888888")]
-        [DataRow("z99999999")]
+        [DataRow("s00000000")]
+        [DataRow("s11111111")]
+        [DataRow("s22222222")]
+        [DataRow("s33333333")]
+        [DataRow("s44444444")]
+        [DataRow("s55555555")]
+        [DataRow("s66666666")]
+        [DataRow("s77777777")]
+        [DataRow("s88888888")]
+        [DataRow("s99999999")]
         [DataTestMethod]
         public void ProbarValidarMatriculaDatosAlBorde_RegresaValido(string Matricula)
         {
@@ -180,11 +180,7 @@ namespace Pruebas.PruebasDeServicios
 
         [DataTestMethod]
         [DataRow("cesarhdez@gmail.com")]
-        [DataRow("chema@gmail.com")]
-        [DataRow("joseph@correo.com")]
-        [DataRow("julio@correo.com")]
-        [DataRow("raul@correo.com")]
-
+        [DataRow("juanj@correo.com")]
         public void ProbarValidarExistenciaDeCorreo_CorreoExistente_RegresaFalse(string correo)
         {
             bool resultadoDeValidacion;
