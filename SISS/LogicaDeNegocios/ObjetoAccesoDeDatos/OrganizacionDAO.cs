@@ -5,7 +5,6 @@ using LogicaDeNegocios.Interfaces;
 using LogicaDeNegocios.Excepciones;
 using AccesoABaseDeDatos;
 using System.Data.SqlClient;
-using System.Linq;
 using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
@@ -29,8 +28,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al Actualizar Organizacion Por IDOrganizacion: " + IDOrganizacion + ". IDOrganizacion no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
+
             SqlParameter[] parametrosDeOrganizacion = InicializarParametrosDeSql(organizacion);
             int filasAfectadas = 0;
+
             try
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeOrganizacion.ACTUALIZAR_ORGANIZACION_POR_ID, parametrosDeOrganizacion);
@@ -39,6 +40,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, organizacion);
 			}
+
 			if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("La Organizacion con IDOrganizacion: " + IDOrganizacion + " no existe.", TipoDeErrorDeAccesoADatos.ObjetoNoExiste);
@@ -53,6 +55,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		public List<Organizacion> CargarOrganizacionesTodas()
         {
             DataTable tablaDeOrganizaciones = new DataTable();
+
             try
             {
                 tablaDeOrganizaciones = AccesoADatos.EjecutarSelect(QuerysDeOrganizacion.CARGAR_ORGANIZACIONES_TODAS);
@@ -61,7 +64,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
 			}
+
 			List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
+
             try
             {
                 listaDeOrganizaciones = ConvertirDataTableAListaDeOrganizaciones(tablaDeOrganizaciones);
@@ -82,15 +87,19 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		public List<Organizacion> CargarIDYNombreDeOrganizaciones()
         {
             DataTable tablaDeOrganizaciones = new DataTable();
+
             try
             {
                 tablaDeOrganizaciones = AccesoADatos.EjecutarSelect(QuerysDeOrganizacion.CARGAR_ID_Y_NOMBRE_DE_ORGANIZACIONES);
             }
+
 			catch (SqlException e)
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
 			}
+
 			List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
+
             try
             {
                 listaDeOrganizaciones = ConvertirDataTableAListaDeOrganizacionesConIDYNombre(tablaDeOrganizaciones);
@@ -113,6 +122,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             DataTable tablaDeOrganizacion = new DataTable();
             SqlParameter[] parametroIDOrganizacion = new SqlParameter[1];
+
             parametroIDOrganizacion[0] = new SqlParameter
             {
                 ParameterName = "@IDOrganizacion",
@@ -129,6 +139,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			Organizacion organizacion = new Organizacion();
+
             try
             {
                 organizacion = ConvertirDataTableAOrganizacion(tablaDeOrganizacion);
@@ -137,6 +148,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al convertir datatable a Organizacion en cargar Organizacion con IDOrganizacion: " + IDOrganizacion, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
+
             return organizacion;
         }
 
@@ -152,13 +164,16 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al  Cargar IDOrganizacion Por IDEncargado: " + IDEncargado + ". IDEncargado no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
+
             DataTable tablaDeOrganizacion = new DataTable();
             SqlParameter[] parametroIDEncargado = new SqlParameter[1];
+
             parametroIDEncargado[0] = new SqlParameter
             {
                 ParameterName = "@IDEncargado",
                 Value = IDEncargado
             };
+
             try
             {
                 tablaDeOrganizacion = AccesoADatos.EjecutarSelect(QuerysDeOrganizacion.CARGAR_ID_POR_IDENCARGADO, parametroIDEncargado);
@@ -167,7 +182,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDEncargado);
 			}
+
 			Organizacion organizacion = new Organizacion();
+
             try
             {
                 organizacion = ConvertirDataTableAOrganizacionConSoloID(tablaDeOrganizacion);
@@ -176,6 +193,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al convertir datatable a Organizacion en Cargar IDOrganizacion Por IDEncargado: " + IDEncargado, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
+
             return organizacion;
         }
 
@@ -189,7 +207,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             EncargadoDAO encargadoDAO = new EncargadoDAO();
             List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
-            foreach (DataRow fila in tablaDeOrganizaciones.Rows) {
+
+            foreach (DataRow fila in tablaDeOrganizaciones.Rows)
+			{
                 Organizacion organizacion = new Organizacion
                 {
                     IDOrganizacion = (int)fila["IDOrganizacion"],
@@ -199,8 +219,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                     Nombre = fila["Nombre"].ToString(),
                     Encargados = encargadoDAO.CargarIDsPorIDOrganizacion((int)fila["IDOrganizacion"])
                 };
+
                 listaDeOrganizaciones.Add(organizacion);
             }
+
             return listaDeOrganizaciones;
         }
 
@@ -214,6 +236,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             EncargadoDAO encargadoDAO = new EncargadoDAO();
             Organizacion organizacion = new Organizacion();
+
             foreach (DataRow fila in tablaDeOrganizacion.Rows)
             {
 
@@ -224,6 +247,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 organizacion.Nombre = fila["Nombre"].ToString();
                 organizacion.Encargados = encargadoDAO.CargarIDsPorIDOrganizacion((int)fila["IDOrganizacion"]);
             }
+
             return organizacion;
         }
 
@@ -237,12 +261,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             EncargadoDAO encargadoDAO = new EncargadoDAO();
             Organizacion organizacion = new Organizacion();
+
             foreach (DataRow fila in tablaDeOrganizacion.Rows)
             {
 
                 organizacion.IDOrganizacion = (int)fila["IDOrganizacion"];
-
             }
+
             return organizacion;
         }
 
@@ -255,6 +280,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		private List<Organizacion> ConvertirDataTableAListaDeOrganizacionesConIDYNombre(DataTable tablaDeOrganizaciones)
         {
             List<Organizacion> listaDeOrganizaciones = new List<Organizacion>();
+
             foreach (DataRow fila in tablaDeOrganizaciones.Rows)
             {
                 Organizacion organizacion = new Organizacion
@@ -262,6 +288,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                     IDOrganizacion = (int)fila["IDOrganizacion"],
                     Nombre = fila["Nombre"].ToString(),
                 };
+
                 listaDeOrganizaciones.Add(organizacion);
             }
 
@@ -277,6 +304,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             SqlParameter[] parametrosDeOrganizacion = InicializarParametrosDeSql(organizacion);
             int filasAfectadas = 0;
+
             try
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeOrganizacion.GUARDAR_ORGANIZACION, parametrosDeOrganizacion);
@@ -285,6 +313,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, organizacion);
 			}
+
 			if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("Organizacion: " + organizacion.ToString() + "no fue guardada.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
@@ -304,6 +333,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 parametrosDeOrganizacion[i] = new SqlParameter();
             }
+
             parametrosDeOrganizacion[0].ParameterName = "@NombreOrganizacion";
             parametrosDeOrganizacion[0].Value = organizacion.Nombre;
             parametrosDeOrganizacion[1].ParameterName = "@CorreoElectronicoOrganizacion";

@@ -1,22 +1,22 @@
 ﻿using System;
-using System.Windows.Media.Imaging;
 using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace LogicaDeNegocios.Servicios
 {
-    /// <summary>
-    /// Clase de utilidad para procesar imagenes.
-    /// Contiene la conversión de una dirección y un arreglo de Bytes a BitmapImage
-    /// y la conversión de BitMapImage a arreglo de Bytes
-    /// </summary>
-    public static class ServiciosDeManejoDeImagenes
+	/// <summary>
+	/// Clase de utilidad para procesar imagenes.
+	/// Contiene la conversión de una dirección y un arreglo de Bytes a BitmapImage
+	/// y la conversión de BitMapImage a arreglo de Bytes
+	/// </summary>
+	public static class ServiciosDeManejoDeImagenes
     {
         /// <summary>
         /// Convierte <paramref name="datosDeImagen"/> con una imagen a un objeto BitMapImage.
         /// </summary>
         /// <param name="datosDeImagen">Datos de la imagen en arreglo de Byte.</param>
         /// <returns>BitmapImage con los datos de <paramref name="datosDeImagen"/></returns>
-        public static BitmapImage ConvertirArregloDeBytesAImagen(Byte[] datosDeImagen)
+        public static BitmapImage ConvertirArregloDeBytesAImagen(byte[] datosDeImagen)
         {
             using (MemoryStream memoryStream = new MemoryStream(datosDeImagen))
             {
@@ -39,11 +39,13 @@ namespace LogicaDeNegocios.Servicios
             byte[] datosDeimagen;
             JpegBitmapEncoder jpegBitmapEncoder = new JpegBitmapEncoder();
             jpegBitmapEncoder.Frames.Add(BitmapFrame.Create(imagen));
+
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 jpegBitmapEncoder.Save(memoryStream);
                 datosDeimagen = memoryStream.ToArray();
             }
+
             return datosDeimagen;
         }
 
@@ -55,6 +57,7 @@ namespace LogicaDeNegocios.Servicios
         public static BitmapImage CargarImagenPorDireccion(string direccion)
         {
             BitmapImage imagen = new BitmapImage();
+
             try
             {
 				imagen.BeginInit();

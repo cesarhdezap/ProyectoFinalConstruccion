@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AccesoABaseDeDatos;
 using System.Data;
 using System.Data.SqlClient;
 
 namespace Pruebas
 {
-    [TestClass]
+	[TestClass]
     public class PruebasDeAccesoADatos
     {
         [DataTestMethod]
@@ -52,7 +51,7 @@ namespace Pruebas
             parametros[0].ParameterName = "@Matricula";
             parametros[0].Value = matricula;
             
-            string matriculaActual = String.Empty;
+            string matriculaActual = string.Empty;
 
 
             tablaAlumnosActual = AccesoADatos.EjecutarSelect(consulta, parametros);

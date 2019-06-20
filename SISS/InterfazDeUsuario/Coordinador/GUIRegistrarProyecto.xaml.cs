@@ -1,7 +1,6 @@
 ﻿using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetosAdministrador;
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,7 +11,7 @@ using System.Collections.Generic;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
 {
-    public partial class GUIRegistrarProyecto : Window
+	public partial class GUIRegistrarProyecto : Window
     {
         private AdministradorDeOrganizaciones AdministradorDeOrganizaciones { get; set; }
         private AdministradorDeEncargados AdministradorDeEncargados { get; set; }
@@ -70,7 +69,6 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				Nombre = TextBoxNombre.Text,
 				ObjetivoGeneral = TextBoxObjetivoGeneral.Text,
 				DescripcionGeneral = TextBoxDescripcionGeneral.Text,
-
 			};
 
 			proyecto.Encargado = ComboBoxEncargadoAsociado.SelectedItem as Encargado;

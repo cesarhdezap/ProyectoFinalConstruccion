@@ -35,7 +35,7 @@ namespace LogicaDeNegocios.ClasesDominio
 		}
 
         /// <summary>
-        /// 
+        /// Actualiza la información de la <see cref="Imagen"/> en la base de datos.
         /// </summary>
 		public void Actualizar()
 		{

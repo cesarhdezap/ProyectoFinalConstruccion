@@ -1,13 +1,10 @@
 ﻿using LogicaDeNegocios;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using LogicaDeNegocios.Excepciones;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
 namespace InterfazDeUsuario
 {
@@ -18,21 +15,18 @@ namespace InterfazDeUsuario
 			DocenteAcademico docenteAcademico = new DocenteAcademico();
 			DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
 			string cadenaResultado = string.Empty;
+
 			try
 			{
 				docenteAcademico = docenteAcademicoDAO.CargarDocenteAcademicoPorIDPersonal((int)IDPersonal);
-
 				cadenaResultado = "- ID Personal: " + docenteAcademico.IDPersonal + System.Environment.NewLine +
 								  "- Carrera: " + docenteAcademico.Carrera + System.Environment.NewLine +
 								  "- Correo Electrónico: " + docenteAcademico.CorreoElectronico + System.Environment.NewLine +
 								  "- Teléfono: " + docenteAcademico.Telefono;
-
 			}
 			catch (AccesoADatosException e)
 			{
-				MensajeDeErrorParaMessageBox mensaje;
-				mensaje = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(e);
-				cadenaResultado = mensaje.Mensaje;
+				MostrarMessageBoxDeExcepcion(e);
 			}
 
 			return cadenaResultado;

@@ -1,5 +1,4 @@
 ﻿using LogicaDeNegocios.ClasesDominio;
-using System;
 using System.Windows;
 using System.Windows.Input;
 using LogicaDeNegocios;
@@ -10,7 +9,7 @@ using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
 namespace InterfazDeUsuario.GUITipoDeSesion
 {
-    public partial class GUITecnicoAcademico : Window
+	public partial class GUITecnicoAcademico : Window
     {
         private DocenteAcademico TecnicoAdministrativo { get; set; }
 
@@ -23,7 +22,7 @@ namespace InterfazDeUsuario.GUITipoDeSesion
             
 			try
 			{
-                TecnicoAdministrativo = docenteAcademicoDAO.CargarDocenteAcademicoPorIDPersonal(Int32.Parse(sesion.IDUsuario));
+                TecnicoAdministrativo = docenteAcademicoDAO.CargarDocenteAcademicoPorIDPersonal(int.Parse(sesion.IDUsuario));
 			}
 			catch (AccesoADatosException ex)
 			{

@@ -1,10 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using LogicaDeNegocios.ClasesDominio;
 using LogicaDeNegocios;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.ObjetosAdministrador;
 using LogicaDeNegocios.Excepciones;
 using System.Collections.Generic;
@@ -16,6 +14,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
 	{
 		private Director Director { get; set; }
 		private AdministradorDeDocentesAcademicos AdministradorDeDocentesAcademicos { get; set; }
+
         public GUIBuscarCoordinador(Director director)
         {
             InitializeComponent();
@@ -65,6 +64,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
 				{
 					return coordinador.Nombre.Contains(TextBoxBuscarCoordinadorPorNombre.Text);
 				});
+
 				DataGridCoordinadores.ItemsSource = coordinadoresFiltrados;
 			}
 		}

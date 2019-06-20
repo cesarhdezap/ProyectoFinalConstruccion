@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.Querys;
 
@@ -31,6 +30,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             SqlParameter[] parametrosDeDocenteAcademico = InicializarParametrosDeSql(docenteAcademico);
 			int filasAfectadas = 0;
+
             try
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeDocenteAcademico.ACTUALIZAR_DOCENTE_ACADEMICO_POR_IDPERSONAL, parametrosDeDocenteAcademico);
@@ -56,6 +56,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             DataTable tablaDeDocenteAcademico = new DataTable();
             SqlParameter[] parametroCarrera = new SqlParameter[1];
+
             parametroCarrera[0] = new SqlParameter
             {
                 ParameterName = "@Carrera",
@@ -72,6 +73,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			DocenteAcademico docenteAcademico = new DocenteAcademico();
+
             try
             {
                 docenteAcademico = ConvertirDataTableADocenteAcademicoConSoloID(tablaDeDocenteAcademico);
@@ -80,6 +82,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al convertir datatable a DocenteAcademico en cargar IDPersonal con Carrera: " + carrera, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
+
             return docenteAcademico;
         }
 
@@ -94,11 +97,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             DataTable tablaDeID = new DataTable();
             SqlParameter[] parametros = new SqlParameter[2];
+
             parametros[0] = new SqlParameter
             {
                 ParameterName = "@CorreoElectronico",
                 Value = correoElectronico
             };
+
             parametros[1] = new SqlParameter
             {
                 ParameterName = "@Rol",
@@ -115,6 +120,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			string IDUsuario = string.Empty;
+
             try
             {
                 IDUsuario = ConvertirDataTableADocenteAcademicoConSoloID(tablaDeID).IDPersonal.ToString();
@@ -123,6 +129,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al convertir datatable a DocenteAcademico en cargar ID por CorreoElectronico: " + correoElectronico, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
+
             return IDUsuario;
         }
 
@@ -134,7 +141,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		/// <exception cref="AccesoADatosException">Tira esta excepcion si el cliente de SQL tiro una excepción.</exception>
 		public DocenteAcademico CargarDocenteAcademicoPorIDPersonal(int IDPersonal)
         {
-
             if (IDPersonal <= 0)
             {
                 throw new AccesoADatosException("Error al cargar DocenteAcademico Por IDpersonal: " + IDPersonal + ". IDpersonal no es valido.");
@@ -142,6 +148,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             DataTable tablaDeDocenteAcademico = new DataTable();
             SqlParameter[] parametroIDPersonal = new SqlParameter[1];
+
             parametroIDPersonal[0] = new SqlParameter
             {
                 ParameterName = "@IDPersonal",
@@ -158,6 +165,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			DocenteAcademico docenteAcademico = new DocenteAcademico();
+
             try
             {
                 docenteAcademico = ConvertirDataTableADocenteAcademico(tablaDeDocenteAcademico);
@@ -166,6 +174,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al convertir datatable a DocenteAcademico en cargar DocenteAcademico por IDPersonal: " + IDPersonal, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
+
             return docenteAcademico;
         }
 
@@ -184,6 +193,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             DataTable tablaDeDocenteAcademico = new DataTable();
             SqlParameter[] parametroIDDocumento = new SqlParameter[1];
+
             parametroIDDocumento[0] = new SqlParameter
             {
                 ParameterName = "@IDDocumento",
@@ -200,6 +210,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			DocenteAcademico docenteAcademico = new DocenteAcademico();
+
             try
             {
                 docenteAcademico = ConvertirDataTableADocenteAcademicoConSoloID(tablaDeDocenteAcademico);
@@ -208,6 +219,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al convertir datatable a DocenteAcademico en cargar IDPersonal con IDDcumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
+
             return docenteAcademico;
         }
 
@@ -221,6 +233,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             DataTable tablaDeDocenteAcademico = new DataTable();
             SqlParameter[] parametroEsActivo = new SqlParameter[1];
+
             parametroEsActivo[0] = new SqlParameter
             {
                 ParameterName = "@EsActivo",
@@ -237,6 +250,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			List<DocenteAcademico> listaDeDocentesAcademicos = new List<DocenteAcademico>();
+
             try
             {
                 listaDeDocentesAcademicos = ConvertirDataTableAListaDeDocentesAcademicos(tablaDeDocenteAcademico);
@@ -245,6 +259,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al convertir data table a lista de DocentesAcademicos en cargar DocentesAcademicos por estado isActivo: " + esActivo.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
+
             return listaDeDocentesAcademicos;
         }
 
@@ -258,6 +273,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             DataTable tablaDeDocenteAcademico = new DataTable();
             SqlParameter[] parametroRol = new SqlParameter[1];
+
             parametroRol[0] = new SqlParameter
             {
                 ParameterName = "@Rol",
@@ -274,6 +290,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			List<DocenteAcademico> listaDeDocentesAcademicos = new List<DocenteAcademico>();
+
             try
             {
                 listaDeDocentesAcademicos = ConvertirDataTableAListaDeDocentesAcademicos(tablaDeDocenteAcademico);
@@ -282,6 +299,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al convertir datatable a lista de DocentesAcademicos en cargar DocentesAcademicos por rol: " + rol.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
+
             return listaDeDocentesAcademicos;
         }
 
@@ -295,6 +313,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
             DocenteAcademico docenteAcademico = new DocenteAcademico();
+
             foreach (DataRow fila in tablaDocenteAcademico.Rows)
             {
                 docenteAcademico.IDPersonal = (int)fila["IDPersonal"];
@@ -316,6 +335,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 					docenteAcademico.Coordinador = null;
 				}
 			}
+
             return docenteAcademico;
         }
 
@@ -328,10 +348,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		private DocenteAcademico ConvertirDataTableADocenteAcademicoConSoloID(DataTable tablaDocenteAcademico)
         {
             DocenteAcademico docenteAcademico = new DocenteAcademico();
+
             foreach (DataRow fila in tablaDocenteAcademico.Rows)
             {
                 docenteAcademico.IDPersonal = (int)fila["IDPersonal"];
             }
+
             return docenteAcademico;
         }
 
@@ -346,6 +368,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
             List<DocenteAcademico> listaDeDocentesAcademicos = new List<DocenteAcademico>();
+
             foreach (DataRow fila in tablaDocenteAcademico.Rows)
             {
                 DocenteAcademico docenteAcademico = new DocenteAcademico
@@ -385,6 +408,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             SqlParameter[] parametrosDeDocenteAcademico = InicializarParametrosDeSql(docenteAcademico);
             int filasAfectadas = 0;
+
 			try
 			{
 				filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeDocenteAcademico.GUARDAR_DOCENTE_ACADEMICO, parametrosDeDocenteAcademico);

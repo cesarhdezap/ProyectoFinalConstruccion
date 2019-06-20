@@ -20,7 +20,6 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 		{
 			AlumnoDAO alumnoDAO = new AlumnoDAO();
             Alumnos = alumnoDAO.CargarAlumnosPorCarrera(carrera);
-
 			List<Alumno> alumnosFiltrados = new List<Alumno>();
 			alumnosFiltrados = Alumnos.FindAll(alumno => alumno.EstadoAlumno == estadoAlumno);
             Alumnos = null;

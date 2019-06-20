@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using LogicaDeNegocios.ObjetosAdministrador;
 using LogicaDeNegocios.Excepciones;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
@@ -10,10 +9,11 @@ using System.Collections.Generic;
 
 namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 {
-    public partial class GUIBuscarAlumnoPorTecnicoAcademico : Window
+	public partial class GUIBuscarAlumnoPorTecnicoAcademico : Window
     {
         private AdministradorDeAlumnos AdministradorDeAlumnos { get; set; }
         private DocenteAcademico TecnicoAdministrativo { get; set; }
+
         public GUIBuscarAlumnoPorTecnicoAcademico(DocenteAcademico tecnicoAdministrativo)
         {
 			Mouse.OverrideCursor = Cursors.Wait;

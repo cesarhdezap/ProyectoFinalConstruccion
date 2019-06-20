@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data;
-using static LogicaDeNegocios.Proyecto;
 
 namespace LogicaDeNegocios.Interfaces
 {

@@ -1,11 +1,10 @@
-﻿using System;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
+﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LogicaDeNegocios.ClasesDominio;
 
 namespace Pruebas.PruebasDAO
 {
-    [TestClass]
+	[TestClass]
     public class PruebasDirectorDAO
     {
         [DataTestMethod]

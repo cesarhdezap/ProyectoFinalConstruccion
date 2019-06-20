@@ -7,10 +7,10 @@ using System.Text;
 
 namespace LogicaDeNegocios.Servicios
 {
-    /// <summary>
-    /// Clase para autententicar credenciales.
-    /// Contiene los metodos para autenticar credenciales y encriptar contraseña.
-    /// </summary>
+	/// <summary>
+	/// Clase para autententicar credenciales.r
+	/// Contiene los metodos para autenticar credenciales y encriptar contraseña.
+	/// </summary>
 	public class ServiciosDeAutenticacion
     {
         /// <summary>
@@ -57,6 +57,7 @@ namespace LogicaDeNegocios.Servicios
             using (SHA256 hash = SHA256.Create())
             {
                 byte[] ContrasenaEncriptada = hash.ComputeHash(Encoding.UTF8.GetBytes(contraseña));
+
                 try
                 {
                     for (int indice = 0; indice < ContrasenaEncriptada.Length; indice++)

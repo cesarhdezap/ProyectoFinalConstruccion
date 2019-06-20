@@ -1,22 +1,19 @@
 ﻿using LogicaDeNegocios;
 using System.Windows;
-using System;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.ObjetosAdministrador;
 using LogicaDeNegocios.Excepciones;
 using System.Windows.Input;
 using System.Collections.Generic;
-using System.Windows.Media;
 using System.Windows.Controls;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
 {
-    /// <summary>
-    /// Interaction logic for ValidarAlumno.xaml
-    /// </summary>
-    public partial class GUIValidarAlumno : Window
+	/// <summary>
+	/// Interaction logic for ValidarAlumno.xaml
+	/// </summary>
+	public partial class GUIValidarAlumno : Window
     {
 		private AdministradorDeAlumnos AdministradorDeAlumnos { get; set; }
 		private DocenteAcademico Coordinador { get; set; }
@@ -91,6 +88,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				foreach (Alumno alumno in AlumnosSeleccionados)
 				{
 					Mouse.OverrideCursor = Cursors.Wait;
+
 					try
 					{
 						alumno.Aceptar();
@@ -111,6 +109,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				foreach (Alumno alumno in alumnosRechazados)
 				{
 					Mouse.OverrideCursor = Cursors.Wait;
+
 					try
 					{
 						alumno.Rechazar();
@@ -153,6 +152,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				{
 					return alumno.Nombre.Contains(TextBoxBuscarAlumno.Text);
 				});
+
 				DataGridAlumnos.ItemsSource = proyectosFiltrados;
 			}
 		}

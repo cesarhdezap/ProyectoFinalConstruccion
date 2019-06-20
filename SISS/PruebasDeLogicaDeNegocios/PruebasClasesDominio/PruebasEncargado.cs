@@ -1,10 +1,8 @@
-﻿using System;
-using LogicaDeNegocios;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Pruebas.PruebasClasesDominio
 {
-    [TestClass]
+	[TestClass]
     public class PruebasEncargado
     {
         //[TestMethod]

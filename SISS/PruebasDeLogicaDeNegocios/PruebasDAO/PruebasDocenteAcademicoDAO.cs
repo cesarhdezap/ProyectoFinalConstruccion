@@ -1,12 +1,11 @@
-﻿using System;
-using LogicaDeNegocios;
+﻿using LogicaDeNegocios;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LogicaDeNegocios.ClasesDominio;
 
 namespace Pruebas.PruebasDAO
 {
-    [TestClass]
+	[TestClass]
     public class PruebasDocenteAcademicoDAO
     {
         [TestMethod]

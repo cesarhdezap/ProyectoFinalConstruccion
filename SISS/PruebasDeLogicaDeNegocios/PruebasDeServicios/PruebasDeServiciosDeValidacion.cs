@@ -1,14 +1,10 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
-using LogicaDeNegocios.Servicios;
 
 namespace Pruebas.PruebasDeServicios
 {
 
-    [TestClass]
+	[TestClass]
     public class PruebasDeServiciosDeValidacion
     {
         [DataRow("Patchinster@Gmail.com")]

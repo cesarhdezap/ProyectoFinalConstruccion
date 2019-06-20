@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using LogicaDeNegocios.Servicios;
 using LogicaDeNegocios.Interfaces;
@@ -30,6 +26,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             SqlParameter[] parametrosDeImagen = InicializarParametrosDeSql(imagen);
             int filasAfectadas = 0;
+
             try
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeImagen.ACTUALIZAR_IMAGEN_POR_IDDOCUMENTO, parametrosDeImagen);
@@ -38,6 +35,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, imagen);
 			}
+
 			if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("La imagen con IDDocumento: " + imagen.IDDocumento + " no existe.", TipoDeErrorDeAccesoADatos.ObjetoNoExiste);
@@ -57,18 +55,22 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al cargar Imagen Por IDDocumento: " + IDDocumento + ". IDDocumento no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
+
             DataTable tablaDeImagen = new DataTable();
             SqlParameter[] parametrosDeDocumento = new SqlParameter[2];
+
             parametrosDeDocumento[0] = new SqlParameter
             {
                 ParameterName = "@IDDocumento",
                 Value = IDDocumento
             };
+
             parametrosDeDocumento[1] = new SqlParameter
             {
                 ParameterName = "@TipoDeDocumentoEnImagen",
                 Value = (int)tipoDeDocumentoEnImagen
             };
+
             try
             {
                 tablaDeImagen = AccesoADatos.EjecutarSelect(QuerysDeImagen.CARGAR_IMAGEN_POR_IDDOCUMENTO_Y_TIPO_DE_DOCUMENTO_EN_IMAGEN, parametrosDeDocumento);
@@ -77,7 +79,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDDocumento);
 			}
+
 			BitmapImage imagen = new BitmapImage();
+
             try
             {
                 imagen = ConvertirDataTableAImagen(tablaDeImagen);
@@ -99,6 +103,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             SqlParameter[] parametroIDDocumento = InicializarParametrosDeSql(imagen);
             int filasAfectadas = 0;
+
             try
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeImagen.GUARDAR_IMAGEN, parametroIDDocumento);
@@ -107,6 +112,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, imagen);
 			}
+
 			if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("Imagen con IDDocumento: " + imagen.IDDocumento + " no fue guardada.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
@@ -127,11 +133,20 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 ParameterName = "@IDDocumento",
                 Value = imagen.IDDocumento
             };
-            parametrosDeImagen[1] = new SqlParameter
-            {
-                ParameterName = "@DatosDeImagen",
-                Value = ServiciosDeManejoDeImagenes.ConvertirImagenAArregloDeBytes(ServiciosDeManejoDeImagenes.CargarImagenPorDireccion(imagen.DireccionDeImagen))
-            };
+
+			try
+			{
+				parametrosDeImagen[1] = new SqlParameter
+				{
+					ParameterName = "@DatosDeImagen",
+					Value = ServiciosDeManejoDeImagenes.ConvertirImagenAArregloDeBytes(ServiciosDeManejoDeImagenes.CargarImagenPorDireccion(imagen.DireccionDeImagen))
+				};
+			}
+			catch (FormatException e)
+			{
+				throw new AccesoADatosException(e.Message, e, TipoDeErrorDeAccesoADatos.ObjetoNoExiste);
+			}
+
             parametrosDeImagen[2] = new SqlParameter
             {
                 ParameterName = "@TipoDeDocumentoEnImagen",
@@ -150,10 +165,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		private BitmapImage ConvertirDataTableAImagen(DataTable tablaDeImagen)
         {
             BitmapImage imagen = new BitmapImage();
+
             foreach (DataRow fila in tablaDeImagen.Rows)
             {
                 imagen = ServiciosDeManejoDeImagenes.ConvertirArregloDeBytesAImagen((byte[])fila["DatosDeImagen"]);
             }
+
             return imagen;
         }
     }

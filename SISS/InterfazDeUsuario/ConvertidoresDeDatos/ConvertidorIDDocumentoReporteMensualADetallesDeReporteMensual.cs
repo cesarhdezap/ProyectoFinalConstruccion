@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using LogicaDeNegocios;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
 namespace InterfazDeUsuario
 {
-    class ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual : IValueConverter
+	class ConvertidorIDDocumentoReporteMensualADetallesDeReporteMensual : IValueConverter
     {
         public object Convert(object IDDocumento, Type targetType, object parameter, CultureInfo culture)
         {
@@ -29,9 +26,7 @@ namespace InterfazDeUsuario
 			}
 			catch (AccesoADatosException e)
 			{
-				MensajeDeErrorParaMessageBox mensaje;
-				mensaje = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(e);
-				cadenaResultado = mensaje.Mensaje;
+				MostrarMessageBoxDeExcepcion(e);
 			}
 
 			return cadenaResultado;

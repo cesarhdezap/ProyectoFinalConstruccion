@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Data;
-using System.Collections.Generic;
 using LogicaDeNegocios.Interfaces;
 using LogicaDeNegocios.Excepciones;
 using System.Data.SqlClient;
 using AccesoABaseDeDatos;
-using System.Linq;
 using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
@@ -24,8 +22,10 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al Cargar Solicitud Por IDSolicitud: " + IDSolicitud + ". IDSolicitud no es valido.", TipoDeErrorDeAccesoADatos.IDInvalida);
             }
+
             DataTable tablaDeMatricula = new DataTable();
             SqlParameter[] parametroIDSolicitud = new SqlParameter[1];
+
             parametroIDSolicitud[0] = new SqlParameter
             {
                 ParameterName = "@IDSolicitud",
@@ -40,7 +40,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDSolicitud);
 			}
+
 			Solicitud solicitud = new Solicitud();
+
             try
             {
                 solicitud = ConvertirDataTableASolicutud(tablaDeMatricula);
@@ -49,6 +51,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al convertir datatable a Solicitud en cargar Solicitud con IDSolicitud: " + IDSolicitud, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
+
             return solicitud;
         }
 
@@ -62,12 +65,14 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		{
             ProyectoDAO proyectoDAO = new ProyectoDAO();
             Solicitud solicitud = new Solicitud();
+
             foreach (DataRow fila in tablaDeSolicitud.Rows)
             {
                 solicitud.IDSolicitud = (int)fila["IDSolicitud"];
                 solicitud.Fecha = (DateTime)fila["Fecha"];
                 solicitud.Proyectos = proyectoDAO.CargarIDsPorIDSolicitud((int)fila["IDSolicitud"]);
             }
+
             return solicitud;
         }
 
@@ -81,10 +86,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             ProyectoDAO proyectoDAO = new ProyectoDAO();
             Solicitud solicitud = new Solicitud();
+
             foreach (DataRow fila in tablaDeSolicitud.Rows)
             {
                 solicitud.IDSolicitud = (int)fila["IDSolicitud"];
             }
+
             return solicitud;
         }
 
@@ -97,6 +104,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             SqlParameter[] parametrosDeSolicitud = InicializarParametrosDeSql(solicitud);
             int filasAfectadas = 0;
+
             try
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeSolicitud.GUARDAR_SOLICITUD, parametrosDeSolicitud);
@@ -105,15 +113,18 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, solicitud);
 			}
+
 			if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("Solicitud: " + solicitud.ToString() + " no fue guardada.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
             }
+
             foreach (Proyecto proyecto in solicitud.Proyectos)
             {
                 parametrosDeSolicitud = InicializarParametrosDeSql(solicitud);
                 parametrosDeSolicitud[2].Value = ObtenerUltimoIDInsertado();
                 parametrosDeSolicitud[3].Value = proyecto.IDProyecto;
+
                 try
                 {
                    filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeSolicitud.GUARDAR_RELACION_SOLICITUD_PROYECTO, parametrosDeSolicitud);
@@ -122,6 +133,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 				{
 					EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, proyecto);
 				}
+
 				if (filasAfectadas <= 0)
                 {
                     throw new AccesoADatosException("Relacion Solicitud - Proyecto: " + solicitud.ToString() + proyecto.ToString() + " no fue guardada.",TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
@@ -137,6 +149,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		private static SqlParameter[] InicializarParametrosDeSql(Solicitud solicitud)
         {
             SqlParameter[] parametrosDeSolicitud = new SqlParameter[4];
+
             for (int i = 0; i < parametrosDeSolicitud.Length; i++)
             {
                 parametrosDeSolicitud[i] = new SqlParameter();
@@ -164,6 +177,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		{
 			DataTable tablaDeSolicitud = new DataTable();
 			SqlParameter[] parametroMatricula = new SqlParameter[1];
+
 			parametroMatricula[0] = new SqlParameter
 			{
 				ParameterName = "@MatriculaAlumno",
@@ -178,7 +192,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, matriculaAlumno);
 			}
+
 			Solicitud solicitud = new Solicitud();
+
 			if (tablaDeSolicitud.Rows.Count > 0)
 			{
 				try
@@ -194,6 +210,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				solicitud = null;
 			}
+
 			return solicitud;
 		}
 
@@ -206,6 +223,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		public int ObtenerUltimoIDInsertado()
         {
             int ultimoIDInsertado = 0;
+
             try
             {
                 ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar(QuerysDeSolicitud.OBTENER_ULTIMO_ID_INSERTADO);
@@ -214,6 +232,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
 			}
+
 			return ultimoIDInsertado;
         }
     }

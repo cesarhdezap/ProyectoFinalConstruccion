@@ -4,13 +4,12 @@ using System.Windows.Input;
 using LogicaDeNegocios;
 using LogicaDeNegocios.ClasesDominio;
 using LogicaDeNegocios.Excepciones;
-using Microsoft.Win32;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
 namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 {
-    public partial class GUICapturarOtroDocumento : Window
+	public partial class GUICapturarOtroDocumento : Window
     {
 		private Asignacion Asignacion { get; set; }
 		private Imagen Imagen { get; set; }
@@ -91,10 +90,12 @@ namespace InterfazDeUsuario.GUIsDeTecnicoAcademico
 		private bool ComprobarTipoDeDocumento(DocumentoDeEntregaUnica documentoDeEntregaUnica)
 		{
 			bool resultado = true;
+
 			if (documentoDeEntregaUnica.TipoDeDocumento == (TipoDeDocumento)ComboBoxTipoDeDocumento.SelectedIndex)
 			{
 				resultado = false;
 			}
+
 			return resultado;
 		}
 	}
