@@ -129,6 +129,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             Director director = new Director();
             foreach (DataRow fila in tablaDirector.Rows)
             {
+                director.IDPersonal = (int)fila["IDPersonal"];
                 director.Nombre = fila["Nombre"].ToString();
                 director.CorreoElectronico = fila["CorreoElectronico"].ToString();
             }

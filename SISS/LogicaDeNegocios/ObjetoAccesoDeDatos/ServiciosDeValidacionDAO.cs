@@ -1,13 +1,7 @@
 using AccesoABaseDeDatos;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
