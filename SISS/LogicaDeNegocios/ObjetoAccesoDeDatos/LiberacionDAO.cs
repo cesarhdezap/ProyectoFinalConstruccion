@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using LogicaDeNegocios.Interfaces;
@@ -25,11 +24,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
             Liberacion liberacion = new Liberacion();
+
             foreach (DataRow fila in tablaDeLiberacion.Rows)
             {
                 liberacion.IDLiberacion = (int)fila["IDLiberacion"];
                 liberacion.Fecha = DateTime.Parse(fila["Fecha"].ToString());
             }
+
             return liberacion;
         }
 
@@ -42,6 +43,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             SqlParameter[] parametrosDeLiberacion = InicializarParametrosDeSql(liberacion);
             int filasAfectadas = 0;
+
             try
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeLiberacion.GUARDAR_LIBERACION, parametrosDeLiberacion);
@@ -50,6 +52,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, liberacion);
 			}
+
 			if (filasAfectadas <= 0)
             {
                 throw new AccesoADatosException("Liberacion: " + liberacion.ToString() + "no fue guardada.", TipoDeErrorDeAccesoADatos.ErrorAlGuardarObjeto);
@@ -66,6 +69,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         {
             DataTable tablaDeLiberacion = new DataTable();
             SqlParameter[] parametroIDLiberacion = new SqlParameter[1];
+
             parametroIDLiberacion[0] = new SqlParameter
             {
                 ParameterName = "@IDLiberacion",
@@ -80,7 +84,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, IDLiberacion);
 			}
+
 			Liberacion liberacion = new Liberacion();
+
             try
             {
                 liberacion = ConvertirDataTableALiberacion(tablaDeLiberacion);
@@ -126,6 +132,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		public int ObtenerUltimoIDInsertado()
 		{
 			int ultimoIDInsertado = 0;
+
 			try
 			{
 				ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar(QuerysDeLiberacion.OBTENER_ULTIMO_ID_INSERTADO);
@@ -134,6 +141,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e);
 			}
+
 			return ultimoIDInsertado;
 		}
     }

@@ -1,7 +1,6 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System.Collections.Generic;
 
-
 namespace LogicaDeNegocios.ObjetosAdministrador
 {
     /// <summary>

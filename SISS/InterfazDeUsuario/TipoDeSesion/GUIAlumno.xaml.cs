@@ -12,6 +12,7 @@ namespace InterfazDeUsuario.GUITipoDeSesion
     public partial class GUIAlumno : Window
     {
         private Alumno Alumno { get; set; }
+
         public GUIAlumno(Sesion sesion)
         {
 			Mouse.OverrideCursor = Cursors.Wait;

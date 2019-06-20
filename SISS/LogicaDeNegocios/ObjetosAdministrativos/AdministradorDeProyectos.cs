@@ -1,15 +1,13 @@
-using System;
 using System.Collections.Generic;
-using LogicaDeNegocios;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 
 namespace LogicaDeNegocios.ObjetosAdministrador
 {
-    /// <summary>
-    /// Clase administradora de proyectos dentro de una lista en el objeto.
-    /// Contiene los métodos para cargar todos los proyectos, cargarlos por estado
-    /// y obtener solo sus nombres.
-    /// </summary>
+	/// <summary>
+	/// Clase administradora de proyectos dentro de una lista en el objeto.
+	/// Contiene los métodos para cargar todos los proyectos, cargarlos por estado
+	/// y obtener solo sus nombres.
+	/// </summary>
 	public class AdministradorDeProyectos
     {
         public List<Proyecto> Proyectos { get; set; }
@@ -42,10 +40,12 @@ namespace LogicaDeNegocios.ObjetosAdministrador
 		public List<string> ObtenerNombresDeProyectos()
 		{
 			List<string> listaDeNombres = new List<string>();
+
 			foreach (Proyecto proyecto in Proyectos)
 			{
 				listaDeNombres.Add(proyecto.Nombre);
 			}
+
 			return listaDeNombres;
 		}
     }

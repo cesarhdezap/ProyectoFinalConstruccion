@@ -1,22 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using LogicaDeNegocios;
-using LogicaDeNegocios.ClasesDominio;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.ObjetosAdministrador;
 using LogicaDeNegocios.Excepciones;
-using InterfazDeUsuario.Utilerias;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
@@ -65,6 +55,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				{
 					Alumno = alumno
 				};
+
 				Asignaciones.Add(asignacion);
 			}
 

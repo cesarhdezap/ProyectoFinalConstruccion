@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicaDeNegocios.Excepciones
 {
-    public class AccesoADatosException : Exception
+	public class AccesoADatosException : Exception
     {
         public TipoDeErrorDeAccesoADatos TipoDeError { get; } = TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos;
         

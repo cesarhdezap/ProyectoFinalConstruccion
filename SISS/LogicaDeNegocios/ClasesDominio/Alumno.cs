@@ -59,6 +59,7 @@ namespace LogicaDeNegocios
         public bool Validar()
         {
             bool resultadoDeValidacion = false;
+
             if (ValidarContraseña(Contraseña) 
                 && ValidarCorreoElectronico(CorreoElectronico) 
                 && ValidarMatricula(Matricula) 
@@ -119,8 +120,7 @@ namespace LogicaDeNegocios
         /// </summary>
         /// <returns>Cadena con los datos de los atributos.</returns>
         public override string ToString()
-        {
-            
+        {  
             string alumno = System.Environment.NewLine +
                             "Matricula: " + Matricula + System.Environment.NewLine +
                             "Nombre: " + Nombre + System.Environment.NewLine +
@@ -128,7 +128,6 @@ namespace LogicaDeNegocios
                             "Telefono: " + Telefono + System.Environment.NewLine +
                             "Estado: " + EstadoAlumno.ToString() + System.Environment.NewLine +
                             "Carrera" + Carrera;
-
             return alumno;
         }
 

@@ -1,15 +1,14 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
-using LogicaDeNegocios.ObjetosAdministrador;
 using System.Collections.Generic;
 using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace LogicaDeNegocios
 {
-    /// <summary>
-    /// Clase <see cref="Encargado"/>.
-    /// Contiene todos los métodos para la comunicación con la base de datos y
-    /// la administración de sus objeto atributo internos.
-    /// </summary>
+	/// <summary>
+	/// Clase <see cref="Encargado"/>.
+	/// Contiene todos los métodos para la comunicación con la base de datos y
+	/// la administración de sus objeto atributo internos.
+	/// </summary>
 	public class Encargado : Persona
 	{
 		public int IDEncargado { get; set; }
@@ -35,6 +34,7 @@ namespace LogicaDeNegocios
         public bool Validar()
         {
             bool resultadoDeValidacion = false;
+
             if (ValidarNombre(Nombre)
                 && ValidarCorreoElectronico(CorreoElectronico)
                 && ValidarTelefono(Telefono)

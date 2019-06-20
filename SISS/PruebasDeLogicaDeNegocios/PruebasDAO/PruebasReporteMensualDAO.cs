@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using LogicaDeNegocios;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Pruebas.PruebasDAO
 {
-    [TestClass]
+	[TestClass]
     public class PruebasReporteMensualDAO
     {
         [TestMethod]

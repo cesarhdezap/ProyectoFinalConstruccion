@@ -1,16 +1,16 @@
+using LogicaDeNegocios;
+using LogicaDeNegocios.ClasesDominio;
+using LogicaDeNegocios.Excepciones;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using LogicaDeNegocios.Excepciones;
-using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
-using LogicaDeNegocios;
-using System;
-using LogicaDeNegocios.ClasesDominio;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
 namespace InterfazDeUsuario.GUIsDeAlumno
 {
-    public partial class GUIRegistrarAlumno : Window
+	public partial class GUIRegistrarAlumno : Window
     {
         public GUIRegistrarAlumno()
         {
@@ -20,6 +20,7 @@ namespace InterfazDeUsuario.GUIsDeAlumno
 			{
 				ComboBoxCarrera.Items.Add(carrera).ToString();
 			}
+
 			ComboBoxCarrera.SelectedIndex = 0;
         }
 

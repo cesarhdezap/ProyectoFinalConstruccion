@@ -30,11 +30,11 @@
 				</DataTemplate>
 			</DataGrid.RowHeaderTemplate>
 			<DataGrid.Columns>
-				<DataGridTextColumn Header="Nombre de Alumno" IsReadOnly="True" Width="600" Binding="{Binding Nombre}"/>
+				<DataGridTextColumn Header="Nombre de Alumno" IsReadOnly="True" Width="800" Binding="{Binding Nombre}"/>
 				<DataGridTemplateColumn>
 					<DataGridTemplateColumn.CellTemplate>
 						<DataTemplate>
-							<Button Content="Ver Expediente" Click="BtnVerExpediente_Click"></Button>
+							<Button Content="Ver Expediente" Click="BtnVerExpediente_Click" Width="105"></Button>
 						</DataTemplate>
 					</DataGridTemplateColumn.CellTemplate>
 				</DataGridTemplateColumn>

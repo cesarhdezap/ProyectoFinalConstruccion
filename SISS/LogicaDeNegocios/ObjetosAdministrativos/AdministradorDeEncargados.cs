@@ -1,14 +1,13 @@
 ﻿using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using System.Collections.Generic;
-using static LogicaDeNegocios.Servicios.ServiciosDeValidacion;
 
 namespace LogicaDeNegocios.ObjetosAdministrador
 {
-    /// <summary>
-    /// Clase que administra encargados en una lista dentro del objeto.
-    /// Contiene métodos para cargar todos los encargados y cargar encargados por ID de Organizacion.
-    /// </summary>
-    public class AdministradorDeEncargados
+	/// <summary>
+	/// Clase que administra encargados en una lista dentro del objeto.
+	/// Contiene métodos para cargar todos los encargados y cargar encargados por ID de Organizacion.
+	/// </summary>
+	public class AdministradorDeEncargados
     {
         public List<Encargado> Encargados;
         
@@ -30,10 +29,12 @@ namespace LogicaDeNegocios.ObjetosAdministrador
         {
             List<Encargado> encargados = new List<Encargado>();
             CargarEncargadosTodos();
+
             if (Encargados.Count > 0)
             {
                 encargados = Encargados.FindAll(encargadoActual => encargadoActual.Organizacion.IDOrganizacion == IDOrganizacion);
             }
+
             return encargados;
         }
     }

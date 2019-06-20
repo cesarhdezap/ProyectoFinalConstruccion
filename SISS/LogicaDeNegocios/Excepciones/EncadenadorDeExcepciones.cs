@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using AccesoABaseDeDatos;
 
 namespace LogicaDeNegocios.Excepciones
@@ -21,7 +16,6 @@ namespace LogicaDeNegocios.Excepciones
 				throw new AccesoADatosException(e.Message + System.Environment.NewLine + "Objeto asociado: " + objetoAsociado.ToString(), e, TipoDeErrorDeAccesoADatos.InsercionFallidaPorLlavePrimariDuplicada);
 			}
 			else
-
 			{
 				throw new AccesoADatosException(e.Message + e.Number + System.Environment.NewLine + "Objeto asociado: " + objetoAsociado.ToString(), e, TipoDeErrorDeAccesoADatos.ErrorDesconocidoDeAccesoABaseDeDatos);
 			}

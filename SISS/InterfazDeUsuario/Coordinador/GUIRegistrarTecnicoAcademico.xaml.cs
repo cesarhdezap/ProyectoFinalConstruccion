@@ -20,10 +20,12 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
             InitializeComponent();
             Coordinador = coordinador;
 			LabelNombreDeUsuario.Content = Coordinador.Nombre;
+
 			foreach (var carrera in Enum.GetValues(typeof(Carrera)))
 			{
 				ComboBoxCarrera.Items.Add(carrera).ToString();
 			}
+
 			ComboBoxCarrera.SelectedIndex = 0;
 		}
 

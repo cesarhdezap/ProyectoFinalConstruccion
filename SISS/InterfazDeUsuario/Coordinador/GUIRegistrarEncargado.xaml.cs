@@ -12,6 +12,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
     {
         private AdministradorDeOrganizaciones AdministradorDeOrganizaciones { get; set; }
 		private DocenteAcademico Coordinador { get; set; }
+
         public GUIRegistrarEncargado(DocenteAcademico coordinador)
 		{
 			InitializeComponent();
@@ -56,6 +57,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 		private void ButtonAceptar_Click(object sender, RoutedEventArgs e)
         {
 			Mouse.OverrideCursor = Cursors.Wait;
+
 			Encargado encargado = new Encargado
 			{
 				Nombre = TextBoxNombre.Text,

@@ -1,6 +1,5 @@
 ﻿using LogicaDeNegocios.Interfaces;
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Data;
 using AccesoABaseDeDatos;
@@ -16,7 +15,6 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 	/// </summary>
 	public class AutenticacionDAO : IAutenticacionDAO
     {
-
 		/// <summary>
 		/// Carga la contraseña de un usuario dado su correo electrónico.
 		/// </summary>
@@ -26,11 +24,13 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		public string CargarContraseñaPorCorreo(string correoElectronico)
         {
             SqlParameter[] parametroCorreoElectronico = new SqlParameter[1];
+
             parametroCorreoElectronico[0] = new SqlParameter
             {
                 ParameterName = "@CorreoElectronico",
                 Value = correoElectronico
             };
+
             DataTable tablaDeContraseña = new DataTable();
 
             try
@@ -41,7 +41,9 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				EncadenadorDeExcepciones.EncadenarExcepcionDeSql(e, correoElectronico);
 			}
+
 			string contraseña;
+
             try
             {
                 contraseña = ConvertirDataTableACadena(tablaDeContraseña);
@@ -62,6 +64,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		public List<string> CargarCorreosDeUsuarios()
         {
             DataTable tablaDeCorreos = new DataTable();
+
             try
             {
                 tablaDeCorreos = AccesoADatos.EjecutarSelect(QuerysDeAutenticacion.CARGAR_CORREOS_DE_USUARIOS);
@@ -72,6 +75,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			List<string> listaDeCorreos;
+
             try
             {
                 listaDeCorreos = ConvertirDataTableAListaDeCadenas(tablaDeCorreos);
@@ -93,10 +97,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		private List<string> ConvertirDataTableAListaDeCadenas(DataTable tablaDeCorreos)
         {
             List<string> listaDeCorreos = new List<string>();
+
             foreach (DataRow fila in tablaDeCorreos.Rows)
             {
                 listaDeCorreos.Add(fila["CorreoElectronico"].ToString());
             }
+
             return listaDeCorreos;
         }
 

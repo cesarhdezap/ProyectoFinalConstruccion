@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using LogicaDeNegocios.ObjetosAdministrador;
 using LogicaDeNegocios.Excepciones;
 using System.Collections.Generic;
@@ -11,10 +10,10 @@ using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
 {
-    /// <summary>
-    /// Interaction logic for BuscarAlumnoCoordinador.xaml
-    /// </summary>
-    public partial class GUIBuscarAlumnoCoordinador : Window
+	/// <summary>
+	/// Interaction logic for BuscarAlumnoCoordinador.xaml
+	/// </summary>
+	public partial class GUIBuscarAlumnoCoordinador : Window
     {
 		private AdministradorDeAlumnos AdministradorDeAlumnos { get; set; }
 		private DocenteAcademico Coordinador { get; set; }
@@ -56,6 +55,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				{
 					return alumno.Nombre.Contains(TextBoxBuscarAlumnoPorNombre.Text);
 				});
+
 				DataGridAlumnos.ItemsSource = alumnosFiltrados;
 			}
 		}

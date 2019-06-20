@@ -15,15 +15,18 @@ namespace InterfazDeUsuario.GUIsDeDirector
     {
 		private const int VALOR_DE_INDICE_SELECCIONADO_INVALIDO = -1;
 		private Director Director { get; set; }
+
         public GUIRegistrarCoordinador(Director director)
         {
             InitializeComponent();
             Director = director;
             LabelNombreDeUsuario.Content = director.Nombre;
+
 			foreach (Carrera carrera in Enum.GetValues(typeof(Carrera)))
 			{
 				ComboBoxCarrera.Items.Add(carrera).ToString();
 			}
+
 			ComboBoxCarrera.SelectedIndex = 0;
         }
 
@@ -165,6 +168,7 @@ namespace InterfazDeUsuario.GUIsDeDirector
 		private void TextBoxCorreoElectronico_LostFocus(object sender, RoutedEventArgs e)
 		{
 			Mouse.OverrideCursor = Cursors.Wait;
+
 			try
 			{
 				MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);

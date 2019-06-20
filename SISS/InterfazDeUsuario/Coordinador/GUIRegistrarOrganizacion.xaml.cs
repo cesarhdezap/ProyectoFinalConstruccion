@@ -124,6 +124,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 		private void TextBoxCorreoElectronico_LostFocus(object sender, RoutedEventArgs e)
 		{
 			Mouse.OverrideCursor = Cursors.Wait;
+
 			try
 			{
 				MostrarEstadoDeValidacionCorreoDuplicado(TextBoxCorreoElectronico);

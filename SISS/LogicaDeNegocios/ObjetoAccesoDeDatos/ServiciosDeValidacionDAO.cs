@@ -1,18 +1,12 @@
 using AccesoABaseDeDatos;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 {
-    public class ServiciosDeValidacionDAO : IServiciosDeValidacionDAO
+	public class ServiciosDeValidacionDAO : IServiciosDeValidacionDAO
     {
         /// <summary>
         /// Cuenta las veces que el correo electrónico dado aparece en la base de datos.
@@ -23,8 +17,8 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         public int ContarOcurrenciasDeCorreo(string correo)
         {
             int numeroDeOcurrencias = 0;
-
             SqlParameter[] parametroCorreoElectronico = new SqlParameter[1];
+
             parametroCorreoElectronico[0] = new SqlParameter
             {
                 ParameterName = "@CorreoElectronico",
@@ -52,8 +46,8 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
         public int ContarOcurrenciasDeMatricula(string matricula)
         {
             int numeroDeOcurrencias = 0;
-
             SqlParameter[] parametroMatricula = new SqlParameter[1];
+
             parametroMatricula[0] = new SqlParameter
             {
                 ParameterName = "@Matricula",

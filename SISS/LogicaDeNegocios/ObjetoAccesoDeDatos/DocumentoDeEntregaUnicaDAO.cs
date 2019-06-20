@@ -4,7 +4,6 @@ using System.Data;
 using System.Data.SqlClient;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ClasesDominio;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using AccesoABaseDeDatos;
 using LogicaDeNegocios.Interfaces;
 using LogicaDeNegocios.Querys;
@@ -32,6 +31,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             DataTable tablaDeDocumentoDeEntregaUnica = new DataTable();
             SqlParameter[] parametroIDDocumentoDeEntregaUnica = new SqlParameter[1];
+
             parametroIDDocumentoDeEntregaUnica[0] = new SqlParameter
             {
                 ParameterName = "@IDDocumento",
@@ -48,6 +48,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			DocumentoDeEntregaUnica documentoDeEntregaUnica = new DocumentoDeEntregaUnica();
+
             try
             {
                 documentoDeEntregaUnica = ConvertirDataTableADocumentoDeEntregaUnica(tablaDeDocumentoDeEntregaUnica);
@@ -56,6 +57,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al convertir DocumentoDeEntregaUnica al en cargar DocumentoDeEntregaUnica con IDDocumento: " + IDDocumento, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
+
             return documentoDeEntregaUnica;
         }
 
@@ -74,6 +76,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             DataTable tablaDeDocumentosDeEntregaUnica = new DataTable();
             SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
+
             parametroIDAsignacion[0] = new SqlParameter
             {
                 ParameterName = "@IDAsignacion",
@@ -90,6 +93,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			List<DocumentoDeEntregaUnica> listaDeDocumentosDeEntregaUnica = new List<DocumentoDeEntregaUnica>();
+
             try
             {
                 listaDeDocumentosDeEntregaUnica = ConvertirDataTableAListaDeDocumentosDeEntregaUnicaConSoloIDDocumento(tablaDeDocumentosDeEntregaUnica);
@@ -98,6 +102,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             {
                 throw new AccesoADatosException("Error al convertir datatable a DocumentoDeEntregaUnica en cargas IDs con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
             }
+
             return listaDeDocumentosDeEntregaUnica;
         }
 
@@ -116,6 +121,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
             SqlParameter[] parametrosDocumentoDeEntregaUnica = InicializarParametrosDeSQL(documentoDeEntregaUnica, IDAsignacion);
             int filasAfectadas = 0;
+
             try
             {
                 filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeDocumentoDeEntregaUnica.GUARDAR_DOCUMENTO_DE_ENTREGA_UNICA, parametrosDocumentoDeEntregaUnica);
@@ -142,14 +148,17 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             ImagenDAO imagenDAO = new ImagenDAO();
             DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
             List<DocumentoDeEntregaUnica> listaDeDocumentosDeEntregaUnica = new List<DocumentoDeEntregaUnica>();
+
             foreach (DataRow fila in tablaDeDocumentosDeEntregaUnica.Rows)
             {
                 DocumentoDeEntregaUnica documentoDeEntregaUnica = new DocumentoDeEntregaUnica
                 {
                     IDDocumento = (int)fila["IDDocumento"],
                 };
+
                 listaDeDocumentosDeEntregaUnica.Add(documentoDeEntregaUnica);
             }
+
             return listaDeDocumentosDeEntregaUnica;
         }
 
@@ -164,6 +173,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
             ImagenDAO imagenDAO = new ImagenDAO();
             DocenteAcademicoDAO docenteAcademicoDAO = new DocenteAcademicoDAO();
             DocumentoDeEntregaUnica documentoDeEntregaUnica = new DocumentoDeEntregaUnica();
+
             foreach (DataRow fila in tablaDeDocumentoDeEntregaUnica.Rows)
             {
                 documentoDeEntregaUnica.IDDocumento = (int)fila["IDDocumento"];
@@ -172,6 +182,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
                 documentoDeEntregaUnica.DocenteAcademico = docenteAcademicoDAO.CargarDocenteAcademicoPorIDPersonal((int)fila["IDDocumento"]);
                 documentoDeEntregaUnica.Imagen = imagenDAO.CargarImagenPorIDDocumentoYTipoDeDocumentoEnImagen((int)fila["IDDocumento"], TipoDeDocumentoEnImagen.DocumentoDeEntregaUnica);
             }
+
             return documentoDeEntregaUnica;
         }
 
@@ -184,6 +195,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		private SqlParameter[] InicializarParametrosDeSQL(DocumentoDeEntregaUnica documentoDeEntregaUnica, int IDAsignacion)
         {
             SqlParameter[] parametrosDeDocumentoDeEntregaUnica = new SqlParameter[5];
+
             for (int i = 0; i < parametrosDeDocumentoDeEntregaUnica.Length; i++)
             {
                 parametrosDeDocumentoDeEntregaUnica[i] = new SqlParameter();
@@ -212,6 +224,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		public int ObtenerUltimoIDInsertado()
 		{
 			int ultimoIDInsertado = 0;
+
 			try
 			{
 				ultimoIDInsertado = AccesoADatos.EjecutarOperacionEscalar(QuerysDeDocumentoDeEntregaUnica.OBTENER_ULTIMO_ID_INSERTADO);
@@ -224,6 +237,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al obtener Ultimo ID Insertado en DocumentoDeEntregaUnicaDAO", e, TipoDeErrorDeAccesoADatos.IDInvalida);
 			}
+
 			return ultimoIDInsertado;
 		}
     }

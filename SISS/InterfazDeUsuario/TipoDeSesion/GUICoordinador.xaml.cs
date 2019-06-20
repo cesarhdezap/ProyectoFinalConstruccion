@@ -2,7 +2,6 @@
 using LogicaDeNegocios.ClasesDominio;
 using LogicaDeNegocios.Excepciones;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
-using System;
 using System.Windows;
 using InterfazDeUsuario.GUIsDeCoordinador;
 using System.Windows.Input;
@@ -10,12 +9,13 @@ using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
 namespace InterfazDeUsuario.GUITipoDeSesion
 {
-    /// <summary>
-    /// Lógica de interacción para GUICoordinador.xaml
-    /// </summary>
-    public partial class GUICoordinador : Window
+	/// <summary>
+	/// Lógica de interacción para GUICoordinador.xaml
+	/// </summary>
+	public partial class GUICoordinador : Window
     {
-        private DocenteAcademico Coordinador;
+        private DocenteAcademico Coordinador { get; set; }
+
         public GUICoordinador(Sesion sesion)
         {
             InitializeComponent();

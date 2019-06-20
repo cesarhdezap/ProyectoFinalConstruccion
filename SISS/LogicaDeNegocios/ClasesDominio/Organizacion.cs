@@ -30,6 +30,7 @@ namespace LogicaDeNegocios
         public bool Validar()
         {
             bool resultadoDeValidacion = false;
+
             if (ValidarCadena(Nombre)
                 && ValidarCadena(Direccion)
                 && ValidarTelefono(Telefono)
@@ -37,6 +38,7 @@ namespace LogicaDeNegocios
             {
                 resultadoDeValidacion = true;
             }
+
             return resultadoDeValidacion;
         }
     }

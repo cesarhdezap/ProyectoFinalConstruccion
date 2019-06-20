@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LogicaDeNegocios.Querys
+﻿namespace LogicaDeNegocios.Querys
 {
 	public static class QuerysDeSolicitud
 	{
@@ -15,3 +9,4 @@ namespace LogicaDeNegocios.Querys
 		public const string OBTENER_ULTIMO_ID_INSERTADO = "SELECT IDENT_CURRENT('Solicitudes')";
 	}
 }
+

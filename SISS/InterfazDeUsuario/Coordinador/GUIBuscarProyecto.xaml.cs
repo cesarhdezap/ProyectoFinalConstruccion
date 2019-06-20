@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using LogicaDeNegocios;
-using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.ObjetosAdministrador;
 using LogicaDeNegocios.Excepciones;
 using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
@@ -20,9 +10,10 @@ using static InterfazDeUsuario.RecursosDeTexto.MensajesAUsuario;
 
 namespace InterfazDeUsuario.GUIsDeCoordinador
 {
-    public partial class GUIBuscarProyecto : Window
+	public partial class GUIBuscarProyecto : Window
     {
 		private AdministradorDeProyectos AdministradorDeProyectos { get; set; }
+
         public GUIBuscarProyecto(DocenteAcademico coordinador)
         {
 			Mouse.OverrideCursor = Cursors.Wait;
@@ -71,6 +62,7 @@ namespace InterfazDeUsuario.GUIsDeCoordinador
 				{
 					return proyecto.Nombre.Contains(TextBoxBuscarProyecto.Text);
 				});
+
 				DataGridProyectos.ItemsSource = proyectosFiltrados;
 			}
 		}

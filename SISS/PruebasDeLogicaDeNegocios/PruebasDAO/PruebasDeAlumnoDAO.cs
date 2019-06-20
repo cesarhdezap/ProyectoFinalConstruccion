@@ -1,17 +1,13 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LogicaDeNegocios;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
-using System.Data.SqlClient;
 
 namespace Pruebas.PruebasDAO
 {
-    /// <summary>
-    /// Descripción resumida de PruebasDeAlumnoDAO
-    /// </summary>
-    [TestClass]
+	/// <summary>
+	/// Descripción resumida de PruebasDeAlumnoDAO
+	/// </summary>
+	[TestClass]
     public class PruebasDeAlumnoDAO
     {
         public PruebasDeAlumnoDAO()

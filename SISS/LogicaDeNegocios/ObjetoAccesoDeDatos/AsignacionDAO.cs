@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Data;
 using LogicaDeNegocios.Excepciones;
 using System.Data.SqlClient;
-using System.Linq;
 using LogicaDeNegocios.Querys;
 
 namespace LogicaDeNegocios.ObjetoAccesoDeDatos
@@ -31,6 +30,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			SqlParameter[] parametrosDeAsignacion = InicializarParametrosDeSql(asignacion);
 			int filasAfectadas = 0;
+
 			try
 			{
 				filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeAsignacion.ACTUALIZAR_ASIGNACION, parametrosDeAsignacion);
@@ -61,6 +61,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			DataTable tablaDeAsignacion = new DataTable();
 			SqlParameter[] parametroIDAsignacion = new SqlParameter[1];
+
 			parametroIDAsignacion[0] = new SqlParameter
 			{
 				ParameterName = "@IDAsignacion",
@@ -77,6 +78,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			Asignacion asignacion = new Asignacion();
+
 			try
 			{
 				asignacion = ConvertirDataTableAAsignacion(tablaDeAsignacion);
@@ -85,6 +87,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al convertir datatable a Asignacion en cargar Asignacion con IDAsignacion: " + IDAsignacion, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
 			}
+
 			return asignacion;
 
 		}
@@ -99,6 +102,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		{
 			DataTable tablaDeAsignacion = new DataTable();
 			SqlParameter[] parametroMatricula = new SqlParameter[1];
+
 			parametroMatricula[0] = new SqlParameter
 			{
 				ParameterName = "@Matricula",
@@ -115,6 +119,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			Asignacion asignacion = new Asignacion();
+
 			try
 			{
 				asignacion = ConvertirDataTableAAsignacionConSoloID(tablaDeAsignacion);
@@ -123,6 +128,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al convertir datatable a lista de Asignaciones en cargar Asignacion con matricula: " + matricula, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
 			}
+
 			return asignacion;
 		}
 
@@ -140,7 +146,8 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			DocumentoDeEntregaUnicaDAO documentoDeEntregaUnicaDAO = new DocumentoDeEntregaUnicaDAO();
 			Asignacion asignacion = new Asignacion();
 
-			foreach (DataRow fila in tablaDeAsignaciones.Rows) {
+			foreach (DataRow fila in tablaDeAsignaciones.Rows)
+			{
 				asignacion.IDAsignacion = (int)fila["IDAsignacion"];
 				asignacion.EstadoAsignacion = (EstadoAsignacion)fila["Estado"];
 				asignacion.FechaDeInicio = DateTime.Parse(fila["FechaDeInicio"].ToString());
@@ -153,10 +160,12 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 				{
 					asignacion.FechaDeFinal = DateTime.Parse(fila["FechaDeFinal"].ToString());
 				}
+
 				if (fila["IDLiberacion"].ToString() != string.Empty)
 				{
 					asignacion.Liberacion = new Liberacion { IDLiberacion = (int)fila["IDLiberacion"] };
 				}
+
 				if (fila["IDSolicitud"].ToString() != string.Empty)
 				{
 					asignacion.Solicitud = new Solicitud { IDSolicitud = (int)fila["IDSolicitud"] };
@@ -179,6 +188,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				asignacion.IDAsignacion = (int)fila["IDAsignacion"];
 			}
+
 			return asignacion;
 		}
 
@@ -191,6 +201,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		private List<Asignacion> ConvertirDataTableAListaDeAsignacionesConSoloID(DataTable dataTableAsignaciones)
 		{
 			List<Asignacion> listaDeAsignaciones = new List<Asignacion>();
+
 			foreach (DataRow fila in dataTableAsignaciones.Rows)
 			{
 				Asignacion asignacion = new Asignacion
@@ -199,6 +210,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 				};
 				listaDeAsignaciones.Add(asignacion);
 			}
+
 			return listaDeAsignaciones;
 		}
 
@@ -217,6 +229,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 
 			DataTable tablaDeAsignaciones = new DataTable();
 			SqlParameter[] parametroIDProyecto = new SqlParameter[1];
+
 			parametroIDProyecto[0] = new SqlParameter
 			{
 				ParameterName = "@IDProyecto",
@@ -233,6 +246,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			}
 
 			List<Asignacion> listaDeAsignaciones = new List<Asignacion>();
+
 			try
 			{
 				listaDeAsignaciones = ConvertirDataTableAListaDeAsignacionesConSoloID(tablaDeAsignaciones);
@@ -241,6 +255,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 			{
 				throw new AccesoADatosException("Error al convertir datatable a lista de Asignaciones en cargar IDsAsignacion con IDProyecto: " + IDProyecto, e, TipoDeErrorDeAccesoADatos.ErrorAlConvertirObjeto);
 			}
+
 			return listaDeAsignaciones;
 		}
 
@@ -253,6 +268,7 @@ namespace LogicaDeNegocios.ObjetoAccesoDeDatos
 		{
 			SqlParameter[] parametrosDeAsignacion = InicializarParametrosDeSql(asignacion);
 			int filasAfectadas = 0;
+
 			try
 			{
 				filasAfectadas = AccesoADatos.EjecutarInsertInto(QuerysDeAsignacion.GUARDAR_ASIGNACION, parametrosDeAsignacion);

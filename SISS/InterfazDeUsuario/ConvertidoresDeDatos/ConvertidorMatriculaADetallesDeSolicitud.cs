@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using LogicaDeNegocios;
 using LogicaDeNegocios.ObjetoAccesoDeDatos;
 using LogicaDeNegocios.Excepciones;
+using static InterfazDeUsuario.Utilerias.UtileriasDeElementosGraficos;
 
 namespace InterfazDeUsuario
 {
@@ -21,9 +19,11 @@ namespace InterfazDeUsuario
 			SolicitudDAO solicitudDAO = new SolicitudDAO();
 			Solicitud solicitud = new Solicitud();
 			string cadenaResultado = "Proyectos solicitados: " + System.Environment.NewLine;
+
 			try
 			{
 				solicitud = solicitudDAO.CargarIDPorMatricula((string)matricula);
+
 				if (solicitud != null)
 				{
 					proyectosSolicitados = proyectoDAO.CargarIDsPorIDSolicitud(solicitud.IDSolicitud);
@@ -32,6 +32,7 @@ namespace InterfazDeUsuario
 					{
 						proyectosSolicitados[i] = proyectoDAO.CargarProyectoPorID(proyectosSolicitados[i].IDProyecto);
 					}
+
 					foreach (Proyecto proyecto in proyectosSolicitados)
 					{
 						cadenaResultado = cadenaResultado + "- Nombre: " + proyecto.Nombre + System.Environment.NewLine
@@ -47,9 +48,7 @@ namespace InterfazDeUsuario
 			}
 			catch (AccesoADatosException e)
 			{
-				MensajeDeErrorParaMessageBox mensaje;
-				mensaje = ManejadorDeExcepciones.ManejarExcepcionDeAccesoADatos(e);
-				cadenaResultado = mensaje.Mensaje;
+				MostrarMessageBoxDeExcepcion(e);
 			}
 			return cadenaResultado;
 		}
